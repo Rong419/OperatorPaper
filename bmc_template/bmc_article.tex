@@ -1,0 +1,781 @@
+%% BioMed_Central_Tex_Template_v1.06
+%%                                      %
+%  bmc_article.tex            ver: 1.06 %
+%                                       %
+
+%%IMPORTANT: do not delete the first line of this template
+%%It must be present to enable the BMC Submission system to
+%%recognise this template!!
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                     %%
+%%  LaTeX template for BioMed Central  %%
+%%     journal article submissions     %%
+%%                                     %%
+%%          <8 June 2012>              %%
+%%                                     %%
+%%                                     %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                 %%
+%% For instructions on how to fill out this Tex template           %%
+%% document please refer to Readme.html and the instructions for   %%
+%% authors page on the biomed central website                      %%
+%% http://www.biomedcentral.com/info/authors/                      %%
+%%                                                                 %%
+%% Please do not use \input{...} to include other tex files.       %%
+%% Submit your LaTeX manuscript as one .tex document.              %%
+%%                                                                 %%
+%% All additional figures and files should be attached             %%
+%% separately and not embedded in the \TeX\ document itself.       %%
+%%                                                                 %%
+%% BioMed Central currently use the MikTex distribution of         %%
+%% TeX for Windows) of TeX and LaTeX.  This is available from      %%
+%% http://www.miktex.org                                           %%
+%%                                                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% additional documentclass options:
+%  [doublespacing]
+%  [linenumbers]   - put the line numbers on margins
+
+%%% loading packages, author definitions
+
+%\documentclass[twocolumn]{bmcart}% uncomment this for twocolumn layout and comment line below
+\documentclass{bmcart}
+
+%%% Load packages
+%\usepackage{amsthm,amsmath}
+%\RequirePackage{natbib}
+%\RequirePackage[authoryear]{natbib}% uncomment this for author-year bibliography
+%\RequirePackage{hyperref}
+\usepackage[utf8]{inputenc} %unicode support
+%\usepackage{amssymb}
+\usepackage{algorithmic}
+%\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+%\renewcommand{\algorithmicensure}{\textbf{Output:}}
+% \usepackage{amsthm}
+%\usepackage{hyperref}
+%\usepackage{natbib}
+\usepackage{rotating}
+%\usepackage{booktabs}
+%\usepackage{graphicx}
+%\usepackage{tabularx}
+%\usepackage{floatrow}
+%\usepackage{array}
+%\usepackage{longtable}
+%\usepackage{tabularx}
+%\usepackage{booktabs}
+%\usepackage{subfigure}
+\usepackage{amsmath}
+%\usepackage{epsfig}
+%\usepackage{longtable}
+%\usepackage{lscape}
+\usepackage{multirow}
+\usepackage{enumerate}
+\usepackage{algorithm}
+%\usepackage{multirow}
+%\usepackage{xcolor}
+%\usepackage{blindtext}
+%\usepackage{url}
+%\usepackage{lineno}
+%\usepackage[applemac]{inputenc} %applemac support if unicode package fails
+%\usepackage[latin1]{inputenc} %UNIX support if unicode package fails
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                             %%
+%%  If you wish to display your graphics for   %%
+%%  your own use using includegraphic or       %%
+%%  includegraphics, then comment out the      %%
+%%  following two lines of code.               %%
+%%  NB: These line *must* be included when     %%
+%%  submitting to BMC.                         %%
+%%  All figure files must be submitted as      %%
+%%  separate graphics through the BMC          %%
+%%  submission process, not included in the    %%
+%%  submitted article.                         %%
+%%                                             %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\def\includegraphic{}
+\def\includegraphics{}
+
+%%% Put your definitions there:
+\startlocaldefs
+\endlocaldefs
+
+
+%%% Begin ...
+\begin{document}
+
+%%% Start of article front matter
+\begin{frontmatter}
+\begin{fmbox}
+\dochead{Research}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                          %%
+%% Enter the title of your article here     %%
+%%                                          %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{Improving the performance of relaxed clock model}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                          %%
+%% Enter the authors here                   %%
+%%                                          %%
+%% Specify information, if available,       %%
+%% in the form:                             %%
+%%   <key>={<id1>,<id2>}                    %%
+%%   <key>=                                 %%
+%% Comment or delete the keys which are     %%
+%% not used. Repeat \author command as much %%
+%% as required.                             %%
+%%                                          %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\author[
+   addressref={aff1},                   % id's of addresses, e.g. {aff1,aff2}
+   corref={aff1},                       % id of corresponding address, if any
+   %noteref={n1},                        % id's of article notes, if any
+   email={alexei@cs.auckland.ac.nz}   % email address
+]{\inits{}\fnm{Alexei} \snm{Drummond}}
+\author[
+   addressref={aff1},
+   email={rzha419@aucklanduni.ac.nz}
+]{\inits{}\fnm{Rong} \snm{Zhang}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                          %%
+%% Enter the authors' addresses here        %%
+%%                                          %%
+%% Repeat \address commands as much as      %%
+%% required.                                %%
+%%                                          %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\address[id=aff1]{%                           % unique id
+  \orgname{Department of Computer Science, University of Auckland}, % university, etc
+  \street{Princes Street},                     %
+  \postcode{1010}                                % post or zip code
+  \city{Auckland},                              % city
+  \cny{New Zealand}                                    % country
+}
+
+%\address[id=aff2]{%
+%  \orgname{Marine Ecology Department, Institute of Marine Sciences Kiel},
+%  \street{D\"{u}sternbrooker Weg 20},
+%  \postcode{24105}
+%  \city{Kiel},
+%  \cny{Germany}
+%}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                          %%
+%% Enter short notes here                   %%
+%%                                          %%
+%% Short notes will be after addresses      %%
+%% on first page.                           %%
+%%                                          %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\begin{artnotes}
+%%\note{Sample of title note}     % note to the article
+%\note[id=n1]{Equal contributor} % note, connected to author
+%\end{artnotes}
+
+\end{fmbox}% comment this for two column layout
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                          %%
+%% The Abstract begins here                 %%
+%%                                          %%
+%% Please refer to the Instructions for     %%
+%% authors on http://www.biomedcentral.com  %%
+%% and include the section headings         %%
+%% accordingly for your article type.       %%
+%%                                          %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{abstractbox}
+\begin{abstract}
+Bayesian MCMC plays an important role in computational evolutionary. However, due the huge amount of phylogenetic data, the efficiency becomes a great problem. Based on an uncorrelated relaxed model, this paper introduces a new operator to change the rates and maintain the genetic distances constant at the same time. For internal nodes, the proposed operator deals with three rates as the node time changes. For the root of the phylogenetic tree, three different strategies are discussed, including Simple distance, Small pulley and Big pulley. It should be noticed that Big pulley is able to change the tree topology, which enables the operator to sample all the possible trees under a given unrooted tree.  As BEAST2 is a widely-used software platform for phylogenetic analysis, the proposed operator is implemented as a new package in BEAST2. To validate the effectiveness of the proposed, experiments of sampling from the prior is firstly conducted. Besides, a real data set is also utilised to illustrate the efficiency of the operator. 
+\end{abstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                          %%
+%% The keywords begin here                  %%
+%%                                          %%
+%% Put each keyword in separate \kwd{}.     %%
+%%                                          %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{keyword}
+\kwd{Bayesian MCMC}
+\kwd{Operator}
+\kwd{Phylogenetic trees}
+\kwd{Genetic distances}
+\kwd{Divergence times}
+\kwd{Evolutionary rates}
+\end{keyword}
+
+% MSC classifications codes, if any
+%\begin{keyword}[class=AMS]
+%\kwd[Primary ]{}
+%\kwd{}
+%\kwd[; secondary ]{}
+%\end{keyword}
+
+\end{abstractbox}
+%
+%\end{fmbox}% uncomment this for twcolumn layout
+
+\end{frontmatter}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                          %%
+%% The Main Body begins here                %%
+%%                                          %%
+%% Please refer to the instructions for     %%
+%% authors on:                              %%
+%% http://www.biomedcentral.com/info/authors%%
+%% and include the section headings         %%
+%% accordingly for your article type.       %%
+%%                                          %%
+%% See the Results and Discussion section   %%
+%% for details on how to create sub-sections%%
+%%                                          %%
+%% use \cite{...} to cite references        %%
+%%  \cite{koon} and                         %%
+%%  \cite{oreg,khar,zvai,xjon,schn,pond}    %%
+%%  \nocite{smith,marg,hunn,advi,koha,mouse}%%
+%%                                          %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%% start of article main body
+% <put your article body there>
+
+%%%%%%%%%%%%%%%%
+%% Background %%
+%%
+\section*{Introduction}
+Phylogenetics has attracted much research interest over the years. More and more scientists are becoming keen to discover the evolutionary history of life, such as birds \cite{hackett2008phylogenomic}, primates \cite{szalay2013evolutionary}, grasses \cite{kellogg2001evolutionary} and so on \cite{sawabe2007inferring,garnery1992evolutionary}. One fundamental concept in phylogenetics is a tree that shows the relationships among species and organisms, which is generally called a phylogenetic tree. The research based on phylogenetic analysis is aimed at inferring the phylogenies by constructing the phylogenetic trees. Until now, a lot of methods have been proposed and a majority of them have been implemented in the computer softwares, such as MRBAYES \cite{huelsenbeck2001mrbayes}, PAML \cite{yang1997paml}, APE \cite{paradis2004ape} and so on \cite{kumar2016mega7}. 
+
+In the beginning, the classical methods for tree construction are based on a distance matrix that is obtained by sequence alignment, after biologists extract DNA from organisms. Starting from a alignment approach, such as dynamic programming and  backtracking routine \cite{wang1994complexity}, the distance-based algorithms tried to construct a tree with the distances on the branches (branch length) that fit the distance matrix. For example, UPGMA ( Unweighted Pair Group Method with Arithmetic Mean) is able to produce a tree for any distance matrix but fails to fit the tree with an additive matirx \cite{sokal1963principles}. Another well-known clustering method is ``neighbour joining'', in which neighbours are defined as the operational taxonomic units and is used to minimise the total branch length \cite{saitou1987neighbor}. However, the trees constructed by a distance matrix say nothing about ancestral states at internal nodes. In addition, it is probable to lost information when converting a multiple alignment to a distance matrix. Some scientists then suggested to reconstruct trees from biological characters that are considered as anatomical or physiological properties, where the species with similar character values occur to be near each other. But it is proved to violate the Dollo's law that evolution does not reinvent the same organ, when the phylogeny of insect wings is studied \cite{lynch2010did}.
+
+Over the last few years, more advanced techniques have been developed to reconstruct phylogenetic trees, due to the development of statistic and computer science. One popular research area called Bayesian phylogenetics puts an emphasis on a sampling process to construct the phylogenetic tree, in which the methods based on Markov Chain Monte Carlo (MCMC) provide a computational tool for sampling problems. For example, Yang and Rannala presented a Bayesian framework that includes the specified prior for phylogenies and ancestral speciation times, and the posterior probabilities of phylogenies to be inferred as the maximum posterior probability (MAP) tree \cite{yang1997bayesian}. Specifically, Monte Carlo integration is used to integrate over the ancestral speciation times for particular trees and a MCMC method is used to generate the set of trees with the highest posterior probabilities. Based on this framework, much attention has been paid to estimating the divergence times \cite{rannala2003bayes,yang2003comparison,reis2011approximate}. In addition, many softwares have been developed, which plays an important role in Bayesian phylogenetic inference. Especially,  a fast and flexible platform, called BEAST (Bayesian Evolutionary Analysis by Sampling Trees), which integrates a large number of models of sequence evolution and evolutionary trees, has been established with more and more packages added afterwards \cite{drummond2007beast, bouckaert2014beast} . 
+
+For phylogenetic analysis based on Bayesian MCMC, the efficiency of a sampling method is always the main issue that should be carefully dealt with. In particular, the calculation of the phylogenetic likelihood is a large burden of the efficiency. Hence, some researchers have tried to improve the likelihood calculations, such as detection of repeating sites \cite{kobert2017efficient}. On the other hand, in MCMC methods, the operators that propose a new state based on the current state also have a leading influence on the overall performance. As is discussed by Lakner et al., the major limitation in Bayesian MCMC analysis of phylogeny lies in the efficiency with which operators sample the tree space \cite{lakner2008efficiency}. So far, there have been already different kinds of operators proposed. According to the work in Ref. \cite{hohna2011guided}, the two common operators, i.e. prune-and-regraft and subtree-swap, both contribute to a tree with low likelihood since they propose a new tree by random movement of the current tree. So the authors introduced two new operators by proposing a state from a discrete set of possible proposals and narrowing the proposal distribution to the more likely proposals. Their experimental results proved that the two operator have faster average run time and more accurate predictability. Nevertheless, it is acknowledged that a faster and more reliable performance is also dependent on a good mixture of operators and different operators may be applicable for different objects. In this paper, the operators are proposed in the case where genetic distances are exactly known. Namely, the proposed operators change the rates and times while maintaining the genetic distance constant, so that the likelihood of the phylogenetic tree is the same. It is believed that under these operations, the tree will be sampled more efficiently in the MCMC runs. Besides, this paper provides different strategies for the root and internal nodes. It is worth noticing that the operator is able to sample all the tree topologies when working on the root, but meanwhile the unrooted tree topology is never changed. 
+
+The following of this paper is constructed as follows: Section 2 gives some preliminary theories of the work related to this paper. Section 3 introduces the proposed operator, which includes the mechanism for internal nodes and 3 different strategies for the root. The experiments and discussions are detailed in the 4th section to validate the efficiency of the proposed operator. Section 5 ends the paper with a short conclusion.
+\section*{Prelimiaries}
+\subsection*{Bayesian MCMC}
+Bayesian MCMC methods for inferring molecular evolution and phylogeny comes from a characterisation of the results of random or stochastic processes. Generally, it consists of a prior distribution, a phylogenetic likelihood and a posterior distribution that is to be inferred. So from a Bayesian perspective, the biological data, phylogenetic trees and all the parameters in the model exist in the form of a distribution and are related by the Bayes' formula. As a result, it is able to combine different models that describe various biological and evolutionary process at the same time. For instance, by taking into account species divergence and molecular evolution, Bayesian evolutionary analysis not only constructs a tree with genetic distance, but also contains divergence times and evolutionary rates, which makes phylogenetic inference more .
+
+Eq.(\ref{bayes}) shows a basic Bayesian framework for phylogenetic analysis. It is indicated that what a Bayesian phylogenetic analysis can give is a posterior probability of conditional on the data, which is inferred by a likelihood $\Pr (D|g,\Phi )$ and some priors, i.e. $\Pr (g) $ and $\Pr (\Phi )$. To be specific, the posterior probability is a statement of our beliefs about the parameter after evaluating the data at hand. The likelihood is the vehicle that conveys the information in the data. The prior probability specifies our beliefs about the parameter value before looking at the new data at hand. During an analysis, the prior beliefs are updated to become posterior beliefs by the information in the data via the likelihood function. 
+\begin{eqnarray}\label{bayes}
+f(g,\Phi |D) = \frac{{\Pr (D|g,\Phi ) \times \Pr (g) \times \Pr (\Phi )}}{{\Pr (D)}}
+\end{eqnarray}
+, where $g$ denotes the phylogenetic tree, $\Phi$ is a set of parameters and $D$ represents the data available. Besides, the marginal likelihood of the data ${\Pr (D)}$ simply serves to normalise the numerator. It is the sum of the equivalent term for all possible parameter values. For the phylogeny problem, this is a multi-dimensional integration of the likelihood function over the joint prior probability densities for all parameters, such as branch lengths and substitution model parameters for each tree, and a summation over all possible trees. The marginal likelihood is too nasty to be solved analytically. However, the rise of fast, cheap computing power and the development of some clever numerical methods made Bayesian phylogenetic inference possible, especially Markov Chain Monte Carlo (MCMC) algorithms which include Gibbs samplers, Metropolis-coupled and reversible-jump MCMC and so on. Taking Metropolis-Hastings MCMC algorithm as an example, it allows us to sample from the posterior probability density without having to calculate the marginal likelihood.
+\subsection*{Tree proposals}
+The term ``operator" used in this paper is defined as the tree proposal in Bayesian MCMC to generate a new state that is only dependent on the current state. 
+
+Basically, the random walk operator, which proposes a new state by adding a random number, and the scale operator, which multiplies the current state with a scale factor, can satisfy most sampling requirements. However, they are suitable for working on a single parameter or a set of parameters, such as population size or divergence times. To make a proposal about the tree topology, it is also necessary to include other operators, such as subtree slide operator, swap operator narrow operator and so on.
+
+On top of this, there are also some extended operators available to help give the better performance. For instance, the prune-and-regraft operator selects a random subtree and reattaches the subtree at a new random branch. And the subtree-swap operator exchanges two random subtended subtrees.
+\subsection*{Population model}
+A population model is a natural prior for the phylogenetic time tree, which specifies a distribution of divergence times in the tree. As a commonly-used model, a coalescent tree defines the probability that two individuals have a common ancestor in previous generation. Assuming that there is a population with a certain size $N$, then coalescent distribution of the tree $g$ can be obtained by Eq.(\ref{coalescent}).
+\begin{equation}\label{coalescent}
+P(g|N) = \prod\limits_{i = 2}^N {(\frac{1}{N}}  \times {e^{ - \frac{{\left( {\begin{array}{*{20}{c}}i \\ 2 \end{array}} \right)}}{N} \times {\tau _i}}})
+\end{equation}
+, where ${\tau _i}$ is the time duration between two generations.
+
+For the population size with uncertainty, a birth-death model builds a continuous-time Markov process with two types of state transitions by introducing birth rate and death rate. Specifically, birth rate is used to increases the state variable, and death rate is used to decreases the state variable. To simplify the process, the distribution of a tree based on Yule model uses birth rate only, as is given by Eq.\ref{yulemodel}.
+\begin{equation}\label{yulemodel}
+P(g|E) = ({\lambda ^{n - 1}} \times {e^{ - \lambda  \times T}}) \times \prod\limits_{i = 1}^{n - 1} {{e^{ - \lambda {t_i}}}} 
+\end{equation}
+, where $n$ is the number of individuals, $\lambda$ is the birth rate and $E$ represents the nodes in the tree. 
+\subsection*{Substitution model}
+A substitution model defines the genetic distance by describing the changes between nucleotides. Based on continuous-time Markov chains, substitution models are used to estimate the number of substitutions, so that the expected number of nucleotide substitutions per site is defined as the genetic distance.
+
+As an ideal case, JC69 model assumes that every nucleotide has the same rate of changing into any other nucleotide\cite{jukes1969evolution}. To be close to the reality, models like HKY and GTR are more frequently used by accomodating unequal base compositions and cancelling the reversibility in substitution process\cite{hasegawa1985dating,zharkikh1994estimation}. What' more, since different sites in the sequence  do not necessarily evolve at the same rate. So models that assumes the rate for any site to be a random variable are proposed, such as "HKY+$\Gamma $" and "GTR+$\Gamma $, which indicates the mutation rates follow a gamma distribution.
+
+When the sequences are long enough, the genetic distances can be considered as exactly known. Since the genetic distances are constant, the calculation of the tree likelihood, which is a great burden for MCMC, only needs to be performed once. As a result, the efficiency of MCMC can be largely improved.
+\subsection{Clock model}
+A clock model is used to model how rates evolve along branches in the phylogenetic tree, so that a time tree can reconcile with the genetic distances between sequences described by a substitution model. On the contrary to the unrooted model, a strict clock model assumes evolution rates to be the same at every branch. However, a relaxed clock model allows rates to vary across lineages so that better estimates of divergence times can be obtained. As a incomplete way of relaxing, a random local clock model only allows rates to be different within a subregion of the tree.
+
+In this paper, the proposed operator is based on an uncorrelated relaxed model, where the rates vary and follow a certain distribution. As is detailed in Ref.\cite{drummond2006relaxed}, uncorrelated rates indicate that the rate on each branch is identically distributed and will be independently drawn from a certain distribution such as a log-normal distribution. So the evolutionary rate on each branch has nothing to do with the rate on any other neighbouring branches. As a result, the rates can change faster than making a slight move over multiple adjoining branches.
+\section*{The proposed operator}
+The flow chart of the proposed operators is illustrated in Fig.\ref{flowchart}. In a tree constructed by $n$ taxa, there are $2n-1$ nodes. In the first place, the proposed operator generates a random integer $x$ in the interval $[1, n]$, so that the corresponding node \textbf{X} with the node number $x$ will selected. Then, the node time of the selected node is denoted by $t_x$. Afterwards, different strategies will be adopted in the case of a leaf node, internal node, or the root. Details are introduced step by step as follows.
+\subsection*{The internal node operator}
+As can be seen in Fig.\ref{internalnodes}, the original tree in the left represents the current state. The following 5 steps will propose a tree' (in the right) by changing the rates on branches.
+
+\emph{Step 1} Get the parent node and two child nodes of \textbf{X}, denoted by \textbf{P}, \textbf{Ch1} and \textbf{Ch2} respectively.
+
+\emph{Step 2} Get the rates and nodes times of \textbf{X}, \textbf{P}, \textbf{Ch1} and \textbf{Ch2} , denoted by $t_X$, $t_P$, $t_1$, $t_2$ and $r_i$, $r_j$, $r_k$.
+
+\emph{Step 3} Propose a new node time for \textbf{X} by ${t_X}' = {t_X} + a$, where $a \sim Uniform[ - w, + w]$. Make sure that $\max \{ {t_1},{t_2}\}  < {t_X}' < {t_P}$.
+
+\emph{Step 4} Propose new rates for \textbf{X}, \textbf{Ch1} and \textbf{Ch2} by using Eq.(\ref{int_rate}).
+\begin{subequations}\label{int_rate}
+  \begin{equation}
+{r_i}' = \frac{{{d_i}}}{{{t_P} - {t_X}'}}
+  \end{equation}
+  \begin{equation}
+{r_j}' = \frac{{{d_j}}}{{{t_X} - {t_1}'}}
+  \end{equation}
+  \begin{equation}
+{r_k}' = \frac{{{d_k}}}{{{t_X} - {t_2}'}}
+\end{equation}
+\end{subequations}
+
+\emph{Step 5} Return the $HastingsRatio = 1$, since the movement of node \textbf{X} is symmetric.
+
+\subsection{The root operator}
+For the root of the tree, there are three ways to deal with the rates and node times below. "Simple distance" is a way of proposing a new root time. To sample the tree in a larger range, "Small pulley" not only proposes a new root time, but also changes the genetic distances on the each side of the root. However, since the unrooted tree is the only evidence that we have and should be maintained after the operation, "Big pulley" potentially proposes a new tree topology on top of the root time and genetic distances in previous two ways.
+\subsubsection{Simple distance}
+In spired by how the operator works on the internal nodes, we will use the following steps to propose a new root time and keep the genetic distance on each side of the root constant.
+
+\emph{Step 1} Get the child nodes of the root \textbf{X}, denoted by \textbf{son} and \textbf{dau}. Their corresponding node times and rates are $t_X$, $t_j$, $t_k$ and $r_i$, $r_x$.
+
+\emph{Step 2} Propose a new node time for the root \textbf{X} by \textbf{X} by ${t_X}' = {t_X} + a$, where $a \sim Uniform[ - w, + w]$. Make sure that ${t_X}' > \max \{ {t_j},{t_k}\} $.
+
+\emph{Step 3} Propose new rates for branches on each side of the root, as is indicated in Eq.(\ref{sim_rate}).
+\begin{subequations}\label{sim_rate}
+  \begin{equation}
+{r_i}' = \frac{{{d_i}}}{{{t_X}' - {t_j}}}
+  \end{equation}
+  \begin{equation}
+{r_x}' = \frac{{{d_x}}}{{{t_X}' - {t_k}}}
+  \end{equation}
+\end{subequations}
+
+\emph{Step 4} Return the $HastingsRatio = 1$, since the proposal of  ${t_X}'$ is symmetric.
+\subsubsection{Small pulley}
+Different from "Simple distance", a new genetic distance of branch on one side of the root is proposed in "Small pulley". Depending on whether to propose a new root time, there are two versions of "Small pulley". Version 1 only proposes a new distances, while Version 2 proposes a new distance and a new root time.
+\begin{description}
+\item[Version 1]
+\end{description}
+
+\emph{Step 1} Get the child nodes of the root \textbf{X}, denoted by \textbf{son} and \textbf{dau}. Their corresponding node times and rates are $t_X$, $t_j$, $t_k$ and $r_i$, $r_x$.
+
+\emph{Step 2} Propose a new genetic distance for $d_i$ by adding a random number that follows a Uniform distribution, i.e.  ${d_i}' = {d_i} + b$, where $b \sim Uniform[ - v, + v]$. Make sure that $0 < {d_i}' < D$, where $D = {d_i} + {d_x}$.
+
+\emph{Step 3} Propose new rates for branches on each side of the root by using Eq.(\ref{sma1_rate}).
+\begin{subequations}\label{sma1_rate}
+  \begin{equation}
+{r_i}' = \frac{{{d_i}'}}{{{t_X} - {t_j}}}
+  \end{equation}
+  \begin{equation}
+{r_x}' = \frac{{D - {d_i}'}}{{{t_X} - {t_k}}}
+  \end{equation}
+\end{subequations}
+
+\emph{Step 4} Return the $HastingsRatio = 1$, since the proposal of  ${d_i}'$ is symmetric.
+
+\begin{description}
+\item[Version 2]
+\end{description}
+
+\emph{Step 1} Get the child nodes of the root \textbf{X}, denoted by \textbf{son} and \textbf{dau}. Their corresponding node times and rates are $t_X$, $t_j$, $t_k$ and $r_i$, $r_x$.
+
+\emph{Step 2} Propose a new node time for the root \textbf{X} by \textbf{X} by ${t_X}' = {t_X} + a$, where $a \sim Uniform[ - w, + w]$. Make sure that ${t_X}' > \max \{ {t_j},{t_k}\} $.
+
+\emph{Step 3} Propose a new genetic distance for $d_i$ by adding a random number that follows a Uniform distribution, i.e.  ${d_i}' = {d_i} + b$, where $b \sim Uniform[ - v, + v]$. Make sure that $0 < {d_i}' < D$, where $D = {d_i} + {d_x}$.
+
+\emph{Step 4} Propose new rates for branches on each side of the root by using Eq.(\ref{sma2_rate}).
+\begin{subequations}\label{sma2_rate}
+  \begin{equation}
+{r_i}' = \frac{{{d_i}'}}{{{t_X}' - {t_j}}}
+  \end{equation}
+  \begin{equation}
+{r_x}' = \frac{{D - {d_i}'}}{{{t_X}' - {t_k}}}
+  \end{equation}
+\end{subequations}
+
+\emph{Step 5} Return the $HastingsRatio = 1$, since the proposal of  both ${t_X}'$ and ${d_i}'$ are symmetric.
+\subsubsection*{Big Pulley}
+First of all, the method of changing the tree topology  is introduced. As is shown in Fig.\ref{exchangemethod}, once the method \textit{Exchange (\textbf{B},\textbf{ C})} is called, the following operations will be performed.
+\begin{enumerate} [(1)]
+\item Propose ${d_i}'$ by ${d_i}' = {d_i} + b$, where $b \sim Uniform[ - v, + v]$. Make sure that $0 < {d_i}' < D$, where $D = {d_i} + {d_x}$.
+\item To maintain the genetic distances constant, $d_j$, $d_k$ and $d_x$ will be revised according to Eq.(\ref{big_dis}).
+ \begin{subequations}\label{big_dis}
+  \begin{equation}
+{d_j}' = {d_j}
+  \end{equation}
+  \begin{equation}
+{d_k}' = {d_k} - {d_i}'
+  \end{equation}
+    \begin{equation}
+{d_x}' = {d_x} + {d_i}
+  \end{equation}
+\end{subequations}
+\item The new rates on corresponding branches are obtained by Eq.(\ref{big_rate}).
+\begin{subequations}\label{big_rate}
+\begin{equation}
+{r_i}' = \frac{{{d_i}'}}{{{t_E} - {t_D}}}
+\end{equation}
+\begin{equation}
+{r_j}' = \frac{{{d_j}'}}{{{t_D} - {t_A}}}
+  \end{equation}
+\begin{equation}
+{r_k}' = \frac{{{d_k}'}}{{{t_E} - {t_B}}}
+\end{equation}
+\begin{equation}
+{r_x}' = \frac{{{d_x}'}}{{{t_D} - {t_C}}}
+\end{equation}
+\end{subequations}
+\end{enumerate}
+
+Hence, the process of Big pulley can be detailed as follows:
+
+\emph{Step 1} Get the child nodes of \textbf{X}, denoted by \textbf{son} and \textbf{dau}.
+
+\emph{Step 2} Get the node times of \textbf{X}, \textbf{son} and \textbf{dau}, denoted by $t_X$, $t_j$ and $t_k$.
+
+\emph{Step 3} Get the rates for \textbf{son} and \textbf{dau}, denoted by $r_i$ and $r_x$.
+
+\emph{Step 4} Propose new node times and rates and change the tree topology.
+
+(1) Propose the node time for \textbf{X} by \textbf{X} by ${t_X}' = {t_X} + a$, where $a \sim Uniform[ - w, + w]$. 
+
+(2) As is shown in Fig.\ref{treeshape}, there are two different tree shapes to be taken into consideration. For a symmetric tree, the proposed tree will be one in the four possible trees (illustrated in Fig.\ref{symmetric}). But for an asymmetric tree, there two directions to go (illustrated in Fig.\ref{asymmetric}). Details are as follows.
+
+\textbf{Symmetric tree: both \textbf{son} and \textbf{dau} have child nodes}
+\begin{itemize}
+\item With 0.5 probability to pick  \textbf{son} and propose a new node time by ${t_j}' = {t_j} + {a_1}$, where ${a_1} \sim Uniform[ - w, + w]$. Make sure that ${t_k} < {t_j}' < {t_X}'$.
+
+\textcircled1: With 0.5 probability to \textit{Exchange (\textbf{Ch1} and \textbf{dau})}
+
+\textcircled2: With 0.5 probability to \textit{Exchange (\textbf{Ch2} and \textbf{dau})}
+
+\item With 0.5 probability to pick \textbf{dau} and propose a new node time by ${t_k}' = {t_k} + {a_2}$, where ${a_2} \sim Uniform[ - w, + w]$. Make sure that ${t_j} < {t_k}' < {t_X}'$.
+
+\textcircled3: With 0.5 probability to \textit{Exchange (\textbf{Ch3} and \textbf{son})}
+
+\textcircled4: With 0.5 probability to \textit{Exchange (\textbf{Ch4} and \textbf{son})}
+\end{itemize}
+
+\textbf{Asymmetric tree: either \textbf{son} or \textbf{dau} has child nodes}
+\begin{itemize}
+\item Pick the older child of the root, denoted by \textbf{O}. And its node time is ${t_O}$ ${t_{O1}}$ ${t_{O2}}$. The younger child of the root is denoted by \textbf{Y}.
+
+\item Propose new node time for \textbf{O} by ${t_O}' = {t_O} + {a_3}$, where ${a_3} \sim Uniform[ - w, + w]$.
+
+if(${t_O}' > \max \{ {t_{O1}},{t_{O2}}\} $ or ${t_{O1}} = {t_{O2}}$ )
+
+\textcircled5: With 0.5 Probability to \textit{Exchange (\textbf{O1} and \textbf{Y})}
+
+\textcircled6: With 0.5 Probability to \textit{Exchange (\textbf{O2} and \textbf{Y})}
+
+if($\min \{ {t_{O1}},{t_{O2}}\}  < {t_O}' < \max \{ {t_{O1}},{t_{O2}}\} $)
+
+\textcircled7: Exchange the older child of \textbf{O} and \textbf{Y},  here \textit{Exchange (\textbf{O1}  and \textbf{Y})}
+\end{itemize}
+
+\emph{Step 5} Return the Hastings Ratio
+
+Firstly, for all the cases that are not included in the above operations, we will reject the proposal by returning the HastingsRatio equalling to negative infinity. Secondly, for other cases in which the operations are not symmetric, the HastingsRatio will be calculated by the probability of prosing the new tree and going back exactly to the original tree. The details are provided in Algorithm \ref{alg1}.
+\begin{algorithm}
+\caption{Return HastingsRatio for Big pulley}
+\label{alg1}
+\begin{algorithmic}[1]
+\IF{the node that has been exchanged with \textbf{dau} or \textbf{dau} has child nodes}
+\STATE $\alpha  = \beta  = 0.25$
+\ELSIF{${t_R} > {t_L}$}
+\STATE $\alpha  = 1,\beta  = 0.5$
+\ELSIF{${t_R} < {t_L}$}
+\STATE $\alpha  = 0.5,\beta  = 1$
+\ELSIF{${t_R} = {t_L}$}
+\STATE $\alpha  = \beta  = 1$
+\ENDIF
+\IF{the node that has been exchanged with \textbf{O} has child nodes}
+\STATE $\gamma  = 0.25$
+\ELSE
+\STATE $\gamma  = 0.5$
+\ENDIF
+\FOR{\textcircled1 \textcircled2}
+\STATE Return $HastingsRatio = \frac{\alpha }{{0.25}}$
+\ENDFOR
+\FOR{\textcircled3 \textcircled4}
+\STATE Return $HastingsRatio = \frac{\beta }{{0.25}}$
+\ENDFOR
+\FOR{\textcircled5 \textcircled6}
+\STATE Return $HastingsRatio = \frac{\gamma }{{0.5}}$
+\ENDFOR
+\FOR{\textcircled7}
+\STATE Return $HastingsRatio = \frac{{0.25}}{1}$
+\ENDFOR
+\end{algorithmic}
+\end{algorithm}
+\section*{Experimental results and analysis}
+In this section, detailed experiments are conducted, together with some analysis and discussions, to validate the effectiveness of the proposed operator. At first, we performed MCMC in BEAST2 by sampling from prior, in which no alignments are included and only the proposed operator is used. In addition, the proposed operator is also applied to analyse the real data set by sampling more parameters and considering the phylogenetic likelihood.
+\subsection*{Sample from the prior}
+As is shown in Fig.\ref{bigpulleyExp},  Tree1 is set as the initial state. Besides, a LogNormal distribution is used as the rate prior, as is shown below:
+\begin{equation}
+r = [{r_i}\quad{r_j}\quad{r_k}\quad{r_x}] \sim LogNormal(M = -3, S = 0.5)
+\end{equation}
+
+The Coalescent model with constant population size (N) is used to describe the tree prior. To be specific, since Tree1 has 3 taxa, the probability of node times given the tree is calculated by Eq.(\ref{treeprior}).
+\begin{equation}
+\label{treeprior}
+P({t_E},{t_D}) = (\frac{1}{N} \times {e^{ - \frac{1}{N}({t_E} - {t_D})}}) \times (\frac{1}{N} \times {e^{ - \frac{3}{N}{t_D}}}), N = 0.3
+\end{equation}
+
+After the prior is specified, the distribution of the parameter is exactly known.  In other words, the rates are the functions of its genetic distance and times, among which the distances are known in advance and the rates and times follow certain distributions, as is shown in Eq.(\ref{integration}).
+\begin{equation}\label{integration}
+\begin{aligned}
+P(r,t) &= P({t_E},{t_D}) \times P({r_i}) \times P({r_j}) \times P({r_k}) \times P({r_x}) \\&= P({t_E},{t_D}) \times P(\frac{{{d_i}}}{{\Delta t1}}) \times P\frac{{{d_j}}}{{\Delta t2}}) \times P(\frac{{{d_k}}}{{\Delta t3}}) \times P(\frac{{{d_x}}}{{\Delta t4}})
+\end{aligned}
+\end{equation}
+, where $t = [{t_E},{t_D}]$, ${\Delta t}$ represents the time duration of the corresponding branch, and $P({r})$ is the probability density of the LogNormal distribution. Therefore, the exact distribution can be obtained by conducting numerical integration on Eq.(\ref{integration}).
+\subsubsection*{Internal nodes}
+(1) Initial settings
+
+The genetic distances, node times and rates are given in Table \ref{ini_inter}. To test roundly, two scenarios are considered. In each scenario, the genetic distances are fixed, the node time $t_D$ starts from the initial value and is changed by the operator during the sampling process, so that node D moves between node A and E. What's more, to make sure that the results is robust, two different MCMC chain lengths are performed in each scenario. 
+
+2. Results and comparisons
+
+The mean, mean error and the standard deviation of the sampled distribution are summarised in Table \ref{res_inter}. To evaluate the results, the correct distribution is obtained by using Eq.(\ref{integration1}), according to Eq.(\ref{integration}). Besides, the histograms of MCMC samples, as well as the curves of the numerical integration, are shown in Fig.\ref{res_int}. It is safe to conclude that the two distributions are consistent, which proves that the proposed operators works properly on the internal nodes.
+\begin{equation}
+\label{integration1}
+P(r,{t_D}) = \int_{{t_D} = 0}^{{t_E}} {P({t_E},{t_D}) \times P(\frac{{{d_j}}}{{{t_D}}}) \times P(\frac{{{d_k}}}{{{t_D}}}) \times P(\frac{{{d_i}}}{{{t_E} - {t_D}}}) \times P(\frac{{{d_x}}}{{{t_E}}})} 
+\end{equation}
+\subsubsection*{Root}
+
+The initial settings for Tree1 with genetic distances, node times and rates are detailed in Table \ref{ini_sim}. 
+
+(1) Simple distance
+
+To test the simple distance strategy, the root time $t_E$ is sampled by the proposed operator, which ranges from 1 to positive infinity theoretically. Namely, all the genetic distances and the node time $t_D$  are fixed during the experiment. Hence, similar to Eq.(\ref{integration1}), the sampled distribution of $t_E$ can be obtained by Eq.(\ref{integration2}).
+\begin{equation}
+\label{integration2}
+P(r,{t_E}) = \int_{{t_E} = 1}^{ + \infty } {P({t_E},{t_D}) \times P(\frac{{{d_j}}}{{{t_D}}}) \times P(\frac{{{d_k}}}{{{t_D}}}) \times P(\frac{{{d_i}}}{{{t_E} - {t_D}}}) \times P(\frac{{{d_x}}}{{{t_E}}})} 
+\end{equation}
+
+The results are given in Table \ref{res_sma} and Fig.\ref{Fig.sub.5}. The mean and the standard deviation are close enough to confirm that the two distribution are the same, which also shows that simple distance is correct.
+
+
+
+(2) Small pulley
+
+Considering that there are two versions in small pulley, the sum of ${d_x}$ and ${d_i}$ are kept 0.67 in both versions, as is shown in Table \ref{ini_sim}. What differs is that, in Version 1, only the distances of ${d_x}$ and ${d_i}$ are changed during the sampling process. But both distances and root time $t_E$ have a proposal in each state. 
+
+Based on Eq.(\ref{integration}), the exact distribution of $t_E$ and ${d_i}$ in Version1 and Version2 can be obtained by Eq.(\ref{integration3}) and Eq.(\ref{integration4}) respectively. The sampled distribution are compared in Table \ref{res_sma} and Fig.\ref{Fig.sub.6}, \ref{Fig.sub.7} ,\ref{Fig.sub.8}. Even though there exist some errors, the two parameters can be considered to follow the same distribution. So the small pulley is able to provide the correct samples. 
+\begin{equation}
+\label{integration3}
+P(r,{d_i}) = \int_{{d_i} = 1}^{0.67} {P({t_E},{t_D}) \times P(\frac{{{d_j}}}{{{t_D}}}) \times P(\frac{{{d_k}}}{{{t_D}}}) \times P(\frac{{{d_i}}}{{{t_E} - {t_D}}}) \times P(\frac{{0.67 - {d_i}}}{{{t_E}}})}
+\end{equation}
+\begin{equation}
+\label{integration4}
+\begin{aligned}
+P(r,{d_i}) &= \int_{{t_E}}^{ + \infty } {\int_{{d_i} = 1}^{0.67} {P({t_E},{t_D})} } \\& \times P(\frac{{{d_j}}}{{{t_D}}}) \times P(\frac{{{d_k}}}{{{t_D}}}) \times P(\frac{{{d_i}}}{{{t_E} - {t_D}}}) \times P(\frac{{0.67 - {d_i}}}{{{t_E}}})
+\end{aligned}
+\end{equation}
+
+(3) Big pulley
+
+When testing the big pulley strategy, a new tree is proposed by changing $t_E$,  $t_D$ and $d_i$. In this case, the initial state Tree1  will probably go to Tree2 and Tree3, as is shown in Fig.\ref{bigpulleyExp}.  According to the initial settings in Table \ref{ini_sim}, the genetic distances $d_{AB} = 1$, $d_{AC}  = 1$ and $d_{BC} = 1$ remains unchanged. Hence, the distribution we are about to achieve is calculated by Eq.(\ref{integration5}).
+
+According the statistical measurements, i.e. mean and standard deviation, in Table \ref{res_sma}, the two distributions are consistent within the acceptable error range. Therefore, the big pulley strategy that samples all the tree topologies can also give the right combinations of rates and node times given constant the genetic distances among taxa.
+\begin{equation}
+\label{integration5}
+\begin{aligned}
+P({t_E},{t_D},{d_i}) &= \int_{{t_E} = 0}^{ + \infty } {\int_{{t_D} = 0}^{{t_E}} {\int_{{d_i} = 0}^{0.5} {P({t_E},{t_D})} } } \\&P(\frac{{0.5}}{{{t_D}}}) \times P(\frac{{0.5}}{{{t_D}}}) \times P(\frac{{{d_i}}}{{{t_E} - {t_D}}}) \times P(\frac{{0.5 - {d_i}}}{{{t_E}}})
+\end{aligned}
+\end{equation}
+
+\subsection*{A real data analysis}
+To verify the performance of the proposed operator when it is used to sample from the posterior distribution, analysis based on a real data set is provided in the section. As is shown in Fig.\ref{ratites}, Alan Cooper et al. utilised mitochondrial genome sequences of two extinct moas and constructed the phylogenetic tree of ratites evolution \cite{cooper2001complete}. The sequences have 10,767 bp, which is enough long and is thus suitable for the proposed operator to work on. To fully compare the results, there are three tests conducted. 
+
+\begin{description}
+\item[Test1: A standard BEAST test ] 
+\end{description}
+
+This test includes a birth-death model (as tree prior) where birth rate follows $LogNormal(M = 2, S = 1)$and death rate follows $Uniform(0, 1)$, and a substitution model where bModeltest is used.  Besides, standard operators are adopted to sample the parameters and trees. Namely, Swap Operator, Uniform Operator Randomwalk Operator and Scale Operator are used for rates. Uniform Operator, Subtreeslide Operator, Narrow Operator, Wide Operator, Wilsonbalding Operator and ScaleOperator are used for the tree. 
+\begin{description}
+\item[Test2: Adding the ConstantDistance Operator ] 
+\end{description}
+
+The ConstantDistance Operator is added based on the settings in previous Test1. 
+
+By specifying the setting in two seperate XML files, the two tests are running in BEAST 2, after which the log files and tree files are obtained. Firstly, we summarised all the sampled trees in the tree files, by using TreeAnnotator which averages the rates and node times. As is presented in Fig.\ref{standard}, the tree topology obtained inTest1 and Test2 is exactly the same, which is also consistent with the tree in Fig.\ref{ratites}. To be clear, the rates and node times on the summarised trees are detailed in Fig.\ref{summaryproperties}. Intuitively, the values are very similar. After performing t test, the p values (0.9627 for rates and 0.9865 for node times) further prove that there is no significant difference between rates and node times obtained in Test1 and Test2. In addition, the distributions of the mean of rates and the height of the tree are also compared, as is shown in Fig.\ref{propertydis}. The box plots again demonstrate that Test1 and Test2 provide the same distributions. Finally, in order to validate the efficiency, the effective sample size (ESS) in the above tests are compared in Fig.\ref{esscompare}, including 33 parameters sampled in MCMC chains. Overall, most ESS in Test2 are larger than those in Test1. Particularly, the red arrows indicate that the ConstantDistance Operator is able to sample the rates and tree height more efficiently with larger ESS, because the proposed operator works directly on the rates and node times. Therefore, it is concluded that the proposed operator is correct and more efficient.
+
+\begin{description}
+\item[Test3: Sampling a fixed unrooted tree] 
+\end{description}
+An extra test is conducted in order to elucidate the correctness of the proposed operator. As is shown in Fig.\ref{Fig.sub.11}, this test starts from an unrooted tree constructed by Neighbour-Joining(NJ) algorithm and will be fixed during the test. Specifically, after the NJ algorithm provides the distances on the branch, we adopted the midpoint method to root the tree, and then randomly assign the divergence times for each node under the given topology and distances, so that the rates on each branch is calculated. Afterwards, the rooted time tree shown in Fig.\ref{Fig.sub.12}  is used as the initial state in MCMC chain. Still based on the settings in Test1and Test2, the molecular models are the same. But the tree is sampled by only using the proposed operator in this test, which means the standard operators are excluded. In other words, this test is aimed at examining whether the proposed operator is able to provide the correct samples when given a exactly known tree.
+
+Likewise, the summary tree is obtained after running the specified XML file in BEAST2, which is pictured in Fig.\ref{summary3}. As can be seen, the result is consistent with Test1 and Test2, compared to the tree in Fig.\ref{standard}.  However, it is noticed that there exits some uncertainties in the node times, according to the non-1 posterior (0.9433) labeled on the node in Fig.\ref{summary3}. That is to say, even though the summary tree gives the most possible rooted tree, it is probable for the root to locate on any other branches. 
+
+\section*{Conclusion}
+The efficiency is of great significance in phylogenetic analysis based on Bayesian MCMC. This paper discussed how to make a proposal to deal with rates and node times when the genetic distances is exactly known. In all, there are five operations proposed for internal nodes and the root in a phylogenetic tree. Then, a series of tests based on sampling from prior are performed to show the functionality of each operation. Finally, a novel operator, called ConstantDistance operator, is defined by combining the operation for internal nodes and big pulley strategy. The ConstantDistance operator is utilised to analyse a real data set so that the efficiency is verified by comparing to the standard BEAST test. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                          %%
+%% Backmatter begins here                   %%
+%%                                          %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{backmatter}
+%\section*{Competing interests}
+%
+%\section*{Author's contributions}
+\section*{Acknowledgements}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                  The Bibliography                       %%
+%%                                                         %%
+%%  Bmc_mathpys.bst  will be used to                       %%
+%%  create a .BBL file for submission.                     %%
+%%  After submission of the .TEX file,                     %%
+%%  you will be prompted to submit your .BBL file.         %%
+%%                                                         %%
+%%                                                         %%
+%%  Note that the displayed Bibliography will not          %%
+%%  necessarily be rendered by Latex exactly as specified  %%
+%%  in the online Instructions for Authors.                %%
+%%                                                         %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% if your bibliography is in bibtex format, use those commands:
+\bibliographystyle{bmc-mathphys} % Style BST file (bmc-mathphys, vancouver, spbasic).
+\bibliography{bmc_article}      % Bibliography file (usually '*.bib' )
+% for author-year bibliography (bmc-mathphys or spbasic)
+% a) write to bib file (bmc-mathphys only)
+% @settings{label, options="nameyear"}
+% b) uncomment next line
+%\nocite{label}
+
+% or include bibliography directly:
+% \begin{thebibliography}
+% \bibitem{b1}
+% \end{thebibliography}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                               %%
+%% Figures                       %%
+%%                               %%
+%% NB: this is for captions and  %%
+%% Titles. All graphics must be  %%
+%% submitted separately and NOT  %%
+%% included in the Tex document  %%
+%%                               %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%
+%% Do not use \listoffigures as most will included as separate files
+
+\section*{Figures}
+\begin{figure}[h!]
+\caption{\csentence{The flow chart of the constant distance operator.}
+              }
+\label{flowchart}
+\end{figure}
+%
+%\begin{figure}[h!]
+%  \caption{\csentence{Sample figure title.}
+%      Figure legend text.}
+%      \end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                               %%
+%% Tables                        %%
+%%                               %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Use of \listoftables is discouraged.
+%%
+\section*{Tables}
+\begin{table}[h!]
+  \centering
+\begin{tabular}{c|cccc|c|c|cccc}
+  \hline
+&\multicolumn{4}{c|}{genetic distances (fixed)}&$t_D$&$t_E$&\multicolumn{4}{c}{initial rates}\\
+&${d_j}$&${d_k}$&${d_x}$&${d_i}$&initial&fixed&${r_j}$&${r_k}$&${r_x}$&${r_i}$\\
+\hline
+Scenario 1&0.1&0.2&0.4&0.27&1&10&0.1&0.2&0.04&0.03\\
+\hline
+Scenario 2&0.4&0.8&2.4&1.6&0.4&0.8&1&2&3&4\\
+  \hline
+\end{tabular}
+\caption{Initial settings for internal nodes}\label{ini_inter}
+\end{table}
+
+\begin{table}[h!]
+  \centering
+\begin{tabular}{c|c|ccc|ccc|c}
+  \hline
+&\multirow{2}*{Chain Length}&\multicolumn{3}{c|}{Sample from MCMC}&\multicolumn{3}{c|}{R curve}&Plot\\
+&~&Mean&Err&StdEv&Mean&Err&StdEv&\\
+\hline
+\multirow{2}*{Senario 1}&10000000&3.2727&8.3e-3&0.5467&\multirow{2}*{3.2669}&\multirow{2}*{1.3e-06}&\multirow{2}*{0.5553}&Fig.\ref{Fig.sub.1}\\
+~&20000000&3.271&6.1e-3&0.5616&~&~&~&Fig.\ref{Fig.sub.2}\\
+\hline
+\multirow{2}*{Senario 2}&10000000&0.4677&3.9e-04&0.0265&\multirow{2}*{0.4667}&\multirow{2}*{3.5e-05}&\multirow{2}*{0.0262}&Fig.\ref{Fig.sub.3}\\
+~&20000000&0.4672&2.8e-04&0.0262&~&~&~&Fig.\ref{Fig.sub.4}\\
+  \hline
+\end{tabular}
+\caption{Results of internal nodes}\label{res_inter}
+\end{table}
+
+\begin{table}[h!]
+  \centering
+\begin{tabular}{c|cccc|c|c|cccc}
+  \hline
+\multirow{2}*{strategy}&\multicolumn{4}{c|}{genetic distances}&\multirow{2}*{$t_D$}&\multirow{2}*{$t_E$}&\multicolumn{4}{c}{initial rates}\\
+~&${d_j}$&${d_k}$&${d_x}$&${d_i}$&~&~&${r_j}$&${r_k}$&${r_x}$&${r_i}$\\
+\hline
+Simple distance&0.1&0.2&0.4&0.27&1&10&0.1&0.2&0.04&0.03\\
+Small pulley&0.1&0.2&\multicolumn{2}{|c|}{0.67}&1&10&0.1&0.2&0.04&0.03\\
+Big pulley&0.5&0.5&\multicolumn{2}{|c|}{0.5}&5&10&0.1&0.1&0.03&0.04\\
+  \hline
+\end{tabular}
+\caption{Initial settings for simple distance}\label{ini_sim}
+\end{table}
+
+\begin{table}[h!]
+\centering
+\resizebox{\textwidth}{18mm}{
+\begin{tabular}{c|c|cc|cc|cc}
+  \hline
+\multirow{2}*{Strategyh}&\multirow{2}*{Variable}&\multicolumn{2}{c|}{Sample from MCMC}&\multicolumn{2}{c|}{R curve}&\multirow{2}*{Plot}\\
+&~&Mean&StdEv&Mean&StdEv&\\
+\hline
+Simple distance&$t_E$&7.8081&1.2884&7.818691&1.299236&Fig.\ref{Fig.sub.5}\\
+\hline
+Version 1&$t_E$&0.3480&0.0492&0.3476&0.0494&Fig.\ref{Fig.sub.6}\\
+\hline
+\multirow{2}*{Version 2}&${d_i}$&0.3924&0.0690&0.3918&0.0693&Fig.\ref{Fig.sub.7}\\
+~&$t_E$&4.9953&0.6665&5.0122&0.6832&Fig.\ref{Fig.sub.8}\\
+\hline
+\multirow{2}*{Big pulley}&${d_i}$&0.1016&0.0766&0.0960&0.0760&Fig.\ref{Fig.sub.9}\\
+~&$t_E$&3.3017&0.6908&3.3095&0.6912&Fig.\ref{Fig.sub.10}\\
+\hline
+\end{tabular}}
+\caption{Results for root}\label{res_sma}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                               %%
+%% Additional Files              %%
+%%                               %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\section*{Additional Files}
+%  \subsection*{Additional file 1 --- Sample additional file title}
+%    Additional file descriptions text (including details of how to
+%    view the file, if it is in a non-standard format or the file extension).  This might
+%    refer to a multi-page table or a figure.
+%
+%  \subsection*{Additional file 2 --- Sample additional file title}
+%    Additional file descriptions text.
+
+
+\end{backmatter}
+\end{document}
