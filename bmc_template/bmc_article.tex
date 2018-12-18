@@ -142,13 +142,13 @@ Bayesian MCMC plays an important role in phylogenetic analysis. However, due the
 
 %%%%%%%%%%%%%%%%
 \section*{Introduction}
-Phylogenetics has attracted much research interest over the years. More and more scientists are becoming keen to discover the evolutionary history of life, such as birds \cite{hackett2008phylogenomic}, primates \cite{szalay2013evolutionary}, grasses \cite{kellogg2001evolutionary} and so on \cite{sawabe2007inferring,garnery1992evolutionary}. One fundamental concept in phylogenetics is a graph model that shows the relationships among species and organisms, which is called a phylogenetic tree. The main task for phylogenetic analysis is aimed at inferring the phylogenies by constructing the phylogenetic trees. Until now, a lot of methods have already been proposed and a majority of them have been implemented in the computer softwares, such as BEAST2 \cite{drummond2007beast, bouckaert2014beast} , MRBAYES \cite{huelsenbeck2001mrbayes} and APE \cite{paradis2004ape}. 
+Phylogenetics has attracted much research interest over the years. More and more scientists are becoming keen to discover the evolutionary history of life, such as birds \cite{hackett2008phylogenomic}, primates \cite{szalay2013evolutionary}, grasses \cite{kellogg2001evolutionary} and so on \cite{sawabe2007inferring,garnery1992evolutionary}. One fundamental concept in phylogenetics is a graph model that shows the relationships among species and organisms, which is called a phylogenetic tree. The main task for phylogenetic analysis is aimed at inferring the phylogenies by constructing the phylogenetic trees. Until now, a lot of methods have already been proposed and a majority of them have been implemented in the computer softwares, such as BEAST2 \cite{drummond2007beast, bouckaert2014beast} , MRBAYES \cite{huelsenbeck2001mrbayes} and APE \cite{paradis2004ape}.
 
-Traditional methods for constructing phylogenetic trees are based on a distance matrix that is obtained by sequence alignment, after biologists extract DNA from organisms. In the last few decades, more advanced techniques have been developed to reconstruct phylogenetic trees, due to the development of statistics and computer science. One popular research area called Bayesian phylogenetics puts an emphasis on a sampling process to construct the phylogenetic tree, in which the methods based on Markov Chain Monte Carlo (MCMC) provide a computational tool for sampling problems. For example, Yang and Rannala presented a Bayesian framework that includes the specified prior for phylogenies and ancestral speciation times, and the posterior probabilities of phylogenies to be inferred as the maximum posterior probability (MAP) tree \cite{yang1997bayesian}. Specifically, Monte Carlo integration is used to integrate over the ancestral speciation times for particular trees and a MCMC method is used to sample a set of trees with probabilities. Based on this framework, much attention has been paid to estimating the divergence times \cite{rannala2003bayes,yang2003comparison,reis2011approximate}.  
+Traditional methods for constructing phylogenetic trees are based on a distance matrix that is obtained by sequence alignment, after biologists extract DNA from organisms. In the last few decades, more advanced techniques have been developed to reconstruct phylogenetic trees, due to the development of statistics and computer science. One popular research area called Bayesian phylogenetics puts an emphasis on a sampling process to construct the phylogenetic tree, in which the methods based on Markov Chain Monte Carlo (MCMC) provide a computational tool for sampling problems. For example, Yang and Rannala presented a Bayesian framework that includes the specified prior for phylogenies and ancestral speciation times, and the posterior probabilities of phylogenies to be inferred as the maximum posterior probability (MAP) tree \cite{yang1997bayesian}. Specifically, Monte Carlo integration is used to integrate over the ancestral speciation times for particular trees and a MCMC method is used to sample a set of trees with probabilities. Based on this framework, much attention has been paid to estimating the divergence times \cite{rannala2003bayes,yang2003comparison,reis2011approximate}.
 
-For phylogenetic analysis based on Bayesian MCMC, the efficiency of a sampling method is always the main issue that should be carefully dealt with. In particular, the calculation of the phylogenetic likelihood is a large burden of the efficiency. Hence, some researchers have tried to improve the likelihood calculations, such as detection of repeating sites \cite{kobert2017efficient}. On the other hand, in MCMC methods, the operators that propose a new state based on the current state also have a leading influence on the overall performance. As is discussed by Lakner et al., the major limitation in Bayesian MCMC analysis of phylogeny lies in the efficiency with which operators sample the tree space \cite{lakner2008efficiency}. So far, there have been already many different kinds of operators proposed. According to the work in Ref. \cite{hohna2011guided}, the two common operators, i.e. prune-and-regraft and subtree-swap, both contribute to a tree with low likelihood since they propose a new tree by random movement of the current tree. So the authors introduced two new operators by proposing a state from a discrete set of possible proposals and narrowing the proposal distribution to the more likely proposals. Their experimental results proved that the two operator have faster average run time and more accurate predictability. 
+For phylogenetic analysis based on Bayesian MCMC, the efficiency of a sampling method is always the main issue that should be carefully dealt with. In particular, the calculation of the phylogenetic likelihood is a large burden of the efficiency. Hence, some researchers have tried to improve the likelihood calculations, such as detection of repeating sites \cite{kobert2017efficient}. On the other hand, in MCMC methods, the operators that propose a new state based on the current state also have a leading influence on the overall performance. As is discussed by Lakner et al., the major limitation in Bayesian MCMC analysis of phylogeny lies in the efficiency with which operators sample the tree space \cite{lakner2008efficiency}. So far, there have been already many different kinds of operators proposed. According to the work in Ref. \cite{hohna2011guided}, the two common operators, i.e. prune-and-regraft and subtree-swap, both contribute to a tree with low likelihood since they propose a new tree by random movement of the current tree. So the authors introduced two new operators by proposing a state from a discrete set of possible proposals and narrowing the proposal distribution to the more likely proposals. Their experimental results proved that the two operator have faster average run time and more accurate predictability.
 
-Nevertheless, it is acknowledged that a faster and more reliable performance is also dependent on a good mixture of operators and different operators may be applicable for different objects. In this paper, a novel operator is proposed in the case where genetic distances are constant. Namely, the proposed operator is used to change the divergence times of nodes and evolutionary rates on the branches at the same time without changing the genetic distances, so that the likelihood of the phylogenetic tree remains unchanged. According to a series of simulations and experiments, it is concluded that by using the proposed operator, the tree will be sampled more efficiently in the MCMC runs. 
+Nevertheless, it is acknowledged that a faster and more reliable performance is also dependent on a good mixture of operators and different operators may be applicable for different objects. In this paper, a novel operator is proposed in the case where genetic distances are constant. Namely, the proposed operator is used to change the divergence times of nodes and evolutionary rates on the branches at the same time without changing the genetic distances, so that the likelihood of the phylogenetic tree remains unchanged. According to a series of simulations and experiments, it is concluded that by using the proposed operator, the tree will be sampled more efficiently in the MCMC runs.
 
 The following of this paper is constructed as follows: Section 2 gives some preliminary theories of the work related to this paper. Section 3 introduces the proposed operator, which includes the mechanism for internal nodes and 3 different strategies for the root. The experiments and discussions are detailed in the 4th section to validate the efficiency of the proposed operator. Section 5 ends the paper with a short conclusion.
 \section*{Prelimiaries}
@@ -157,17 +157,17 @@ Eq.(\ref{bayes}) shows a basic Bayesian framework for phylogenetic analysis. It 
 \begin{eqnarray}\label{bayes}
 f(g,\Phi |D) = \frac{{\Pr (D|g,\Phi ) \times \Pr (g) \times \Pr (\Phi )}}{{\Pr (D)}}
 \end{eqnarray}
-, where $g$ denotes the phylogenetic tree, $\Phi$ is a set of parameters and $D$ represents the data available. 
+, where $g$ denotes the phylogenetic tree, $\Phi$ is a set of parameters and $D$ represents the data available.
 
-Moreover, due to the huge amount of data and the marginal likelihood being difficulty to calculate, Markov Chain Monte Carlo (MCMC) algorithms are adopted to get samples from the posterior distribution. 
+Moreover, due to the huge amount of data and the marginal likelihood being difficulty to calculate, Markov Chain Monte Carlo (MCMC) algorithms are adopted to get samples from the posterior distribution.
 \subsection*{Tree proposals}
-The term ``operator" used in this paper is defined as the tree proposal in Bayesian MCMC to propose a new state that is only dependent on the current state. 
+The term ``operator" used in this paper is defined as the tree proposal in Bayesian MCMC to propose a new state that is only dependent on the current state.
 
 Generally, some classical operators can satisfy most sampling requirements, such as a random walk operator which proposes a new state by adding a random number, and a scale operator which multiplies the current state with a scale factor. But they are suitable for working on a single parameter or a set of parameters, such as population size. To make a proposal about the tree topology, it is also necessary to include other operators, such as subtree slide operator, swap operator narrow operator and so on. On top of this, there are also some extended operators available to help give the better performance. For instance, the prune-and-regraft operator selects a random subtree and reattaches the subtree at a new random branch. And the subtree-swap operator exchanges two random subtended subtrees.
 
 What matters for developing an operator is that the proposal should be reversible. As is discussed in Green's paper \cite{green1995reversible}, the constructed Markov transition kernel $P(x,dx')$ should satisfy the detailed balance, as is shown by Eq.(\ref{balance}). Consequently, the probability that the operator propose a new state from the current state is required to be equal to the probability that the proposed state goes back to current state. Therefore, in Eq.(\ref{Ratio}), to ensure the detailed balance in the MCMC chain, a ratio ${q(x',dx)}/{q(x,dx')}$ should always be included in the probability $\alpha(x,x')$ that the proposal made by the operator is accepted, which is defined as \textit{Hasgtings ratio}.
 \begin{equation}\label{balance}
-\int_A {\int_B {\pi (dx)P(x,dx')} }  = \int_B {\int_A {\pi (dx')P(x',dx)} } 
+\int_A {\int_B {\pi (dx)P(x,dx')} }  = \int_B {\int_A {\pi (dx')P(x',dx)} }
 \end{equation}
 , where ${\pi (dx)}$ is the target distribution, $A$ and $B$ are Borel sets in parameter space $\varphi$.
 \begin{equation}\label{Ratio}
@@ -233,10 +233,10 @@ D = {d_i} + {r_x} \times ({{t_X} - {t_k}})
 {r_i}' = \frac{{{d_i}'}}{{{t_X} - {t_j}}}\\
 {r_x}' = \frac{{D - {d_i}'}}{{{t_X} - {t_k}}}
  \end{equation}
- 
+
 \emph{Step 4} Return the $HastingsRatio$.
 \subsubsection*{Big Pulley}
-Big Pulley is used to sample the rates and times from a fixed unrooted tree so that the genetic distances among taxon are constant, which means the location of the root will be rearranged. 
+Big Pulley is used to sample the rates and times from a fixed unrooted tree so that the genetic distances among taxon are constant, which means the location of the root will be rearranged.
 
 Firstly, a method called \textit{Exchange (Node1,Node2)} is designed to propose a new tree topology in this circumstances. For the tree in Fig.\ref{exchangemethod}, once the method \textit{Exchange (\textbf{B},\textbf{C})} is called, the following operations will be performed to proposed a new tree, as is shown on the right in the figure.
 \begin{enumerate} [(1)]
@@ -261,7 +261,7 @@ Firstly, a method called \textit{Exchange (Node1,Node2)} is designed to propose 
 \end{equation}
 \end{enumerate}
 
-As can be seen from the above descriptions, the method \textit{Exchange (Node1,Node2)} is actually aimed at swapping two nodes and reassigning distances on the four branches. 
+As can be seen from the above descriptions, the method \textit{Exchange (Node1,Node2)} is actually aimed at swapping two nodes and reassigning distances on the four branches.
 
 Secondly, before applying this method in Big Pulley, there are two different tree shapes to take into consideration. In Fig.\ref{treeshape}, a symmetric tree is shown on the left, in which both the child nodes of the root have child nodes. But in an asymmetric tree, only one of the child nodes of the root has child nodes below it, which means the other child node of the root is a leaf node. Hence, Big Pulley also differs when it works on a symmetric and asymmetric tree. The corresponding operations are detailed in the following two parts.
 \paragraph*{Symmetric tree shape}
@@ -270,9 +270,9 @@ For the symmetric tree in Fig.\ref{treeshape}, the operations are illustrated in
 
 \emph{Step 1} Get the child nodes of the root \textbf{X}, denoted by \textbf{son} and \textbf{dau}. And the child nodes below them are denoted by $Ch1$, $Ch2$, $Ch3$ and $Ch4$. Correspondingly, the node times are denoted by $t_X$, $t_j$, $t_k$.
 
-\emph{Step 2} Propose a new node time for the root \textbf{X} by \textbf{X} by ${t_X}' = {t_X} + a$, where $a \sim Uniform[ - w, + w]$. 
+\emph{Step 2} Propose a new node time for the root \textbf{X} by \textbf{X} by ${t_X}' = {t_X} + a$, where $a \sim Uniform[ - w, + w]$.
 
-\emph{Step 3} Propose a new node time either for \textbf{son} or \textbf{dau}. And apply the method using \textbf{dau} and either child node of \textbf{son}. 
+\emph{Step 3} Propose a new node time either for \textbf{son} or \textbf{dau}. And apply the method using \textbf{dau} and either child node of \textbf{son}.
 \begin{itemize}
 \item With 0.5 probability to pick \textbf{son} and propose a new node time by ${t_j}' = {t_j} + {a_1}$, where ${a_1} \sim Uniform[ - w, + w]$. Make sure that ${t_k} < {t_j}' < {t_X}'$ holds. Then, there are two options to apply the method, i.e.
 
@@ -367,14 +367,14 @@ After the prior is specified, the distribution to sample can be exactly known, s
 P(r,t) &= P({t_E},{t_D}) \times P({r_i}) \times P({r_j}) \times P({r_k}) \times P({r_x}) \\&= P({t_E},{t_D}) \times P(\frac{{{d_i}}}{{\Delta t1}}) \times P(\frac{{{d_j}}}{{\Delta t2}}) \times P(\frac{{{d_k}}}{{\Delta t3}}) \times P(\frac{{{d_x}}}{{\Delta t4}})
 \end{aligned}
 \end{equation}
-, where ${\Delta t}$ represents the time duration along the corresponding branch, and $P({.})$ is the probability of the LogNormal distribution. Therefore, the whole probability can be obtained by conducting numerical integration on Eq.(\ref{integration}), which shows the average over all the possible values of parameters. 
+, where ${\Delta t}$ represents the time duration along the corresponding branch, and $P({.})$ is the probability of the LogNormal distribution. Therefore, the whole probability can be obtained by conducting numerical integration on Eq.(\ref{integration}), which shows the average over all the possible values of parameters.
 \subsubsection*{Test the operator on internal nodes}
-The genetic distances, node times and rates for the Tree1 in Fig.\ref{sampleprior} are given in Table \ref{ini_inter}. To test roundly, two scenarios are considered. In each scenario, the genetic distances are fixed, the node time $t_D$ starts from the initial value and is changed by the operator during the sampling process, so that node D moves between node A and E. Besides, to make sure that the result is robust, two different MCMC chain lengths are performed in each scenario. 
+The genetic distances, node times and rates for the Tree1 in Fig.\ref{sampleprior} are given in Table \ref{ini_inter}. To test roundly, two scenarios are considered. In each scenario, the genetic distances are fixed, the node time $t_D$ starts from the initial value and is changed by the operator during the sampling process, so that node D moves between node A and E. Besides, to make sure that the result is robust, two different MCMC chain lengths are performed in each scenario.
 
 The mean, mean error and the standard deviation of the sampled distribution are summarised in Table \ref{res_inter}. By using Eq.(\ref{integration1}), the actual joint distribution is obtained according to Eq.(\ref{integration}), and is used to evaluate the results, which is also included in Table \ref{res_inter}. Besides, the histograms of MCMC samples, as well as the curves of the numerical integration of Eq.(\ref{integration1}), are shown in Fig.\ref{res_int}. It can be seen that the red curves well fit the histograms, and the mean values and standard deviations are consistent, which makes it safe to conclude that the proposed operators works properly on the internal nodes.
 \begin{equation}
 \label{integration1}
-P(r,{t_D}) = \int_{{t_D} = 0}^{{t_E}} {P({t_E},{t_D}) \times P(\frac{{{d_j}}}{{{t_D}}}) \times P(\frac{{{d_k}}}{{{t_D}}}) \times P(\frac{{{d_i}}}{{{t_E} - {t_D}}}) \times P(\frac{{{d_x}}}{{{t_E}}}){d_{t_D}}} 
+P(r,{t_D}) = \int_{{t_D} = 0}^{{t_E}} {P({t_E},{t_D}) \times P(\frac{{{d_j}}}{{{t_D}}}) \times P(\frac{{{d_k}}}{{{t_D}}}) \times P(\frac{{{d_i}}}{{{t_E} - {t_D}}}) \times P(\frac{{{d_x}}}{{{t_E}}}){d_{t_D}}}
 \end{equation}
 \subsubsection*{Test the operator on root}
 Still starting from Tree1 in Fig.\ref{sampleprior}, the initial settings for testing the root are given in Table \ref{ini_sim}. And the three strategies are tested separately in the following parts.
@@ -384,16 +384,16 @@ Still starting from Tree1 in Fig.\ref{sampleprior}, the initial settings for tes
 The root time $t_E$ is sampled by Simple Distance, which ranges from 1 to positive infinity theoretically. Namely, all the genetic distances and the node time $t_D$  are fixed. Hence, similar to Eq.(\ref{integration1}), the sampled distribution of $t_E$ can be obtained by Eq.(\ref{integration2}).
 \begin{equation}
 \label{integration2}
-P(r,{t_E}) = \int_{{t_E} = 1}^{ + \infty } {P({t_E},{t_D}) \times P(\frac{{{d_j}}}{{{t_D}}}) \times P(\frac{{{d_k}}}{{{t_D}}}) \times P(\frac{{{d_i}}}{{{t_E} - {t_D}}}) \times P(\frac{{{d_x}}}{{{t_E}}}){d_{t_E}}} 
+P(r,{t_E}) = \int_{{t_E} = 1}^{ + \infty } {P({t_E},{t_D}) \times P(\frac{{{d_j}}}{{{t_D}}}) \times P(\frac{{{d_k}}}{{{t_D}}}) \times P(\frac{{{d_i}}}{{{t_E} - {t_D}}}) \times P(\frac{{{d_x}}}{{{t_E}}}){d_{t_E}}}
 \end{equation}
 
 The results are given in Table \ref{res_sma} and Fig.\ref{Fig.sub.5}. Obviously, the mean and the standard deviation are close enough, which confirms that the two distribution are the same. Thus, Simple Distance is proved to be correct.
 
 \paragraph*{Using Small Pulley}
 
-Although both ${d_x}$ and ${d_i}$ are changed during the sampling process when using Small Pulley, the sum of ${d_x}$ and ${d_i}$ are kept 0.67 in this test, as is shown in Table \ref{ini_sim}. To make it simple to represent, only ${d_i}$ is compared in this subsection. 
+Although both ${d_x}$ and ${d_i}$ are changed during the sampling process when using Small Pulley, the sum of ${d_x}$ and ${d_i}$ are kept 0.67 in this test, as is shown in Table \ref{ini_sim}. To make it simple to represent, only ${d_i}$ is compared in this subsection.
 
-Then, based on Eq.(\ref{integration}), the exact distribution of ${d_i}$ can be obtained by Eq.(\ref{integration3}), which is compared with the sampled distribution in Table \ref{res_sma} and Fig.\ref{Fig.sub.6}. Even though there exist some errors, the sampled parameters can be considered to follow the same distribution. So the Small Pulley also is able to provide the correct samples. 
+Then, based on Eq.(\ref{integration}), the exact distribution of ${d_i}$ can be obtained by Eq.(\ref{integration3}), which is compared with the sampled distribution in Table \ref{res_sma} and Fig.\ref{Fig.sub.6}. Even though there exist some errors, the sampled parameters can be considered to follow the same distribution. So the Small Pulley also is able to provide the correct samples.
 \begin{equation}\label{integration3}
 P(r,{d_i}) = \int_{{d_i} = 1}^{0.67} {P({t_E},{t_D}) \times P(\frac{{{d_j}}}{{{t_D}}}) \times P(\frac{{{d_k}}}{{{t_D}}}) \times P(\frac{{{d_i}}}{{{t_E} - {t_D}}}) \times P(\frac{{0.67 - {d_i}}}{{{t_E}}}){d_{d_i}}}
 \end{equation}
@@ -410,25 +410,35 @@ P({t_E},{t_D},{d_i}) &= \int_{{t_E} = 0}^{ + \infty } {\int_{{t_D} = 0}^{{t_E}} 
 \end{aligned}
 \end{equation}
 \subsection*{Well-calibrated simulation study}
-Fig.\ref{modelvalidation} shows the models and prior distributions used in this study. In the first place, independent samples from the prior distributions are set to be the values of random parameters, such as $\kappa$ in HKY model, UcldStdev $S1$ for rate prior, and so on. In this test, there are 100 independent samples obtained which are utilised to simulate 100 sets of sequence alignment. To make this study more robust, two groups of sequence data are simulated, one group with 20 taxa and the other with 120 taxa. 
+Fig.\ref{modelvalidation} shows the models and prior distributions used in this study. In the first place, independent samples from the prior distributions are set to be the values of random parameters, such as $\kappa$ in HKY model, UcldStdev $S1$ for rate prior, and so on. In this test, there are 100 independent samples obtained which are utilised to simulate 100 sets of sequence alignment. To make this study more robust, two groups of sequence data are simulated, one group with 20 taxa and the other with 120 taxa.
 
 In the second place, the two groups of simulated data are sampled by using ConstantDistance Operator in BEAST2. Acoording to models in Fig.\ref{modelvalidation} , there are 7 parameters sampled. The sampled values are compared to the real values that refer to the independent samples from the prior distributions that are used to simulate each sequence data. The results of the two groups are shown in Fig.\ref{SmallTree} and Fig.
-\ref{LargeTree}. Besides, Table \ref{num_hpd} shows the number of real values that are within the 95\% HPD of the sampled distribution. 
+\ref{LargeTree}. Besides, Table \ref{num_hpd} shows the number of real values that are within the 95\% HPD of the sampled distribution.
+
 \subsection*{Performance comparison}
-Effective Sample Size (ESS)
+To evaluate the performance, only one set of the 100 simulated data sets in the two groups with 20 and 120 taxa is sampled. And each data set from the two groups is sampled 100 times.
 
-Running time
+To make a comparison, the same data set will be run 100 times with and without using the ConstantDistance Operator. In addition, as rates can be also modeled by discrete categories in BEAST2, the same data set is also run 100 times by using rate categories.
+
+Effective Sample Size (ESS) of a parameter sampled from an MCMC chain in BEAST2 is the number of effectively independent draws from the posterior distribution that the Markov chain is equivalent to. The larger ESS indicates the better estimation of the parameter. In this study, the ESS of UcldStdev in all the simulations are compared in order to measure the predictability of ConstantDistance Operator.
+
+Meanwhile, all the sampling process are run in NeSI, using 1 CPU and one single thread. And the user time is recorded as the running time of each simulation.
+
+The results are summarised in Fig.\ref{eff_comp} and Table \ref{eff_comp1}.
 \subsection*{A real data analysis}
+In this section, a real data set with 83 primates is used to further evaluate the performance of ConstantDistance Operator. The ESS and running time are compared in Fig.\ref{eff_comp2}.
 
-\begin{description}
-\item[Test3: Sampling a fixed unrooted tree] 
-\end{description}
-An extra test is conducted in order to elucidate the correctness of the proposed operator. As is shown in Fig.\ref{Fig.sub.11}, this test starts from an unrooted tree constructed by Neighbour-Joining(NJ) algorithm and will be fixed during the test. Specifically, after the NJ algorithm provides the distances on the branch, we adopted the midpoint method to root the tree, and then randomly assign the divergence times for each node under the given topology and distances, so that the rates on each branch is calculated. Afterwards, the rooted time tree shown in Fig.\ref{Fig.sub.12}  is used as the initial state in MCMC chain. Still based on the settings in Test1and Test2, the molecular models are the same. But the tree is sampled by only using the proposed operator in this test, which means the standard operators are excluded. In other words, this test is aimed at examining whether the proposed operator is able to provide the correct samples when given a exactly known tree.
+\subsection*{Sampling a fixed unrooted tree}
+The test in this subsection is to elucidate the correctness of the proposed operator. As is shown in Fig.\ref{Fig.sub.11}, this test starts from an unrooted tree constructed by Neighbour-Joining(NJ) algorithm and will be fixed during the test. Specifically, after the NJ algorithm provides the distances on the branch, we adopted the midpoint method to root the tree. Then randomly assign the divergence times for each node under the given topology and distances, so that the rates on each branch can be calculated in accordance with the node times and the genetic distances. Afterwards, the rooted time tree shown in Fig.\ref{Fig.sub.12} is used as the initial state in MCMC chain, and is sampled by only using the proposed operator.
 
-Likewise, the summary tree is obtained after running the specified XML file in BEAST2, which is pictured in Fig.\ref{summary3}. As can be seen, the result is consistent with Test1 and Test2, compared to the tree in Fig.\ref{standard}.  However, it is noticed that there exits some uncertainties in the node times, according to the non-1 posterior (0.9433) labeled on the node in Fig.\ref{summary3}. That is to say, even though the summary tree gives the most possible rooted tree, it is probable for the root to locate on any other branches. 
+The summary tree is obtained after running the simulation in BEAST2, which is pictured in Fig.\ref{summary3}. As can be seen, the result is consistent with, compared to the tree in Fig.\ref{standard}. In other words, the proposed operator is able to provide the correct samples when given a exactly known tree.
+
+However, it is noticed that there exits some uncertainties in the node times, according to the non-1 posterior (0.9433) labeled on the node in Fig.\ref{summary3}. That is to say, even though the summary tree gives the most possible rooted tree, it is probable for the root to locate on any other branches.
+
+\subsection*{Correlation analysis of rates and times}
 
 \section*{Conclusion}
-The efficiency is of great significance in phylogenetic analysis based on Bayesian MCMC. This paper discussed how to make a proposal to deal with rates and node times when the genetic distances is exactly known. In all, there are five operations proposed for internal nodes and the root in a phylogenetic tree. Then, a series of tests based on sampling from prior are performed to show the functionality of each operation. Finally, a novel operator, called ConstantDistance operator, is defined by combining the operation for internal nodes and big pulley strategy. The ConstantDistance operator is utilised to analyse a real data set so that the efficiency is verified by comparing to the standard BEAST test. 
+The efficiency is of great significance in phylogenetic analysis based on Bayesian MCMC. This paper discussed how to make a tree proposal to deal with rates and node times on condition that the genetic distances are constant. In all, the proposed operator integrates four strategies to work on internal nodes and the root in a phylogenetic tree. By the tests that sample from known prior distribution, the ConstantDistance Operator shows the correct functionality. Then, after comparing the results of a series of simulations using both simulated data and real data, it is verified that the ConstantDistance Operator is valid and more efficient. It is believed that the work in this paper will make some contributions to the research in phylogenetic analysis by providing more efficient methods.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%                                          %%
@@ -615,6 +625,7 @@ The efficiency is of great significance in phylogenetic analysis based on Bayesi
 \label{Fig.sub.2}
 \includegraphics[width=0.5\textwidth]{primates2.eps}}
 \caption{Comparison the ESS and ESS using primates data}
+\label{eff_comp2}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%                               %%
@@ -725,7 +736,7 @@ nocons&20000&86.46476333&62.77579&19344&38245\\
 Average&&178.5312144&43.29618733&10735&27236\\
 \hline
 \end{tabular}
-\caption{Results of ESS and running time}\label{num_hpd}
+\caption{Results of ESS and running time}\label{eff_comp1}
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%                               %%
