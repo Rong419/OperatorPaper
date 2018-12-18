@@ -1,6 +1,6 @@
 %% BioMed_Central_Bib_Style_v1.01
 
-\begin{thebibliography}{26}
+\begin{thebibliography}{18}
 % BibTex style file: bmc-mathphys.bst (version 2.1), 2014-07-24
 \ifx \bisbn   \undefined \def \bisbn  #1{ISBN #1}\fi
 \ifx \binits  \undefined \def \binits#1{#1}\fi
@@ -117,170 +117,6 @@
 \endbibitem
 
 %%% 6
-\bibitem{huelsenbeck2001mrbayes}
-\begin{barticle}
-\bauthor{\bsnm{Huelsenbeck}, \binits{J.P.}},
-\bauthor{\bsnm{Ronquist}, \binits{F.}}:
-\batitle{Mrbayes: Bayesian inference of phylogenetic trees}.
-\bjtitle{Bioinformatics}
-\bvolume{17}(\bissue{8}),
-\bfpage{754}--\blpage{755}
-(\byear{2001})
-\end{barticle}
-\endbibitem
-
-%%% 7
-\bibitem{yang1997paml}
-\begin{barticle}
-\bauthor{\bsnm{Yang}, \binits{Z.}}:
-\batitle{Paml: a program package for phylogenetic analysis by maximum
-  likelihood}.
-\bjtitle{Bioinformatics}
-\bvolume{13}(\bissue{5}),
-\bfpage{555}--\blpage{556}
-(\byear{1997})
-\end{barticle}
-\endbibitem
-
-%%% 8
-\bibitem{paradis2004ape}
-\begin{barticle}
-\bauthor{\bsnm{Paradis}, \binits{E.}},
-\bauthor{\bsnm{Claude}, \binits{J.}},
-\bauthor{\bsnm{Strimmer}, \binits{K.}}:
-\batitle{Ape: analyses of phylogenetics and evolution in r language}.
-\bjtitle{Bioinformatics}
-\bvolume{20}(\bissue{2}),
-\bfpage{289}--\blpage{290}
-(\byear{2004})
-\end{barticle}
-\endbibitem
-
-%%% 9
-\bibitem{kumar2016mega7}
-\begin{barticle}
-\bauthor{\bsnm{Kumar}, \binits{S.}},
-\bauthor{\bsnm{Stecher}, \binits{G.}},
-\bauthor{\bsnm{Tamura}, \binits{K.}}:
-\batitle{Mega7: molecular evolutionary genetics analysis version 7.0 for bigger
-  datasets}.
-\bjtitle{Molecular biology and evolution}
-\bvolume{33}(\bissue{7}),
-\bfpage{1870}--\blpage{1874}
-(\byear{2016})
-\end{barticle}
-\endbibitem
-
-%%% 10
-\bibitem{wang1994complexity}
-\begin{barticle}
-\bauthor{\bsnm{Wang}, \binits{L.}},
-\bauthor{\bsnm{Jiang}, \binits{T.}}:
-\batitle{On the complexity of multiple sequence alignment}.
-\bjtitle{Journal of computational biology}
-\bvolume{1}(\bissue{4}),
-\bfpage{337}--\blpage{348}
-(\byear{1994})
-\end{barticle}
-\endbibitem
-
-%%% 11
-\bibitem{sokal1963principles}
-\begin{botherref}
-\oauthor{\bsnm{Sokal}, \binits{R.R.}}:
-The principles and practice of numerical taxonomy.
-Taxon,
-190--199
-(1963)
-\end{botherref}
-\endbibitem
-
-%%% 12
-\bibitem{saitou1987neighbor}
-\begin{barticle}
-\bauthor{\bsnm{Saitou}, \binits{N.}},
-\bauthor{\bsnm{Nei}, \binits{M.}}:
-\batitle{The neighbor-joining method: a new method for reconstructing
-  phylogenetic trees.}
-\bjtitle{Molecular biology and evolution}
-\bvolume{4}(\bissue{4}),
-\bfpage{406}--\blpage{425}
-(\byear{1987})
-\end{barticle}
-\endbibitem
-
-%%% 13
-\bibitem{lynch2010did}
-\begin{barticle}
-\bauthor{\bsnm{Lynch}, \binits{V.J.}},
-\bauthor{\bsnm{Wagner}, \binits{G.P.}}:
-\batitle{Did egg-laying boas break dollo's law? phylogenetic evidence for
-  reversal to oviparity in sand boas (eryx: Boidae)}.
-\bjtitle{Evolution: International Journal of Organic Evolution}
-\bvolume{64}(\bissue{1}),
-\bfpage{207}--\blpage{216}
-(\byear{2010})
-\end{barticle}
-\endbibitem
-
-%%% 14
-\bibitem{yang1997bayesian}
-\begin{barticle}
-\bauthor{\bsnm{Yang}, \binits{Z.}},
-\bauthor{\bsnm{Rannala}, \binits{B.}}:
-\batitle{Bayesian phylogenetic inference using dna sequences: a markov chain
-  monte carlo method.}
-\bjtitle{Molecular biology and evolution}
-\bvolume{14}(\bissue{7}),
-\bfpage{717}--\blpage{724}
-(\byear{1997})
-\end{barticle}
-\endbibitem
-
-%%% 15
-\bibitem{rannala2003bayes}
-\begin{barticle}
-\bauthor{\bsnm{Rannala}, \binits{B.}},
-\bauthor{\bsnm{Yang}, \binits{Z.}}:
-\batitle{Bayes estimation of species divergence times and ancestral population
-  sizes using dna sequences from multiple loci}.
-\bjtitle{Genetics}
-\bvolume{164}(\bissue{4}),
-\bfpage{1645}--\blpage{1656}
-(\byear{2003})
-\end{barticle}
-\endbibitem
-
-%%% 16
-\bibitem{yang2003comparison}
-\begin{barticle}
-\bauthor{\bsnm{Yang}, \binits{Z.}},
-\bauthor{\bsnm{Yoder}, \binits{A.D.}}:
-\batitle{Comparison of likelihood and bayesian methods for estimating
-  divergence times using multiple gene loci and calibration points, with
-  application to a radiation of cute-looking mouse lemur species}.
-\bjtitle{Systematic biology}
-\bvolume{52}(\bissue{5}),
-\bfpage{705}--\blpage{716}
-(\byear{2003})
-\end{barticle}
-\endbibitem
-
-%%% 17
-\bibitem{reis2011approximate}
-\begin{barticle}
-\bauthor{\bsnm{Reis}, \binits{M.d.}},
-\bauthor{\bsnm{Yang}, \binits{Z.}}:
-\batitle{Approximate likelihood calculation on a phylogeny for bayesian
-  estimation of divergence times}.
-\bjtitle{Molecular Biology and Evolution}
-\bvolume{28}(\bissue{7}),
-\bfpage{2161}--\blpage{2172}
-(\byear{2011})
-\end{barticle}
-\endbibitem
-
-%%% 18
 \bibitem{drummond2007beast}
 \begin{barticle}
 \bauthor{\bsnm{Drummond}, \binits{A.J.}},
@@ -293,7 +129,7 @@ Taxon,
 \end{barticle}
 \endbibitem
 
-%%% 19
+%%% 7
 \bibitem{bouckaert2014beast}
 \begin{barticle}
 \bauthor{\bsnm{Bouckaert}, \binits{R.}},
@@ -313,7 +149,91 @@ Taxon,
 \end{barticle}
 \endbibitem
 
-%%% 20
+%%% 8
+\bibitem{huelsenbeck2001mrbayes}
+\begin{barticle}
+\bauthor{\bsnm{Huelsenbeck}, \binits{J.P.}},
+\bauthor{\bsnm{Ronquist}, \binits{F.}}:
+\batitle{Mrbayes: Bayesian inference of phylogenetic trees}.
+\bjtitle{Bioinformatics}
+\bvolume{17}(\bissue{8}),
+\bfpage{754}--\blpage{755}
+(\byear{2001})
+\end{barticle}
+\endbibitem
+
+%%% 9
+\bibitem{paradis2004ape}
+\begin{barticle}
+\bauthor{\bsnm{Paradis}, \binits{E.}},
+\bauthor{\bsnm{Claude}, \binits{J.}},
+\bauthor{\bsnm{Strimmer}, \binits{K.}}:
+\batitle{Ape: analyses of phylogenetics and evolution in r language}.
+\bjtitle{Bioinformatics}
+\bvolume{20}(\bissue{2}),
+\bfpage{289}--\blpage{290}
+(\byear{2004})
+\end{barticle}
+\endbibitem
+
+%%% 10
+\bibitem{yang1997bayesian}
+\begin{barticle}
+\bauthor{\bsnm{Yang}, \binits{Z.}},
+\bauthor{\bsnm{Rannala}, \binits{B.}}:
+\batitle{Bayesian phylogenetic inference using dna sequences: a markov chain
+  monte carlo method.}
+\bjtitle{Molecular biology and evolution}
+\bvolume{14}(\bissue{7}),
+\bfpage{717}--\blpage{724}
+(\byear{1997})
+\end{barticle}
+\endbibitem
+
+%%% 11
+\bibitem{rannala2003bayes}
+\begin{barticle}
+\bauthor{\bsnm{Rannala}, \binits{B.}},
+\bauthor{\bsnm{Yang}, \binits{Z.}}:
+\batitle{Bayes estimation of species divergence times and ancestral population
+  sizes using dna sequences from multiple loci}.
+\bjtitle{Genetics}
+\bvolume{164}(\bissue{4}),
+\bfpage{1645}--\blpage{1656}
+(\byear{2003})
+\end{barticle}
+\endbibitem
+
+%%% 12
+\bibitem{yang2003comparison}
+\begin{barticle}
+\bauthor{\bsnm{Yang}, \binits{Z.}},
+\bauthor{\bsnm{Yoder}, \binits{A.D.}}:
+\batitle{Comparison of likelihood and bayesian methods for estimating
+  divergence times using multiple gene loci and calibration points, with
+  application to a radiation of cute-looking mouse lemur species}.
+\bjtitle{Systematic biology}
+\bvolume{52}(\bissue{5}),
+\bfpage{705}--\blpage{716}
+(\byear{2003})
+\end{barticle}
+\endbibitem
+
+%%% 13
+\bibitem{reis2011approximate}
+\begin{barticle}
+\bauthor{\bsnm{Reis}, \binits{M.d.}},
+\bauthor{\bsnm{Yang}, \binits{Z.}}:
+\batitle{Approximate likelihood calculation on a phylogeny for bayesian
+  estimation of divergence times}.
+\bjtitle{Molecular Biology and Evolution}
+\bvolume{28}(\bissue{7}),
+\bfpage{2161}--\blpage{2172}
+(\byear{2011})
+\end{barticle}
+\endbibitem
+
+%%% 14
 \bibitem{kobert2017efficient}
 \begin{barticle}
 \bauthor{\bsnm{Kobert}, \binits{K.}},
@@ -328,7 +248,7 @@ Taxon,
 \end{barticle}
 \endbibitem
 
-%%% 21
+%%% 15
 \bibitem{lakner2008efficiency}
 \begin{barticle}
 \bauthor{\bsnm{Lakner}, \binits{C.}},
@@ -345,7 +265,7 @@ Taxon,
 \end{barticle}
 \endbibitem
 
-%%% 22
+%%% 16
 \bibitem{hohna2011guided}
 \begin{barticle}
 \bauthor{\bsnm{H{\"o}hna}, \binits{S.}},
@@ -358,47 +278,20 @@ Taxon,
 \end{barticle}
 \endbibitem
 
-%%% 23
-\bibitem{jukes1969evolution}
+%%% 17
+\bibitem{green1995reversible}
 \begin{barticle}
-\bauthor{\bsnm{Jukes}, \binits{T.H.}},
-\bauthor{\bsnm{Cantor}, \binits{C.R.}}, \betal:
-\batitle{Evolution of protein molecules}.
-\bjtitle{Mammalian protein metabolism}
-\bvolume{3}(\bissue{21}),
-\bfpage{132}
-(\byear{1969})
+\bauthor{\bsnm{Green}, \binits{P.J.}}:
+\batitle{Reversible jump markov chain monte carlo computation and bayesian
+  model determination}.
+\bjtitle{Biometrika}
+\bvolume{82}(\bissue{4}),
+\bfpage{711}--\blpage{732}
+(\byear{1995})
 \end{barticle}
 \endbibitem
 
-%%% 24
-\bibitem{hasegawa1985dating}
-\begin{barticle}
-\bauthor{\bsnm{Hasegawa}, \binits{M.}},
-\bauthor{\bsnm{Kishino}, \binits{H.}},
-\bauthor{\bsnm{Yano}, \binits{T.-a.}}:
-\batitle{Dating of the human-ape splitting by a molecular clock of
-  mitochondrial dna}.
-\bjtitle{Journal of molecular evolution}
-\bvolume{22}(\bissue{2}),
-\bfpage{160}--\blpage{174}
-(\byear{1985})
-\end{barticle}
-\endbibitem
-
-%%% 25
-\bibitem{zharkikh1994estimation}
-\begin{barticle}
-\bauthor{\bsnm{Zharkikh}, \binits{A.}}:
-\batitle{Estimation of evolutionary distances between nucleotide sequences}.
-\bjtitle{Journal of molecular evolution}
-\bvolume{39}(\bissue{3}),
-\bfpage{315}--\blpage{329}
-(\byear{1994})
-\end{barticle}
-\endbibitem
-
-%%% 26
+%%% 18
 \bibitem{drummond2006relaxed}
 \begin{barticle}
 \bauthor{\bsnm{Drummond}, \binits{A.J.}},
@@ -505,191 +398,6 @@ Taxon,
 </bibl>
 
 <bibl id="B6">
-  <title><p>MRBAYES: Bayesian inference of phylogenetic trees</p></title>
-  <aug>
-    <au><snm>Huelsenbeck</snm><fnm>JP</fnm></au>
-    <au><snm>Ronquist</snm><fnm>F</fnm></au>
-  </aug>
-  <source>Bioinformatics</source>
-  <publisher>Oxford University Press</publisher>
-  <pubdate>2001</pubdate>
-  <volume>17</volume>
-  <issue>8</issue>
-  <fpage>754</fpage>
-  <lpage>-755</lpage>
-</bibl>
-
-<bibl id="B7">
-  <title><p>PAML: a program package for phylogenetic analysis by maximum
-  likelihood</p></title>
-  <aug>
-    <au><snm>Yang</snm><fnm>Z</fnm></au>
-  </aug>
-  <source>Bioinformatics</source>
-  <publisher>Oxford University Press</publisher>
-  <pubdate>1997</pubdate>
-  <volume>13</volume>
-  <issue>5</issue>
-  <fpage>555</fpage>
-  <lpage>-556</lpage>
-</bibl>
-
-<bibl id="B8">
-  <title><p>APE: analyses of phylogenetics and evolution in R
-  language</p></title>
-  <aug>
-    <au><snm>Paradis</snm><fnm>E</fnm></au>
-    <au><snm>Claude</snm><fnm>J</fnm></au>
-    <au><snm>Strimmer</snm><fnm>K</fnm></au>
-  </aug>
-  <source>Bioinformatics</source>
-  <publisher>Oxford University Press</publisher>
-  <pubdate>2004</pubdate>
-  <volume>20</volume>
-  <issue>2</issue>
-  <fpage>289</fpage>
-  <lpage>-290</lpage>
-</bibl>
-
-<bibl id="B9">
-  <title><p>MEGA7: molecular evolutionary genetics analysis version 7.0 for
-  bigger datasets</p></title>
-  <aug>
-    <au><snm>Kumar</snm><fnm>S</fnm></au>
-    <au><snm>Stecher</snm><fnm>G</fnm></au>
-    <au><snm>Tamura</snm><fnm>K</fnm></au>
-  </aug>
-  <source>Molecular biology and evolution</source>
-  <publisher>Society for Molecular Biology and Evolution</publisher>
-  <pubdate>2016</pubdate>
-  <volume>33</volume>
-  <issue>7</issue>
-  <fpage>1870</fpage>
-  <lpage>-1874</lpage>
-</bibl>
-
-<bibl id="B10">
-  <title><p>On the complexity of multiple sequence alignment</p></title>
-  <aug>
-    <au><snm>Wang</snm><fnm>L</fnm></au>
-    <au><snm>Jiang</snm><fnm>T</fnm></au>
-  </aug>
-  <source>Journal of computational biology</source>
-  <pubdate>1994</pubdate>
-  <volume>1</volume>
-  <issue>4</issue>
-  <fpage>337</fpage>
-  <lpage>-348</lpage>
-</bibl>
-
-<bibl id="B11">
-  <title><p>The principles and practice of numerical taxonomy</p></title>
-  <aug>
-    <au><snm>Sokal</snm><fnm>RR</fnm></au>
-  </aug>
-  <source>Taxon</source>
-  <publisher>JSTOR</publisher>
-  <pubdate>1963</pubdate>
-  <fpage>190</fpage>
-  <lpage>-199</lpage>
-</bibl>
-
-<bibl id="B12">
-  <title><p>The neighbor-joining method: a new method for reconstructing
-  phylogenetic trees.</p></title>
-  <aug>
-    <au><snm>Saitou</snm><fnm>N</fnm></au>
-    <au><snm>Nei</snm><fnm>M</fnm></au>
-  </aug>
-  <source>Molecular biology and evolution</source>
-  <pubdate>1987</pubdate>
-  <volume>4</volume>
-  <issue>4</issue>
-  <fpage>406</fpage>
-  <lpage>-425</lpage>
-</bibl>
-
-<bibl id="B13">
-  <title><p>Did egg-laying boas break Dollo's law? Phylogenetic evidence for
-  reversal to oviparity in sand boas (Eryx: Boidae)</p></title>
-  <aug>
-    <au><snm>Lynch</snm><fnm>VJ</fnm></au>
-    <au><snm>Wagner</snm><fnm>GP</fnm></au>
-  </aug>
-  <source>Evolution: International Journal of Organic Evolution</source>
-  <publisher>Wiley Online Library</publisher>
-  <pubdate>2010</pubdate>
-  <volume>64</volume>
-  <issue>1</issue>
-  <fpage>207</fpage>
-  <lpage>-216</lpage>
-</bibl>
-
-<bibl id="B14">
-  <title><p>Bayesian phylogenetic inference using DNA sequences: a Markov chain
-  Monte Carlo method.</p></title>
-  <aug>
-    <au><snm>Yang</snm><fnm>Z</fnm></au>
-    <au><snm>Rannala</snm><fnm>B</fnm></au>
-  </aug>
-  <source>Molecular biology and evolution</source>
-  <pubdate>1997</pubdate>
-  <volume>14</volume>
-  <issue>7</issue>
-  <fpage>717</fpage>
-  <lpage>-724</lpage>
-</bibl>
-
-<bibl id="B15">
-  <title><p>Bayes estimation of species divergence times and ancestral
-  population sizes using DNA sequences from multiple loci</p></title>
-  <aug>
-    <au><snm>Rannala</snm><fnm>B</fnm></au>
-    <au><snm>Yang</snm><fnm>Z</fnm></au>
-  </aug>
-  <source>Genetics</source>
-  <publisher>Genetics Soc America</publisher>
-  <pubdate>2003</pubdate>
-  <volume>164</volume>
-  <issue>4</issue>
-  <fpage>1645</fpage>
-  <lpage>-1656</lpage>
-</bibl>
-
-<bibl id="B16">
-  <title><p>Comparison of likelihood and Bayesian methods for estimating
-  divergence times using multiple gene loci and calibration points, with
-  application to a radiation of cute-looking mouse lemur species</p></title>
-  <aug>
-    <au><snm>Yang</snm><fnm>Z</fnm></au>
-    <au><snm>Yoder</snm><fnm>AD</fnm></au>
-  </aug>
-  <source>Systematic biology</source>
-  <publisher>Society of Systematic Zoology</publisher>
-  <pubdate>2003</pubdate>
-  <volume>52</volume>
-  <issue>5</issue>
-  <fpage>705</fpage>
-  <lpage>-716</lpage>
-</bibl>
-
-<bibl id="B17">
-  <title><p>Approximate likelihood calculation on a phylogeny for Bayesian
-  estimation of divergence times</p></title>
-  <aug>
-    <au><snm>Reis</snm><fnm>Md</fnm></au>
-    <au><snm>Yang</snm><fnm>Z</fnm></au>
-  </aug>
-  <source>Molecular Biology and Evolution</source>
-  <publisher>Oxford University Press</publisher>
-  <pubdate>2011</pubdate>
-  <volume>28</volume>
-  <issue>7</issue>
-  <fpage>2161</fpage>
-  <lpage>-2172</lpage>
-</bibl>
-
-<bibl id="B18">
   <title><p>BEAST: Bayesian evolutionary analysis by sampling trees</p></title>
   <aug>
     <au><snm>Drummond</snm><fnm>AJ</fnm></au>
@@ -703,7 +411,7 @@ Taxon,
   <fpage>214</fpage>
 </bibl>
 
-<bibl id="B19">
+<bibl id="B7">
   <title><p>BEAST 2: a software platform for Bayesian evolutionary
   analysis</p></title>
   <aug>
@@ -725,7 +433,103 @@ Taxon,
   <fpage>e1003537</fpage>
 </bibl>
 
-<bibl id="B20">
+<bibl id="B8">
+  <title><p>MRBAYES: Bayesian inference of phylogenetic trees</p></title>
+  <aug>
+    <au><snm>Huelsenbeck</snm><fnm>JP</fnm></au>
+    <au><snm>Ronquist</snm><fnm>F</fnm></au>
+  </aug>
+  <source>Bioinformatics</source>
+  <publisher>Oxford University Press</publisher>
+  <pubdate>2001</pubdate>
+  <volume>17</volume>
+  <issue>8</issue>
+  <fpage>754</fpage>
+  <lpage>-755</lpage>
+</bibl>
+
+<bibl id="B9">
+  <title><p>APE: analyses of phylogenetics and evolution in R
+  language</p></title>
+  <aug>
+    <au><snm>Paradis</snm><fnm>E</fnm></au>
+    <au><snm>Claude</snm><fnm>J</fnm></au>
+    <au><snm>Strimmer</snm><fnm>K</fnm></au>
+  </aug>
+  <source>Bioinformatics</source>
+  <publisher>Oxford University Press</publisher>
+  <pubdate>2004</pubdate>
+  <volume>20</volume>
+  <issue>2</issue>
+  <fpage>289</fpage>
+  <lpage>-290</lpage>
+</bibl>
+
+<bibl id="B10">
+  <title><p>Bayesian phylogenetic inference using DNA sequences: a Markov chain
+  Monte Carlo method.</p></title>
+  <aug>
+    <au><snm>Yang</snm><fnm>Z</fnm></au>
+    <au><snm>Rannala</snm><fnm>B</fnm></au>
+  </aug>
+  <source>Molecular biology and evolution</source>
+  <pubdate>1997</pubdate>
+  <volume>14</volume>
+  <issue>7</issue>
+  <fpage>717</fpage>
+  <lpage>-724</lpage>
+</bibl>
+
+<bibl id="B11">
+  <title><p>Bayes estimation of species divergence times and ancestral
+  population sizes using DNA sequences from multiple loci</p></title>
+  <aug>
+    <au><snm>Rannala</snm><fnm>B</fnm></au>
+    <au><snm>Yang</snm><fnm>Z</fnm></au>
+  </aug>
+  <source>Genetics</source>
+  <publisher>Genetics Soc America</publisher>
+  <pubdate>2003</pubdate>
+  <volume>164</volume>
+  <issue>4</issue>
+  <fpage>1645</fpage>
+  <lpage>-1656</lpage>
+</bibl>
+
+<bibl id="B12">
+  <title><p>Comparison of likelihood and Bayesian methods for estimating
+  divergence times using multiple gene loci and calibration points, with
+  application to a radiation of cute-looking mouse lemur species</p></title>
+  <aug>
+    <au><snm>Yang</snm><fnm>Z</fnm></au>
+    <au><snm>Yoder</snm><fnm>AD</fnm></au>
+  </aug>
+  <source>Systematic biology</source>
+  <publisher>Society of Systematic Zoology</publisher>
+  <pubdate>2003</pubdate>
+  <volume>52</volume>
+  <issue>5</issue>
+  <fpage>705</fpage>
+  <lpage>-716</lpage>
+</bibl>
+
+<bibl id="B13">
+  <title><p>Approximate likelihood calculation on a phylogeny for Bayesian
+  estimation of divergence times</p></title>
+  <aug>
+    <au><snm>Reis</snm><fnm>Md</fnm></au>
+    <au><snm>Yang</snm><fnm>Z</fnm></au>
+  </aug>
+  <source>Molecular Biology and Evolution</source>
+  <publisher>Oxford University Press</publisher>
+  <pubdate>2011</pubdate>
+  <volume>28</volume>
+  <issue>7</issue>
+  <fpage>2161</fpage>
+  <lpage>-2172</lpage>
+</bibl>
+
+<bibl id="B14">
   <title><p>Efficient detection of repeating sites to accelerate phylogenetic
   likelihood calculations</p></title>
   <aug>
@@ -742,7 +546,7 @@ Taxon,
   <lpage>-217</lpage>
 </bibl>
 
-<bibl id="B21">
+<bibl id="B15">
   <title><p>Efficiency of Markov chain Monte Carlo tree proposals in Bayesian
   phylogenetics</p></title>
   <aug>
@@ -761,7 +565,7 @@ Taxon,
   <lpage>-103</lpage>
 </bibl>
 
-<bibl id="B22">
+<bibl id="B16">
   <title><p>Guided tree topology proposals for Bayesian phylogenetic
   inference</p></title>
   <aug>
@@ -777,54 +581,22 @@ Taxon,
   <lpage>-11</lpage>
 </bibl>
 
-<bibl id="B23">
-  <title><p>Evolution of protein molecules</p></title>
+<bibl id="B17">
+  <title><p>Reversible jump Markov chain Monte Carlo computation and Bayesian
+  model determination</p></title>
   <aug>
-    <au><snm>Jukes</snm><fnm>TH</fnm></au>
-    <au><snm>Cantor</snm><fnm>CR</fnm></au>
-    <au><cnm>others</cnm></au>
+    <au><snm>Green</snm><fnm>PJ</fnm></au>
   </aug>
-  <source>Mammalian protein metabolism</source>
-  <publisher>New York</publisher>
-  <pubdate>1969</pubdate>
-  <volume>3</volume>
-  <issue>21</issue>
-  <fpage>132</fpage>
+  <source>Biometrika</source>
+  <publisher>Oxford University Press</publisher>
+  <pubdate>1995</pubdate>
+  <volume>82</volume>
+  <issue>4</issue>
+  <fpage>711</fpage>
+  <lpage>-732</lpage>
 </bibl>
 
-<bibl id="B24">
-  <title><p>Dating of the human-ape splitting by a molecular clock of
-  mitochondrial DNA</p></title>
-  <aug>
-    <au><snm>Hasegawa</snm><fnm>M</fnm></au>
-    <au><snm>Kishino</snm><fnm>H</fnm></au>
-    <au><snm>Yano</snm><fnm>Ta</fnm></au>
-  </aug>
-  <source>Journal of molecular evolution</source>
-  <publisher>Springer</publisher>
-  <pubdate>1985</pubdate>
-  <volume>22</volume>
-  <issue>2</issue>
-  <fpage>160</fpage>
-  <lpage>-174</lpage>
-</bibl>
-
-<bibl id="B25">
-  <title><p>Estimation of evolutionary distances between nucleotide
-  sequences</p></title>
-  <aug>
-    <au><snm>Zharkikh</snm><fnm>A</fnm></au>
-  </aug>
-  <source>Journal of molecular evolution</source>
-  <publisher>Springer</publisher>
-  <pubdate>1994</pubdate>
-  <volume>39</volume>
-  <issue>3</issue>
-  <fpage>315</fpage>
-  <lpage>-329</lpage>
-</bibl>
-
-<bibl id="B26">
+<bibl id="B18">
   <title><p>Relaxed phylogenetics and dating with confidence</p></title>
   <aug>
     <au><snm>Drummond</snm><fnm>AJ</fnm></au>
