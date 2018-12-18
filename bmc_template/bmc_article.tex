@@ -161,6 +161,7 @@ f(g,\Phi |D) = \frac{{\Pr (D|g,\Phi ) \times \Pr (g) \times \Pr (\Phi )}}{{\Pr (
 
 Moreover, due to the huge amount of data and the marginal likelihood being difficulty to calculate, Markov Chain Monte Carlo (MCMC) algorithms are adopted to get samples from the posterior distribution.
 \subsection*{Tree proposals}
+\label{treeproposals}
 The term ``operator" used in this paper is defined as the tree proposal in Bayesian MCMC to propose a new state that is only dependent on the current state.
 
 Generally, some classical operators can satisfy most sampling requirements, such as a random walk operator which proposes a new state by adding a random number, and a scale operator which multiplies the current state with a scale factor. But they are suitable for working on a single parameter or a set of parameters, such as population size. To make a proposal about the tree topology, it is also necessary to include other operators, such as subtree slide operator, swap operator narrow operator and so on. On top of this, there are also some extended operators available to help give the better performance. For instance, the prune-and-regraft operator selects a random subtree and reattaches the subtree at a new random branch. And the subtree-swap operator exchanges two random subtended subtrees.
@@ -289,7 +290,7 @@ For the symmetric tree in Fig.\ref{treeshape}, the operations are illustrated in
 
 \emph{Step 4}  Update the rates using the adjusted genetic distances divided by the proposed node times.
 
-\emph{Step 5} Return the Hastings Ratio
+\emph{Step 5} Return the $HastingsRatio$.
 \paragraph*{Asymmetric tree shape}
 
 How to operate on the asymmetric tree in Fig.\ref{treeshape} is illustrated Fig.\ref{asymmetric}, in which there are three possible trees.
@@ -312,11 +313,34 @@ How to operate on the asymmetric tree in Fig.\ref{treeshape} is illustrated Fig.
 
 \emph{Step 4}  Update the rates using the adjusted genetic distances divided by the proposed node times.
 
-\emph{Step 5} Return the Hastings Ratio
-\paragraph*{Hastings Ratio}
-Algorithm \ref{alg1}.
+\emph{Step 5} Return the $HastingsRatio$.
+
+\paragraph*{Calculate the $HastingsRatio$}
+
+As is mentioned in the previous section, the operator in phylogenetic analysis based on Bayesian MCMC should make a reversible proposal to satisfy the detailed balance (Eq.(\ref{balance})). Therefore, the last step in the ConstantDistance Operator is to return the $HastingsRatio$ to the acceptance probability (Eq.(\ref{Ratio})). 
+
+In the operations for internal nodes, the rates on the three branches that are linked the internal node are proposed by one random number $a$. Apparently, the dimension in the two parameter subspaces is different. To solve this problem, a Jacobian matrix ${\mathbf{J_1}}$  is constructed which takes the vector ${\mathbf{X}} = [{t_x},{r_i},{r_j},{r_k}]$ as input and outputs the vector ${\mathbf{Y}} = [{t_x}',{r_i}',{r_j}',{r_k}']$, as is shown in Eq.(\ref{JacobianMatrix}).
+
+\begin{equation}\label{JacobianMatrix}
+{\mathbf{J_1}} = \left[ {\begin{array}{*{20}{c}}
+  {\frac{{\partial {\mathbf{f}}}}{{\partial {t_x}}}}&{\frac{{\partial {\mathbf{f}}}}{{\partial {r_i}}}}&{\frac{{\partial {\mathbf{f}}}}{{\partial {r_j}}}}&{\frac{{\partial {\mathbf{f}}}}{{\partial {r_k}}}}
+\end{array}} \right] = \left[ {\begin{array}{*{20}{c}}
+  {\frac{{\partial {f_1}}}{{\partial {t_x}}}}&{\frac{{\partial {f_1}}}{{\partial {r_i}}}}&{\frac{{\partial {f_1}}}{{\partial {r_j}}}}&{\frac{{\partial {f_1}}}{{\partial {r_k}}}} \\
+  {\frac{{\partial {f_2}}}{{\partial {t_x}}}}&{\frac{{\partial {f_2}}}{{\partial {r_i}}}}&{\frac{{\partial {f_2}}}{{\partial {r_j}}}}&{\frac{{\partial {f_2}}}{{\partial {r_k}}}} \\
+  {\frac{{\partial {f_3}}}{{\partial {t_x}}}}&{\frac{{\partial {f_3}}}{{\partial {r_i}}}}&{\frac{{\partial {f_3}}}{{\partial {r_j}}}}&{\frac{{\partial {f_3}}}{{\partial {r_k}}}} \\
+  {\frac{{\partial {f_4}}}{{\partial {t_x}}}}&{\frac{{\partial {f_4}}}{{\partial {r_i}}}}&{\frac{{\partial {f_4}}}{{\partial {r_j}}}}&{\frac{{\partial {f_4}}}{{\partial {r_k}}}}
+\end{array}} \right]
+\end{equation}
+, where the functions ${f_1}$, ${f_2}$, ${f_3}$ and ${f_4}$ represent how the operator makes an proposal. After substituting Eq.(\ref{int_rate}) in Eq.(\ref{JacobianMatrix}), the $HastingsRatio$ for the internal nodes can be derived by Eq.(\ref{HR1}).
+\begin{equation}\label{HR1}
+r = \frac{{q(x',dx)}}{{q(x,dx')}} = \frac{{\Pr ( - a)}}{{\Pr (a)}}\left| {\mathbf{J_1}} \right|
+\end{equation}
+
+Since the random number $a$ is drawn from a Uniform distribution, the probability ${\Pr ( - a)}$ is equal to ${\Pr ( a )}$, which makes Eq.(\ref{HR1}) simply become $r = \left| {\mathbf{J_1}} \right|$.
+
+For the root of the phylogenetic tree, the operations are concerned with tree topology. To make the proposed topology reversible, a factor $\mu$ is defined and will be included in the $HastingsRatio$, which is calculated by Algorithm \ref{alg1}.
 \begin{algorithm}
-\caption{Return HastingsRatio for Big pulley}
+\caption{Calculation of $\mu$ for Big pulley}
 \label{alg1}
 \begin{algorithmic}[1]
 \IF{the node that has been exchanged with \textbf{dau} or \textbf{dau} has child nodes}
@@ -334,16 +358,16 @@ Algorithm \ref{alg1}.
 \STATE $\gamma  = 0.5$
 \ENDIF
 \FOR{\textcircled1 \textcircled2}
-\STATE Return $HastingsRatio = \frac{\alpha }{{0.25}}$
+\STATE Return $\mu = \frac{\alpha }{{0.25}}$
 \ENDFOR
 \FOR{\textcircled3 \textcircled4}
-\STATE Return $HastingsRatio = \frac{\beta }{{0.25}}$
+\STATE Return $\mu = \frac{\beta }{{0.25}}$
 \ENDFOR
 \FOR{\textcircled5 \textcircled6}
-\STATE Return $HastingsRatio = \frac{\gamma }{{0.5}}$
+\STATE Return $\mu = \frac{\gamma }{{0.5}}$
 \ENDFOR
 \FOR{\textcircled7}
-\STATE Return $HastingsRatio = \frac{{0.25}}{1}$
+\STATE Return $\mu = \frac{{0.25}}{1}$
 \ENDFOR
 \end{algorithmic}
 \end{algorithm}
@@ -431,11 +455,14 @@ In this section, a real data set with 83 primates is used to further evaluate th
 \subsection*{Sampling a fixed unrooted tree}
 The test in this subsection is to elucidate the correctness of the proposed operator. As is shown in Fig.\ref{Fig.sub.11}, this test starts from an unrooted tree constructed by Neighbour-Joining(NJ) algorithm and will be fixed during the test. Specifically, after the NJ algorithm provides the distances on the branch, we adopted the midpoint method to root the tree. Then randomly assign the divergence times for each node under the given topology and distances, so that the rates on each branch can be calculated in accordance with the node times and the genetic distances. Afterwards, the rooted time tree shown in Fig.\ref{Fig.sub.12} is used as the initial state in MCMC chain, and is sampled by only using the proposed operator.
 
-The summary tree is obtained after running the simulation in BEAST2, which is pictured in Fig.\ref{summary3}. As can be seen, the result is consistent with, compared to the tree in Fig.\ref{standard}. In other words, the proposed operator is able to provide the correct samples when given a exactly known tree.
+The summary tree is obtained after running the simulation in BEAST2, which is pictured in Fig.\ref{summary3}. As can be seen, the result is consistent with, compared to the tree in Fig.\ref{ratites}. In other words, the proposed operator is able to provide the correct samples when given a exactly known tree.
 
 However, it is noticed that there exits some uncertainties in the node times, according to the non-1 posterior (0.9433) labeled on the node in Fig.\ref{summary3}. That is to say, even though the summary tree gives the most possible rooted tree, it is probable for the root to locate on any other branches.
 
 \subsection*{Correlation analysis of rates and times}
+To understand how the operator works on rates and node times, this section visualises the correlations of rates and times. Take an internal node as an example. Assuming the operator increases its current node time, to maintain the distances on the three branches linked to this node, the rates are supposed to decrease or increase according to its original state. If the rate increases  (decrease) along with the node time, then they have a positive (negative) correlation. 
+
+By analysing the seven ratites data set, we filter the tree in the sampled state by the shared common ancestor for each taxa, as well as the rates and node times. And we conducted s pairwise comparison between each rate and node time to see how they are correlated, as is shown in Fig.\ref{correlation}. Remember that this is only an average pairwise comparison. For higher dimensions, the results will be different. 
 
 \section*{Conclusion}
 The efficiency is of great significance in phylogenetic analysis based on Bayesian MCMC. This paper discussed how to make a tree proposal to deal with rates and node times on condition that the genetic distances are constant. In all, the proposed operator integrates four strategies to work on internal nodes and the root in a phylogenetic tree. By the tests that sample from known prior distribution, the ConstantDistance Operator shows the correct functionality. Then, after comparing the results of a series of simulations using both simulated data and real data, it is verified that the ConstantDistance Operator is valid and more efficient. It is believed that the work in this paper will make some contributions to the research in phylogenetic analysis by providing more efficient methods.
@@ -450,7 +477,7 @@ The efficiency is of great significance in phylogenetic analysis based on Bayesi
 %
 %\section*{Author's contributions}
 \section*{Acknowledgements}
-
+The work is partially supported by scholarship  from China Scholarship Council (File No.201706990021).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%                  The Bibliography                       %%
 %%                                                         %%
@@ -619,13 +646,44 @@ The efficiency is of great significance in phylogenetic analysis based on Bayesi
 \begin{figure}[h!]
 \centering
 \subfigure{
-\label{Fig.sub.1}
+\label{P_run}
 \includegraphics[width=0.5\textwidth]{primates1.eps}}
 \subfigure{
-\label{Fig.sub.2}
+\label{P_ess}
 \includegraphics[width=0.5\textwidth]{primates2.eps}}
 \caption{Comparison the ESS and ESS using primates data}
 \label{eff_comp2}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\subfigure[Unrooted tree]{
+\label{Fig.sub.11}
+\includegraphics[width=0.4\textwidth]{unrootedtree}}
+\subfigure[Rooted time tree]{
+\label{Fig.sub.12}
+\includegraphics[width=0.4\textwidth]{initialtree}}
+\caption{Initialising the rooted time tree based on an unrooted tree}
+\label{withoutdata}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\subfigure[Uncertainties in summary tree]{
+\label{summary3}
+\includegraphics[width=0.4\textwidth]{summary3}}
+\subfigure[Ratite phylogeography \cite{cooper2001complete}]{
+\label{ratites}
+\includegraphics[width=0.4\textwidth]{ratites}}
+\caption{Comparison of ratites phylogenetic trees}
+\label{fixedtree}
+\end{figure}
+
+\begin{figure}[h!]
+\includegraphics[width=12cm]{rateandtime.eps}\\
+\caption{\csentence{Correlation between rates and times in the ratites tree.}
+             }
+\label{correlation}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%                               %%

@@ -1,6 +1,6 @@
 %% BioMed_Central_Bib_Style_v1.01
 
-\begin{thebibliography}{18}
+\begin{thebibliography}{19}
 % BibTex style file: bmc-mathphys.bst (version 2.1), 2014-07-24
 \ifx \bisbn   \undefined \def \bisbn  #1{ISBN #1}\fi
 \ifx \binits  \undefined \def \binits#1{#1}\fi
@@ -303,6 +303,24 @@
 \bvolume{4}(\bissue{5}),
 \bfpage{88}
 (\byear{2006})
+\end{barticle}
+\endbibitem
+
+%%% 19
+\bibitem{cooper2001complete}
+\begin{barticle}
+\bauthor{\bsnm{Cooper}, \binits{A.}},
+\bauthor{\bsnm{Lalueza-Fox}, \binits{C.}},
+\bauthor{\bsnm{Anderson}, \binits{S.}},
+\bauthor{\bsnm{Rambaut}, \binits{A.}},
+\bauthor{\bsnm{Austin}, \binits{J.}},
+\bauthor{\bsnm{Ward}, \binits{R.}}:
+\batitle{Complete mitochondrial genome sequences of two extinct moas clarify
+  ratite evolution}.
+\bjtitle{Nature}
+\bvolume{409}(\bissue{6821}),
+\bfpage{704}
+(\byear{2001})
 \end{barticle}
 \endbibitem
 
@@ -610,6 +628,25 @@
   <volume>4</volume>
   <issue>5</issue>
   <fpage>e88</fpage>
+</bibl>
+
+<bibl id="B19">
+  <title><p>Complete mitochondrial genome sequences of two extinct moas clarify
+  ratite evolution</p></title>
+  <aug>
+    <au><snm>Cooper</snm><fnm>A</fnm></au>
+    <au><snm>Lalueza Fox</snm><fnm>C</fnm></au>
+    <au><snm>Anderson</snm><fnm>S</fnm></au>
+    <au><snm>Rambaut</snm><fnm>A</fnm></au>
+    <au><snm>Austin</snm><fnm>J</fnm></au>
+    <au><snm>Ward</snm><fnm>R</fnm></au>
+  </aug>
+  <source>Nature</source>
+  <publisher>Nature Publishing Group</publisher>
+  <pubdate>2001</pubdate>
+  <volume>409</volume>
+  <issue>6821</issue>
+  <fpage>704</fpage>
 </bibl>
 
 </refgrp>
