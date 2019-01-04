@@ -461,19 +461,34 @@ The ESS and running time are summarised in Fig.\ref{eff_comp} and Table \ref{eff
 \subsubsection*{A real data set analysis}
 We also use a real data set with 83 primates to further evaluate the performance of ConstantDistance Operator. The data set is assembled from. Similarly, the data set will be specified in 3 different situations and will be run 100 times in each situation. 
 %%data source, specify the prior and models used 
-The ESS and running time are shown in Fig.\ref{eff_comp2}. As can be seen from the figure, 
-\subsection*{Sampling a fixed unrooted tree}
-The test in this subsection is to elucidate the correctness of the proposed operator. As is shown in Fig.\ref{Fig.sub.11}, this test starts from an unrooted tree constructed by Neighbour-Joining(NJ) algorithm and will be fixed during the test. Specifically, after the NJ algorithm provides the distances on the branch, we adopted the midpoint method to root the tree. Then randomly assign the divergence times for each node under the given topology and distances, so that the rates on each branch can be calculated in accordance with the node times and the genetic distances. Afterwards, the rooted time tree shown in Fig.\ref{Fig.sub.12} is used as the initial state in MCMC chain, and is sampled by only using the proposed operator.
+The ESS and running time are shown in Fig.\ref{eff_comp2}. As can be seen from the figure, the analysis with using the ConstantDistance Operator costs less time and achieves much larger ESS. After calculating the mean value of the 100 runs in each situation, the ConstantDistance Operator improves the performance by 
+%%ESS per hour
+\\
+\\
+To draw a conclusion from the experiments above, the ConstantDistance Operator is effective and able to more efficient. 
+%%complete the conclusion
+\subsection*{Discussions and future work}
+This subsection further discusses how the ConstantDistance Operator makes a proposal and elucidate the correctness of the proposal in the aspect of a certain tree.  \cite{cooper2001complete}
+%%introduce ratites data source 
+\subsubsection*{Correlation analysis of rates and times}
+As is described in the methodology section, the key mechanism of the proposed operator is to increase or decrease a node time randomly and adjust the rates according to the constant product of rates and time, i.e. the genetic distances. In this way, there exist some correlations between rates and times. Take an internal node as an example. Assuming the proposed operator increases its current node time, to maintain the distances on the three branches linked to this node, the rate on the branch above this node is supposed to increase as well. But the two rates on the branches that are below this node are supposed to decrease. If the rate increases (decreases) along with the node time, then they have a positive (negative) correlation. 
 
-The summary tree is obtained after running the simulation in BEAST2, which is pictured in Fig.\ref{summary3}. As can be seen, the result is consistent with, compared to the tree in Fig.\ref{ratites}. In other words, the proposed operator is able to provide the correct samples when given a exactly known tree.
+After analysing the seven ratites data set in BEAST2 with the ConstantDistance Operator, we filter the trees in the output tree file by the shared common ancestor for each taxa, as well as the rates and node times in the log file. Then, we conducted a pairwise comparison between each rate and node time in the filtered trees to see how they are correlated. The results are shown in Fig.\ref{correlation}. As can be seen from upper right of the figure, to a large degree, the rates have a negative correlation with the node times. But in the upper left and bottom right of the figure, most rates (all the node times) have a positive correlation with each other. Remember that this is only an average pairwise comparison. For higher dimensions, the results will be different. 
+%%What conclusion
+\subsubsection*{Sampling a fixed unrooted tree}
+The tests that sample from the prior distributions in the previous section start from a tree with arbitrary genetic distances. Here, still by sampling from the prior distributions, the ratites data set is used to specify the genetic distances on an unrooted tree, so that the data is actually involved and likelihood is not included. 
 
+First of all, we use the ratites data set to construct an unrooted tree with an online program \cite{phyml}, the method of which is detailed in Ref.\cite{guindon2010new}.  As is shown in Fig.\ref{Fig.sub.11}, the unrooted tree with the genetic distances on the branches will be fixed when sampled by the proposed operator in BEAST2. 
+
+Then, we adopt the midpoint method to root the tree randomly assign the divergence times for each node under the given topology and distances. As a result, the rates on each branch are obtained. In Fig.\ref{Fig.sub.12}, the rooted time tree is specified as the initial state of MCMC chain in XML file, and will be sampled by only using the proposed operator.
+
+Finally, after running the XML file, we use TreeAnnotator to get the summary tree of all the samples in the output tree file \cite{TreeAnnotator}, which is shown in Fig.\ref{summary3}. As can be seen, the tree topology is consistent with Fig.\ref{ratites}. In other words, the proposed operator is able to provide the correct samples when given a exactly known tree.
+%%complete the conclusion and problems
 However, it is noticed that there exits some uncertainties in the node times, according to the non-1 posterior (0.9433) labeled on the node in Fig.\ref{summary3}. That is to say, even though the summary tree gives the most possible rooted tree, it is probable for the root to locate on any other branches.
-
-\subsection*{Correlation analysis of rates and times}
-To understand how the operator works on rates and node times, this section visualises the correlations of rates and times. Take an internal node as an example. Assuming the operator increases its current node time, to maintain the distances on the three branches linked to this node, the rates are supposed to decrease or increase according to its original state. If the rate increases  (decrease) along with the node time, then they have a positive (negative) correlation. 
-
-By analysing the seven ratites data set, we filter the tree in the sampled state by the shared common ancestor for each taxa, as well as the rates and node times. And we conducted s pairwise comparison between each rate and node time to see how they are correlated, as is shown in Fig.\ref{correlation}. Remember that this is only an average pairwise comparison. For higher dimensions, the results will be different. 
-
+\\
+\\
+In the future, we will continue to improve the performance of the ConstantDistance Operator. 
+%%mention the aspects to do in the future
 \section*{Conclusion}
 The efficiency is of great significance in phylogenetic analysis based on Bayesian MCMC. This paper discussed how to make a tree proposal to deal with rates and node times on condition that the genetic distances are constant. In all, this paper proposed an operator, called ConstantDistance Operator, which integrates four different strategies to work on internal nodes and the root in a phylogenetic tree. And the proposed operator has been developed as a new package for BEAST2. By the tests that sample from known prior distribution, the ConstantDistance Operator shows the correct functionality. Then, after comparing the results of a series of simulations using both simulated data and real data, it is verified that the ConstantDistance Operator is valid and more efficient. It is believed that the work in this paper will make some contributions to the research in phylogenetic analysis by providing more efficient methods.
 
@@ -541,15 +556,15 @@ The work is partially supported by scholarship  from China Scholarship Council (
 
 \begin{figure}[h!]
 \includegraphics[width=12cm]{internalnodes.eps}\\
-\caption{\csentence{The illustration of operation on internal nodes.}
+\caption{\csentence{The illustration of operations on internal nodes.}
              The operator proposes a tree ${g_{in}}'$ based on tree $g_{in}$, during which $d_i$, $d_j$, $d_k$ are constant.}
 \label{internalnodes}
 \end{figure}
 
 \begin{figure}[h!]
 \includegraphics[width=12cm]{rootstrategy.eps}\\
-\caption{\csentence{The operations of Simple Distance and Small Pulley.}
-             Simple Distance proposes ${g_{r1}'}$ and keeps $d_i$, $d_x$ constant. Small Pulley proposes ${g_{r2}'}$ and ${d_i} + {d_x}$ remains constant.}
+\caption{\csentence{The illustration of Simple Distance and Small Pulley.}
+             Simple Distance proposes ${g_{r1}}'$ and keeps $d_i$, $d_x$ constant. Small Pulley proposes ${g_{r2}}'$ and ${d_i} + {d_x}$ remains constant.}
 \label{simpledistance}
 \end{figure}
 
@@ -557,35 +572,35 @@ The work is partially supported by scholarship  from China Scholarship Council (
 \begin{figure}[h!]
 \includegraphics[width=12cm]{exchangemethod.eps}\\
 \caption{\csentence{The illustration of \textit{Exchange (\textbf{B},\textbf{ C})} method.}
-             }
+             This method is applied to tree $g$ and proposes $g'$ by swapping node B and C, so that the four distances are adjusted to maintain ${d_{AB}}$, ${d_{AC}}$ and ${d_{BC}}$.}
 \label{exchangemethod}
 \end{figure}
 
 \begin{figure}[h!]
 \includegraphics[width=12cm]{treeshape.eps}\\
-\caption{\csentence{The illustration of tree shapes.}
+\caption{\csentence{Two different tree shapes.}
              The symmetric tree is on the left and the asymmetric tree is on the right. The dashed triangles represent the potential subtrees rooted at the nodes.}
 \label{treeshape}
 \end{figure}
 
 \begin{figure}[h!]
 \includegraphics[width=12cm]{symmetric.eps}\\
-\caption{\csentence{The illustration of symmetric trees.}
-             }
+\caption{\csentence{The illustration of operations on symmetric tree in Fig.\ref{treeshape}.}
+             The proposed operator will propose one of the four possible trees, each with 0.25 probability.}
 \label{symmetric}
 \end{figure}
 
 \begin{figure}[h!]
 \includegraphics[width=12cm]{asymmetric.eps}\\
-\caption{\csentence{The illustration of asymmetric trees.}
-             }
+\caption{\csentence{The illustration of operations on asymmetric tree in Fig.\ref{treeshape}.}
+             The proposed operator will propose one of the three possible trees. Depending on ${t_o}'$, \textcircled5 has 1 probability, \textcircled6 and \textcircled7 have 0.5 probability each.}
 \label{asymmetric}
 \end{figure}
 
 \begin{figure}[h!]
 \includegraphics[width=12cm]{bigpulleyExp.eps}\\
 \caption{\csentence{The illustration of sampling from prior.}
-             }
+             $g_1$ is set to be the original tree where an MCMC chain starts. When testing Big Pulley, the proposed operator samples the trees among $g_1$, $g_2$ and $g_3$.}
 \label{sampleprior}
 \end{figure}
 
@@ -603,7 +618,8 @@ The work is partially supported by scholarship  from China Scholarship Council (
 \subfigure[Senario 2: chain length = 20000000]{
 \label{Fig.sub.4}
 \includegraphics[width=0.45\textwidth]{Fig8}}
-\caption{ Distributions of internal nodes}
+\caption{ \csentence{Sampled parameters in tests of internal nodes.}
+             The horizontal axis represents the node time of D in Fig.\ref{sampleprior}. The two scenarios sample two trees with different distances specified in Table \ref{ini_inter} . And each scenario has two different lengths of MCMC chains.}
 \label{res_int}
 \end{figure}
 
@@ -621,27 +637,28 @@ The work is partially supported by scholarship  from China Scholarship Council (
 \subfigure[${t_E}$ in Big pulley]{
 \label{Fig.sub.10}
 \includegraphics[width=0.35\textwidth]{bigT}}
-\caption{Distributions of root}
+\caption{\csentence{Sampled parameters in test of the root.}
+             For the trees in Fig.\ref{sampleprior}, Simple Distance samples the root time $t_E$ only, Small Pulley samples the distance $d_i$ only, and Big Pulley samples $t_E$, $t_D$, $d_i$. To make it simple, $t_E$ and $d_i$ are compared.}
 \label{res_roo1}
 \end{figure}
 
 \begin{figure}[h!]
 \includegraphics[width=12cm]{ModelValidation.eps}\\
 \caption{\csentence{The models and prior distributions to simulate the sequence data.}
-             }
+             The sequence alignment is simulated through a phylogenetic continuous-time Markov Chain that consists of a substitution model (HKY) and a uncorrelated relaxed clock model. The random variables in HKY model, including frequency and ratio, construct the mutation rate matrix. The rates and phylogenetic time trees specified by a Yule model construct the substitution tree. The standard deviation of rates and the birth rate in Yule model are both random variables following LogNormal distributions.}
 \label{modelvalidation}
 \end{figure}
 
 \begin{figure}[h!]
 \includegraphics[width=12cm]{SmallTree.eps}\\
-\caption{\csentence{Comparison of simulation study with 20 taxa.}
-             }
+\caption{\csentence{Comparing the sampled parameters in simulation study with 20 taxa.}
+             The red crossings represent the coordinates of real and estimated value. The vertical lines with circles show the 95\% HPD of the sampled parameters. The blue lines indicate that the estimated value is equal to the real value. The red line represents the fixed value of rate mean.}
 \label{SmallTree}
 \end{figure}
 
 \begin{figure}[h!]
 \includegraphics[width=12cm]{LargeTree.eps}\\
-\caption{\csentence{Comparison of simulation study with 120 taxa.}
+\caption{\csentence{Comparing the sampled parameters in simulation study with 120 taxa.}
              }
 \label{LargeTree}
 \end{figure}
@@ -649,19 +666,20 @@ The work is partially supported by scholarship  from China Scholarship Council (
 \begin{figure}[h!]
 \includegraphics[width=12cm]{Efficiency.eps}\\
 \caption{\csentence{Comparison of ESS and running time using simulated data.}
-             }
+             The term long, medium and short represent the length of sequence with 20 thousand, 10 thousand and 5 thousand respectively.}
 \label{eff_comp}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \subfigure{
-\label{P_run}
-\includegraphics[width=0.5\textwidth]{primates1.eps}}
-\subfigure{
 \label{P_ess}
-\includegraphics[width=0.5\textwidth]{primates2.eps}}
-\caption{Comparison the ESS and ESS using primates data}
+\includegraphics[width=0.45\textwidth]{primates2.eps}}
+\subfigure{
+\label{P_run}
+\includegraphics[width=0.45\textwidth]{primates1.eps}}
+\caption{\csentence{Comparison of ESS and running time using primates data.}
+             }
 \label{eff_comp2}
 \end{figure}
 
@@ -669,30 +687,32 @@ The work is partially supported by scholarship  from China Scholarship Council (
 \centering
 \subfigure[Unrooted tree]{
 \label{Fig.sub.11}
-\includegraphics[width=0.4\textwidth]{unrootedtree}}
+\includegraphics[width=0.35\textwidth]{unrootedtree}}
 \subfigure[Rooted time tree]{
 \label{Fig.sub.12}
 \includegraphics[width=0.4\textwidth]{initialtree}}
-\caption{Initialising the rooted time tree based on an unrooted tree}
+\caption{\csentence{Illustration of sampling a fixed unrooted tree.}
+            The unrooted tree is obtained from the ratites data set. The rooted time tree is the initial state in MCMC, with time on the nodes and rates on the branches.}
 \label{withoutdata}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
-\subfigure[Uncertainties in summary tree]{
+\subfigure[Summary tree of sampled trees]{
 \label{summary3}
 \includegraphics[width=0.4\textwidth]{summary3}}
-\subfigure[Ratite phylogeography \cite{cooper2001complete}]{
+\subfigure[Ratite phylogeography in Ref. \cite{cooper2001complete}]{
 \label{ratites}
 \includegraphics[width=0.4\textwidth]{ratites}}
-\caption{Comparison of ratites phylogenetic trees}
+\caption{\csentence{Comparison of ratites phylogenetic trees.}
+             }
 \label{fixedtree}
 \end{figure}
 
 \begin{figure}[h!]
 \includegraphics[width=12cm]{rateandtime.eps}\\
 \caption{\csentence{Correlation between rates and times in the ratites tree.}
-             }
+             Blue indicates the positive relation and red indicates the negative relation. The darker the colour is, the stronger the relation tends to be.}
 \label{correlation}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -739,15 +759,15 @@ Scenario 2&0.4&0.8&2.4&1.6&0.4&0.8&1&2&3&4\\
   \centering
 \begin{tabular}{c|cccc|c|c|cccc}
   \hline
-\multirow{2}*{strategy}&\multicolumn{4}{c|}{genetic distances}&\multirow{2}*{$t_D$}&\multirow{2}*{$t_E$}&\multicolumn{4}{c}{initial rates}\\
+\multirow{2}*{Strategy}&\multicolumn{4}{c|}{genetic distances}&\multirow{2}*{$t_D$}&\multirow{2}*{$t_E$}&\multicolumn{4}{c}{initial rates}\\
 ~&${d_j}$&${d_k}$&${d_x}$&${d_i}$&~&~&${r_j}$&${r_k}$&${r_x}$&${r_i}$\\
 \hline
-Simple distance&0.1&0.2&0.4&0.27&1&10&0.1&0.2&0.04&0.03\\
-Small pulley&0.1&0.2&\multicolumn{2}{|c|}{0.67}&1&10&0.1&0.2&0.04&0.03\\
-Big pulley&0.5&0.5&\multicolumn{2}{|c|}{0.5}&5&10&0.1&0.1&0.03&0.04\\
+Simple Distance&0.1&0.2&0.4&0.27&1&10&0.1&0.2&0.04&0.03\\
+Small Pulley&0.1&0.2&\multicolumn{2}{|c|}{0.67}&1&10&0.1&0.2&0.04&0.03\\
+Big Pulley&0.5&0.5&\multicolumn{2}{|c|}{0.5}&5&10&0.1&0.1&0.03&0.04\\
   \hline
 \end{tabular}
-\caption{Initial settings for simple distance}\label{ini_sim}
+\caption{Initial settings for Simple Distance}\label{ini_sim}
 \end{table}
 
 \begin{table}[h!]
@@ -757,7 +777,7 @@ Big pulley&0.5&0.5&\multicolumn{2}{|c|}{0.5}&5&10&0.1&0.1&0.03&0.04\\
 \multirow{2}*{Strategy}&\multirow{2}*{Variable}&\multicolumn{2}{c|}{Sample from MCMC}&\multicolumn{2}{c|}{R curve}&\multirow{2}*{Plot}\\
 &~&Mean&StdEv&Mean&StdEv&\\
 \hline
-Simple distance&$t_E$&7.8081&1.2884&7.818691&1.299236&Fig.\ref{Fig.sub.5}\\
+Simple Distance&$t_E$&7.8081&1.2884&7.8187&1.2992&Fig.\ref{Fig.sub.5}\\
 \hline
 Small Pulley&${d_i}$&0.3480&0.0492&0.3476&0.0494&Fig.\ref{Fig.sub.6}\\
 \hline
@@ -778,7 +798,7 @@ Small Pulley&${d_i}$&0.3480&0.0492&0.3476&0.0494&Fig.\ref{Fig.sub.6}\\
 120 taxa&100&98&85&94&100&100\\
 \hline
 \end{tabular}
-\caption{Number of real values lying in the 95\% HPD}\label{num_hpd}
+\caption{Number of real values lying in the 95\% HPD in Fig.\ref{SmallTree} and Fig.\ref{LargeTree} }\label{num_hpd}
 \end{table}
 
 \begin{table}[h!]

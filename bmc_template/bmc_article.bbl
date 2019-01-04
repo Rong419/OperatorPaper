@@ -1,6 +1,6 @@
 %% BioMed_Central_Bib_Style_v1.01
 
-\begin{thebibliography}{19}
+\begin{thebibliography}{23}
 % BibTex style file: bmc-mathphys.bst (version 2.1), 2014-07-24
 \ifx \bisbn   \undefined \def \bisbn  #1{ISBN #1}\fi
 \ifx \binits  \undefined \def \binits#1{#1}\fi
@@ -307,6 +307,14 @@
 \endbibitem
 
 %%% 19
+\bibitem{nesi}
+\begin{botherref}
+NeSI's Platform Mahuika.
+\url{https://www.nesi.org.nz/services/high-performance-computing/platforms}
+\end{botherref}
+\endbibitem
+
+%%% 20
 \bibitem{cooper2001complete}
 \begin{barticle}
 \bauthor{\bsnm{Cooper}, \binits{A.}},
@@ -322,6 +330,40 @@
 \bfpage{704}
 (\byear{2001})
 \end{barticle}
+\endbibitem
+
+%%% 21
+\bibitem{phyml}
+\begin{botherref}
+PhyML3.0: New Algorithms, Methods and Utilities.
+\url{http://www.atgc-montpellier.fr/phyml/}
+\end{botherref}
+\endbibitem
+
+%%% 22
+\bibitem{guindon2010new}
+\begin{barticle}
+\bauthor{\bsnm{Guindon}, \binits{S.}},
+\bauthor{\bsnm{Dufayard}, \binits{J.-F.}},
+\bauthor{\bsnm{Lefort}, \binits{V.}},
+\bauthor{\bsnm{Anisimova}, \binits{M.}},
+\bauthor{\bsnm{Hordijk}, \binits{W.}},
+\bauthor{\bsnm{Gascuel}, \binits{O.}}:
+\batitle{New algorithms and methods to estimate maximum-likelihood phylogenies:
+  assessing the performance of {P}hy{ML}3.0}.
+\bjtitle{Systematic biology}
+\bvolume{59}(\bissue{3}),
+\bfpage{307}--\blpage{321}
+(\byear{2010})
+\end{barticle}
+\endbibitem
+
+%%% 23
+\bibitem{TreeAnnotator}
+\begin{botherref}
+TREEANNOTATOR.
+\url{https://beast2.blogs.auckland.ac.nz/treeannotator/}
+\end{botherref}
 \endbibitem
 
 \end{thebibliography}
@@ -631,6 +673,11 @@
 </bibl>
 
 <bibl id="B19">
+  <title><p>NeSI's platform Mahuika</p></title>
+  <url>https://www.nesi.org.nz/services/high-performance-computing/platforms</url>
+</bibl>
+
+<bibl id="B20">
   <title><p>Complete mitochondrial genome sequences of two extinct moas clarify
   ratite evolution</p></title>
   <aug>
@@ -647,6 +694,36 @@
   <volume>409</volume>
   <issue>6821</issue>
   <fpage>704</fpage>
+</bibl>
+
+<bibl id="B21">
+  <title><p>PhyML3.0: new algorithms, methods and utilities</p></title>
+  <url>http://www.atgc-montpellier.fr/phyml/</url>
+</bibl>
+
+<bibl id="B22">
+  <title><p>New algorithms and methods to estimate maximum-likelihood
+  phylogenies: assessing the performance of {P}hy{ML}3.0</p></title>
+  <aug>
+    <au><snm>Guindon</snm><fnm>S</fnm></au>
+    <au><snm>Dufayard</snm><fnm>JF</fnm></au>
+    <au><snm>Lefort</snm><fnm>V</fnm></au>
+    <au><snm>Anisimova</snm><fnm>M</fnm></au>
+    <au><snm>Hordijk</snm><fnm>W</fnm></au>
+    <au><snm>Gascuel</snm><fnm>O</fnm></au>
+  </aug>
+  <source>Systematic biology</source>
+  <publisher>Oxford University Press</publisher>
+  <pubdate>2010</pubdate>
+  <volume>59</volume>
+  <issue>3</issue>
+  <fpage>307</fpage>
+  <lpage>-321</lpage>
+</bibl>
+
+<bibl id="B23">
+  <title><p>TREEANNOTATOR</p></title>
+  <url>https://beast2.blogs.auckland.ac.nz/treeannotator/</url>
 </bibl>
 
 </refgrp>
