@@ -1,6 +1,6 @@
 %% BioMed_Central_Bib_Style_v1.01
 
-\begin{thebibliography}{23}
+\begin{thebibliography}{33}
 % BibTex style file: bmc-mathphys.bst (version 2.1), 2014-07-24
 \ifx \bisbn   \undefined \def \bisbn  #1{ISBN #1}\fi
 \ifx \binits  \undefined \def \binits#1{#1}\fi
@@ -279,6 +279,45 @@
 \endbibitem
 
 %%% 17
+\bibitem{suchard2005stochastic}
+\begin{botherref}
+\oauthor{\bsnm{Suchard}, \binits{M.A.}}:
+Stochastic models for horizontal gene transfer: taking a random walk through
+  tree space.
+Genetics
+(2005)
+\end{botherref}
+\endbibitem
+
+%%% 18
+\bibitem{higuchi1997monte}
+\begin{barticle}
+\bauthor{\bsnm{Higuchi}, \binits{T.}}:
+\batitle{Monte carlo filter using the genetic algorithm operators}.
+\bjtitle{Journal of Statistical Computation and Simulation}
+\bvolume{59}(\bissue{1}),
+\bfpage{1}--\blpage{23}
+(\byear{1997})
+\end{barticle}
+\endbibitem
+
+%%% 19
+\bibitem{hohna2008clock}
+\begin{bchapter}
+\bauthor{\bsnm{Hohna}, \binits{S.}},
+\bauthor{\bsnm{Defoin-Platel}, \binits{M.}},
+\bauthor{\bsnm{Drummond}, \binits{A.J.}}:
+\bctitle{Clock-constrained tree proposal operators in bayesian phylogenetic
+  inference}.
+In: \bbtitle{BioInformatics and BioEngineering, 2008. BIBE 2008. 8th IEEE
+  International Conference On},
+pp. \bfpage{1}--\blpage{7}
+(\byear{2008}).
+\bcomment{IEEE}
+\end{bchapter}
+\endbibitem
+
+%%% 20
 \bibitem{green1995reversible}
 \begin{barticle}
 \bauthor{\bsnm{Green}, \binits{P.J.}}:
@@ -291,7 +330,95 @@
 \end{barticle}
 \endbibitem
 
-%%% 18
+%%% 21
+\bibitem{zuckerkandl1965evolutionary}
+\begin{bchapter}
+\bauthor{\bsnm{Zuckerkandl}, \binits{E.}},
+\bauthor{\bsnm{Pauling}, \binits{L.}}:
+\bctitle{Evolutionary divergence and convergence in proteins}.
+In: \bbtitle{Evolving Genes and Proteins},
+pp. \bfpage{97}--\blpage{166}.
+\bpublisher{Elsevier}, \blocation{???}
+(\byear{1965})
+\end{bchapter}
+\endbibitem
+
+%%% 22
+\bibitem{ho2005accuracy}
+\begin{barticle}
+\bauthor{\bsnm{Ho}, \binits{S.Y.}},
+\bauthor{\bsnm{Phillips}, \binits{M.J.}},
+\bauthor{\bsnm{Drummond}, \binits{A.J.}},
+\bauthor{\bsnm{Cooper}, \binits{A.}}:
+\batitle{Accuracy of rate estimation using relaxed-clock models with a critical
+  focus on the early metazoan radiation}.
+\bjtitle{Molecular Biology and Evolution}
+\bvolume{22}(\bissue{5}),
+\bfpage{1355}--\blpage{1363}
+(\byear{2005})
+\end{barticle}
+\endbibitem
+
+%%% 23
+\bibitem{lepage2007general}
+\begin{barticle}
+\bauthor{\bsnm{Lepage}, \binits{T.}},
+\bauthor{\bsnm{Bryant}, \binits{D.}},
+\bauthor{\bsnm{Philippe}, \binits{H.}},
+\bauthor{\bsnm{Lartillot}, \binits{N.}}:
+\batitle{A general comparison of relaxed molecular clock models}.
+\bjtitle{Molecular biology and evolution}
+\bvolume{24}(\bissue{12}),
+\bfpage{2669}--\blpage{2680}
+(\byear{2007})
+\end{barticle}
+\endbibitem
+
+%%% 24
+\bibitem{renner2005relaxed}
+\begin{barticle}
+\bauthor{\bsnm{Renner}, \binits{S.S.}}:
+\batitle{Relaxed molecular clocks for dating historical plant dispersal
+  events}.
+\bjtitle{Trends in plant science}
+\bvolume{10}(\bissue{11}),
+\bfpage{550}--\blpage{558}
+(\byear{2005})
+\end{barticle}
+\endbibitem
+
+%%% 25
+\bibitem{knapp2005relaxed}
+\begin{barticle}
+\bauthor{\bsnm{Knapp}, \binits{M.}},
+\bauthor{\bsnm{St{\"o}ckler}, \binits{K.}},
+\bauthor{\bsnm{Havell}, \binits{D.}},
+\bauthor{\bsnm{Delsuc}, \binits{F.}},
+\bauthor{\bsnm{Sebastiani}, \binits{F.}},
+\bauthor{\bsnm{Lockhart}, \binits{P.J.}}:
+\batitle{Relaxed molecular clock provides evidence for long-distance dispersal
+  of nothofagus (southern beech)}.
+\bjtitle{PLoS Biology}
+\bvolume{3}(\bissue{1}),
+\bfpage{14}
+(\byear{2005})
+\end{barticle}
+\endbibitem
+
+%%% 26
+\bibitem{drummond2010bayesian}
+\begin{barticle}
+\bauthor{\bsnm{Drummond}, \binits{A.J.}},
+\bauthor{\bsnm{Suchard}, \binits{M.A.}}:
+\batitle{Bayesian random local clocks, or one rate to rule them all}.
+\bjtitle{BMC biology}
+\bvolume{8}(\bissue{1}),
+\bfpage{114}
+(\byear{2010})
+\end{barticle}
+\endbibitem
+
+%%% 27
 \bibitem{drummond2006relaxed}
 \begin{barticle}
 \bauthor{\bsnm{Drummond}, \binits{A.J.}},
@@ -306,7 +433,21 @@
 \end{barticle}
 \endbibitem
 
-%%% 19
+%%% 28
+\bibitem{smith2010uncorrelated}
+\begin{botherref}
+\oauthor{\bsnm{Smith}, \binits{S.A.}},
+\oauthor{\bsnm{Beaulieu}, \binits{J.M.}},
+\oauthor{\bsnm{Donoghue}, \binits{M.J.}}:
+An uncorrelated relaxed-clock analysis suggests an earlier origin for flowering
+  plants.
+Proceedings of the National Academy of Sciences,
+201001225
+(2010)
+\end{botherref}
+\endbibitem
+
+%%% 29
 \bibitem{nesi}
 \begin{botherref}
 NeSI's Platform Mahuika.
@@ -314,7 +455,7 @@ NeSI's Platform Mahuika.
 \end{botherref}
 \endbibitem
 
-%%% 20
+%%% 30
 \bibitem{cooper2001complete}
 \begin{barticle}
 \bauthor{\bsnm{Cooper}, \binits{A.}},
@@ -332,7 +473,7 @@ NeSI's Platform Mahuika.
 \end{barticle}
 \endbibitem
 
-%%% 21
+%%% 31
 \bibitem{phyml}
 \begin{botherref}
 PhyML3.0: New Algorithms, Methods and Utilities.
@@ -340,7 +481,7 @@ PhyML3.0: New Algorithms, Methods and Utilities.
 \end{botherref}
 \endbibitem
 
-%%% 22
+%%% 32
 \bibitem{guindon2010new}
 \begin{barticle}
 \bauthor{\bsnm{Guindon}, \binits{S.}},
@@ -358,7 +499,7 @@ PhyML3.0: New Algorithms, Methods and Utilities.
 \end{barticle}
 \endbibitem
 
-%%% 23
+%%% 33
 \bibitem{TreeAnnotator}
 \begin{botherref}
 TREEANNOTATOR.
@@ -642,6 +783,47 @@ TREEANNOTATOR.
 </bibl>
 
 <bibl id="B17">
+  <title><p>Stochastic models for horizontal gene transfer: taking a random
+  walk through tree space</p></title>
+  <aug>
+    <au><snm>Suchard</snm><fnm>MA</fnm></au>
+  </aug>
+  <source>Genetics</source>
+  <publisher>Genetics Soc America</publisher>
+  <pubdate>2005</pubdate>
+</bibl>
+
+<bibl id="B18">
+  <title><p>Monte Carlo filter using the genetic algorithm
+  operators</p></title>
+  <aug>
+    <au><snm>Higuchi</snm><fnm>T</fnm></au>
+  </aug>
+  <source>Journal of Statistical Computation and Simulation</source>
+  <publisher>Taylor \& Francis</publisher>
+  <pubdate>1997</pubdate>
+  <volume>59</volume>
+  <issue>1</issue>
+  <fpage>1</fpage>
+  <lpage>-23</lpage>
+</bibl>
+
+<bibl id="B19">
+  <title><p>Clock-constrained tree proposal operators in Bayesian phylogenetic
+  inference</p></title>
+  <aug>
+    <au><snm>Hohna</snm><fnm>S</fnm></au>
+    <au><snm>Defoin Platel</snm><fnm>M</fnm></au>
+    <au><snm>Drummond</snm><fnm>AJ</fnm></au>
+  </aug>
+  <source>BioInformatics and BioEngineering, 2008. BIBE 2008. 8th IEEE
+  International Conference on</source>
+  <pubdate>2008</pubdate>
+  <fpage>1</fpage>
+  <lpage>-7</lpage>
+</bibl>
+
+<bibl id="B20">
   <title><p>Reversible jump Markov chain Monte Carlo computation and Bayesian
   model determination</p></title>
   <aug>
@@ -656,7 +838,104 @@ TREEANNOTATOR.
   <lpage>-732</lpage>
 </bibl>
 
-<bibl id="B18">
+<bibl id="B21">
+  <title><p>Evolutionary divergence and convergence in proteins</p></title>
+  <aug>
+    <au><snm>Zuckerkandl</snm><fnm>E</fnm></au>
+    <au><snm>Pauling</snm><fnm>L</fnm></au>
+  </aug>
+  <source>Evolving genes and proteins</source>
+  <publisher>Elsevier</publisher>
+  <pubdate>1965</pubdate>
+  <fpage>97</fpage>
+  <lpage>-166</lpage>
+</bibl>
+
+<bibl id="B22">
+  <title><p>Accuracy of rate estimation using relaxed-clock models with a
+  critical focus on the early metazoan radiation</p></title>
+  <aug>
+    <au><snm>Ho</snm><fnm>SY</fnm></au>
+    <au><snm>Phillips</snm><fnm>MJ</fnm></au>
+    <au><snm>Drummond</snm><fnm>AJ</fnm></au>
+    <au><snm>Cooper</snm><fnm>A</fnm></au>
+  </aug>
+  <source>Molecular Biology and Evolution</source>
+  <publisher>Society for Molecular Biology and Evolution</publisher>
+  <pubdate>2005</pubdate>
+  <volume>22</volume>
+  <issue>5</issue>
+  <fpage>1355</fpage>
+  <lpage>-1363</lpage>
+</bibl>
+
+<bibl id="B23">
+  <title><p>A general comparison of relaxed molecular clock models</p></title>
+  <aug>
+    <au><snm>Lepage</snm><fnm>T</fnm></au>
+    <au><snm>Bryant</snm><fnm>D</fnm></au>
+    <au><snm>Philippe</snm><fnm>H</fnm></au>
+    <au><snm>Lartillot</snm><fnm>N</fnm></au>
+  </aug>
+  <source>Molecular biology and evolution</source>
+  <publisher>Oxford University Press</publisher>
+  <pubdate>2007</pubdate>
+  <volume>24</volume>
+  <issue>12</issue>
+  <fpage>2669</fpage>
+  <lpage>-2680</lpage>
+</bibl>
+
+<bibl id="B24">
+  <title><p>Relaxed molecular clocks for dating historical plant dispersal
+  events</p></title>
+  <aug>
+    <au><snm>Renner</snm><fnm>SS</fnm></au>
+  </aug>
+  <source>Trends in plant science</source>
+  <publisher>Elsevier</publisher>
+  <pubdate>2005</pubdate>
+  <volume>10</volume>
+  <issue>11</issue>
+  <fpage>550</fpage>
+  <lpage>-558</lpage>
+</bibl>
+
+<bibl id="B25">
+  <title><p>Relaxed molecular clock provides evidence for long-distance
+  dispersal of Nothofagus (southern beech)</p></title>
+  <aug>
+    <au><snm>Knapp</snm><fnm>M</fnm></au>
+    <au><snm>St{\"o}ckler</snm><fnm>K</fnm></au>
+    <au><snm>Havell</snm><fnm>D</fnm></au>
+    <au><snm>Delsuc</snm><fnm>F</fnm></au>
+    <au><snm>Sebastiani</snm><fnm>F</fnm></au>
+    <au><snm>Lockhart</snm><fnm>PJ</fnm></au>
+  </aug>
+  <source>PLoS Biology</source>
+  <publisher>Public Library of Science</publisher>
+  <pubdate>2005</pubdate>
+  <volume>3</volume>
+  <issue>1</issue>
+  <fpage>e14</fpage>
+</bibl>
+
+<bibl id="B26">
+  <title><p>Bayesian random local clocks, or one rate to rule them
+  all</p></title>
+  <aug>
+    <au><snm>Drummond</snm><fnm>AJ</fnm></au>
+    <au><snm>Suchard</snm><fnm>MA</fnm></au>
+  </aug>
+  <source>BMC biology</source>
+  <publisher>BioMed Central</publisher>
+  <pubdate>2010</pubdate>
+  <volume>8</volume>
+  <issue>1</issue>
+  <fpage>114</fpage>
+</bibl>
+
+<bibl id="B27">
   <title><p>Relaxed phylogenetics and dating with confidence</p></title>
   <aug>
     <au><snm>Drummond</snm><fnm>AJ</fnm></au>
@@ -672,12 +951,26 @@ TREEANNOTATOR.
   <fpage>e88</fpage>
 </bibl>
 
-<bibl id="B19">
+<bibl id="B28">
+  <title><p>An uncorrelated relaxed-clock analysis suggests an earlier origin
+  for flowering plants</p></title>
+  <aug>
+    <au><snm>Smith</snm><fnm>SA</fnm></au>
+    <au><snm>Beaulieu</snm><fnm>JM</fnm></au>
+    <au><snm>Donoghue</snm><fnm>MJ</fnm></au>
+  </aug>
+  <source>Proceedings of the National Academy of Sciences</source>
+  <publisher>National Acad Sciences</publisher>
+  <pubdate>2010</pubdate>
+  <fpage>201001225</fpage>
+</bibl>
+
+<bibl id="B29">
   <title><p>NeSI's platform Mahuika</p></title>
   <url>https://www.nesi.org.nz/services/high-performance-computing/platforms</url>
 </bibl>
 
-<bibl id="B20">
+<bibl id="B30">
   <title><p>Complete mitochondrial genome sequences of two extinct moas clarify
   ratite evolution</p></title>
   <aug>
@@ -696,12 +989,12 @@ TREEANNOTATOR.
   <fpage>704</fpage>
 </bibl>
 
-<bibl id="B21">
+<bibl id="B31">
   <title><p>PhyML3.0: new algorithms, methods and utilities</p></title>
   <url>http://www.atgc-montpellier.fr/phyml/</url>
 </bibl>
 
-<bibl id="B22">
+<bibl id="B32">
   <title><p>New algorithms and methods to estimate maximum-likelihood
   phylogenies: assessing the performance of {P}hy{ML}3.0</p></title>
   <aug>
@@ -721,7 +1014,7 @@ TREEANNOTATOR.
   <lpage>-321</lpage>
 </bibl>
 
-<bibl id="B23">
+<bibl id="B33">
   <title><p>TREEANNOTATOR</p></title>
   <url>https://beast2.blogs.auckland.ac.nz/treeannotator/</url>
 </bibl>
