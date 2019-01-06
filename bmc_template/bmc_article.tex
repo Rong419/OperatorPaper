@@ -144,50 +144,47 @@ Bayesian MCMC plays an important role in phylogenetic analysis. However, due to 
 \section*{Introduction}
 Phylogenetics has attracted much research interest over the years. More and more scientists are becoming keen to discover the evolutionary history of life, such as birds \cite{hackett2008phylogenomic}, primates \cite{szalay2013evolutionary}, grasses \cite{kellogg2001evolutionary} and so on \cite{sawabe2007inferring,garnery1992evolutionary}. One fundamental concept in phylogenetics is a graph model that shows the relationships among species and organisms, which is called a phylogenetic tree. The main task for phylogenetic analysis is aimed at inferring the phylogenies by constructing the phylogenetic trees. Until now, a lot of methods have already been proposed and a majority of them have been implemented in the computer softwares, such as BEAST2 \cite{drummond2007beast, bouckaert2014beast} , MRBAYES \cite{huelsenbeck2001mrbayes} and APE \cite{paradis2004ape}.
 
-Traditional methods for constructing phylogenetic trees are based on a distance matrix that is obtained by sequence alignment, after biologists extract DNA from organisms. In the last few decades, more advanced techniques have been developed to reconstruct phylogenetic trees, due to the development of statistics and computer science. One popular research area called Bayesian phylogenetics puts an emphasis on a sampling process to construct the phylogenetic tree, in which the methods based on Markov Chain Monte Carlo (MCMC) provide a computational tool for sampling problems. Early in 1997, Yang and Rannala presented a Bayesian framework that includes the specified prior for phylogenies and ancestral speciation times, and the posterior probabilities of phylogenies to be inferred as the maximum posterior probability (MAP) tree \cite{yang1997bayesian}. By virtue of a sampling method, a set of trees with probabilities is obtained, so that Monte Carlo integration can be used to integrate over the ancestral speciation times for particular trees. Based on this framework, much attention has been paid to estimating the divergence times \cite{rannala2003bayes,yang2003comparison,reis2011approximate}.
-%%more details about the Bayesian work
+Traditional methods for constructing phylogenetic trees are based on a distance matrix that is obtained by sequence alignment, after biologists extract DNA from organisms. In the last few decades, more advanced techniques have been developed to reconstruct phylogenetic trees, due to the development of statistics and computer science. One popular research area called Bayesian phylogenetics puts an emphasis on a sampling process to construct the phylogenetic tree, in which the methods based on Markov Chain Monte Carlo (MCMC) provide a computational tool for sampling problems. Early in 1997, Yang and Rannala presented a Bayesian framework that includes the specified prior for phylogenies and ancestral speciation times, and the posterior probabilities of phylogenies to be inferred as the maximum posterior probability (MAP) tree \cite{yang1997bayesian}. By virtue of a MCMC algorithm, uncertainties in the ancestral speciation times are integrated out and a set of trees with probabilities is obtained. Based on this framework, much attention has been paid to estimating the divergence times. For example, Ref.\cite{rannala2003bayes} developed a Bayesian method to jointly infer the divergence times and popolation sizes. Ref.\cite{yang2003comparison} claimed that the Bayesian method is able to overcome some shortcomings, compared to a likelihood method, in the estimation of divergence times. Moreover, to tackle the computation burden in the Bayesian MCMC method, an approximate method is proposed to estimate the species divergence times \cite{reis2011approximate}.
 
-For phylogenetic analysis based on Bayesian MCMC, the efficiency of a sampling method is always the main issue that should be carefully handled. In particular, the calculation of the phylogenetic likelihood is a large burden of the efficiency. Hence, some researchers have tried to improve the likelihood calculations, such as detection of repeating sites \cite{kobert2017efficient}. On the other hand, in MCMC methods, the operators that propose a new state based on the current state also have a leading influence on the overall performance. As is discussed by Lakner et al., the major limitation in Bayesian MCMC analysis of phylogeny lies in the efficiency with which operators sample the tree space \cite{lakner2008efficiency}. So far, there have been already many different kinds of operators proposed. According to the work in Ref. \cite{hohna2011guided}, the two common operators, i.e. prune-and-regraft and subtree-swap, both contribute to a tree with low likelihood since they propose a new tree by random movement of the current tree. So the authors introduced two new operators by proposing a state from a discrete set of possible proposals and narrowing the proposal distribution to the more likely proposals. Their experimental results proved that the two operator have faster average run time and more accurate predictability.
+For phylogenetic analysis based on Bayesian MCMC, the efficiency of a sampling process is always the main issue that should be carefully handled. In particular, the repeated calculation of the phylogenetic likelihood makes a MCMC method computational expensive. Hence, some researchers have tried many ways to improve the likelihood calculations, such as detection of repeating sites \cite{kobert2017efficient}. On the other hand, in MCMC algorithms, the operators that propose a new state based on the current state also have a leading influence on the overall performance. As is discussed by Lakner et al., the major limitation in Bayesian MCMC analysis of phylogeny lies in the efficiency with which operators sample the tree space \cite{lakner2008efficiency}. So far, there have been already many different kinds of operators proposed. According to the work in Ref. \cite{hohna2011guided}, the two common operators, i.e. prune-and-regraft and subtree-swap, both contribute to a tree with low likelihood since they propose a new tree by random movement of the current tree. So the authors introduced two new operators by proposing a state from a discrete set of possible proposals and narrowing the proposal distribution to the more likely proposals. Their experimental results proved that the two operator have faster average run time and more accurate predictability.
 
 Nevertheless, it is acknowledged that a faster and more reliable performance is also dependent on a good mixture of operators and different operators may be applicable for different objects. In this paper, a novel operator is proposed in the case where genetic distances are constant. Namely, the proposed operator is used to change the divergence times of nodes and evolutionary rates on the branches at the same time without changing the genetic distances, so that the likelihood of the phylogenetic tree remains unchanged. In addition, the proposed operator has been implemented as a new package in BEAST2 software. After a series of simulations and experiments, the results prove that the proposed operator can provide correct samples  and work properly in Bayesian phylogenetic analysis. According to the comparisons, it is concluded that by using the proposed operator, the efficiency of sampling parameters can be increased by at least 4 times larger Effective Sample Size (ESS) per hour.
 
 The following of this paper is constructed as follows: Section 2 gives some preliminary theories of the work related to this paper. Section 3 introduces the proposed operator, which includes the mechanism for internal nodes and 3 different strategies for the root. The experiments and discussions are detailed in the 4th section to validate the efficiency of the proposed operator. Section 5 ends the paper with a short conclusion.
 \section*{Prelimiaries}
 \subsection*{Bayesian MCMC}
-Eq.(\ref{bayes}) shows a basic Bayesian framework for phylogenetic analysis. It consists of prior distributions for the tree $g$ and a set of parameters of interest $\Phi $, a phylogenetic likelihood that conveys information from data $D$, and the posterior distribution to be inferred, which is denoted in the form of probability density by $p(g) $, $p(\Phi )$, $p(D|g,\Phi )$, $f(g,\Phi |D)$ correspondingly. From a Bayesian perspective, the biological data, phylogenetic trees and the parameters in the model exist with some probabilities and are related by the Bayes' formula. As a result, it is able to jointly infer evolutionary history of species with various models that describe the evolutionary process.
+Eq.(\ref{bayes}) shows a basic Bayesian framework for phylogenetic analysis. It consists of prior distributions for the tree $g$ and a set of parameters of interest $\Phi $, a phylogenetic likelihood that conveys information from data $D$, and the posterior distribution to be inferred, which is denoted in the form of probability density by $p(g) $, $p(\Phi )$, $p(D|g,\Phi )$, $f(g,\Phi |D)$ correspondingly. From a Bayesian perspective, the biological data, phylogenetic trees and the parameters in the model exist with some probabilities and are related by the Bayes' formula. As a result, it is able to jointly infer evolutionary history of species  by incorporating various source of information such as molecular data and fossil records.
 \begin{eqnarray}\label{bayes}
 p(g,\Phi |D) = \frac{{p (D|g,\Phi ) \times p (g) \times p (\Phi )}}{{p (D)}}
 \end{eqnarray}
 
-On the other hand, due to the huge amount of data and the marginal likelihood being difficulty to calculate, Markov Chain Monte Carlo (MCMC) algorithms are adopted to get samples from the posterior distribution. 
-%%introduce what is MCMC, and the method of MH-MCMC?
+However, due to the huge amount of data and the marginal likelihood being difficulty to calculate, Markov Chain Monte Carlo (MCMC) is adopted to get samples from the posterior distribution. To avoid the calculation of marginal likelihood $p (D)$, MCMC algorithms construct a Markov chain whose stationary distribution is the posterior distribution $p(g,\Phi |D)$. In this paper, a Metroplis-Hastings algorithm (MH-MCMC) is implemented, which generate a new state given the current state through a proposal density and accept the new state with some probability \cite{metropolis1953equation,hastings1970monte}.
 \subsection*{Tree proposals}
 \label{treeproposals}
-The term ``operator" used in this paper is defined as the tree proposal in Bayesian phylogenetics, and is used to propose a new state that is only dependent on the current state.
+The term ``operator" used in this paper is defined as the tree proposal in Bayesian phylogenetic analysis. In MH-MCMC, it is used to propose a new state that is only dependent on the current state.
 
 For now, there are some classical and frequently-used operators, such as a random walk operator which proposes a new state by adding a random number \cite{suchard2005stochastic}, and a scale operator which multiplies the current state with a scale factor \cite{higuchi1997monte}. But they are suitable for working on a single parameter or a set of parameters, such as population size. To make a proposal about the tree topology, it is also necessary to include other operators, such as subtree slide operator, swap operator, narrow operator and so on \cite{hohna2008clock}. On top of this, there are also some extended operators available to help give the better performance. For instance, the prune-and-regraft operator selects a random subtree and reattaches the subtree at a new random branch, and the subtree-swap operator exchanges two random subtended subtrees \cite{hohna2011guided}. 
 
-What matters for developing an operator is that the proposal should be reversible. As is discussed in Green's paper \cite{green1995reversible}, the constructed Markov transition kernel $P(x,dx')$ should satisfy the detailed balance, as is represented by Eq.(\ref{balance}). In other words, the probability that the operator propose a new state from the current state is required to be equal to the probability that the proposed state goes back to current state. Therefore, as is shown in Eq.(\ref{Ratio}), to ensure the detailed balance in the MCMC chain, a ratio ${q(x',dx)}/{q(x,dx')}$ should always be included in the probability $\alpha(x,x')$ that the proposal made by the operator is accepted.
+What matters for developing an operator is that the proposal should be reversible. As is discussed in Green's paper \cite{green1995reversible}, the constructed Markov transition kernel $p(x,dx')$ should satisfy the detailed balance, as is represented by Eq.(\ref{balance}). In other words, the probability that the operator propose a new state from the current state is required to be equal to the probability that the proposed state goes back to current state. Therefore, as is shown in Eq.(\ref{Ratio}), to ensure the detailed balance in the MCMC chain, a ratio ${p(x',dx)}/{p(x,dx')}$ should always be included in the probability $\alpha(x,x')$ that the proposal made by the operator is accepted.
 \begin{equation}\label{balance}
-\int_A {\int_B {\pi (dx)P(x,dx')} }  = \int_B {\int_A {\pi (dx')P(x',dx)} }
+\int_A {\int_B {\pi (dx)p(x,dx')} }  = \int_B {\int_A {\pi (dx')p(x',dx)} }
 \end{equation}
 , where ${\pi (dx)}$ is the target distribution, $A$ and $B$ are Borel sets in parameter space $\varphi$.
 \begin{equation}\label{Ratio}
-{\alpha}(x,x') = \min \left\{ {1,\frac{{\pi (dx'){q}(x',dx)}}{{\pi (dx){q}(x,dx')}}} \right\}
+{\alpha}(x,x') = \min \left\{ {1,\frac{{\pi (dx'){p}(x',dx)}}{{\pi (dx){p}(x,dx')}}} \right\}
 \end{equation}
-, where $x$ $x'$ $dx$ $dx'$.The ratio ${q(x',dx)}/{q(x,dx')}$ is called Hasgtings ratio.
-%%explain the parameter and p or q!
-
+, where $x$ is the current state and the proposal would take the state to $dx'$ with probability ${p(x,dx')}$.The ratio ${p(x',dx)}/{p(x,dx')}$ is called Hasgtings ratio.
 \subsection*{Uncorrelated relaxed clock model}
-A molecular clock model is used to model how rates evolve along branches in the phylogenetic tree, so that a time tree can reconcile with the genetic distances between sequences. In the very beginning, a strict clock model assumes evolutionary rates to be the same at every branch \cite{zuckerkandl1965evolutionary}. However, a relaxed clock model allows rates to vary across lineages so that better estimates of divergence times can be obtained \cite{ho2005accuracy} \cite{lepage2007general} \cite{renner2005relaxed} \cite{knapp2005relaxed}. As an incomplete way of relaxing, a random local clock model only allows rates to be different within a subregion of the tree \cite{drummond2010bayesian}.  
+This paper is aimed at improving the performance of relaxed clock model in Bayesian phylogenetic analysis. A molecular clock model is used to model how rates evolve along branches in the phylogenetic tree, so that a time tree can reconcile with the genetic distances between sequences. In the very beginning, a strict clock model assumes evolutionary rates to be the same at every branch \cite{zuckerkandl1965evolutionary}. Since then, the idea of relaxing the molecular clock has become a research of interest and has been widely applied, such as Nothofagus \cite{knapp2005relaxed}. By allowing rates to vary across lineages, it is regarded that better estimates of divergence times can be obtained, according to the work in Ref.\cite{ho2005accuracy,renner2005relaxed,lepage2007general}. 
 %%define genetic distance
-%%application of relaxed clock
 
-This paper is aimed at improving the performance of relaxed clock model in Bayesian phylogenetic analysis. The proposed operator is based on an uncorrelated relaxed model, where the rates vary and follow a certain distribution. As is detailed in Ref.\cite{drummond2006relaxed}, uncorrelated rates indicate that the rate on each branch is identically distributed and will be independently drawn from a certain distribution such as a log-normal distribution. As a result, the rates can change faster than making a slight move over multiple adjoining branches. 
-%the application of UCR clock model 
-An uncorrelated relaxed-clock analysis suggests an earlier origin for flowering plants\cite{smith2010uncorrelated}
-%%construct the Bayes equation for our model after this section
-%%write the equation for inferring models Bayes!
+ The proposed operator is based on an uncorrelated relaxed model, where the rates vary and follow a certain distribution. As is detailed in Ref.\cite{drummond2006relaxed}, uncorrelated rates indicate that the rate on each branch is identically distributed and will be independently drawn from a certain distribution such as a log-normal distribution. As a result, the rates can change faster than making a slight move over multiple adjoining branches. In 2010, Smith et al. applied an uncorrelated relaxed-clock to flowering plants and the results show the consistency with the fossil record \cite{smith2010uncorrelated}.
+
+Therefore, referring to the Bayesian framework shown by Eq.(\ref{bayes}), the joint inference of evolutionary rates and divergence times can be made by the conditional distribution in Eq.(\ref{bayes1}). And the proposed operator is to sample the state $(t,r,\Phi)$ in the constructed MCMC chain.
+\begin{equation}\label{bayes1}
+p(t,r,\Phi |D) = \frac{{p(D|t,r,\Phi )p(r|\Phi )p(t|\Phi )p(\Phi )}}{{p(D)}}
+\end{equation}
+, where $p(r|\Phi )$ is the prior for rates that is specified in uncorrelated relaxed clock model.
 \section*{The proposed operator}
 In this section, we define the proposed operator as ConstantDistance Operator. Fig.\ref{flowchart} illustrates the flow chart of the proposed operator. In a phylogenetic tree, the node to operate on is denoted by \textbf{X}. And the proposed operator works differently on the internal nodes and the root of the tree. The details of the operations are introduced step by step in the following subsections.
 \subsection*{The internal node operator}
@@ -297,8 +294,19 @@ For the symmetric tree in Fig.\ref{treeshape}, the operations are illustrated in
 \textcircled4: With 0.5 probability to \textit{Exchange (\textbf{Ch4} and \textbf{son})}
 \end{itemize}
 
-\emph{Step 4}  Update the rates using the adjusted genetic distances divided by the proposed node times. For example, suppose we propose tree \textcircled1, 
-%%complete the example
+\emph{Step 4}  Update the rates using the adjusted genetic distances divided by the proposed node times. For example, suppose we are going to propose tree \textcircled1. After the new node times for the root \textbf{X} and \textbf{son} are proposed, we apply the method by \textit{Exchange (\textbf{Ch1} and \textbf{dau})}, so that four distances are adjusted as is shown in Eq.(\ref{example1.1}). Finally, the new rates are updated by using Eq.(\ref{example1.2}).
+\begin{equation}\label{example1.1}
+{d_1}' = {d_1} - {d_3}'  \\
+{d_2}' = {d_2} \\
+{d_3}' = {d_3} + b \\
+{d_4}' = {d_3} + {d_4}
+\end{equation}
+\begin{equation}\label{example1.2}
+{r_1}' = \frac{{{d_1}'}}{{{t_X}' - {t_1}}} \\
+{r_2}' = \frac{{{d_2}'}}{{{t_j}' - {t_2}}} \\
+{r_3}' = \frac{{{d_3}'}}{{{t_X}' - {t_j}}} \\
+{r_4}' = \frac{{{d_4}'}}{{{t_j}' - {t_k}}} 
+\end{equation}
 \emph{Step 5} Return the Hastings ratio.
 \paragraph*{Asymmetric tree shape}
 
@@ -320,8 +328,19 @@ How to operate on the asymmetric tree in Fig.\ref{treeshape} is illustrated Fig.
 \textcircled7: Exchange the older child of \textbf{O} and \textbf{Y}.  In the example here, we apply \textit{Exchange (\textbf{O1}  and \textbf{Y})}.
 \end{itemize}
 
-\emph{Step 4}  Update the rates using the adjusted genetic distances divided by the proposed node times. To give an example, assume we propose tree \textcircled5,
-%%complete the example
+\emph{Step 4}  Update the rates using the adjusted genetic distances divided by the proposed node times. To give an example, assume we are going to propose tree \textcircled5. Firstly, ${t_X}'$ and ${t_O}'$ are proposed in \emph{Step 3}.  Then, in \emph{Step 4}, the method \textit{Exchange (\textbf{O1} and \textbf{Y})} is applied, after which the four distances are adjusted by Eq.(\ref{example2.1}). As a result, Eq.(\ref{example2.2}) is used to update the four rates.
+\begin{equation}\label{example2.1}
+{d_{O1}}' = {d_{O1}} - {d_O}'  \\
+{d_{O2}}' = {d_{O2}}  \\
+{d_O}' = {d_O} + b  \\
+{d_Y}' = {d_Y} + {d_O} 
+\end{equation}
+\begin{equation}\label{example2.2}
+{r_{O1}}' = \frac{{{d_{O1}}'}}{{{t_X}' - {t_{O1}}}} \\
+{r_{O2}}' = \frac{{{d_{O2}}'}}{{{t_O}' - {t_{O2}}}} \\
+{r_O}' = \frac{{{d_O}'}}{{{t_X}' - {t_O}}} \\
+{r_Y}' = \frac{{{d_Y}'}}{{{t_O}' - {t_Y}}} 
+\end{equation}
 \emph{Step 5} Return the Hastings ratio.
 
 \subsection*{Calculate the Hastings ratio}
@@ -347,7 +366,8 @@ According to the third and forth steps in the operations for internal nodes, thr
 , where the probability ${\Pr ( - a)}$ is equal to ${\Pr ( a )}$ since the random number $a$ is drawn from a Uniform distribution.
 %%Complete J2 J3 J4
 
-Likewise, the Jocobian matrix for Simple Distance, Small Pulley and Big Pulley can be obtained by . For the strategy of Big Pulley, the operations are concerned with tree topology. To make the proposed topology reversible, a factor $\mu$ is defined and will be included in the Hastings ratio, which is calculated by Algorithm \ref{alg1}. Therefore, the Hastings ratio when the proposed operator is working on the root of a phylogenetic tree is derived by Eq. 
+Likewise, the Jocobian matrix for Simple Distance, Small Pulley and Big Pulley can be obtained by . For the strategy of Big Pulley, the operations are concerned with tree topology. To make the proposed topology reversible, a factor $\mu$ is defined and will be included in the Hastings ratio, which is calculated by Algorithm \ref{alg1}. 
+%Therefore, the Hastings ratio when the proposed operator is working on the root of a phylogenetic tree is derived by Eq. 
 %%Complete the r_root
 \begin{algorithm}
 \caption{Calculation of $\mu$ for Big pulley}
@@ -443,7 +463,9 @@ P({t_E},{t_D},{d_i}) &= \int_{{t_E} = 0}^{ + \infty } {\int_{{t_D} = 0}^{{t_E}} 
 
 The statistical measurements, i.e. mean and standard deviation, are compared in Table \ref{res_sma}. The histograms of samples and theoretical distributions of ${d_i}$ and ${t_E}$ are pictured in Fig.\ref{Fig.sub.9} and Fig.\ref{Fig.sub.10}. It is shown that the two distributions are consistent within the acceptable error range. Therefore, Big Pulley can also give the right combinations of rates and node times, under the condition that the genetic distances among taxa are constant.
 \subsection*{Well-calibrated simulation study}
-%%Define simulation study and cite papers
+%%Define simulation study
+To verify how good or how reliable the predictions made by the proposed operator, a well-calibrated simulation study is performed, as is discussed in Ref.\cite{dawid1982well}.
+
 Fig.\ref{modelvalidation} shows the framework used in this study, including the evolutionary models and parametric distributions. In the first place, 100 independent samples of UcldStdev $S1$, frequency $\pi$, BirthRate $\lambda $ in Yule model, $\kappa$ in HKY model are obtained from their prior distributions. Then, the samples are utilised to simulate nucleotide sequences. To make this study more robust, two groups of sequence data are simulated, one group with 20 taxa and the other with 120 taxa ($n=2/120$). So in each group, there are 100 sets of sequence alignment, each with length of 10 thousand. 
 %%clearly state the process of experiment
 In the second place, the two groups of 200 simulated data sets are specified in 200 seperate XML files that include the same models in Fig.\ref{modelvalidation} and ConstantDistance Operator. Afterwards, the XML files are run by BEAST2. 
@@ -458,19 +480,17 @@ On the other hand, to make comparisons, the exact same data set will be specifie
 \subsubsection*{A simulated data set analysis}
 We use the same models in Fig.\ref{modelvalidation}  to simulate 3 data sets with different length for each group with 20 and 120 taxa. So there are 6 data sets in total, i.e. 2 long sequences with 20 thousand sites, 2 medium with 10 thousand sites and 2 short with 5 thousand sites. And each data set will be run 100 times in each situation. 
 
-The ESS and running time are summarised in Fig.\ref{eff_comp} and Table \ref{eff_comp1}. In Fig.\ref{eff_comp}, by comparing the ESS of using the proposed operator with other two situations, no matter how many taxa are involved, the ESS tends to be larger when the proposed operator is included. When comparing the running time, it is more obvious for long sequence data sets that the running time is deceased in the situation where the proposed operator is used. According to Table \ref{eff_comp1}, %%ESS per hour
+The ESS and running time are summarised in Fig.\ref{eff_comp} and Table \ref{eff_comp1}. In Fig.\ref{eff_comp}, by comparing the ESS of using the proposed operator with other two situations, no matter how many taxa are involved, the ESS tends to be larger when the proposed operator is included. When comparing the running time in each simulation, it is more obvious for long sequence data sets that the running time is deceased when the proposed operator is used. According to Table \ref{eff_comp1}, when the rates are modelled by discrete categories, it achieves around10 to 40 times smaller ESS in one hour, compared to those sampled by the proposed operator. And for rates modelled by continuous numbers, the proposed operator is able to provide 4 times larger ESS per hour. 
 \subsubsection*{A real data set analysis}
-We also use a real data set with 83 primates to further evaluate the performance of ConstantDistance Operator. The data set is assembled from. Similarly, the data set will be specified in 3 different situations and will be run 100 times in each situation. 
-%%data source, specify the prior and models used 
-The ESS and running time are shown in Fig.\ref{eff_comp2}. As can be seen from the figure, the analysis with using the ConstantDistance Operator costs less time and achieves much larger ESS. After calculating the mean value of the 100 runs in each situation, the ConstantDistance Operator improves the performance by 
-%%ESS per hour
+We also use a real data set with 83 primates to further evaluate the performance of ConstantDistance Operator. The data set is assembled from Ref.\cite{finstermeier2013mitogenomic}. Similarly, the data set will be included in 3 XML files with different situations and each XML file will be run 100 times. The prior distributions include BirthDeath model for tree prior, HKY model with Kappa following LN(M=5, S=1.25) in substitution model, uncorrelated relaxed clock model where rates follow LN(M=1,S=ucldstdev) and ucldstdev follows Gamma($\alpha = 0.5396$, $\beta = 0.3819$). 
+
+The ESS and running time are shown in Fig.\ref{eff_comp2}. As can be seen from the figure, the analysis with using the ConstantDistance Operator costs less time and achieves much larger ESS. After calculating the mean value of the 100 runs in each situation, the ConstantDistance Operator improves the performance by providing 18.311 and 10.846 times larger ESS per hour, when compared to simulations using discrete categories and without using the proposed operator accordingly. 
 \\
 \\
-To draw a conclusion from the experiments above, the ConstantDistance Operator is effective and able to more efficient. 
+To draw a conclusion from the experiments above, the ConstantDistance Operator is effective and able to sample the rates and times more efficiently. 
 %%complete the conclusion
 \subsection*{Discussions and future work}
-This subsection further discusses how the ConstantDistance Operator makes a proposal and elucidate the correctness of the proposal in the aspect of a certain tree.  \cite{cooper2001complete}
-%%introduce ratites data source 
+This subsection further discusses how the ConstantDistance Operator makes a proposal and elucidate the correctness of the proposal in the aspect of a certain tree. In the experiment, the data set is assembled from Ref.\cite{cooper2001complete}and includes seven ratites with length 10767. 
 \subsubsection*{Correlation analysis of rates and times}
 As is described in the methodology section, the key mechanism of the proposed operator is to increase or decrease a node time randomly and adjust the rates according to the constant product of rates and time, i.e. the genetic distances. In this way, there exist some correlations between rates and times. Take an internal node as an example. Assuming the proposed operator increases its current node time, to maintain the distances on the three branches linked to this node, the rate on the branch above this node is supposed to increase as well. But the two rates on the branches that are below this node are supposed to decrease. If the rate increases (decreases) along with the node time, then they have a positive (negative) correlation. 
 
@@ -667,7 +687,7 @@ The work is partially supported by scholarship  from China Scholarship Council (
 \begin{figure}[h!]
 \includegraphics[width=12cm]{Efficiency.eps}\\
 \caption{\csentence{Comparison of ESS and running time using simulated data.}
-             The term long, medium and short represent the length of sequence with 20 thousand, 10 thousand and 5 thousand respectively.}
+             The term long, medium and short represent the length of sequence with 20 thousand, 10 thousand and 5 thousand respectively. The running time is recorded in second.}
 \label{eff_comp}
 \end{figure}
 
@@ -680,7 +700,7 @@ The work is partially supported by scholarship  from China Scholarship Council (
 \label{P_run}
 \includegraphics[width=0.45\textwidth]{primates1.eps}}
 \caption{\csentence{Comparison of ESS and running time using primates data.}
-             }
+             The running time is recorded in second.}
 \label{eff_comp2}
 \end{figure}
 
@@ -806,7 +826,7 @@ Small Pulley&${d_i}$&0.3480&0.0492&0.3476&0.0494&Fig.\ref{Fig.sub.6}\\
   \centering
 \begin{tabular}{cc|cc|cc}
 \hline
-&&\multicolumn{2}{c|}{ESS}&\multicolumn{2}{c}{Running time}\\
+&&\multicolumn{2}{c|}{ESS}&\multicolumn{2}{c}{Running time(second)}\\
 \hline
 &Length&20 taxa&120 taxa&20 taxa&120 taxa\\
 categories&20000&13&4&18635&44155\\
