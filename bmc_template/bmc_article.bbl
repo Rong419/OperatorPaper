@@ -1,6 +1,6 @@
 %% BioMed_Central_Bib_Style_v1.01
 
-\begin{thebibliography}{35}
+\begin{thebibliography}{36}
 % BibTex style file: bmc-mathphys.bst (version 2.1), 2014-07-24
 \ifx \bisbn   \undefined \def \bisbn  #1{ISBN #1}\fi
 \ifx \binits  \undefined \def \binits#1{#1}\fi
@@ -220,20 +220,6 @@
 \endbibitem
 
 %%% 13
-\bibitem{reis2011approximate}
-\begin{barticle}
-\bauthor{\bsnm{Reis}, \binits{M.d.}},
-\bauthor{\bsnm{Yang}, \binits{Z.}}:
-\batitle{Approximate likelihood calculation on a phylogeny for bayesian
-  estimation of divergence times}.
-\bjtitle{Molecular Biology and Evolution}
-\bvolume{28}(\bissue{7}),
-\bfpage{2161}--\blpage{2172}
-(\byear{2011})
-\end{barticle}
-\endbibitem
-
-%%% 14
 \bibitem{kobert2017efficient}
 \begin{barticle}
 \bauthor{\bsnm{Kobert}, \binits{K.}},
@@ -245,6 +231,20 @@
 \bvolume{66}(\bissue{2}),
 \bfpage{205}--\blpage{217}
 (\byear{2017})
+\end{barticle}
+\endbibitem
+
+%%% 14
+\bibitem{reis2011approximate}
+\begin{barticle}
+\bauthor{\bsnm{Reis}, \binits{M.d.}},
+\bauthor{\bsnm{Yang}, \binits{Z.}}:
+\batitle{Approximate likelihood calculation on a phylogeny for bayesian
+  estimation of divergence times}.
+\bjtitle{Molecular Biology and Evolution}
+\bvolume{28}(\bissue{7}),
+\bfpage{2161}--\blpage{2172}
+(\byear{2011})
 \end{barticle}
 \endbibitem
 
@@ -464,6 +464,18 @@ Proceedings of the National Academy of Sciences,
 \endbibitem
 
 %%% 30
+\bibitem{dawid1982well}
+\begin{barticle}
+\bauthor{\bsnm{Dawid}, \binits{A.P.}}:
+\batitle{The well-calibrated bayesian}.
+\bjtitle{Journal of the American Statistical Association}
+\bvolume{77}(\bissue{379}),
+\bfpage{605}--\blpage{610}
+(\byear{1982})
+\end{barticle}
+\endbibitem
+
+%%% 31
 \bibitem{nesi}
 \begin{botherref}
 NeSI's Platform Mahuika.
@@ -471,7 +483,7 @@ NeSI's Platform Mahuika.
 \end{botherref}
 \endbibitem
 
-%%% 31
+%%% 32
 \bibitem{finstermeier2013mitogenomic}
 \begin{barticle}
 \bauthor{\bsnm{Finstermeier}, \binits{K.}},
@@ -489,7 +501,7 @@ NeSI's Platform Mahuika.
 \end{barticle}
 \endbibitem
 
-%%% 32
+%%% 33
 \bibitem{cooper2001complete}
 \begin{barticle}
 \bauthor{\bsnm{Cooper}, \binits{A.}},
@@ -507,7 +519,7 @@ NeSI's Platform Mahuika.
 \end{barticle}
 \endbibitem
 
-%%% 33
+%%% 34
 \bibitem{phyml}
 \begin{botherref}
 PhyML3.0: New Algorithms, Methods and Utilities.
@@ -515,7 +527,7 @@ PhyML3.0: New Algorithms, Methods and Utilities.
 \end{botherref}
 \endbibitem
 
-%%% 34
+%%% 35
 \bibitem{guindon2010new}
 \begin{barticle}
 \bauthor{\bsnm{Guindon}, \binits{S.}},
@@ -533,7 +545,7 @@ PhyML3.0: New Algorithms, Methods and Utilities.
 \end{barticle}
 \endbibitem
 
-%%% 35
+%%% 36
 \bibitem{TreeAnnotator}
 \begin{botherref}
 TREEANNOTATOR.
@@ -749,22 +761,6 @@ TREEANNOTATOR.
 </bibl>
 
 <bibl id="B13">
-  <title><p>Approximate likelihood calculation on a phylogeny for Bayesian
-  estimation of divergence times</p></title>
-  <aug>
-    <au><snm>Reis</snm><fnm>Md</fnm></au>
-    <au><snm>Yang</snm><fnm>Z</fnm></au>
-  </aug>
-  <source>Molecular Biology and Evolution</source>
-  <publisher>Oxford University Press</publisher>
-  <pubdate>2011</pubdate>
-  <volume>28</volume>
-  <issue>7</issue>
-  <fpage>2161</fpage>
-  <lpage>-2172</lpage>
-</bibl>
-
-<bibl id="B14">
   <title><p>Efficient detection of repeating sites to accelerate phylogenetic
   likelihood calculations</p></title>
   <aug>
@@ -779,6 +775,22 @@ TREEANNOTATOR.
   <issue>2</issue>
   <fpage>205</fpage>
   <lpage>-217</lpage>
+</bibl>
+
+<bibl id="B14">
+  <title><p>Approximate likelihood calculation on a phylogeny for Bayesian
+  estimation of divergence times</p></title>
+  <aug>
+    <au><snm>Reis</snm><fnm>Md</fnm></au>
+    <au><snm>Yang</snm><fnm>Z</fnm></au>
+  </aug>
+  <source>Molecular Biology and Evolution</source>
+  <publisher>Oxford University Press</publisher>
+  <pubdate>2011</pubdate>
+  <volume>28</volume>
+  <issue>7</issue>
+  <fpage>2161</fpage>
+  <lpage>-2172</lpage>
 </bibl>
 
 <bibl id="B15">
@@ -1019,11 +1031,25 @@ TREEANNOTATOR.
 </bibl>
 
 <bibl id="B30">
+  <title><p>The well-calibrated Bayesian</p></title>
+  <aug>
+    <au><snm>Dawid</snm><fnm>AP</fnm></au>
+  </aug>
+  <source>Journal of the American Statistical Association</source>
+  <publisher>Taylor \& Francis Group</publisher>
+  <pubdate>1982</pubdate>
+  <volume>77</volume>
+  <issue>379</issue>
+  <fpage>605</fpage>
+  <lpage>-610</lpage>
+</bibl>
+
+<bibl id="B31">
   <title><p>NeSI's platform Mahuika</p></title>
   <url>https://www.nesi.org.nz/services/high-performance-computing/platforms</url>
 </bibl>
 
-<bibl id="B31">
+<bibl id="B32">
   <title><p>A mitogenomic phylogeny of living primates</p></title>
   <aug>
     <au><snm>Finstermeier</snm><fnm>K</fnm></au>
@@ -1042,7 +1068,7 @@ TREEANNOTATOR.
   <fpage>e69504</fpage>
 </bibl>
 
-<bibl id="B32">
+<bibl id="B33">
   <title><p>Complete mitochondrial genome sequences of two extinct moas clarify
   ratite evolution</p></title>
   <aug>
@@ -1061,12 +1087,12 @@ TREEANNOTATOR.
   <fpage>704</fpage>
 </bibl>
 
-<bibl id="B33">
+<bibl id="B34">
   <title><p>PhyML3.0: new algorithms, methods and utilities</p></title>
   <url>http://www.atgc-montpellier.fr/phyml/</url>
 </bibl>
 
-<bibl id="B34">
+<bibl id="B35">
   <title><p>New algorithms and methods to estimate maximum-likelihood
   phylogenies: assessing the performance of {P}hy{ML}3.0</p></title>
   <aug>
@@ -1086,7 +1112,7 @@ TREEANNOTATOR.
   <lpage>-321</lpage>
 </bibl>
 
-<bibl id="B35">
+<bibl id="B36">
   <title><p>TREEANNOTATOR</p></title>
   <url>https://beast2.blogs.auckland.ac.nz/treeannotator/</url>
 </bibl>
