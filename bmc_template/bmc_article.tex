@@ -346,7 +346,6 @@ How to operate on the asymmetric tree in Fig.\ref{treeshape} is illustrated Fig.
 As is mentioned in the previous section, the operator in phylogenetic analysis based on Bayesian MCMC should make a reversible proposal to satisfy the detailed balance (Eq.(\ref{balance})). Therefore, the last step in the ConstantDistance Operator is to calculate the Hastings ratio for the acceptance probability (Eq.(\ref{Ratio})). 
 
 According to the third and forth steps in the operations for internal nodes, three rates on the branches linked to the selected internal node are proposed by one random number $a$ that is used to change the node time. There are four parameters involved in this proposal, including 3-dimensional rate space and 1-dimensional time space. The proposed operator utilises one random number in time space and changes both time space and rate space, which makes the parametric spaces inconsistent. To solve this dimension-matching problem, as is mentioned in Green's paper \cite{green1995reversible}, it is necessary to construct a Jacobian matrix.  In Eq.(\ref{JacobianMatrix}), ${\mathbf{J_1}}$ deals with the parametric spaces before the proposal in vector ${\mathbf{X}} = [{t_X},{r_i},{r_j},{r_k}]$ and after the proposal in vector ${\mathbf{Y}} = [{t_X}',{r_i}',{r_j}',{r_k}']$.
-
 \begin{equation}\label{JacobianMatrix}
 {\mathbf{J_1}} = \left[ {\begin{array}{*{20}{c}}
   {\frac{{\partial {\mathbf{f}}}}{{\partial {t_x}}}}&{\frac{{\partial {\mathbf{f}}}}{{\partial {r_i}}}}&{\frac{{\partial {\mathbf{f}}}}{{\partial {r_j}}}}&{\frac{{\partial {\mathbf{f}}}}{{\partial {r_k}}}}
@@ -363,7 +362,7 @@ According to the third and forth steps in the operations for internal nodes, thr
 \end{equation}
 , where the probability ${\Pr ( - a)}$ is equal to ${\Pr ( a )}$ since the random number $a$ is drawn from a Uniform distribution.
 
-Likewise, the Hastings ratio for Simple Distance and Small Pulley can be obtained by Eq.(\ref{HR2}) and Eq.(\ref{HR3}) correspondingly. For the strategy of Big Pulley, the operations are concerned with tree topology. Firstly, to make the proposed topology reversible, a factor $\mu$ is defined and will be included in the Hastings ratio, which is calculated by Algorithm \ref{alg1}. Then, after specifying the Jacobian matrix, the Hastings ratio for Big Pulley is derived by Eq.(\ref{HR4}). More details are explained in the Appendix. 
+Likewise, the Hastings ratio for Simple Distance and Small Pulley can be obtained by Eq.(\ref{HR2}) and Eq.(\ref{HR3}) correspondingly. For the strategy of Big Pulley, the operations are concerned with tree topology. Firstly, to make the proposed topology reversible, a factor $\mu$ is defined and will be included in the Hastings ratio, which is calculated by Algorithm \ref{alg1}. Then, after specifying the Jacobian matrix, the Hastings ratio for Big Pulley is derived by Eq.(\ref{HR4}). More details of the determinant of Jacobian matrix are explained in the Appendix. 
 \begin{equation}\label{HR2}
 {r_2} = \frac{{p( - a)}}{{p(a)}}\left| {{{\mathbf{J}}_2}} \right| = \frac{{{t_X} - {t_j}}}{{{t_X}' - {t_j}}} \times \frac{{{t_X} - {t_k}}}{{{t_X}' - {t_k}}}
 \end{equation}
@@ -826,20 +825,23 @@ Average&&179&43&10735&27236\\
 \newpage
 \section*{Additional Files}
 \subsection*{Calculate the Hastings ratio for internal nodes}
+The ConstantDistance Operator firstly proposes a new time for the selected internal node (Eq.(\ref{in_HR1.1})), and then proposes three rates by the original distances and new node times(Eq.(\ref{in_HR1.2})$\sim$Eq.(\ref{in_HR1.3})).
 \begin{subequations}\label{in_HR1}
-\begin{equation}
+\begin{equation}\label{in_HR1.1}
 {f_1}:{{\text{t}}_x}{\text{'  =  }}{{\text{t}}_x}{\text{  +  a}} 
 \end{equation}  
-\begin{equation}
+\begin{equation}\label{in_HR1.2}
 {f_2}:{r_i}' = \frac{{{r_i} \times ({t_P} - {t_x})}}{{{t_P} - {t_x}'}} 
 \end{equation}  
 \begin{equation}
 {f_3}:{r_j}' = \frac{{{r_j} \times ({t_x} - {t_1})}}{{{t_x}' - {t_1}}} 
 \end{equation}  
-\begin{equation}
+\begin{equation}\label{in_HR1.3}
 {f_4}:{r_k}' = \frac{{{r_k} \times ({t_x} - {t_2})}}{{{t_x}' - {t_2}}}  
 \end{equation}  
 \end{subequations}
+
+Substituting Eq.(\ref{in_HR1}) in the Jacobian matrix ${{\mathbf{J}}_1}$ (Eq.(\ref{JacobianMatrix})), we can get Eq.(\ref{in_HR2}), so that the determinant of ${{\mathbf{J}}_1}$ can be obtained by Eq.(\ref{in_HR3}).
 \begin{equation}\label{in_HR2}
 {{\mathbf{J}}_1} = \left[ {\begin{array}{*{20}{c}}
   1&0&0&0 \\ 
@@ -862,14 +864,15 @@ Average&&179&43&10735&27236\\
 \end{equation}  
 
 \subsection*{Calculate the Hastings ratio for Simple Distance}
+Simple Distance proposes two rates by using Eq.(\ref{SD_HR1.2}) and Eq.(\ref{SD_HR1.3}), according the new root time in Eq.(\ref{SD_HR1.1}). So the Jacobian matrix can be obtained as is shown in Eq.(\ref{SD_HR2}).
 \begin{subequations}\label{SD_HR1}
-\begin{equation}
+\begin{equation}\label{SD_HR1.1}
  {t_X}' = {t_X} + a
 \end{equation}  
-\begin{equation} 
+\begin{equation} \label{SD_HR1.2}
 {r_i}' = \frac{{{r_i} \times ({t_X} - {t_j})}}{{{t_X}' - {t_j}}} 
 \end{equation}  
-\begin{equation}
+\begin{equation}\label{SD_HR1.3}
   {r_x}' = \frac{{{r_k} \times ({t_X} - {t_k})}}{{{t_X}' - {t_k}}} 
 \end{equation}  
 \end{subequations}
@@ -884,18 +887,23 @@ Average&&179&43&10735&27236\\
   {\frac{{{r_x}}}{{{t_X}' - {t_k}}}}&0&{\frac{{{t_X} - {t_k}}}{{{t_X}' - {t_k}}}} 
 \end{array}} \right]
 \end{equation}
+
+So the determinant of ${{\mathbf{J}}_2}$ is calculated by Eq.(\ref{SD_HR3})
 \begin{equation}\label{SD_HR3}
 \left| {{{\mathbf{J}}_2}} \right| = \frac{{{t_X} - {t_j}}}{{{t_X}' - {t_j}}} \times \frac{{{t_X} - {t_k}}}{{{t_X}' - {t_k}}}
 \end{equation}
 \subsection*{Calculate the Hastings ratio for Small Pulley}
+Small Pulley proposes a new genetic distance of branch on one side of the root by adding a random number $b$, which is equal to adding a random number $b$ to the original product of rate and time on that branch. As a result, a new rate is proposed by Eq.(\ref{SP_HR1.1}). Similarly, a new rate on another branch is proposed by Eq.(\ref{SP_HR1.2}), because the total number of distances of both branches linked to the root is constant. 
 \begin{subequations}\label{SP_HR1}
-\begin{equation}
+\begin{equation}\label{SP_HR1.1}
 {r_i}' = \frac{{{r_i} \times ({t_X} - {t_j}) + b}}{{{t_X} - {t_j}}} 
 \end{equation}  
-\begin{equation}   
+\begin{equation}\label{SP_HR1.2}
 {r_x}' = \frac{{[{r_x} \times ({t_X} - {t_k}) + {r_i} \times ({t_X} - {t_j})] - [{r_i} \times ({t_X} - {t_j}) + b]}}{{{t_X} - {t_k}}} = \frac{{{r_x} \times ({t_X} - {t_k}) - b}}{{{t_X} - {t_k}}}
 \end{equation}  
 \end{subequations}  
+
+Then, as is illustrated in Eq.(\ref{SP_HR2}), the Jacobian matrix ${{\mathbf{J}}_3}$ is simply obtained, which makes the determinant $\left| {{{\mathbf{J}}_2}} \right| = 1$.
 \begin{equation}\label{SP_HR2}
 {{\mathbf{J}}_3} = \left[ {\begin{array}{*{20}{c}}
   {\frac{{\partial {r_i}'}}{{\partial {r_i}}}}&{\frac{{\partial {r_i}'}}{{\partial {r_x}}}} \\ 
@@ -906,27 +914,30 @@ Average&&179&43&10735&27236\\
 \end{array}} \right]
 \end{equation}  
 \subsection*{Calculate the Hastings ratio for Big Pulley}
+Two new node times are proposed in Big Pulley. One is the root time (Eq.(\ref{BP_HR1.1})), the other is the node time of the child node of the root. It can be either children of the root, i.e. \textbf{son} and \textbf{dau}. So ${t_C}'$ is used to denote the node time proposed, as is seen in Eq.(\ref{BP_HR1.2}). In addition, the distances are adjusted by the method \textit{Exchange (\textbf{Node1} and \textbf{Node2})}, dependent on which nodes are chosen. As a result, the four rates are proposed, as is shown in Eq.(\ref{BP_HR1.3})$\sim$Eq.(\ref{BP_HR1.6})
 \begin{subequations}\label{BP_HR1}
-\begin{equation}
+\begin{equation}\label{BP_HR1.1}
 {t_X}' = {t_X} + a 
 \end{equation}
-\begin{equation}
+\begin{equation}\label{BP_HR1.2}
 {t_C}' = {t_C} + w 
 \end{equation}
-\begin{equation}
+\begin{equation}\label{BP_HR1.3}
 {r_C}' = \frac{{{r_C} \times (t{}_X - {t_C}) + b}}{{t{}_X' - {t_C}'}}
 \end{equation}
-\begin{equation}
+\begin{equation}\label{BP_HR1.4}
 {r_S}' = \frac{{{r_2} \times (t{}_C - {t_S})}}{{t{}_C' - {t_S}}}
 \end{equation}
-\begin{equation}
+\begin{equation}\label{BP_HR1.5}
 {r_{N1}}' = \frac{{{r_{N1}} \times ({t_C} - {t_{N1}}) - [{r_C} \times ({t_X} - {t_C}) + b]}}{{{t_X}' - {t_{N1}}}}
 \end{equation}
-\begin{equation}
+\begin{equation}\label{BP_HR1.6}
 {r_{N2}}' = \frac{{{r_C} \times ({t_X} - {t_C}) + {r_{N2}} \times ({t_X} - {t_{N2}})}}{{{t_C}' - {t_{N2}}}}
 \end{equation}
 \end{subequations}
+, where $C$, $S$, $N1$ and $N2$ represent the selected child node of root, the sibling of the child, Node1 and Node2 used in the \textit{Exchange(,)} method.  
 
+Therefore, the Jacobian matrix ${{\mathbf{J}}_4}$ for the six parameters in Eq.(\ref{BP_HR1}) is obtained by Eq.(\ref{BP_HR2}). And the determinant of ${{\mathbf{J}}_4}$ is calculated shown in Eq.(\ref{BP_HR3}).
 \begin{equation}\label{BP_HR2}
 \begin{aligned}
 {{\mathbf{J}}_4} &= \left[ {\begin{array}{*{20}{c}}
@@ -946,10 +957,11 @@ Average&&179&43&10735&27236\\
 \end{array}} \right]
 \end{aligned}
 \end{equation}  
-
 \begin{equation}\label{BP_HR3}
 \left| {{{\mathbf{J}}_4}} \right| = \frac{{{t_X}' - {t_C}}}{{{t_X}' - {t_C}'}} \times \frac{{{t_C} - {t_S}}}{{{t_C}' - {t_S}}} \times \frac{{{t_C} - {t_{N1}}}}{{{t_X}' - {t_{N1}}}} \times \frac{{{t_X} - {t_{N2}}}}{{{t_C}' - {t_{N2}}}}
 \end{equation}  
+
+Last but not least, due to the change of tree topology in \textit{Exchange (\textbf{Node1} and \textbf{Node2})}, the probability of the proposed tree going back to the original tree $p(g|g')$, as well as the probability of making the proposal $p(g'|g)$, should be considered. As the ratio of $p(g|g')/p(g'|g)$ is defined as $\mu$, the calculation of $\mu$ is detailed in the following algorithm.
 \begin{algorithm}
 \caption{Calculation of $\mu$ for Big pulley}
 \label{alg1}
@@ -982,11 +994,5 @@ Average&&179&43&10735&27236\\
 \ENDFOR
 \end{algorithmic}
 \end{algorithm}
-
-%
-%  \subsection*{Additional file 2 --- Sample additional file title}
-%    Additional file descriptions text.
-
-
 \end{backmatter}
 \end{document}
