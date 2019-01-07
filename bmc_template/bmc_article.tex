@@ -345,61 +345,34 @@ How to operate on the asymmetric tree in Fig.\ref{treeshape} is illustrated Fig.
 \subsection*{Calculate the Hastings ratio}
 As is mentioned in the previous section, the operator in phylogenetic analysis based on Bayesian MCMC should make a reversible proposal to satisfy the detailed balance (Eq.(\ref{balance})). Therefore, the last step in the ConstantDistance Operator is to calculate the Hastings ratio for the acceptance probability (Eq.(\ref{Ratio})). 
 
-According to the third and forth steps in the operations for internal nodes, three rates on the branches linked to the selected internal node are proposed by one random number $a$ that is used to change the node time. There are four parameters involved in this proposal, including 3-dimensional rate space and 1-dimensional time space. The proposed operator utilises one random number in time space and changes both time space and rate space, which makes the parametric spaces inconsistent. To solve this dimension-matching problem, as is mentioned in Green's paper \cite{green1995reversible}, it is necessary to construct a Jacobian matrix.  In Eq.(\ref{JacobianMatrix}), ${\mathbf{J_1}}$ deals with the parametric spaces before the proposal in vector ${\mathbf{X}} = [{t_x},{r_i},{r_j},{r_k}]$ and after the proposal in vector ${\mathbf{Y}} = [{t_x}',{r_i}',{r_j}',{r_k}']$.
+According to the third and forth steps in the operations for internal nodes, three rates on the branches linked to the selected internal node are proposed by one random number $a$ that is used to change the node time. There are four parameters involved in this proposal, including 3-dimensional rate space and 1-dimensional time space. The proposed operator utilises one random number in time space and changes both time space and rate space, which makes the parametric spaces inconsistent. To solve this dimension-matching problem, as is mentioned in Green's paper \cite{green1995reversible}, it is necessary to construct a Jacobian matrix.  In Eq.(\ref{JacobianMatrix}), ${\mathbf{J_1}}$ deals with the parametric spaces before the proposal in vector ${\mathbf{X}} = [{t_X},{r_i},{r_j},{r_k}]$ and after the proposal in vector ${\mathbf{Y}} = [{t_X}',{r_i}',{r_j}',{r_k}']$.
 
 \begin{equation}\label{JacobianMatrix}
 {\mathbf{J_1}} = \left[ {\begin{array}{*{20}{c}}
   {\frac{{\partial {\mathbf{f}}}}{{\partial {t_x}}}}&{\frac{{\partial {\mathbf{f}}}}{{\partial {r_i}}}}&{\frac{{\partial {\mathbf{f}}}}{{\partial {r_j}}}}&{\frac{{\partial {\mathbf{f}}}}{{\partial {r_k}}}}
 \end{array}} \right] = \left[ {\begin{array}{*{20}{c}}
-  {\frac{{\partial {f_1}}}{{\partial {t_x}}}}&{\frac{{\partial {f_1}}}{{\partial {r_i}}}}&{\frac{{\partial {f_1}}}{{\partial {r_j}}}}&{\frac{{\partial {f_1}}}{{\partial {r_k}}}} \\
-  {\frac{{\partial {f_2}}}{{\partial {t_x}}}}&{\frac{{\partial {f_2}}}{{\partial {r_i}}}}&{\frac{{\partial {f_2}}}{{\partial {r_j}}}}&{\frac{{\partial {f_2}}}{{\partial {r_k}}}} \\
-  {\frac{{\partial {f_3}}}{{\partial {t_x}}}}&{\frac{{\partial {f_3}}}{{\partial {r_i}}}}&{\frac{{\partial {f_3}}}{{\partial {r_j}}}}&{\frac{{\partial {f_3}}}{{\partial {r_k}}}} \\
-  {\frac{{\partial {f_4}}}{{\partial {t_x}}}}&{\frac{{\partial {f_4}}}{{\partial {r_i}}}}&{\frac{{\partial {f_4}}}{{\partial {r_j}}}}&{\frac{{\partial {f_4}}}{{\partial {r_k}}}}
+  {\frac{{\partial {f_1}}}{{\partial {t_X}}}}&{\frac{{\partial {f_1}}}{{\partial {r_i}}}}&{\frac{{\partial {f_1}}}{{\partial {r_j}}}}&{\frac{{\partial {f_1}}}{{\partial {r_k}}}} \\
+  {\frac{{\partial {f_2}}}{{\partial {t_X}}}}&{\frac{{\partial {f_2}}}{{\partial {r_i}}}}&{\frac{{\partial {f_2}}}{{\partial {r_j}}}}&{\frac{{\partial {f_2}}}{{\partial {r_k}}}} \\
+  {\frac{{\partial {f_3}}}{{\partial {t_X}}}}&{\frac{{\partial {f_3}}}{{\partial {r_i}}}}&{\frac{{\partial {f_3}}}{{\partial {r_j}}}}&{\frac{{\partial {f_3}}}{{\partial {r_k}}}} \\
+  {\frac{{\partial {f_4}}}{{\partial {t_X}}}}&{\frac{{\partial {f_4}}}{{\partial {r_i}}}}&{\frac{{\partial {f_4}}}{{\partial {r_j}}}}&{\frac{{\partial {f_4}}}{{\partial {r_k}}}}
 \end{array}} \right]
 \end{equation}
 , where the functions ${f_1}$, ${f_2}$, ${f_3}$ and ${f_4}$ represent how the operator makes an proposal, i.e. the way of proposing new values. After substituting Eq.(\ref{int_rate}) in Eq.(\ref{JacobianMatrix}), the Hastings ratio for the internal nodes can be derived by Eq.(\ref{HR1}).
-%%complete the J1 matrix 
 \begin{equation}\label{HR1}
-{r_1} = \frac{{q(x',dx)}}{{q(x,dx')}} = \frac{{\Pr ( - a)}}{{\Pr (a)}}\left| {\mathbf{J_1}} \right|
+{r_1} = \frac{{\Pr ( - a)}}{{\Pr (a)}}\left| {\mathbf{J_1}} \right| = \frac{{{t_P} - {t_X}}}{{{t_P} - {t_X}'}} \times \frac{{{t_X} - {t_1}}}{{{t_X}' - {t_1}}} \times \frac{{{t_X} - {t_2}}}{{{t_X}' - {t_2}}}
 \end{equation}
 , where the probability ${\Pr ( - a)}$ is equal to ${\Pr ( a )}$ since the random number $a$ is drawn from a Uniform distribution.
-%%Complete J2 J3 J4
 
-Likewise, the Jacobian matrix for Simple Distance, Small Pulley and Big Pulley can be obtained. For the strategy of Big Pulley, the operations are concerned with tree topology. To make the proposed topology reversible, a factor $\mu$ is defined and will be included in the Hastings ratio, which is calculated by Algorithm \ref{alg1}. 
-%Therefore, the Hastings ratio when the proposed operator is working on the root of a phylogenetic tree is derived by Eq. 
-%%Complete the r_root
-\begin{algorithm}
-\caption{Calculation of $\mu$ for Big pulley}
-\label{alg1}
-\begin{algorithmic}[1]
-\IF{the node that has been exchanged with \textbf{dau} or \textbf{dau} has child nodes}
-\STATE $\alpha  = \beta  = 0.25$
-\ELSIF{${t_R} > {t_L}$}
-\STATE $\alpha  = 1,\beta  = 0.5$
-\ELSIF{${t_R} < {t_L}$}
-\STATE $\alpha  = 0.5,\beta  = 1$
-\ELSIF{${t_R} = {t_L}$}
-\STATE $\alpha  = \beta  = 1$
-\ENDIF
-\IF{the node that has been exchanged with \textbf{O} has child nodes}
-\STATE $\gamma  = 0.25$
-\ELSE
-\STATE $\gamma  = 0.5$
-\ENDIF
-\FOR{\textcircled1 \textcircled2}
-\STATE Return $\mu = \frac{\alpha }{{0.25}}$
-\ENDFOR
-\FOR{\textcircled3 \textcircled4}
-\STATE Return $\mu = \frac{\beta }{{0.25}}$
-\ENDFOR
-\FOR{\textcircled5 \textcircled6}
-\STATE Return $\mu = \frac{\gamma }{{0.5}}$
-\ENDFOR
-\FOR{\textcircled7}
-\STATE Return $\mu = \frac{{0.25}}{1}$
-\ENDFOR
-\end{algorithmic}
-\end{algorithm}
+Likewise, the Hastings ratio for Simple Distance and Small Pulley can be obtained by Eq.(\ref{HR2}) and Eq.(\ref{HR3}) correspondingly. For the strategy of Big Pulley, the operations are concerned with tree topology. Firstly, to make the proposed topology reversible, a factor $\mu$ is defined and will be included in the Hastings ratio, which is calculated by Algorithm \ref{alg1}. Then, after specifying the Jacobian matrix, the Hastings ratio for Big Pulley is derived by Eq.(\ref{HR4}). More details are explained in the Appendix. 
+\begin{equation}\label{HR2}
+{r_2} = \frac{{p( - a)}}{{p(a)}}\left| {{{\mathbf{J}}_2}} \right| = \frac{{{t_X} - {t_j}}}{{{t_X}' - {t_j}}} \times \frac{{{t_X} - {t_k}}}{{{t_X}' - {t_k}}}
+\end{equation}
+\begin{equation}\label{HR3}
+{r_3} = \frac{{p( - b)}}{{p(b)}}\left| {{{\mathbf{J}}_3}} \right| = 1
+\end{equation}
+\begin{equation}\label{HR4}
+{r_4} = \frac{{p( - a)}}{{p(a)}}\frac{{p( - \omega )}}{{p(\omega )}}\mu \left| {{{\mathbf{J}}_4}} \right| = \frac{{{t_X}' - {t_C}}}{{{t_X}' - {t_C}'}} \times \frac{{{t_C} - {t_S}}}{{{t_C}' - {t_S}}} \times \frac{{{t_C} - {t_{N1}}}}{{{t_X}' - {t_{N1}}}} \times \frac{{{t_X} - {t_{N2}}}}{{{t_C}' - {t_{N2}}}}
+\end{equation}
 \section*{Experimental results and analysis}
 In this section, a series of experiments are conducted by implementing the proposed operator in BEAST2. Some analysis and discussions are also included to validate the effectiveness and efficiency of the proposed operator. Firstly, by sampling from the prior distributions, in which no alignments are involved, the correctness of the operator is proved. After the well-calibrated simulation study, it turns out that the operator is able to work properly with other operators and sample the simulated data with reliability. Besides, by comparing ESS and running time, it is demonstrated that the performance is improved when using the proposed operator.
 \subsection*{Sample from the prior}
@@ -453,8 +426,7 @@ P(r,{d_i}) = \int_{{d_i} = 1}^{0.67} {P({t_E},{t_D}) \times P(\frac{{{d_j}}}{{{t
 \paragraph*{Using Big Pulley}
 
 For $g_1$ in Fig.\ref{sampleprior} with tree taxa, a new tree, together with the root time $t_E$ and node time of its older child $t_D$, as well as a genetic distance $d_i$, is proposed by Big Pulley. In this case, the initial tree $g_1$ will either go to $g_2$ or $g_3$, as is shown in Fig.\ref{sampleprior}.  So the samples are repeatedly drawn from the 3 trees. Besides, according to the initial settings in Table \ref{ini_sim}, the genetic distances remain unchanged during the process, i.e. $d_{AB} = 1$, $d_{AC}  = 1$ and $d_{BC} = 1$ hold. Hence, the distribution we are about to achieve can be calculated by Eq.(\ref{integration5}).
-\begin{equation}
-\label{integration5}
+\begin{equation}\label{integration5}
 \begin{aligned}
 P({t_E},{t_D},{d_i}) &= \int_{{t_E} = 0}^{ + \infty } {\int_{{t_D} = 0}^{{t_E}} {\int_{{d_i} = 0}^{0.5} {P({t_E},{t_D})} } \times P(\frac{{0.5}}{{{t_D}}})}  \\&\times P(\frac{{0.5}}{{{t_D}}}) \times P(\frac{{{d_i}}}{{{t_E} - {t_D}}}) \times P(\frac{{0.5 - {d_i}}}{{{t_E}}}){d_{d_i}}{d_{t_D}}{d_{t_E}}
 \end{aligned}
@@ -850,12 +822,167 @@ Average&&179&43&10735&27236\\
 %% Additional Files              %%
 %%                               %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+\newpage
+\section*{Additional Files}
+\subsection*{Calculate the Hastings ratio for internal nodes}
+\begin{subequations}\label{in_HR1}
+\begin{equation}
+{f_1}:{{\text{t}}_x}{\text{'  =  }}{{\text{t}}_x}{\text{  +  a}} 
+\end{equation}  
+\begin{equation}
+{f_2}:{r_i}' = \frac{{{r_i} \times ({t_P} - {t_x})}}{{{t_P} - {t_x}'}} 
+\end{equation}  
+\begin{equation}
+{f_3}:{r_j}' = \frac{{{r_j} \times ({t_x} - {t_1})}}{{{t_x}' - {t_1}}} 
+\end{equation}  
+\begin{equation}
+{f_4}:{r_k}' = \frac{{{r_k} \times ({t_x} - {t_2})}}{{{t_x}' - {t_2}}}  
+\end{equation}  
+\end{subequations}
+\begin{equation}\label{in_HR2}
+{{\mathbf{J}}_1} = \left[ {\begin{array}{*{20}{c}}
+  1&0&0&0 \\ 
+  {\frac{{ - {r_i}}}{{{t_P} - {t_X}'}}}&{\frac{{{t_P} - {t_X}}}{{{t_P} - {t_X}'}}}&0&0 \\ 
+  {\frac{{{r_j}}}{{{t_X}' - {t_1}}}}&0&{\frac{{{t_X} - {t_1}}}{{{t_X}' - {t_1}}}}&0 \\ 
+  {\frac{{{r_k}}}{{{t_X}' - {t_2}}}}&0&0&{\frac{{{t_X} - {t_2}}}{{{t_X}' - {t_2}}}} 
+\end{array}} \right]
+\end{equation}  
+\begin{equation}\label{in_HR3}
+\begin{aligned}
+\left| {{{\mathbf{J}}_1}} \right| &= 1 \times \left| {\begin{array}{*{20}{c}}
+  {\frac{{{t_P} - {t_x}}}{{{t_P} - {t_x}'}}}&0&0 \\ 
+  0&{\frac{{{t_X} - {t_1}}}{{{t_X}' - {t_1}}}}&0 \\ 
+  0&0&{\frac{{{t_X} - {t_2}}}{{{t_X}' - {t_2}}}} 
+\end{array}} \right| \\&= \frac{{{t_P} - {t_X}}}{{{t_P} - {t_X}'}} \times \left| {\begin{array}{*{20}{c}}
+  {\frac{{{t_X} - {t_1}}}{{{t_X}' - {t_1}}}}&0 \\ 
+  0&{\frac{{{t_X} - {t_2}}}{{{t_X}' - {t_2}}}} 
+\end{array}} \right| \\&= \frac{{{t_P} - {t_X}}}{{{t_P} - {t_X}'}} \times \frac{{{t_X} - {t_1}}}{{{t_X}' - {t_1}}} \times \frac{{{t_X} - {t_2}}}{{{t_X}' - {t_2}}}
+\end{aligned}
+\end{equation}  
 
-%\section*{Additional Files}
-%  \subsection*{Additional file 1 --- Sample additional file title}
-%    Additional file descriptions text (including details of how to
-%    view the file, if it is in a non-standard format or the file extension).  This might
-%    refer to a multi-page table or a figure.
+\subsection*{Calculate the Hastings ratio for Simple Distance}
+\begin{subequations}\label{SD_HR1}
+\begin{equation}
+ {t_X}' = {t_X} + a
+\end{equation}  
+\begin{equation} 
+{r_i}' = \frac{{{r_i} \times ({t_X} - {t_j})}}{{{t_X}' - {t_j}}} 
+\end{equation}  
+\begin{equation}
+  {r_x}' = \frac{{{r_k} \times ({t_X} - {t_k})}}{{{t_X}' - {t_k}}} 
+\end{equation}  
+\end{subequations}
+\begin{equation}\label{SD_HR2}
+{{\mathbf{J}}_2} = \left[ {\begin{array}{*{20}{c}}
+  {\frac{{\partial {t_X}'}}{{\partial {t_X}}}}&{\frac{{\partial {t_X}'}}{{\partial {r_i}}}}&{\frac{{\partial {t_X}'}}{{\partial {r_j}}}} \\ 
+  {\frac{{\partial {r_i}'}}{{\partial {t_X}}}}&{\frac{{\partial {r_i}'}}{{\partial {r_i}}}}&{\frac{{\partial {r_i}'}}{{\partial {r_j}}}} \\ 
+  {\frac{{\partial {r_x}'}}{{\partial {t_X}}}}&{\frac{{\partial {r_x}'}}{{\partial {r_i}}}}&{\frac{{\partial {r_x}'}}{{\partial {r_j}}}} 
+\end{array}} \right] = \left[ {\begin{array}{*{20}{c}}
+  1&0&0 \\ 
+  {\frac{{{r_i}}}{{{t_X}' - {t_j}}}}&{\frac{{{t_X} - {t_j}}}{{{t_X}' - {t_j}}}}&0 \\ 
+  {\frac{{{r_x}}}{{{t_X}' - {t_k}}}}&0&{\frac{{{t_X} - {t_k}}}{{{t_X}' - {t_k}}}} 
+\end{array}} \right]
+\end{equation}
+\begin{equation}\label{SD_HR3}
+\left| {{{\mathbf{J}}_2}} \right| = \frac{{{t_X} - {t_j}}}{{{t_X}' - {t_j}}} \times \frac{{{t_X} - {t_k}}}{{{t_X}' - {t_k}}}
+\end{equation}
+\subsection*{Calculate the Hastings ratio for Small Pulley}
+\begin{subequations}\label{SP_HR1}
+\begin{equation}
+{r_i}' = \frac{{{r_i} \times ({t_X} - {t_j}) + b}}{{{t_X} - {t_j}}} 
+\end{equation}  
+\begin{equation}   
+{r_x}' = \frac{{[{r_x} \times ({t_X} - {t_k}) + {r_i} \times ({t_X} - {t_j})] - [{r_i} \times ({t_X} - {t_j}) + b]}}{{{t_X} - {t_k}}} = \frac{{{r_x} \times ({t_X} - {t_k}) - b}}{{{t_X} - {t_k}}}
+\end{equation}  
+\end{subequations}  
+\begin{equation}\label{SP_HR2}
+{{\mathbf{J}}_3} = \left[ {\begin{array}{*{20}{c}}
+  {\frac{{\partial {r_i}'}}{{\partial {r_i}}}}&{\frac{{\partial {r_i}'}}{{\partial {r_x}}}} \\ 
+  {\frac{{\partial {r_x}'}}{{\partial {r_i}}}}&{\frac{{\partial {r_x}'}}{{\partial {r_x}}}} 
+\end{array}} \right] = \left[ {\begin{array}{*{20}{c}}
+  1&0 \\ 
+  0&1 
+\end{array}} \right]
+\end{equation}  
+\subsection*{Calculate the Hastings ratio for Big Pulley}
+\begin{subequations}\label{BP_HR1}
+\begin{equation}
+{t_X}' = {t_X} + a 
+\end{equation}
+\begin{equation}
+{t_C}' = {t_C} + w 
+\end{equation}
+\begin{equation}
+{r_C}' = \frac{{{r_C} \times (t{}_X - {t_C}) + b}}{{t{}_X' - {t_C}'}}
+\end{equation}
+\begin{equation}
+{r_S}' = \frac{{{r_2} \times (t{}_C - {t_S})}}{{t{}_C' - {t_S}}}
+\end{equation}
+\begin{equation}
+{r_{N1}}' = \frac{{{r_{N1}} \times ({t_C} - {t_{N1}}) - [{r_C} \times ({t_X} - {t_C}) + b]}}{{{t_X}' - {t_{N1}}}}
+\end{equation}
+\begin{equation}
+{r_{N2}}' = \frac{{{r_C} \times ({t_X} - {t_C}) + {r_{N2}} \times ({t_X} - {t_{N2}})}}{{{t_C}' - {t_{N2}}}}
+\end{equation}
+\end{subequations}
+
+\begin{equation}\label{BP_HR2}
+\begin{aligned}
+{{\mathbf{J}}_4} &= \left[ {\begin{array}{*{20}{c}}
+  {\frac{{\partial {t_X}'}}{{\partial {t_X}}}}&{\frac{{\partial {t_X}'}}{{\partial {t_C}}}}&{\frac{{\partial {t_X}'}}{{\partial {r_C}}}}&{\frac{{\partial {t_X}'}}{{\partial {r_S}}}}&{\frac{{\partial {t_X}'}}{{\partial {r_{N1}}}}}&{\frac{{\partial {t_X}'}}{{\partial {r_{N2}}}}} \\ 
+  {\frac{{\partial {t_C}'}}{{\partial {t_X}}}}&{\frac{{\partial {t_C}'}}{{\partial {t_C}}}}&{\frac{{\partial {t_C}'}}{{\partial {r_C}}}}&{\frac{{\partial {t_C}'}}{{\partial {r_S}}}}&{\frac{{\partial {t_C}'}}{{\partial {r_{N1}}}}}&{\frac{{\partial {t_C}'}}{{\partial {r_{N2}}}}} \\ 
+  {\frac{{\partial {r_C}'}}{{\partial {t_X}}}}&{\frac{{\partial {r_C}'}}{{\partial {t_C}}}}&{\frac{{\partial {r_C}'}}{{\partial {r_C}}}}&{\frac{{\partial {r_C}'}}{{\partial {r_S}}}}&{\frac{{\partial {r_C}'}}{{\partial {r_{N1}}}}}&{\frac{{\partial {r_C}'}}{{\partial {r_{N2}}}}} \\ 
+  {\frac{{\partial {r_S}'}}{{\partial {t_X}}}}&{\frac{{\partial {r_S}'}}{{\partial {t_C}}}}&{\frac{{\partial {r_S}'}}{{\partial {r_C}}}}&{\frac{{\partial {r_S}'}}{{\partial {r_S}}}}&{\frac{{\partial {r_S}'}}{{\partial {r_{N1}}}}}&{\frac{{\partial {r_S}'}}{{\partial {r_{N2}}}}} \\ 
+  {\frac{{\partial {r_{N1}}'}}{{\partial {t_X}}}}&{\frac{{\partial {r_{N1}}'}}{{\partial {t_C}}}}&{\frac{{\partial {r_{N1}}'}}{{\partial {r_C}}}}&{\frac{{\partial {r_{N1}}'}}{{\partial {r_S}}}}&{\frac{{\partial {r_{N1}}'}}{{\partial {r_{N1}}}}}&{\frac{{\partial {r_{N1}}'}}{{\partial {r_{N2}}}}} \\ 
+  {\frac{{\partial {t_{N2}}'}}{{\partial {t_X}}}}&{\frac{{\partial {t_{N2}}'}}{{\partial {t_C}}}}&{\frac{{\partial {t_{N2}}'}}{{\partial {r_C}}}}&{\frac{{\partial {t_{N2}}'}}{{\partial {r_S}}}}&{\frac{{\partial {t_{N2}}'}}{{\partial {r_{N1}}}}}&{\frac{{\partial {t_{N2}}'}}{{\partial {r_{N2}}}}} 
+\end{array}} \right] \\&= \left[ {\begin{array}{*{20}{c}}
+  1&0&0&0&0&0 \\ 
+  0&1&0&0&0&0 \\ 
+  {\frac{{{r_C}}}{{{t_X}' - {t_C}'}}}&{\frac{{ - {r_C}}}{{{t_X}' - {t_C}'}}}&{\frac{{{t_X}' - {t_C}}}{{{t_X}' - {t_C}'}}}&0&0&0 \\ 
+  0&{\frac{{{r_S}}}{{t' - {t_S}}}}&0&{\frac{{{t_C} - {t_S}}}{{{t_C}' - {t_S}}}}&0&0 \\ 
+  {\frac{{ - {r_C}}}{{{t_X}' - {t_{N1}}}}}&{\frac{{{r_{N1}} + {r_C}}}{{{t_X}' - {t_{N1}}}}}&{\frac{{ - ({t_X} - {t_C})}}{{{t_X}' - {t_{N1}}}}}&0&{\frac{{{t_C} - {t_{N1}}}}{{{t_X}' - {t_{N1}}}}}&0 \\ 
+  {\frac{{{r_C} + {r_S}}}{{{t_C}' - {t_{N2}}}}}&{\frac{{ - ({r_C} + {r_S})}}{{{t_C}' - {t_{N2}}}}}&{\frac{{{t_X} - {t_C}}}{{{t_C}' - {t_{N2}}}}}&0&0&{\frac{{{t_X} - {t_{N2}}}}{{{t_C}' - {t_{N2}}}}} 
+\end{array}} \right]
+\end{aligned}
+\end{equation}  
+
+\begin{equation}\label{BP_HR3}
+\left| {{{\mathbf{J}}_4}} \right| = \frac{{{t_X}' - {t_C}}}{{{t_X}' - {t_C}'}} \times \frac{{{t_C} - {t_S}}}{{{t_C}' - {t_S}}} \times \frac{{{t_C} - {t_{N1}}}}{{{t_X}' - {t_{N1}}}} \times \frac{{{t_X} - {t_{N2}}}}{{{t_C}' - {t_{N2}}}}
+\end{equation}  
+\begin{algorithm}
+\caption{Calculation of $\mu$ for Big pulley}
+\label{alg1}
+\begin{algorithmic}[1]
+\IF{the node that has been exchanged with \textbf{dau} or \textbf{dau} has child nodes}
+\STATE $\alpha  = \beta  = 0.25$
+\ELSIF{${t_R} > {t_L}$}
+\STATE $\alpha  = 1,\beta  = 0.5$
+\ELSIF{${t_R} < {t_L}$}
+\STATE $\alpha  = 0.5,\beta  = 1$
+\ELSIF{${t_R} = {t_L}$}
+\STATE $\alpha  = \beta  = 1$
+\ENDIF
+\IF{the node that has been exchanged with \textbf{O} has child nodes}
+\STATE $\gamma  = 0.25$
+\ELSE
+\STATE $\gamma  = 0.5$
+\ENDIF
+\FOR{\textcircled1 \textcircled2}
+\STATE Return $\mu = \frac{\alpha }{{0.25}}$
+\ENDFOR
+\FOR{\textcircled3 \textcircled4}
+\STATE Return $\mu = \frac{\beta }{{0.25}}$
+\ENDFOR
+\FOR{\textcircled5 \textcircled6}
+\STATE Return $\mu = \frac{\gamma }{{0.5}}$
+\ENDFOR
+\FOR{\textcircled7}
+\STATE Return $\mu = \frac{{0.25}}{1}$
+\ENDFOR
+\end{algorithmic}
+\end{algorithm}
+
 %
 %  \subsection*{Additional file 2 --- Sample additional file title}
 %    Additional file descriptions text.
