@@ -1,6 +1,6 @@
 %% BioMed_Central_Bib_Style_v1.01
 
-\begin{thebibliography}{36}
+\begin{thebibliography}{37}
 % BibTex style file: bmc-mathphys.bst (version 2.1), 2014-07-24
 \ifx \bisbn   \undefined \def \bisbn  #1{ISBN #1}\fi
 \ifx \binits  \undefined \def \binits#1{#1}\fi
@@ -484,6 +484,14 @@ NeSI's Platform Mahuika.
 \endbibitem
 
 %%% 32
+\bibitem{Tracer}
+\begin{botherref}
+Tracer.
+\url{https://beast.community/tracer}
+\end{botherref}
+\endbibitem
+
+%%% 33
 \bibitem{finstermeier2013mitogenomic}
 \begin{barticle}
 \bauthor{\bsnm{Finstermeier}, \binits{K.}},
@@ -501,7 +509,7 @@ NeSI's Platform Mahuika.
 \end{barticle}
 \endbibitem
 
-%%% 33
+%%% 34
 \bibitem{cooper2001complete}
 \begin{barticle}
 \bauthor{\bsnm{Cooper}, \binits{A.}},
@@ -519,7 +527,7 @@ NeSI's Platform Mahuika.
 \end{barticle}
 \endbibitem
 
-%%% 34
+%%% 35
 \bibitem{phyml}
 \begin{botherref}
 PhyML3.0: New Algorithms, Methods and Utilities.
@@ -527,7 +535,7 @@ PhyML3.0: New Algorithms, Methods and Utilities.
 \end{botherref}
 \endbibitem
 
-%%% 35
+%%% 36
 \bibitem{guindon2010new}
 \begin{barticle}
 \bauthor{\bsnm{Guindon}, \binits{S.}},
@@ -545,7 +553,7 @@ PhyML3.0: New Algorithms, Methods and Utilities.
 \end{barticle}
 \endbibitem
 
-%%% 36
+%%% 37
 \bibitem{TreeAnnotator}
 \begin{botherref}
 TREEANNOTATOR.
@@ -1050,6 +1058,11 @@ TREEANNOTATOR.
 </bibl>
 
 <bibl id="B32">
+  <title><p>Tracer</p></title>
+  <url>https://beast.community/tracer</url>
+</bibl>
+
+<bibl id="B33">
   <title><p>A mitogenomic phylogeny of living primates</p></title>
   <aug>
     <au><snm>Finstermeier</snm><fnm>K</fnm></au>
@@ -1068,7 +1081,7 @@ TREEANNOTATOR.
   <fpage>e69504</fpage>
 </bibl>
 
-<bibl id="B33">
+<bibl id="B34">
   <title><p>Complete mitochondrial genome sequences of two extinct moas clarify
   ratite evolution</p></title>
   <aug>
@@ -1087,12 +1100,12 @@ TREEANNOTATOR.
   <fpage>704</fpage>
 </bibl>
 
-<bibl id="B34">
+<bibl id="B35">
   <title><p>PhyML3.0: new algorithms, methods and utilities</p></title>
   <url>http://www.atgc-montpellier.fr/phyml/</url>
 </bibl>
 
-<bibl id="B35">
+<bibl id="B36">
   <title><p>New algorithms and methods to estimate maximum-likelihood
   phylogenies: assessing the performance of {P}hy{ML}3.0</p></title>
   <aug>
@@ -1112,7 +1125,7 @@ TREEANNOTATOR.
   <lpage>-321</lpage>
 </bibl>
 
-<bibl id="B36">
+<bibl id="B37">
   <title><p>TREEANNOTATOR</p></title>
   <url>https://beast2.blogs.auckland.ac.nz/treeannotator/</url>
 </bibl>
