@@ -1,6 +1,6 @@
 %% BioMed_Central_Bib_Style_v1.01
 
-\begin{thebibliography}{37}
+\begin{thebibliography}{38}
 % BibTex style file: bmc-mathphys.bst (version 2.1), 2014-07-24
 \ifx \bisbn   \undefined \def \bisbn  #1{ISBN #1}\fi
 \ifx \binits  \undefined \def \binits#1{#1}\fi
@@ -69,7 +69,8 @@
 \bauthor{\bsnm{Szalay}, \binits{F.S.}},
 \bauthor{\bsnm{Delson}, \binits{E.}}:
 \bbtitle{Evolutionary History of the Primates}.
-\bpublisher{Academic Press}, \blocation{???}
+\bpublisher{Academic Press},
+\blocation{New York}
 (\byear{2013})
 \end{bbook}
 \endbibitem
@@ -528,6 +529,14 @@ Tracer.
 \endbibitem
 
 %%% 35
+\bibitem{TreeStat2}
+\begin{botherref}
+TreeStat2.
+\url{https://github.com/alexeid/TreeStat2}
+\end{botherref}
+\endbibitem
+
+%%% 36
 \bibitem{phyml}
 \begin{botherref}
 PhyML3.0: New Algorithms, Methods and Utilities.
@@ -535,7 +544,7 @@ PhyML3.0: New Algorithms, Methods and Utilities.
 \end{botherref}
 \endbibitem
 
-%%% 36
+%%% 37
 \bibitem{guindon2010new}
 \begin{barticle}
 \bauthor{\bsnm{Guindon}, \binits{S.}},
@@ -553,7 +562,7 @@ PhyML3.0: New Algorithms, Methods and Utilities.
 \end{barticle}
 \endbibitem
 
-%%% 37
+%%% 38
 \bibitem{TreeAnnotator}
 \begin{botherref}
 TREEANNOTATOR.
@@ -600,7 +609,7 @@ TREEANNOTATOR.
     <au><snm>Szalay</snm><fnm>FS</fnm></au>
     <au><snm>Delson</snm><fnm>E</fnm></au>
   </aug>
-  <publisher>Academic Press</publisher>
+  <publisher>New York: Academic Press</publisher>
   <pubdate>2013</pubdate>
 </bibl>
 
@@ -1101,11 +1110,16 @@ TREEANNOTATOR.
 </bibl>
 
 <bibl id="B35">
+  <title><p>TreeStat2</p></title>
+  <url>https://github.com/alexeid/TreeStat2</url>
+</bibl>
+
+<bibl id="B36">
   <title><p>PhyML3.0: new algorithms, methods and utilities</p></title>
   <url>http://www.atgc-montpellier.fr/phyml/</url>
 </bibl>
 
-<bibl id="B36">
+<bibl id="B37">
   <title><p>New algorithms and methods to estimate maximum-likelihood
   phylogenies: assessing the performance of {P}hy{ML}3.0</p></title>
   <aug>
@@ -1125,7 +1139,7 @@ TREEANNOTATOR.
   <lpage>-321</lpage>
 </bibl>
 
-<bibl id="B37">
+<bibl id="B38">
   <title><p>TREEANNOTATOR</p></title>
   <url>https://beast2.blogs.auckland.ac.nz/treeannotator/</url>
 </bibl>
