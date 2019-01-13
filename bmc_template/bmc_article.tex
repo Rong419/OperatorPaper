@@ -444,13 +444,13 @@ The same framework in Fig.\ref{modelvalidation} is used to simulate two groups o
 The ESS and running time are summarised in Fig.\ref{eff_comp} and Table \ref{eff_comp1}. According to the two pictures at the top of Fig.\ref{eff_comp}, for different sequence lengths in the two groups with 20 and 120 taxon, most results of 100 analysis show that the configuration using the proposed operator achieves much larger ESS, compared with ESS in other two configurations. Besides, as is indicated in the two pictures at the bottom of Fig.\ref{eff_comp}, the running time is decreased to some degree, in most cases where the proposed operator is used. And this trend is more obvious for a large data set. Table \ref{eff_comp1} lists the mean values of ESS and running time for the 100 analysis of each data set, based on which the value of ESS achieved in an hour (ESS per hour) is also calculated. It implies that the configuration using the proposed operator achieves 4.02 and 4.23 times larger ESS per hour, for 20 taxa and 120 taxa respectively, compared with configuration without using the proposed operator (nocons). And the improvement is more obvious when it is compared with configuration using rate categories, which is 8.84 and 33.95 times larger ESS per hour.
 %shorter sequences have larger ESS and requires less running time in all configurations. A large data set with 120 taxa has less ESS but needs more running time than a small data set with 20 taxa. What's important is
 \subsubsection*{Analysis of a real data set}
-A real data set with 83 primates is also used to further evaluate the performance of ConstantDistance Operator. The data set is assembled from Ref.\cite{finstermeier2013mitogenomic}. Similar to the process of simulated data sets, the primate data set will be firstly specified in three XML files with different configurations and each XML file will also be run 100 times. 
+A real data set with 83 primates is also used to further evaluate the performance of ConstantDistance Operator. The data set is assembled from Ref.\cite{finstermeier2013mitogenomic}. Similar to the process of simulated data sets, the primate data set will be firstly specified in three XML files with different configurations, i.e. categories, cons and nocons, and each XML file will be run 100 times by BEAST2. 
 %The prior distributions include BirthDeath model for tree prior, HKY model with Kappa following LN(M=5, S=1.25) in substitution model, uncorrelated relaxed clock model where rates follow LN(M=1,S=ucldstdev) and ucldstdev follows Gamma($\alpha = 0.5396$, $\beta = 0.3819$). 
 
-The boxplots of ESS and running time are compared in Fig.\ref{eff_comp2}. As can be seen from the figure, on average, the configuration using the ConstantDistance Operator costs less time and achieves much larger ESS. By using the mean values of the 100 runs in each configuration, the ConstantDistance Operator improves the performance by providing 18.311 and 10.846 times larger ESS per hour, compared with the configuration using discrete rate categories (categories) and without using the proposed operator (nocons) accordingly. 
+The box-plots of ESS and running time are compared in Fig.\ref{eff_comp2}. As can be seen from the figure, on average, the configuration using the ConstantDistance Operator costs less running time and achieves much larger ESS. By using the mean values of the 100 runs in each configuration, the ConstantDistance Operator improves the performance by providing 18.311 and 10.846 times larger ESS per hour, compared with the configuration using discrete rate categories (categories) and without using the proposed operator (nocons) accordingly. 
 \\
 \\
-To draw a conclusion from the above experiments, the ConstantDistance Operator is more effective and able to sample the rates and times more efficiently. Based on comparisons in analysis of both simulated and real data sets, the efficiency can be improved by at least 4 times larger ESS per hour. 
+In summary, based on comparisons in analysis of both simulated and real data sets, the ConstantDistance Operator is more effective and able to sample the rates and times more efficiently. And the efficiency can be improved by at least 4 times larger ESS per hour. 
 
 \subsection*{Discussions and future work}
 This subsection further discusses how the ConstantDistance Operator makes a proposal by changing rates and node times. So the correlation of rates and node times is firstly studied. Besides, to elucidate the correctness of a proposal, the operator is used to sample a fixed unrooted tree. In the experiments, the data set is assembled from Ref.\cite{cooper2001complete}, which includes seven ratites with the length of 10767 sites. 
@@ -459,7 +459,7 @@ As is described in the methodology section, the key mechanism of the proposed op
 
 After analysing the seven ratites data set in BEAST2 with the ConstantDistance Operator, the trees in the output tree file are filtered by the shared common ancestor of each taxa, which is implemented in a program called TreeStat2 \cite{TreeStat2}. The rates and node times of corresponding filtered tree are also obtained from the log file. Then, we conducted a pairwise comparison between each rate and node time in the filtered trees in order to see how they are correlated. 
 
-The results are shown in Fig.\ref{correlation}. As can be seen from upper right of the figure, to a large degree, the rates have a negative correlation with the node times. It indicates that when a larger node time is proposed, the related rates will become smaller, which also possibly makes the mean rate decline. Besides, in the upper left and bottom right of the figure, most rates (all the node times) have positive correlations with each other. That is to say, with the increase of one rate (node time), the adjacent rate (node time) will also increase. This kind of dynamic change of rates and node times is consistent with the mechanism of the proposed operator. Although there are some different tendencies, it should be noticed that this is only an average pairwise comparison in two dimensions. For comparisons in higher dimensions, the results will be closer to the proposed operator. 
+The results are shown in Fig.\ref{correlation}. As can be seen from upper right of the figure, to a large degree, the rates have a negative correlation with the node times. It indicates that when a larger node time is proposed, the related rates will become smaller, which also possibly makes the mean rate decline. Besides, in the upper left and bottom right of the figure, most rates (all the node times) have positive correlations with each other. That is to say, with the increase of one rate (node time), the adjacent rate (node time) will also increase. This kind of dynamic change of rates and node times is consistent with the mechanism of the proposed operator. Although there are some different tendencies, it should be noticed that this is an average pairwise comparison in two dimensions. For comparisons in higher dimensions, the results will be closer to the proposed operator. 
 
 \subsubsection*{Sampling a fixed unrooted tree}
 The tests that sample from the prior distributions in the previous section start from a tree with arbitrary genetic distances. Here, the ratites data set is used to specify the genetic distances on an unrooted tree, so that the data is actually involved in the inference analysis. Namely, the unrooted tree will be sampled by only using the proposed operator. And the results will be compared with those obtained by sampling the sequence data directly. 
@@ -469,12 +469,12 @@ First of all, we use the ratites data set to construct an unrooted tree with an 
 Then, the midpoint method is adopted to root the tree. After that, based on the genetic distances among seven taxa and the topology of the unrooted tree, the divergence times are assigned to each node, so that a rooted time tree is obtained. In the meantime, the rates on the branches can be calculated as well. As is shown in Fig.\ref{Fig.sub.12}, the rooted time tree is used as the initial state of MCMC chain in XML file.
 
 Finally, after running the XML file, a program called TreeAnnotator is utilised to get the summary tree of all the samples in the output tree file \cite{TreeAnnotator}, which is shown in Fig.\ref{summary3}. As can be seen, the tree topology is consistent with Fig.\ref{ratites}. In other words, the proposed operator is able to provide the correct samples when given a exactly known tree. However, it is noticed that there exits some uncertainties in the node times, according to the non-1 posterior (0.9433) labeled on the node in Fig.\ref{summary3}. That is to say, even though the summary tree gives the most possible rooted tree, it is probable for the root to locate on any other branches.
-\\
-\\
-According to the analysis above, even though the proposed operator is valid, there still remain some problems. For instance, it still requires much running time for a large data set with long sequences. And the acceptance rate of proposals in MCMC chains still needs further research to achieve better estimations. In the future, we will continue to improve the performance of the ConstantDistance Operator, mainly focusing on the following aspects: 1) optimising the acceptance rate by developing a method of selecting the node to operator on, such as operating on two node times in one proposal, 2) optimising the method of assigning weights of different strategies in the proposed operator and mechanism of choosing operators during MCMC in BEAST2.
+
+\subsubsection*{Future work}
+According to the analysis above, there still remain some problems. For instance, it still requires much running time for a large data set with long sequences. And the acceptance rate of proposals in MCMC chains still needs further research to achieve better estimations. In the future, we will continue to improve the performance of the ConstantDistance Operator, mainly focusing on the following aspects: 1) optimising the acceptance rate by developing a method of selecting the node to operator on, such as operating on two node times in one proposal, 2) optimising the method of assigning weights of different strategies in the proposed operator and mechanism of choosing operators during MCMC in BEAST2.
 
 \section*{Conclusion}
-The efficiency is of great significance in phylogenetic analysis based on Bayesian MCMC. This paper discussed the methods of making a tree proposal in MCMC algorithms and developed the ConstantDistance Operator to deal with rates and node times. On condition that the genetic distances are constant, the proposed operator has four different strategies to work on internal nodes and the root in a phylogenetic tree. Through the tests that sample from known prior distributions, it is proved that the ConstantDistance Operator is able to samples the trees correctly. Then, after comparing the results of a series of simulations using both simulated data and real data, the efficiency of the ConstantDistance Operator is verified, which provides more reliable estimations and at least four times lager ESS per hour.  The proposed operator has been developed as a new package for BEAST2. It is believed that the work in this paper will make some contributions to the research in phylogenetic analysis by providing more efficient methods.
+The efficiency is of great significance in phylogenetic analysis based on Bayesian MCMC. This paper discussed the methods of making a tree proposal in MCMC algorithms and developed the ConstantDistance Operator to deal with rates and node times. On condition that the genetic distances are constant, the proposed operator has four different strategies to work on internal nodes and the root in a phylogenetic tree. Through the tests that sample from known prior distributions, it is proved that the ConstantDistance Operator is able to samples the trees correctly. Then, after comparing the results of a series of simulations using both simulated data and real data, the efficiency of the ConstantDistance Operator is verified, which provides more reliable estimations and at least four times lager ESS per hour.  The proposed operator has been developed as a new package for BEAST2. It is believed that the work in this paper will make some contributions to the research in phylogenetic analysis by providing more efficient estimations.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -682,6 +682,13 @@ The work is partially supported by scholarship  from China Scholarship Council (
 \end{figure}
 
 \begin{figure}[h!]
+\includegraphics[width=12cm]{rateandtime.eps}\\
+\caption{\csentence{Correlation between rates and node times in the ratites tree.}
+             The rates and node times are in correspondence with the notations in Fig.\ref{summary3}. Blue indicates the positive relation and red indicates the negative relation. The darker the colour is, the stronger the relation tends to be.}
+\label{correlation}
+\end{figure}
+
+\begin{figure}[h!]
 \centering
 \subfigure[Summary tree of sampled trees]{
 \label{summary3}
@@ -694,12 +701,6 @@ The work is partially supported by scholarship  from China Scholarship Council (
 \label{fixedtree}
 \end{figure}
 
-\begin{figure}[h!]
-\includegraphics[width=12cm]{rateandtime.eps}\\
-\caption{\csentence{Correlation between rates and node times in the ratites tree.}
-             The rates and node times are in correspondence with the notations in Fig.\ref{summary3}. Blue indicates the positive relation and red indicates the negative relation. The darker the colour is, the stronger the relation tends to be.}
-\label{correlation}
-\end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%                               %%
 %% Tables                        %%
@@ -915,7 +916,7 @@ Two new node times are proposed in Big Pulley. One is the root time (Eq.(\ref{BP
 {t_X}' = {t_X} + a 
 \end{equation}
 \begin{equation}\label{BP_HR1.2}
-{t_C}' = {t_C} + w 
+{t_C}' = {t_C} + {a_x} 
 \end{equation}
 \begin{equation}\label{BP_HR1.3}
 {r_C}' = \frac{{{r_C} \times (t{}_X - {t_C}) + b}}{{t{}_X' - {t_C}'}}
@@ -930,7 +931,7 @@ Two new node times are proposed in Big Pulley. One is the root time (Eq.(\ref{BP
 {r_{N2}}' = \frac{{{r_C} \times ({t_X} - {t_C}) + {r_{N2}} \times ({t_X} - {t_{N2}})}}{{{t_C}' - {t_{N2}}}}
 \end{equation}
 \end{subequations}
-, where $C$, $S$, $N1$ and $N2$ represent the selected child node of root, the sibling of the child, Node1 and Node2 used in the \textit{Exchange(,)} method.  
+, where $C$, $S$, $N1$ and $N2$ represent the selected child node of root, the sibling of the child, Node1 and Node2 used in the \textit{Exchange(,)} method. ${a_x}$ is the random number to propose a new node time for the child node of the root. Depending on which child node is selected, the notation is different, i.e. ${a_1}$, ${a_2}$, ${a_3}$. Here, to make it a general case, ${a_x}$ is used.
 
 Therefore, the Jacobian matrix ${{\mathbf{J}}_4}$ for the six parameters in Eq.(\ref{BP_HR1}) is obtained by Eq.(\ref{BP_HR2}). And the determinant of ${{\mathbf{J}}_4}$ is calculated shown in Eq.(\ref{BP_HR3}).
 \begin{equation}\label{BP_HR2}
