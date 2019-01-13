@@ -1,6 +1,6 @@
 %% BioMed_Central_Bib_Style_v1.01
 
-\begin{thebibliography}{38}
+\begin{thebibliography}{41}
 % BibTex style file: bmc-mathphys.bst (version 2.1), 2014-07-24
 \ifx \bisbn   \undefined \def \bisbn  #1{ISBN #1}\fi
 \ifx \binits  \undefined \def \binits#1{#1}\fi
@@ -178,6 +178,46 @@
 \endbibitem
 
 %%% 10
+\bibitem{farris1972estimating}
+\begin{barticle}
+\bauthor{\bsnm{Farris}, \binits{J.S.}}:
+\batitle{Estimating phylogenetic trees from distance matrices}.
+\bjtitle{The American Naturalist}
+\bvolume{106}(\bissue{951}),
+\bfpage{645}--\blpage{668}
+(\byear{1972})
+\end{barticle}
+\endbibitem
+
+%%% 11
+\bibitem{nei1983accuracy}
+\begin{barticle}
+\bauthor{\bsnm{Nei}, \binits{M.}},
+\bauthor{\bsnm{Tajima}, \binits{F.}},
+\bauthor{\bsnm{Tateno}, \binits{Y.}}:
+\batitle{Accuracy of estimated phylogenetic trees from molecular data}.
+\bjtitle{Journal of molecular evolution}
+\bvolume{19}(\bissue{2}),
+\bfpage{153}--\blpage{170}
+(\byear{1983})
+\end{barticle}
+\endbibitem
+
+%%% 12
+\bibitem{saitou1987neighbor}
+\begin{barticle}
+\bauthor{\bsnm{Saitou}, \binits{N.}},
+\bauthor{\bsnm{Nei}, \binits{M.}}:
+\batitle{The neighbor-joining method: a new method for reconstructing
+  phylogenetic trees.}
+\bjtitle{Molecular biology and evolution}
+\bvolume{4}(\bissue{4}),
+\bfpage{406}--\blpage{425}
+(\byear{1987})
+\end{barticle}
+\endbibitem
+
+%%% 13
 \bibitem{yang1997bayesian}
 \begin{barticle}
 \bauthor{\bsnm{Yang}, \binits{Z.}},
@@ -191,7 +231,7 @@
 \end{barticle}
 \endbibitem
 
-%%% 11
+%%% 14
 \bibitem{rannala2003bayes}
 \begin{barticle}
 \bauthor{\bsnm{Rannala}, \binits{B.}},
@@ -205,7 +245,7 @@
 \end{barticle}
 \endbibitem
 
-%%% 12
+%%% 15
 \bibitem{yang2003comparison}
 \begin{barticle}
 \bauthor{\bsnm{Yang}, \binits{Z.}},
@@ -220,7 +260,7 @@
 \end{barticle}
 \endbibitem
 
-%%% 13
+%%% 16
 \bibitem{kobert2017efficient}
 \begin{barticle}
 \bauthor{\bsnm{Kobert}, \binits{K.}},
@@ -235,7 +275,7 @@
 \end{barticle}
 \endbibitem
 
-%%% 14
+%%% 17
 \bibitem{reis2011approximate}
 \begin{barticle}
 \bauthor{\bsnm{Reis}, \binits{M.d.}},
@@ -249,7 +289,7 @@
 \end{barticle}
 \endbibitem
 
-%%% 15
+%%% 18
 \bibitem{lakner2008efficiency}
 \begin{barticle}
 \bauthor{\bsnm{Lakner}, \binits{C.}},
@@ -266,7 +306,7 @@
 \end{barticle}
 \endbibitem
 
-%%% 16
+%%% 19
 \bibitem{hohna2011guided}
 \begin{barticle}
 \bauthor{\bsnm{H{\"o}hna}, \binits{S.}},
@@ -279,7 +319,7 @@
 \end{barticle}
 \endbibitem
 
-%%% 17
+%%% 20
 \bibitem{metropolis1953equation}
 \begin{barticle}
 \bauthor{\bsnm{Metropolis}, \binits{N.}},
@@ -295,7 +335,7 @@
 \end{barticle}
 \endbibitem
 
-%%% 18
+%%% 21
 \bibitem{hastings1970monte}
 \begin{barticle}
 \bauthor{\bsnm{Hastings}, \binits{W.K.}}:
@@ -308,7 +348,7 @@
 \end{barticle}
 \endbibitem
 
-%%% 19
+%%% 22
 \bibitem{suchard2005stochastic}
 \begin{botherref}
 \oauthor{\bsnm{Suchard}, \binits{M.A.}}:
@@ -319,7 +359,7 @@ Genetics
 \end{botherref}
 \endbibitem
 
-%%% 20
+%%% 23
 \bibitem{higuchi1997monte}
 \begin{barticle}
 \bauthor{\bsnm{Higuchi}, \binits{T.}}:
@@ -331,7 +371,7 @@ Genetics
 \end{barticle}
 \endbibitem
 
-%%% 21
+%%% 24
 \bibitem{hohna2008clock}
 \begin{bchapter}
 \bauthor{\bsnm{Hohna}, \binits{S.}},
@@ -347,7 +387,7 @@ pp. \bfpage{1}--\blpage{7}
 \end{bchapter}
 \endbibitem
 
-%%% 22
+%%% 25
 \bibitem{green1995reversible}
 \begin{barticle}
 \bauthor{\bsnm{Green}, \binits{P.J.}}:
@@ -360,7 +400,7 @@ pp. \bfpage{1}--\blpage{7}
 \end{barticle}
 \endbibitem
 
-%%% 23
+%%% 26
 \bibitem{zuckerkandl1965evolutionary}
 \begin{bchapter}
 \bauthor{\bsnm{Zuckerkandl}, \binits{E.}},
@@ -373,7 +413,7 @@ pp. \bfpage{97}--\blpage{166}.
 \end{bchapter}
 \endbibitem
 
-%%% 24
+%%% 27
 \bibitem{knapp2005relaxed}
 \begin{barticle}
 \bauthor{\bsnm{Knapp}, \binits{M.}},
@@ -391,7 +431,7 @@ pp. \bfpage{97}--\blpage{166}.
 \end{barticle}
 \endbibitem
 
-%%% 25
+%%% 28
 \bibitem{ho2005accuracy}
 \begin{barticle}
 \bauthor{\bsnm{Ho}, \binits{S.Y.}},
@@ -407,7 +447,7 @@ pp. \bfpage{97}--\blpage{166}.
 \end{barticle}
 \endbibitem
 
-%%% 26
+%%% 29
 \bibitem{renner2005relaxed}
 \begin{barticle}
 \bauthor{\bsnm{Renner}, \binits{S.S.}}:
@@ -420,7 +460,7 @@ pp. \bfpage{97}--\blpage{166}.
 \end{barticle}
 \endbibitem
 
-%%% 27
+%%% 30
 \bibitem{lepage2007general}
 \begin{barticle}
 \bauthor{\bsnm{Lepage}, \binits{T.}},
@@ -435,7 +475,7 @@ pp. \bfpage{97}--\blpage{166}.
 \end{barticle}
 \endbibitem
 
-%%% 28
+%%% 31
 \bibitem{drummond2006relaxed}
 \begin{barticle}
 \bauthor{\bsnm{Drummond}, \binits{A.J.}},
@@ -450,7 +490,7 @@ pp. \bfpage{97}--\blpage{166}.
 \end{barticle}
 \endbibitem
 
-%%% 29
+%%% 32
 \bibitem{smith2010uncorrelated}
 \begin{botherref}
 \oauthor{\bsnm{Smith}, \binits{S.A.}},
@@ -464,7 +504,7 @@ Proceedings of the National Academy of Sciences,
 \end{botherref}
 \endbibitem
 
-%%% 30
+%%% 33
 \bibitem{dawid1982well}
 \begin{barticle}
 \bauthor{\bsnm{Dawid}, \binits{A.P.}}:
@@ -476,7 +516,7 @@ Proceedings of the National Academy of Sciences,
 \end{barticle}
 \endbibitem
 
-%%% 31
+%%% 34
 \bibitem{nesi}
 \begin{botherref}
 NeSI's Platform Mahuika.
@@ -484,7 +524,7 @@ NeSI's Platform Mahuika.
 \end{botherref}
 \endbibitem
 
-%%% 32
+%%% 35
 \bibitem{Tracer}
 \begin{botherref}
 Tracer.
@@ -492,7 +532,7 @@ Tracer.
 \end{botherref}
 \endbibitem
 
-%%% 33
+%%% 36
 \bibitem{finstermeier2013mitogenomic}
 \begin{barticle}
 \bauthor{\bsnm{Finstermeier}, \binits{K.}},
@@ -510,7 +550,7 @@ Tracer.
 \end{barticle}
 \endbibitem
 
-%%% 34
+%%% 37
 \bibitem{cooper2001complete}
 \begin{barticle}
 \bauthor{\bsnm{Cooper}, \binits{A.}},
@@ -528,7 +568,7 @@ Tracer.
 \end{barticle}
 \endbibitem
 
-%%% 35
+%%% 38
 \bibitem{TreeStat2}
 \begin{botherref}
 TreeStat2.
@@ -536,7 +576,7 @@ TreeStat2.
 \end{botherref}
 \endbibitem
 
-%%% 36
+%%% 39
 \bibitem{phyml}
 \begin{botherref}
 PhyML3.0: New Algorithms, Methods and Utilities.
@@ -544,7 +584,7 @@ PhyML3.0: New Algorithms, Methods and Utilities.
 \end{botherref}
 \endbibitem
 
-%%% 37
+%%% 40
 \bibitem{guindon2010new}
 \begin{barticle}
 \bauthor{\bsnm{Guindon}, \binits{S.}},
@@ -562,7 +602,7 @@ PhyML3.0: New Algorithms, Methods and Utilities.
 \end{barticle}
 \endbibitem
 
-%%% 38
+%%% 41
 \bibitem{TreeAnnotator}
 \begin{botherref}
 TREEANNOTATOR.
@@ -730,6 +770,52 @@ TREEANNOTATOR.
 </bibl>
 
 <bibl id="B10">
+  <title><p>Estimating phylogenetic trees from distance matrices</p></title>
+  <aug>
+    <au><snm>Farris</snm><fnm>JS</fnm></au>
+  </aug>
+  <source>The American Naturalist</source>
+  <publisher>University of Chicago Press</publisher>
+  <pubdate>1972</pubdate>
+  <volume>106</volume>
+  <issue>951</issue>
+  <fpage>645</fpage>
+  <lpage>-668</lpage>
+</bibl>
+
+<bibl id="B11">
+  <title><p>Accuracy of estimated phylogenetic trees from molecular
+  data</p></title>
+  <aug>
+    <au><snm>Nei</snm><fnm>M</fnm></au>
+    <au><snm>Tajima</snm><fnm>F</fnm></au>
+    <au><snm>Tateno</snm><fnm>Y</fnm></au>
+  </aug>
+  <source>Journal of molecular evolution</source>
+  <publisher>Springer</publisher>
+  <pubdate>1983</pubdate>
+  <volume>19</volume>
+  <issue>2</issue>
+  <fpage>153</fpage>
+  <lpage>-170</lpage>
+</bibl>
+
+<bibl id="B12">
+  <title><p>The neighbor-joining method: a new method for reconstructing
+  phylogenetic trees.</p></title>
+  <aug>
+    <au><snm>Saitou</snm><fnm>N</fnm></au>
+    <au><snm>Nei</snm><fnm>M</fnm></au>
+  </aug>
+  <source>Molecular biology and evolution</source>
+  <pubdate>1987</pubdate>
+  <volume>4</volume>
+  <issue>4</issue>
+  <fpage>406</fpage>
+  <lpage>-425</lpage>
+</bibl>
+
+<bibl id="B13">
   <title><p>Bayesian phylogenetic inference using DNA sequences: a Markov chain
   Monte Carlo method.</p></title>
   <aug>
@@ -744,7 +830,7 @@ TREEANNOTATOR.
   <lpage>-724</lpage>
 </bibl>
 
-<bibl id="B11">
+<bibl id="B14">
   <title><p>Bayes estimation of species divergence times and ancestral
   population sizes using DNA sequences from multiple loci</p></title>
   <aug>
@@ -760,7 +846,7 @@ TREEANNOTATOR.
   <lpage>-1656</lpage>
 </bibl>
 
-<bibl id="B12">
+<bibl id="B15">
   <title><p>Comparison of likelihood and Bayesian methods for estimating
   divergence times using multiple gene loci and calibration points, with
   application to a radiation of cute-looking mouse lemur species</p></title>
@@ -777,7 +863,7 @@ TREEANNOTATOR.
   <lpage>-716</lpage>
 </bibl>
 
-<bibl id="B13">
+<bibl id="B16">
   <title><p>Efficient detection of repeating sites to accelerate phylogenetic
   likelihood calculations</p></title>
   <aug>
@@ -794,7 +880,7 @@ TREEANNOTATOR.
   <lpage>-217</lpage>
 </bibl>
 
-<bibl id="B14">
+<bibl id="B17">
   <title><p>Approximate likelihood calculation on a phylogeny for Bayesian
   estimation of divergence times</p></title>
   <aug>
@@ -810,7 +896,7 @@ TREEANNOTATOR.
   <lpage>-2172</lpage>
 </bibl>
 
-<bibl id="B15">
+<bibl id="B18">
   <title><p>Efficiency of Markov chain Monte Carlo tree proposals in Bayesian
   phylogenetics</p></title>
   <aug>
@@ -829,7 +915,7 @@ TREEANNOTATOR.
   <lpage>-103</lpage>
 </bibl>
 
-<bibl id="B16">
+<bibl id="B19">
   <title><p>Guided tree topology proposals for Bayesian phylogenetic
   inference</p></title>
   <aug>
@@ -845,7 +931,7 @@ TREEANNOTATOR.
   <lpage>-11</lpage>
 </bibl>
 
-<bibl id="B17">
+<bibl id="B20">
   <title><p>Equation of state calculations by fast computing
   machines</p></title>
   <aug>
@@ -864,7 +950,7 @@ TREEANNOTATOR.
   <lpage>-1092</lpage>
 </bibl>
 
-<bibl id="B18">
+<bibl id="B21">
   <title><p>Monte Carlo sampling methods using Markov chains and their
   applications</p></title>
   <aug>
@@ -879,7 +965,7 @@ TREEANNOTATOR.
   <lpage>109</lpage>
 </bibl>
 
-<bibl id="B19">
+<bibl id="B22">
   <title><p>Stochastic models for horizontal gene transfer: taking a random
   walk through tree space</p></title>
   <aug>
@@ -890,7 +976,7 @@ TREEANNOTATOR.
   <pubdate>2005</pubdate>
 </bibl>
 
-<bibl id="B20">
+<bibl id="B23">
   <title><p>Monte Carlo filter using the genetic algorithm
   operators</p></title>
   <aug>
@@ -905,7 +991,7 @@ TREEANNOTATOR.
   <lpage>-23</lpage>
 </bibl>
 
-<bibl id="B21">
+<bibl id="B24">
   <title><p>Clock-constrained tree proposal operators in Bayesian phylogenetic
   inference</p></title>
   <aug>
@@ -920,7 +1006,7 @@ TREEANNOTATOR.
   <lpage>-7</lpage>
 </bibl>
 
-<bibl id="B22">
+<bibl id="B25">
   <title><p>Reversible jump Markov chain Monte Carlo computation and Bayesian
   model determination</p></title>
   <aug>
@@ -935,7 +1021,7 @@ TREEANNOTATOR.
   <lpage>-732</lpage>
 </bibl>
 
-<bibl id="B23">
+<bibl id="B26">
   <title><p>Evolutionary divergence and convergence in proteins</p></title>
   <aug>
     <au><snm>Zuckerkandl</snm><fnm>E</fnm></au>
@@ -948,7 +1034,7 @@ TREEANNOTATOR.
   <lpage>-166</lpage>
 </bibl>
 
-<bibl id="B24">
+<bibl id="B27">
   <title><p>Relaxed molecular clock provides evidence for long-distance
   dispersal of Nothofagus (southern beech)</p></title>
   <aug>
@@ -967,7 +1053,7 @@ TREEANNOTATOR.
   <fpage>e14</fpage>
 </bibl>
 
-<bibl id="B25">
+<bibl id="B28">
   <title><p>Accuracy of rate estimation using relaxed-clock models with a
   critical focus on the early metazoan radiation</p></title>
   <aug>
@@ -985,7 +1071,7 @@ TREEANNOTATOR.
   <lpage>-1363</lpage>
 </bibl>
 
-<bibl id="B26">
+<bibl id="B29">
   <title><p>Relaxed molecular clocks for dating historical plant dispersal
   events</p></title>
   <aug>
@@ -1000,7 +1086,7 @@ TREEANNOTATOR.
   <lpage>-558</lpage>
 </bibl>
 
-<bibl id="B27">
+<bibl id="B30">
   <title><p>A general comparison of relaxed molecular clock models</p></title>
   <aug>
     <au><snm>Lepage</snm><fnm>T</fnm></au>
@@ -1017,7 +1103,7 @@ TREEANNOTATOR.
   <lpage>-2680</lpage>
 </bibl>
 
-<bibl id="B28">
+<bibl id="B31">
   <title><p>Relaxed phylogenetics and dating with confidence</p></title>
   <aug>
     <au><snm>Drummond</snm><fnm>AJ</fnm></au>
@@ -1033,7 +1119,7 @@ TREEANNOTATOR.
   <fpage>e88</fpage>
 </bibl>
 
-<bibl id="B29">
+<bibl id="B32">
   <title><p>An uncorrelated relaxed-clock analysis suggests an earlier origin
   for flowering plants</p></title>
   <aug>
@@ -1047,7 +1133,7 @@ TREEANNOTATOR.
   <fpage>201001225</fpage>
 </bibl>
 
-<bibl id="B30">
+<bibl id="B33">
   <title><p>The well-calibrated Bayesian</p></title>
   <aug>
     <au><snm>Dawid</snm><fnm>AP</fnm></au>
@@ -1061,17 +1147,17 @@ TREEANNOTATOR.
   <lpage>-610</lpage>
 </bibl>
 
-<bibl id="B31">
+<bibl id="B34">
   <title><p>NeSI's platform Mahuika</p></title>
   <url>https://www.nesi.org.nz/services/high-performance-computing/platforms</url>
 </bibl>
 
-<bibl id="B32">
+<bibl id="B35">
   <title><p>Tracer</p></title>
   <url>https://beast.community/tracer</url>
 </bibl>
 
-<bibl id="B33">
+<bibl id="B36">
   <title><p>A mitogenomic phylogeny of living primates</p></title>
   <aug>
     <au><snm>Finstermeier</snm><fnm>K</fnm></au>
@@ -1090,7 +1176,7 @@ TREEANNOTATOR.
   <fpage>e69504</fpage>
 </bibl>
 
-<bibl id="B34">
+<bibl id="B37">
   <title><p>Complete mitochondrial genome sequences of two extinct moas clarify
   ratite evolution</p></title>
   <aug>
@@ -1109,17 +1195,17 @@ TREEANNOTATOR.
   <fpage>704</fpage>
 </bibl>
 
-<bibl id="B35">
+<bibl id="B38">
   <title><p>TreeStat2</p></title>
   <url>https://github.com/alexeid/TreeStat2</url>
 </bibl>
 
-<bibl id="B36">
+<bibl id="B39">
   <title><p>PhyML3.0: new algorithms, methods and utilities</p></title>
   <url>http://www.atgc-montpellier.fr/phyml/</url>
 </bibl>
 
-<bibl id="B37">
+<bibl id="B40">
   <title><p>New algorithms and methods to estimate maximum-likelihood
   phylogenies: assessing the performance of {P}hy{ML}3.0</p></title>
   <aug>
@@ -1139,7 +1225,7 @@ TREEANNOTATOR.
   <lpage>-321</lpage>
 </bibl>
 
-<bibl id="B38">
+<bibl id="B41">
   <title><p>TREEANNOTATOR</p></title>
   <url>https://beast2.blogs.auckland.ac.nz/treeannotator/</url>
 </bibl>
