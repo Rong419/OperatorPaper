@@ -141,32 +141,50 @@ Bayesian MCMC has become a common approach for phylogenetic inference. This pape
 
 %%%%%%%%%%%%%%%%
 \section*{Introduction}
-Bayesian phylogenetics puts an emphasis on estimating probability distributions of parameters of interest, given the data. Markov chain Monte Carlo (MCMC) has been the primary computational tool for sampling random variables from the posterior distribution. Early implementations of Bayesian phylogenetic inference assumed a strict molecular clock in order to estimate divergence times \cite{yang1997bayesian,rannala2003bayes}. 
+Bayesian phylogenetics puts an emphasis on estimating probability distributions of parameters of interest, including the phylogenetic tree topology and divergence times, given the data. 
+Markov chain Monte Carlo (MCMC) has been the primary computational tool used in Bayesian phylogenetics for sampling from the posterior distribution. 
+Early implementations of Bayesian phylogenetic inference assumed a strict molecular clock in order to estimate divergence times \cite{yang1997bayesian,rannala2003bayes}, but the introduction of relaxed molecular clocks allowed for the estimation of divergence times in the presence of rate heterogeneity among branches. 
 
-For Bayesian phylogenetic inference based on MCMC there are two approaches to improve efficiency: efficient proposal mechanisms and efficient likelihood calculations.
+Bayesian phylogenetic inference via MCMC is computationally intensive for large data sets. 
+Two approaches to improve efficiency are (i) improved proposal mechanisms and (ii) faster phylogenetic likelihood calculations.
 
-Calculating the phylogenetic likelihood is computationally expensive. Hence, researchers have tried many ways to tackle the computation burden in the likelihood calculations, such as detection of repeating sites \cite{kobert2017efficient} and  approximate methods (e.g. \cite{reis2011approximate}). 
+Calculating the phylogenetic likelihood is computationally expensive. 
+Hence, researchers have tried many ways to tackle the computation burden in the likelihood calculations, such as detection of repeating sites \cite{kobert2017efficient},  approximate methods (e.g. \cite{reis2011approximate}) and the use of parallelisation strategies. 
 
-However the overall efficiency of the sampling process also depends strongly on the construction of the proposal mechanism. More efficient proposal mechanisms require fewer steps in the MCMC chain and thus fewer total likelihood computations. 
+However the overall efficiency of the sampling process also depends strongly on the construction of the proposal mechanism. 
+More efficient proposal mechanisms require fewer steps in the MCMC chain and thus fewer likelihood computations, since each step of the MCMC chain entails a likelihood calculation. 
 
-As is discussed by Lakner et al., the major limitation in Bayesian MCMC analysis of phylogeny lies in the efficiency with which operators sample the tree space \cite{lakner2008efficiency}. So far, there have been already many different kinds of operators proposed. According to the work in Ref.\cite{hohna2011guided}, the two common operators, i.e. prune-and-regraft and subtree-swap, both contribute to a tree with low likelihood since they propose a new tree by random movement of the current tree. So the authors introduced two new operators by proposing a state from a discrete set of possible proposals and narrowing the proposal distribution to the more likely proposals. Their experimental results proved that the two operators have faster average run time and more accurate predictability.
+A major limitation in Bayesian MCMC analysis of phylogeny lies in the efficiency with which operators sample the tree space \cite{lakner2008efficiency}. 
+%Many such tree proposal mechanisms have been described \cite{}. %According to the work in Ref.\cite{hohna2011guided}, the two common operators, i.e. prune-and-regraft and subtree-swap, both contribute to a tree with low likelihood since they propose a new tree by random movement of the current tree. So the authors introduced two new operators by proposing a state from a discrete set of possible proposals and narrowing the proposal distribution to the more likely proposals. Their experimental results proved that the two operators have faster average run time and more accurate predictability.
+Nevertheless, it is acknowledged that faster and more reliable estimation is also dependent on a good mixture of operators in Bayesian MCMC, since the posterior distribution often exhibits correlations between the tree and other random variables. 
 
-Nevertheless, it is acknowledged that faster and more reliable estimations also dependent on a good mixture of operators in Bayesian MCMC, since different operators may be applicable for different variables. In this paper, a novel operator is proposed in the case where genetic distances are constant. Namely, the proposed operator changes the divergence times of nodes and evolutionary rates on the branches at the same time without changing the genetic distances, so that the likelihood of the phylogenetic tree remains unchanged. The proposed operator has been implemented as a new package in BEAST2 software. After a series of simulations and experiments, the results prove that the proposed operator can provide correct samples and work properly in Bayesian phylogenetic analysis based on BEAST2. According to the comparisons, it is concluded that by using the proposed operator, the efficiency of sampling parameters can be improved by at least 4 times larger Effective Sample Size (ESS) per hour.
+In this paper, a novel operator is proposed that moves within a subspace of constant genetic distances. 
+Namely, the proposed operator changes both divergence times of nodes and neighbouring branch rates so that implied genetic distances are not changed. 
+For time-reversible substitution models the phylogenetic likelihood will also be unchanged under this operation. 
+The proposed operator has been implemented and tested in BEAST2 \cite{}. 
 
-The following of this paper is constructed as follows: Section 2 gives some preliminary theories related to this paper. Section 3 introduces the proposed operator, which includes the operations for internal nodes and three different strategies for the root. The experiments and discussions are detailed in the 4th section to validate the efficiency of the proposed operator. Section 5 ends the paper with a short conclusion.
+%The paper is constructed as follows: Section 2 gives some preliminary theory related to this paper. 
+%Section 3 introduces the proposed operator, which includes the operations for internal nodes and three different strategies for the root. 
+%The experiments and discussions are detailed in Section 4 to validate the efficiency of the proposed operator. 
+%Section 5 ends the paper with a short conclusion.
 \section*{Prelimiaries}
 \subsection*{Bayesian MCMC}
-Eq.(\ref{bayes}) shows a basic Bayesian framework for phylogenetic analysis. It consists of prior distributions for the tree $g$ and a set of parameters of interest $\Phi $, a phylogenetic likelihood that conveys information from data $D$, and the posterior distribution to be inferred, which is denoted in the form of probability density by $p(g) $, $p(\Phi )$, $p(D|g,\Phi )$, $f(g,\Phi |D)$ correspondingly. From a Bayesian perspective, the biological data, phylogenetic trees and the parameters in the model exist with some probabilities and are related by the Bayes' formula. As a result, it is able to jointly infer evolutionary history of species  by incorporating various source of information such as molecular data and fossil records.
-\begin{eqnarray}\label{bayes}
-p(g,\Phi |D) = \frac{{p (D|g,\Phi ) \times p (g) \times p (\Phi )}}{{p (D)}}
-\end{eqnarray}
+Equation \ref{bayes} shows a basic Bayesian framework for phylogenetic inference. It consists of prior distributions for the tree $g$ and a set of parameters of interest $\Phi $, a phylogenetic likelihood that conveys information from data $D$, and the posterior distribution to be inferred, which are denoted in the form of probability densities by $p(g) $, $p(\Phi )$, $\Pr(D|g,\Phi )$, $f(g,\Phi |D)$ correspondingly. From a Bayesian perspective, the phylogenetic trees and the parameters are random variables described by a posterior probability distribution given the observed data, $D$. 
+%As a result, it is possible to jointly infer evolutionary history of species  by incorporating various source of information such as molecular data and fossil records.
+\begin{equation}\label{bayes}
+p(g,\Phi |D) = \frac{{\Pr (D|g,\Phi ) \times p (g) \times p (\Phi )}}{{\Pr (D)}}
+\end{equation}
 
-However, due to the huge amount of data and the marginal likelihood being difficulty to calculate, Markov Chain Monte Carlo (MCMC) is adopted to get samples from the posterior distribution. Specifically, MCMC algorithms construct a Markov chain whose stationary distribution is the posterior distribution $p(g,\Phi |D)$, so that the calculation of marginal likelihood $p (D)$ is avoided. In this paper, a Metroplis-Hastings algorithm (MH-MCMC) is implemented, which generates a new state given the current state through a proposal density and accept the new state with some probability \cite{metropolis1953equation,hastings1970monte}.
+However, due to the large state space and the marginal likelihood being difficulty to calculate, Markov Chain Monte Carlo (MCMC) is adopted to get samples from the posterior distribution. Specifically, MCMC algorithms construct a Markov chain whose stationary distribution is the posterior distribution $p(g,\Phi |D)$, in such a way that the computation of the marginal likelihood $p (D)$ is avoided. 
+%In this paper, a Metropolis-Hastings algorithm (MH-MCMC) is implemented, which generates a new state given the current state through a proposal density and accepts the new state with a prescribed probability \cite{metropolis1953equation,hastings1970monte}.
 \subsection*{Tree proposals}
 \label{treeproposals}
-The term ``operator" used in this paper is defined as the tree proposal in Bayesian phylogenetic analysis. In MH-MCMC, an operator provides the proposal density for acceptance probability by generating independent samples. 
+We use the term ``operator" to describe an algorithm that can be used to draw a new state $\theta'$ given an existing state $\theta = \{g,\Phi\}$ from a specific proposal kernel, $q(\theta'|\theta)$ and also return the Hastings-Green ratio for the proposed state transition \cite{}. In MH-MCMC, an operator implements the proposal density and provided relevant information to calculate the acceptance probability for the next proposed state. 
 
-For now, there are some classical and frequently-used operators, such as a random walk operator which proposes a new state by adding a random number \cite{suchard2005stochastic}, and a scale operator which multiplies the current state with a scale factor \cite{higuchi1997monte}. They are suitable for working on a single parameter, such as population size. To make a proposal of tree topology, it is also necessary to include other operators, such as subtree slide operator, swap operator, narrow operator and so on \cite{hohna2008clock}. On top of this, there are also some extended operators available to help give the better performance. For instance, the prune-and-regraft operator selects a random subtree and reattaches the subtree at a new random branch \cite{hohna2011guided}. 
+Standard na\"{i}ve operators such as the random walk operator propose a new state by adding a random variate to a component of the state \cite{suchard2005stochastic}. 
+Similarly, a scale operator multiplies the current state by a scale factor \cite{higuchi1997monte}. They are suitable for working on a single random variable, or a single component of the model, such as a population size. 
+Standard operators for the tree topology and divergence times include the subtree slide operator, Wilson-balding and narrow exchange operators \cite{hohna2008clock}. 
+%On top of this, there are also some extended operators available to help give the better performance. For instance, the prune-and-regraft operator selects a random subtree and reattaches the subtree at a new random branch \cite{hohna2011guided}. 
 
 What matters for developing an operator in MH-MCMC is that the proposal should be reversible. As is discussed in Green's paper \cite{green1995reversible}, the constructed Markov transition kernel $p(x,dx')$ should satisfy the detailed balance, as is represented by Eq.(\ref{balance}). In other words, the probability that the operator propose a new state from the current state is required to be equal to the probability that the proposed state goes back to current state. Therefore, as is shown in Eq.(\ref{Ratio}), to ensure the detailed balance in Markov chain, a ratio ${p(x',dx)}/{p(x,dx')}$ should always be included in the probability $\alpha(x,x')$ that the proposal made by the operator is accepted.
 \begin{equation}\label{balance}
@@ -176,7 +194,7 @@ What matters for developing an operator in MH-MCMC is that the proposal should b
 \begin{equation}\label{Ratio}
 {\alpha}(x,x') = \min \left\{ {1,\frac{{\pi (dx'){p}(x',dx)}}{{\pi (dx){p}(x,dx')}}} \right\}
 \end{equation}
-, where $x$ is the current state and the proposal would take the state to $dx'$ with probability ${p(x,dx')}$. ${\alpha}(x,x')$ is the acceptance probability. The ratio ${p(x',dx)}/{p(x,dx')}$ is called Hasgtings ratio.
+, where $x$ is the current state and the proposal would take the state to $dx'$ with probability ${p(x,dx')}$. ${\alpha}(x,x')$ is the acceptance probability. The ratio ${p(x',dx)}/{p(x,dx')}$ is called Hastings ratio.
 \subsection*{Uncorrelated relaxed clock model}
 This paper is aimed at improving the performance of relaxed clock model in Bayesian phylogenetic analysis. First of all, a molecular clock model is used to model how nucleotides evolve with certain rates along branches in the phylogenetic tree, so that a time tree can reconcile with the genetic distances between sequences. In the very beginning, a strict clock model assumes evolutionary rates to be the same at every branch \cite{zuckerkandl1965evolutionary}. But recently, the idea of relaxing the molecular clock has become a research of interest and has been widely applied, such as the study of Nothofagus \cite{knapp2005relaxed}. By allowing rates to vary across lineages, it is considered that better estimates of divergence times can be obtained, according to the work in Ref.\cite{ho2005accuracy,renner2005relaxed,lepage2007general}. 
 %%define genetic distance
