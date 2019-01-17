@@ -211,9 +211,9 @@ In this section, we define the proposed operator as ConstantDistance Operator. F
 \subsection*{Operations on internal nodes}
 Fig.\ref{internalnodes} represents the tree (or subtree of a phylogenetic tree) with the node \textbf{X} that is randomly selected among the internal nodes. The original tree in the current state is denoted by $g_{in}$. And the following 5 steps will propose a new tree ${g_{in}}'$.
 
-\emph{Step 1} Get the parent node and two child nodes of \textbf{X}, denoted by \textbf{P}, \textbf{Ch1} and \textbf{Ch2} respectively.
+\emph{Step 1} Get the parent node and two child nodes of \textbf{X}, denoted by \textbf{P}, \textbf{L} and \textbf{R} respectively.
 
-\emph{Step 2} Get the nodes times of \textbf{X}, \textbf{P}, \textbf{Ch1} and \textbf{Ch2} , denoted by $t_X$, $t_P$, $t_1$, $t_2$, as well as the rates on the branches above the nodes, denoted by $r_i$, $r_j$, $r_k$.
+\emph{Step 2} Get the nodes times of \textbf{X}, \textbf{P}, \textbf{L} and \textbf{R} , denoted by $t_X$, $t_P$, $t_1$, $t_2$, as well as the rates on the branches above the nodes, denoted by $r_i$, $r_j$, $r_k$.
 
 \emph{Step 3} Propose a new node time for \textbf{X} by ${t_X}' = {t_X} + a$, where $a$ follows a Uniform distribution with a symmetric window size, i.e. $a \sim U[ - w, + w]$. Make sure that the proposed time is valid, i.e. $\max \{ {t_1},{t_2}\}  < {t_X}' < {t_P}$ holds.
 
@@ -231,7 +231,7 @@ For the root of the tree, there are three strategies to propose the new rates an
 \subsubsection*{Simple Distance}
 Fig.\ref{simpledistance} shows the trees that are rooted at the node $X$. The original tree in the current state is shown in Fig.\ref{simpledistance}(a), which is denoted by $g_r$. Inspired by the operations on internal nodes, we will use the following steps to propose a new tree ${g_{r1}}'$, and keep the genetic distances $d_i$ and $d_x$ constant at the same time. The steps are illustrated in Fig.\ref{simpledistance}(b).
 
-\emph{Step 1} Get the child nodes of the root \textbf{X}, denoted by \textbf{son} and \textbf{dau}. Their corresponding node times and rates are $t_X$, $t_j$, $t_k$ and $r_i$, $r_x$.
+\emph{Step 1} Get the child nodes of the root \textbf{X}, denoted by \textbf{L} and \textbf{R}. Their corresponding node times and rates are $t_X$, $t_j$, $t_k$ and $r_i$, $r_x$.
 
 \emph{Step 2} Propose a new node time for the root \textbf{X} by \textbf{X} by ${t_X}' = {t_X} + a$, where $a \sim U[ - w, + w]$. Make sure that ${t_X}' > \max \{ {t_j},{t_k}\} $ holds.
 
@@ -246,7 +246,7 @@ Fig.\ref{simpledistance} shows the trees that are rooted at the node $X$. The or
 \subsubsection*{Small Pulley}
 Different from Simple Distance, a new genetic distance of branch on one side of the root is proposed in Small Pulley. As is illustrated in Fig.\ref{simpledistance}, Small Pulley proposes a new tree ${g_{r2}}'$ in Fig.\ref{simpledistance}(c), based on the original tree $g_r$ in Fig.\ref{simpledistance}(a). In order to maintain the total genetic distance of $d_i$ and $d_x$, once ${d_i}'$ is proposed, $d_x$ will be adjusted simultaneously. The detailed process includes the following 4 steps.
 
-\emph{Step 1} Get the child nodes of the root \textbf{X}, denoted by \textbf{son} and \textbf{dau}. Their corresponding node times and rates are $t_X$, $t_j$, $t_k$ and $r_i$, $r_x$. So the genetic distances of the two branches linked to the root can be calculated according to Eq.(\ref{sma1_dis}).
+\emph{Step 1} Get the child nodes of the root \textbf{X}, denoted by \textbf{L} and \textbf{R}. Their corresponding node times and rates are $t_X$, $t_j$, $t_k$ and $r_i$, $r_x$. So the genetic distances of the two branches linked to the root can be calculated according to Eq.(\ref{sma1_dis}).
 \begin{equation}
 \label{sma1_dis}
 {d_i} = {r_i} \times ({{t_X} - {t_j}})\\
@@ -266,45 +266,45 @@ Different from Simple Distance, a new genetic distance of branch on one side of 
 \subsubsection*{Big Pulley}
 Big Pulley is used to sample the rates and times from a fixed unrooted tree, in the meantime, the genetic distances among taxon are constant, which means the location of the root will be rearranged.
 
-Firstly, a method called \textit{Exchange (,)} is designed to propose a new tree topology in this circumstances. To be specific, for the original tree $g$ in Fig.\ref{exchangemethod}, once the method \textit{Exchange (\textbf{Node1},\textbf{Node2})} is called, the following operations will be performed to proposed a new tree $g'$.
+Firstly, a method called \textit{Exchange (,)} is designed to propose a new tree topology in this circumstances. To be specific, for the original tree $g$ in Fig.\ref{exchangemethod}, once the method \textit{Exchange (\textbf{M},\textbf{N})} is called, the following operations will be performed to proposed a new tree $g'$.
 \begin{itemize}
-\item Exchange \textbf{Node1} and \textbf{Node2} by pruning and grafting, i.e. cutting \textbf{Node1} (\textbf{Node2}) at its original position and attaching it to the original position of \textbf{Node2} (\textbf{Node1}).
-\item Propose ${d_C}'$ by ${d_C}' = {d_C} + b$, where $b \sim U[ - v, + v]$. Make sure that $0 < {d_C}' < D$ holds, where $D = {d_C} + {d_{N1}}$.
-\item The distances on the other three branches, i.e. $d_S$, $d_{N1}$ and $d_{N2}$, will be adjusted by using Eq.(\ref{big_dis}).
+\item Exchange \textbf{M} and \textbf{N} by pruning and grafting, i.e. cutting \textbf{M} (\textbf{N}) at its original position and attaching it to the original position of \textbf{N} (\textbf{M}).
+\item Propose ${d_C}'$ by ${d_C}' = {d_C} + b$, where $b \sim U[ - v, + v]$. Make sure that $0 < {d_C}' < D$ holds, where $D = {d_C} + {d_{N}}$.
+\item The distances on the other three branches, i.e. $d_S$, $d_{M}$ and $d_{N}$, will be adjusted by using Eq.(\ref{big_dis}).
 \begin{equation}\label{big_dis}
 {d_S}' = {d_S}\\
-{d_{N1}}' = {d_{N1}} - {d_C}'\\
-{d_{N2}}' = {d_{N2}} + {d_C}
+{d_{M}}' = {d_{M}} - {d_C}'\\
+{d_{N}}' = {d_{N}} + {d_C}
 \end{equation}
 \end{itemize}
 
-As can be seen from the above descriptions, the method \textit{Exchange (\textbf{Node1},\textbf{Node2})} is actually aimed at swapping two nodes and reassigning distances on the four branches. That is to say, after using \textit{Exchange (\textbf{Node1},\textbf{Node2})}, the distances $d_S$, $d_{N1}$, $d_{N2}$ and $d_{C}$ will be adjusted to maintain the distances among three taxa \textbf{Sib}, \textbf{Node1} and \textbf{Node2}, as the tree topology changes. 
+As can be seen from the above descriptions, the method \textit{Exchange (\textbf{M},\textbf{N})} is actually aimed at swapping two nodes and reassigning distances on the four branches. That is to say, after using \textit{Exchange (\textbf{M},\textbf{N})}, the distances $d_S$, $d_{M}$, $d_{N}$ and $d_{C}$ will be adjusted to maintain the distances among three taxa \textbf{S}, \textbf{M} and \textbf{N}, as the tree topology changes. 
 
 Secondly, before applying this method in Big Pulley, there are two different tree shapes to take into consideration. In Fig.\ref{treeshape}, a symmetric tree is shown on the left, in which both the child nodes of the root have child nodes. But in the asymmetric tree on the right, only one of the child nodes of the root has child nodes below it, which means the other child node of the root is a leaf node. Hence, Big Pulley also differs when it works on a symmetric and asymmetric tree. The corresponding operations are detailed in the following two parts.
 \paragraph*{Symmetric tree shape}
 
 For the symmetric tree in Fig.\ref{treeshape}, the operations are illustrated in Fig.\ref{symmetric}, after which one of the four possible trees (\textcircled1 \textcircled2 \textcircled3 \textcircled4) will be proposed.
 
-\emph{Step 1} Get the child nodes of the root \textbf{X}, denoted by \textbf{son} and \textbf{dau}. Correspondingly, the node times are denoted by $t_X$, $t_j$, $t_k$. And the child nodes below them are denoted by $Ch1$, $Ch2$, $Ch3$ and $Ch4$. 
+\emph{Step 1} Get the child nodes of the root \textbf{X}, denoted by \textbf{L} and \textbf{R}. Correspondingly, the node times are denoted by $t_X$, $t_j$, $t_k$. And the child nodes below them are denoted by $H1$, $H2$, $H3$ and $H4$. 
 
 \emph{Step 2} Propose a new node time for the root \textbf{X} by ${t_X}' = {t_X} + a$, where $a \sim U[ - w, + w]$.
 
-\emph{Step 3} Propose a new node time either for \textbf{son} or \textbf{dau}. And apply the method using \textbf{dau} and either child node of \textbf{son}.
+\emph{Step 3} Propose a new node time either for \textbf{L} or \textbf{R}. And apply the method using \textbf{R} and either child node of \textbf{L}.
 \begin{itemize}
-\item With 0.5 probability to pick \textbf{son} and propose a new node time by ${t_j}' = {t_j} + {a_1}$, where ${a_1} \sim U[ - w, + w]$. Make sure that ${t_k} < {t_j}' < {t_X}'$ holds. Then, there are two options to apply the method, i.e.
+\item With 0.5 probability to pick \textbf{L} and propose a new node time by ${t_j}' = {t_j} + {a_1}$, where ${a_1} \sim U[ - w, + w]$. Make sure that ${t_k} < {t_j}' < {t_X}'$ holds. Then, there are two options to apply the method, i.e.
 
-\textcircled1: With 0.5 probability to apply \textit{Exchange (\textbf{Ch1} and \textbf{dau})}
+\textcircled1: With 0.5 probability to apply \textit{Exchange (\textbf{H1} and \textbf{R})}
 
-\textcircled2: With 0.5 probability to apply \textit{Exchange (\textbf{Ch2} and \textbf{dau})}
+\textcircled2: With 0.5 probability to apply \textit{Exchange (\textbf{H2} and \textbf{R})}
 
-\item With 0.5 probability to pick \textbf{dau} and propose a new node time by ${t_k}' = {t_k} + {a_2}$, where ${a_2} \sim Uniform[ - w, + w]$. Make sure that ${t_j} < {t_k}' < {t_X}'$ holds. Similarly, there are two options to apply the method, i.e.
+\item With 0.5 probability to pick \textbf{R} and propose a new node time by ${t_k}' = {t_k} + {a_2}$, where ${a_2} \sim Uniform[ - w, + w]$. Make sure that ${t_j} < {t_k}' < {t_X}'$ holds. Similarly, there are two options to apply the method, i.e.
 
-\textcircled3: With 0.5 probability to apply \textit{Exchange (\textbf{Ch3} and \textbf{son})}
+\textcircled3: With 0.5 probability to apply \textit{Exchange (\textbf{H3} and \textbf{L})}
 
-\textcircled4: With 0.5 probability to apply \textit{Exchange (\textbf{Ch4} and \textbf{son})}
+\textcircled4: With 0.5 probability to apply \textit{Exchange (\textbf{H4} and \textbf{L})}
 \end{itemize}
 
-\emph{Step 4}  Update the rates using the adjusted genetic distances divided by the proposed node times. For example, suppose we are going to propose tree \textcircled1. After the new node times for the root \textbf{X} and \textbf{son} are proposed, we apply the method by \textit{Exchange (\textbf{Ch1} and \textbf{dau})}, so that four distances are adjusted, as is shown in Eq.(\ref{example1.1}). Finally, the new rates are updated by using Eq.(\ref{example1.2}).
+\emph{Step 4}  Update the rates using the adjusted genetic distances divided by the proposed node times. For example, suppose we are going to propose tree \textcircled1. After the new node times for the root \textbf{X} and \textbf{L} are proposed, we apply the method by \textit{Exchange (\textbf{H1} and \textbf{R})}, so that four distances are adjusted, as is shown in Eq.(\ref{example1.1}). Finally, the new rates are updated by using Eq.(\ref{example1.2}).
 \begin{equation}\label{example1.1}
 {d_1}' = {d_1} - {d_3}'  \\
 {d_2}' = {d_2} \\
@@ -322,32 +322,32 @@ For the symmetric tree in Fig.\ref{treeshape}, the operations are illustrated in
 
 How to operate on the asymmetric tree in Fig.\ref{treeshape} is illustrated Fig.\ref{asymmetric}, in which there are three possible trees (\textcircled5 \textcircled6 \textcircled7).
 
-\emph{Step 1} Get the older child of the root \textbf{X}, denoted by \textbf{O}, and the younger child of the root is denoted by \textbf{Y}. The node times of the root \textbf{X},  \textbf{O} and its child nodes are denoted by ${t_X}$, ${t_O}$, ${t_{O1}}$ and ${t_{O2}}$ respectively. 
+\emph{Step 1} Get the older child of the root \textbf{X}, denoted by \textbf{O}, and the younger child of the root is denoted by \textbf{Y}. The node times of the root \textbf{X},  \textbf{O} and its child nodes are denoted by ${t_X}$, ${t_O}$, ${t_{G1}}$ and ${t_{G2}}$ respectively. 
 
 \emph{Step 2} Propose a new node time for the root \textbf{X} by ${t_X}' = {t_X} + a$, where $a \sim U[ - w, + w]$. Moreover, propose a new node time for \textbf{O} by ${t_O}' = {t_O} + {a_3}$, where ${a_3} \sim U[ - w, + w]$. To make it valid, make sure that ${t_O}' < {t_X}'$ holds.  
 
 \emph{Step 3} Apply the method using \textbf{Y} and either child node of \textbf{O}, which is dependent on the value of ${t_O}'$.
 \begin{itemize}
-\item if ${t_O}'$ satisfies ${t_O}' > \max \{ {t_{O1}},{t_{O2}}\} $ or ${t_{O1}} = {t_{O2}}$, then there are two options, i.e.
+\item if ${t_O}'$ satisfies ${t_O}' > \max \{ {t_{G1}},{t_{G2}}\} $ or ${t_{G1}} = {t_{G2}}$, then there are two options, i.e.
 
-\textcircled5: With 0.5 Probability to apply \textit{Exchange (\textbf{O1} and \textbf{Y})}
+\textcircled5: With 0.5 Probability to apply \textit{Exchange (\textbf{G1} and \textbf{Y})}
 
-\textcircled6: With 0.5 Probability to apply \textit{Exchange (\textbf{O2} and \textbf{Y})}
-\item if ${t_O}'$ satisfies $\min \{ {t_{O1}},{t_{O2}}\}  < {t_O}' < \max \{ {t_{O1}},{t_{O2}}\} $, then there is only one option, i.e.
+\textcircled6: With 0.5 Probability to apply \textit{Exchange (\textbf{G2} and \textbf{Y})}
+\item if ${t_O}'$ satisfies $\min \{ {t_{G1}},{t_{G2}}\}  < {t_O}' < \max \{ {t_{G1}},{t_{G2}}\} $, then there is only one option, i.e.
 
-\textcircled7: Exchange the older child of \textbf{O} and \textbf{Y}.  In the example here, we apply \textit{Exchange (\textbf{O1}  and \textbf{Y})}.
+\textcircled7: Exchange the older child of \textbf{O} and \textbf{Y}.  In the example here, we apply \textit{Exchange (\textbf{G1}  and \textbf{Y})}.
 \end{itemize}
 
-\emph{Step 4}  Update the rates using the adjusted genetic distances divided by the proposed node times. To give an example, assume we are going to propose tree \textcircled5. Firstly, ${t_X}'$ and ${t_O}'$ are proposed in \emph{Step 3}.  Then, in \emph{Step 4}, the method \textit{Exchange (\textbf{O1} and \textbf{Y})} is applied, after which the four distances are adjusted by Eq.(\ref{example2.1}). As a result, Eq.(\ref{example2.2}) is used to update the four rates.
+\emph{Step 4}  Update the rates using the adjusted genetic distances divided by the proposed node times. To give an example, assume we are going to propose tree \textcircled5. Firstly, ${t_X}'$ and ${t_O}'$ are proposed in \emph{Step 3}.  Then, in \emph{Step 4}, the method \textit{Exchange (\textbf{G1} and \textbf{Y})} is applied, after which the four distances are adjusted by Eq.(\ref{example2.1}). As a result, Eq.(\ref{example2.2}) is used to update the four rates.
 \begin{equation}\label{example2.1}
-{d_{O1}}' = {d_{O1}} - {d_O}'  \\
-{d_{O2}}' = {d_{O2}}  \\
+{d_{G1}}' = {d_{G1}} - {d_O}'  \\
+{d_{G2}}' = {d_{G2}}  \\
 {d_O}' = {d_O} + b  \\
 {d_Y}' = {d_Y} + {d_O} 
 \end{equation}
 \begin{equation}\label{example2.2}
-{r_{O1}}' = \frac{{{d_{O1}}'}}{{{t_X}' - {t_{O1}}}} \\
-{r_{O2}}' = \frac{{{d_{O2}}'}}{{{t_O}' - {t_{O2}}}} \\
+{r_{G1}}' = \frac{{{d_{G1}}'}}{{{t_X}' - {t_{G1}}}} \\
+{r_{G2}}' = \frac{{{d_{G2}}'}}{{{t_O}' - {t_{G2}}}} \\
 {r_O}' = \frac{{{d_O}'}}{{{t_X}' - {t_O}}} \\
 {r_Y}' = \frac{{{d_Y}'}}{{{t_O}' - {t_Y}}} 
 \end{equation}
@@ -690,7 +690,13 @@ The work is partially supported by scholarship  from China Scholarship Council (
 \end{figure}
 
 \begin{figure}[h!]
-\includegraphics[width=10cm]{rateandtime.eps}\\
+\centering
+\subfigure[Clades]{
+\label{Fig.sub.tree}
+\includegraphics[width=0.5\textwidth]{correlationtree}}
+\subfigure[Pairwise compare]{
+\label{Fig.sub.correlation}
+\includegraphics[width=0.4\textwidth]{rateandtime.eps}}
 \caption{\csentence{Correlation between rates and node times in the ratites tree.}
              The rates and node times are in correspondence with the notations in Fig.\ref{summary3}. Blue indicates the positive relation and red indicates the negative relation. The darker the colour is, the stronger the relation tends to be.}
 \label{correlation}
@@ -704,26 +710,18 @@ The work is partially supported by scholarship  from China Scholarship Council (
 \subfigure[Rooted time tree]{
 \label{Fig.sub.12}
 \includegraphics[width=0.4\textwidth]{initialtree}}
-\caption{\csentence{Illustration of sampling a fixed unrooted tree.}
-            The unrooted tree is obtained from the ratites data set. The rooted time tree is the initial state in MCMC, with time on the nodes and rates on the branches.}
-\label{withoutdata}
-\end{figure}
-
-\begin{figure}[h!]
-\centering
 \subfigure[Summary tree of sampled trees]{
 \label{summary3}
 \includegraphics[width=0.4\textwidth]{summary3}}
 \subfigure[Ratite phylogeography in Ref. \cite{cooper2001complete}]{
 \label{ratites}
-\includegraphics[width=0.4\textwidth]{ratites}}
-\caption{\csentence{Comparison of ratites phylogenetic trees.}
-             }
-\label{fixedtree}
+\includegraphics[width=0.45\textwidth]{ratites}}
+\caption{\csentence{Illustration of sampling a fixed unrooted tree.}
+            The unrooted tree is obtained from the ratites data set. The rooted time tree is the initial state in MCMC, with time on the nodes and rates on the branches.}
+\label{withoutdata}
 \end{figure}
 
 \clearpage
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%                               %%
 %% Tables                        %%
