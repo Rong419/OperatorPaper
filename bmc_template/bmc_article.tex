@@ -236,7 +236,7 @@ Fig.\ref{internalnodes} represents the tree (or subtree of a phylogenetic tree) 
 {r_k}' = \frac{{{r_k} \times ({{t_X} - {t_2}})}}{{{t_X}' - {t_2}}}
  \end{equation}
 
-\emph{Step 5} Return the Hastings ratio.
+\emph{Step 5} Return the Green ratio.
 \subsection*{Operations on the root}
 For the root of the tree, there are three strategies to propose the new rates and node times. To be more specific, Simple Distance is a way of proposing a new root time only. Considering the genetic distance, Small Pulley adjusts the distances of branches on both sides of the root. Moreover, under the constraint that the unrooted tree is fixed, Big Pulley proposes a new tree topology by rearranging the root.  Details are discussed below
 \subsubsection*{Simple Distance}
@@ -253,7 +253,7 @@ Fig.\ref{simpledistance} shows the trees that are rooted at the node $X$. The or
 {r_x}' = \frac{{{r_x} \times ({{t_X} - {t_k}})}}{{{t_X}' - {t_k}}}
  \end{equation}
 
-\emph{Step 4} Return the Hastings ratio.
+\emph{Step 4} Return the Green ratio.
 \subsubsection*{Small Pulley}
 Different from Simple Distance, a new genetic distance of branch on one side of the root is proposed in Small Pulley. As is illustrated in Fig.\ref{simpledistance}, Small Pulley proposes a new tree ${g_{r2}}'$ in Fig.\ref{simpledistance}(c), based on the original tree $g_r$ in Fig.\ref{simpledistance}(a). In order to maintain the total genetic distance of $d_i$ and $d_x$, once ${d_i}'$ is proposed, $d_x$ will be adjusted simultaneously. The detailed process includes the following 4 steps.
 
@@ -273,11 +273,11 @@ Different from Simple Distance, a new genetic distance of branch on one side of 
 {r_x}' = \frac{{D - {d_i}'}}{{{t_X} - {t_k}}}
  \end{equation}
 
-\emph{Step 4} Return the Hastings ratio.
+\emph{Step 4} Return the Green ratio.
 \subsubsection*{Big Pulley}
 Big Pulley is used to sample the rates and times from a fixed unrooted tree, in the meantime, the genetic distances among taxon are constant, which means the location of the root will be rearranged.
 
-Firstly, a method called \textit{Exchange (,)} is designed to propose a new tree topology in this circumstances. To be specific, for the original tree $g$ in Fig.\ref{exchangemethod}, once the method \textit{Exchange (\textbf{M},\textbf{N})} is called, the following operations will be performed to proposed a new tree $g'$.
+Firstly, a method called \textit{Exchange (,)} is designed to propose a new tree topology in this circumstances. To be specific, for the original tree $g$ in Fig.\ref{exchangemethod}, once the method \textit{Exchange (\textbf{M},\textbf{N})} is called, the following operations will be performed to propose a new tree $g'$.
 \begin{itemize}
 \item Exchange \textbf{M} and \textbf{N} by pruning and grafting, i.e. cutting \textbf{M} (\textbf{N}) at its original position and attaching it to the original position of \textbf{N} (\textbf{M}).
 \item Propose ${d_C}'$ by ${d_C}' = {d_C} + b$, where $b \sim U[ - v, + v]$. Make sure that $0 < {d_C}' < D$ holds, where $D = {d_C} + {d_{N}}$.
@@ -296,7 +296,7 @@ Secondly, before applying this method in Big Pulley, there are two different tre
 
 For the symmetric tree in Fig.\ref{treeshape}, the operations are illustrated in Fig.\ref{symmetric}, after which one of the four possible trees (\textcircled1 \textcircled2 \textcircled3 \textcircled4) will be proposed.
 
-\emph{Step 1} Get the child nodes of the root \textbf{X}, denoted by \textbf{L} and \textbf{R}. Correspondingly, the node times are denoted by $t_X$, $t_j$, $t_k$. And the child nodes below them are denoted by $H1$, $H2$, $H3$ and $H4$. 
+\emph{Step 1} Get the child nodes of the root \textbf{X}, denoted by \textbf{L} and \textbf{R}. Correspondingly, the node times are denoted by $t_X$, $t_j$, $t_k$. And the child nodes below them are denoted by \textbf{H1}, \textbf{H2}, \textbf{H3} and \textbf{H4}. 
 
 \emph{Step 2} Propose a new node time for the root \textbf{X} by ${t_X}' = {t_X} + a$, where $a \sim U[ - w, + w]$.
 
@@ -304,18 +304,18 @@ For the symmetric tree in Fig.\ref{treeshape}, the operations are illustrated in
 \begin{itemize}
 \item With 0.5 probability to pick \textbf{L} and propose a new node time by ${t_j}' = {t_j} + {a_1}$, where ${a_1} \sim U[ - w, + w]$. Make sure that ${t_k} < {t_j}' < {t_X}'$ holds. Then, there are two options to apply the method, i.e.
 
-\textcircled1: With 0.5 probability to apply \textit{Exchange (\textbf{H1} and \textbf{R})}
+With 0.5 probability to apply \textit{Exchange (\textbf{H1}, \textbf{R})} and propose tree \textcircled1
 
-\textcircled2: With 0.5 probability to apply \textit{Exchange (\textbf{H2} and \textbf{R})}
+With 0.5 probability to apply \textit{Exchange (\textbf{H2}, \textbf{R})} and propose tree \textcircled2
 
 \item With 0.5 probability to pick \textbf{R} and propose a new node time by ${t_k}' = {t_k} + {a_2}$, where ${a_2} \sim Uniform[ - w, + w]$. Make sure that ${t_j} < {t_k}' < {t_X}'$ holds. Similarly, there are two options to apply the method, i.e.
 
-\textcircled3: With 0.5 probability to apply \textit{Exchange (\textbf{H3} and \textbf{L})}
+With 0.5 probability to apply \textit{Exchange (\textbf{H3}, \textbf{L})} and propose tree \textcircled3
 
-\textcircled4: With 0.5 probability to apply \textit{Exchange (\textbf{H4} and \textbf{L})}
+With 0.5 probability to apply \textit{Exchange (\textbf{H4}, \textbf{L})} and propose tree \textcircled4 
 \end{itemize}
 
-\emph{Step 4}  Update the rates using the adjusted genetic distances divided by the proposed node times. For example, suppose we are going to propose tree \textcircled1. After the new node times for the root \textbf{X} and \textbf{L} are proposed, we apply the method by \textit{Exchange (\textbf{H1} and \textbf{R})}, so that four distances are adjusted, as is shown in Eq.(\ref{example1.1}). Finally, the new rates are updated by using Eq.(\ref{example1.2}).
+\emph{Step 4}  Update the rates using the adjusted genetic distances divided by the proposed node times. For example, suppose we are going to propose tree \textcircled1. After the new node times for the root \textbf{X} and \textbf{L} are proposed, we apply the method by \textit{Exchange (\textbf{H1}, \textbf{R})}, so that four distances are adjusted, as is shown in Eq.(\ref{example1.1}). Finally, the new rates are updated by using Eq.(\ref{example1.2}).
 \begin{equation}\label{example1.1}
 {d_1}' = {d_1} - {d_3}'  \\
 {d_2}' = {d_2} \\
@@ -325,10 +325,10 @@ For the symmetric tree in Fig.\ref{treeshape}, the operations are illustrated in
 \begin{equation}\label{example1.2}
 {r_1}' = \frac{{{d_1}'}}{{{t_X}' - {t_1}}} \\
 {r_2}' = \frac{{{d_2}'}}{{{t_j}' - {t_2}}} \\
-{r_3}' = \frac{{{d_3}'}}{{{t_X}' - {t_j}}} \\
+{r_3}' = \frac{{{d_3}'}}{{{t_X}' - {t_j}'}} \\
 {r_4}' = \frac{{{d_4}'}}{{{t_j}' - {t_k}}} 
 \end{equation}
-\emph{Step 5} Return the Hastings ratio.
+\emph{Step 5} Return the Green ratio.
 \paragraph*{Asymmetric tree shape}
 
 How to operate on the asymmetric tree in Fig.\ref{treeshape} is illustrated Fig.\ref{asymmetric}, in which there are three possible trees (\textcircled5 \textcircled6 \textcircled7).
@@ -341,15 +341,15 @@ How to operate on the asymmetric tree in Fig.\ref{treeshape} is illustrated Fig.
 \begin{itemize}
 \item if ${t_O}'$ satisfies ${t_O}' > \max \{ {t_{G1}},{t_{G2}}\} $ or ${t_{G1}} = {t_{G2}}$, then there are two options, i.e.
 
-\textcircled5: With 0.5 Probability to apply \textit{Exchange (\textbf{G1} and \textbf{Y})}
+With 0.5 Probability to apply \textit{Exchange (\textbf{G1}, \textbf{Y})} and propose tree \textcircled5
 
-\textcircled6: With 0.5 Probability to apply \textit{Exchange (\textbf{G2} and \textbf{Y})}
+With 0.5 Probability to apply \textit{Exchange (\textbf{G2}, \textbf{Y})} and propose tree \textcircled6
 \item if ${t_O}'$ satisfies $\min \{ {t_{G1}},{t_{G2}}\}  < {t_O}' < \max \{ {t_{G1}},{t_{G2}}\} $, then there is only one option, i.e.
 
-\textcircled7: Exchange the older child of \textbf{O} and \textbf{Y}.  In the example here, we apply \textit{Exchange (\textbf{G1}  and \textbf{Y})}.
+\textcircled7: Exchange the older child of \textbf{O} and \textbf{Y}.  For the asymmetric tree in Fig.\ref{treeshape}, we apply \textit{Exchange (\textbf{G1}, \textbf{Y})} and propose tree \textcircled7.
 \end{itemize}
 
-\emph{Step 4}  Update the rates using the adjusted genetic distances divided by the proposed node times. To give an example, assume we are going to propose tree \textcircled5. Firstly, ${t_X}'$ and ${t_O}'$ are proposed in \emph{Step 3}.  Then, in \emph{Step 4}, the method \textit{Exchange (\textbf{G1} and \textbf{Y})} is applied, after which the four distances are adjusted by Eq.(\ref{example2.1}). As a result, Eq.(\ref{example2.2}) is used to update the four rates.
+\emph{Step 4}  Update the rates using the adjusted genetic distances divided by the proposed node times. To give an example, assume we are going to propose tree \textcircled5. Firstly, ${t_X}'$ and ${t_O}'$ are proposed in \emph{Step 3}.  Then, in \emph{Step 4}, the method \textit{Exchange (\textbf{G1}, \textbf{Y})} is applied, after which the four distances are adjusted by Eq.(\ref{example2.1}). As a result, Eq.(\ref{example2.2}) is used to update the four rates.
 \begin{equation}\label{example2.1}
 {d_{G1}}' = {d_{G1}} - {d_O}'  \\
 {d_{G2}}' = {d_{G2}}  \\
@@ -359,13 +359,13 @@ How to operate on the asymmetric tree in Fig.\ref{treeshape} is illustrated Fig.
 \begin{equation}\label{example2.2}
 {r_{G1}}' = \frac{{{d_{G1}}'}}{{{t_X}' - {t_{G1}}}} \\
 {r_{G2}}' = \frac{{{d_{G2}}'}}{{{t_O}' - {t_{G2}}}} \\
-{r_O}' = \frac{{{d_O}'}}{{{t_X}' - {t_O}}} \\
+{r_O}' = \frac{{{d_O}'}}{{{t_X}' - {t_O}'}} \\
 {r_Y}' = \frac{{{d_Y}'}}{{{t_O}' - {t_Y}}} 
 \end{equation}
-\emph{Step 5} Return the Hastings ratio.
+\emph{Step 5} Return the Green ratio.
 
 \subsection*{Calculate the Hastings ratio}
-As is mentioned in the previous section, the operator in phylogenetic analysis based on Bayesian MCMC should make a reversible proposal to satisfy the detailed balance (Eq.(\ref{balance})). Therefore, the last step of all the operations in the ConstantDistance Operator is to calculate the Hastings ratio for the acceptance probability (Eq.(\ref{Ratio})). 
+As is mentioned in the previous section, the operator in phylogenetic analysis based on Bayesian MCMC should make a reversible proposal to satisfy the detailed balance (Eq.(\ref{balance})). Therefore, the last step of all the operations in the ConstantDistance Operator is to calculate the Green ratio for the acceptance probability (Eq.(\ref{Green})). 
 
 According to the third and forth steps in the operations for internal nodes, three rates on the branches linked to the selected internal node are proposed by one random number $a$ that is used to change the node time. There are four parameters involved in this proposal, including 3-dimensional rate space and 1-dimensional time space. The proposed operator utilises one random number in time space and makes changes in both time space and rate space, which leads to the inconsistency in parametric spaces. To solve this dimension-matching problem, as is mentioned in Green's paper \cite{green1995reversible}, it is necessary to construct a Jacobian matrix.  In Eq.(\ref{JacobianMatrix}), ${\mathbf{J_1}}$ deals with the parametric spaces before the proposal in vector ${\mathbf{X}} = [{t_X},{r_i},{r_j},{r_k}]$ and after the proposal in vector ${\mathbf{Y}} = [{t_X}',{r_i}',{r_j}',{r_k}']$.
 \begin{equation}\label{JacobianMatrix}
@@ -378,22 +378,23 @@ According to the third and forth steps in the operations for internal nodes, thr
   {\frac{{\partial {f_4}}}{{\partial {t_X}}}}&{\frac{{\partial {f_4}}}{{\partial {r_i}}}}&{\frac{{\partial {f_4}}}{{\partial {r_j}}}}&{\frac{{\partial {f_4}}}{{\partial {r_k}}}}
 \end{array}} \right]
 \end{equation}
-, where the functions ${f_1}$, ${f_2}$, ${f_3}$ and ${f_4}$ represent how the operator makes an proposal, i.e. the way of proposing new values. After substituting Eq.(\ref{int_rate}) in Eq.(\ref{JacobianMatrix}), the Hastings ratio for the internal nodes can be derived by Eq.(\ref{HR1}).
+, where the functions ${f_1}$, ${f_2}$, ${f_3}$ and ${f_4}$ represent how the operator makes an proposal, i.e. the way of proposing new values. After substituting Eq.(\ref{int_rate}) in Eq.(\ref{JacobianMatrix}), the Green ratio for the internal nodes can be derived by Eq.(\ref{HR1}).
 \begin{equation}\label{HR1}
 {r_1} = \frac{{p ( - a)}}{{p (a)}}\left| {\mathbf{J_1}} \right| = \frac{{{t_P} - {t_X}}}{{{t_P} - {t_X}'}} \times \frac{{{t_X} - {t_1}}}{{{t_X}' - {t_1}}} \times \frac{{{t_X} - {t_2}}}{{{t_X}' - {t_2}}}
 \end{equation}
-, where the probability ${\Pr ( - a)}$ is equal to ${\Pr ( a )}$ since the random number $a$ is drawn from a Uniform distribution.
+, where the probability ${p ( - a)}$ is equal to ${p ( a )}$ since the random number $a$ is drawn from a Uniform distribution.
 
-Likewise, the Hastings ratio for Simple Distance and Small Pulley can be obtained by Eq.(\ref{HR2}) and Eq.(\ref{HR3}) correspondingly. For the strategy of Big Pulley, the operations are concerned with tree topology. Firstly, to make the proposed topology reversible, a factor $\mu$ is defined and will be included in the Hastings ratio, which is calculated by Algorithm \ref{alg1}. Then, after specifying the Jacobian matrix, the Hastings ratio for Big Pulley is derived by Eq.(\ref{HR4}). More details of the determinant of Jacobian matrix are explained in the Appendix. 
+Likewise, the Green ratio for Simple Distance, Small Pulley and  Big Pulley can be obtained by Eq.(\ref{HR2}), Eq.(\ref{HR3}) and Eq.(\ref{HR4}) correspondingly. More details of the determinant of Jacobian matrix are explained in the Appendix. 
 \begin{equation}\label{HR2}
-{r_2} = \frac{{p( - a)}}{{p(a)}}\left| {{{\mathbf{J}}_2}} \right| = \frac{{{t_X} - {t_j}}}{{{t_X}' - {t_j}}} \times \frac{{{t_X} - {t_k}}}{{{t_X}' - {t_k}}}
+{r_2} = \frac{{{t_X} - {t_j}}}{{{t_X}' - {t_j}}} \times \frac{{{t_X} - {t_k}}}{{{t_X}' - {t_k}}}
 \end{equation}
 \begin{equation}\label{HR3}
-{r_3} = \frac{{p( - b)}}{{p(b)}}\left| {{{\mathbf{J}}_3}} \right| = 1
+{r_3}  = 1
 \end{equation}
 \begin{equation}\label{HR4}
-{r_4} = \frac{{p( - a)}}{{p(a)}}\frac{{p( - {a_x} )}}{{p({a_x} )}}\mu \left| {{{\mathbf{J}}_4}} \right| = \frac{{{t_X}' - {t_C}}}{{{t_X}' - {t_C}'}} \times \frac{{{t_C} - {t_S}}}{{{t_C}' - {t_S}}} \times \frac{{{t_C} - {t_{N1}}}}{{{t_X}' - {t_{N1}}}} \times \frac{{{t_X} - {t_{N2}}}}{{{t_C}' - {t_{N2}}}}
+{r_4} = \mu \times \frac{{{t_X}' - {t_C}}}{{{t_X}' - {t_C}'}} \times \frac{{{t_C} - {t_S}}}{{{t_C}' - {t_S}}} \times \frac{{{t_C} - {t_{N1}}}}{{{t_X}' - {t_{N1}}}} \times \frac{{{t_X} - {t_{N2}}}}{{{t_C}' - {t_{N2}}}}
 \end{equation}
+, where $\mu = p(g', g) / p(g, g')$ is defined as the ratio of topology change, which is obtained by Algorithm \ref{alg1}. 
 \section*{Experimental results and analysis}
 In this section, a series of experiments are conducted by implementing the proposed operator in BEAST2. Some analysis are also included to validate the effectiveness and efficiency of the proposed operator. Firstly, by sampling from the prior distributions, in which no alignments are involved, the correctness of the operator is proved. After the well-calibrated simulation study, it turns out that the operator is able to work properly with other operators and sample the simulated data with reliability. Besides, by comparing ESS and running time, it is demonstrated that the performance is improved when using the proposed operator. Finally, the correlation of rates and node times is discussed, and some potential problems are mentioned in the future work. 
 \subsection*{Sample from the prior}
@@ -410,7 +411,7 @@ p({t_E},{t_D}) = (\frac{1}{N} \times {e^{ - \frac{1}{N}({t_E} - {t_D})}}) \times
 After the priors are specified, the distribution to sample can be exactly known, since the samples are drawn from the prior distributions. In other words, as the rates are functions of its genetic distance and times, the joint distribution to sample can be represented by Eq.(\ref{integration}).
 \begin{equation}\label{integration}
 \begin{aligned}
-p(r,t) &= p({t_E},{t_D}) \times p({r_i}) \times p({r_j}) \times p({r_k}) \times p({r_x}) \\&= P({t_E},{t_D}) \times p(\frac{{{d_i}}}{{\Delta t1}}) \times p(\frac{{{d_j}}}{{\Delta t2}}) \times p(\frac{{{d_k}}}{{\Delta t3}}) \times p(\frac{{{d_x}}}{{\Delta t4}})
+p(r,t) &= p({t_E},{t_D}) \times p({r_i}) \times p({r_j}) \times p({r_k}) \times p({r_x}) \\&= p({t_E},{t_D}) \times p(\frac{{{d_i}}}{{\Delta t1}}) \times p(\frac{{{d_j}}}{{\Delta t2}}) \times p(\frac{{{d_k}}}{{\Delta t3}}) \times p(\frac{{{d_x}}}{{\Delta t4}})
 \end{aligned}
 \end{equation}
 , where ${\Delta t1}$, ${\Delta t2}$, ${\Delta t3}$, ${\Delta t4}$ represents the time duration along the corresponding branch, and $p({.})$ is the probability of certain rate values in the LogNormal distribution. Therefore, the whole probability can be obtained by conducting numerical integration on Eq.(\ref{integration}), which shows the probability distribution over all the possible values of parameters.
@@ -420,7 +421,7 @@ The genetic distances, node times and rates for $g_1$ in Fig.\ref{sampleprior} a
 The mean, mean error and the standard deviation of the MCMC samples are summarised in Table \ref{res_inter}. Besides, according to Eq.(\ref{integration}), the actual joint distribution is obtained by using Eq.(\ref{integration1}), and is used to evaluate the results, which is also included in Table \ref{res_inter}. Moreover, the histograms of MCMC samples that indicate the sampled distributions, as well as the curves of the numerical integration of Eq.(\ref{integration1}), are shown in Fig.\ref{res_int}. From Table \ref{res_inter} and Fig.\ref{res_int}, it can be seen that the red curves well fit the black histograms, and the mean values and standard deviations are consistent, which makes it safe to conclude that the proposed operator samples the internal node correctly.
 \begin{equation}
 \label{integration1}
-P(r,{t_D}) = \int_{{t_D} = 0}^{{t_E}} {P({t_E},{t_D}) \times P(\frac{{{d_j}}}{{{t_D}}}) \times P(\frac{{{d_k}}}{{{t_D}}}) \times P(\frac{{{d_i}}}{{{t_E} - {t_D}}}) \times P(\frac{{{d_x}}}{{{t_E}}}){d_{t_D}}}
+p(r,{t_D}) = \int_{{t_D} = 0}^{{t_E}} {p({t_E},{t_D}) \times p(\frac{{{d_j}}}{{{t_D}}}) \times p(\frac{{{d_k}}}{{{t_D}}}) \times p(\frac{{{d_i}}}{{{t_E} - {t_D}}}) \times p(\frac{{{d_x}}}{{{t_E}}}){d_{t_D}}}
 \end{equation}
 \subsubsection*{Test the operator on root}
 Still starting from $g_1$ in Fig.\ref{sampleprior}, the initial settings for testing the root are given in Table \ref{ini_sim}. And the three strategies are tested separately in the following parts.
@@ -430,10 +431,10 @@ Still starting from $g_1$ in Fig.\ref{sampleprior}, the initial settings for tes
 The root time $t_E$ is sampled by Simple Distance, which ranges from 1 to positive infinity theoretically. Namely, all the genetic distances and the node time $t_D$  are fixed. Similar to Eq.(\ref{integration1}), the joint distribution of $t_E$ and rates to sample can be obtained by Eq.(\ref{integration2}).
 \begin{equation}
 \label{integration2}
-P(r,{t_E}) = \int_{{t_E} = 1}^{ + \infty } {P({t_E},{t_D}) \times P(\frac{{{d_j}}}{{{t_D}}}) \times P(\frac{{{d_k}}}{{{t_D}}}) \times P(\frac{{{d_i}}}{{{t_E} - {t_D}}}) \times P(\frac{{{d_x}}}{{{t_E}}}){d_{t_E}}}
+p(r,{t_E}) = \int_{{t_E} = 1}^{ + \infty } {p({t_E},{t_D}) \times p(\frac{{{d_j}}}{{{t_D}}}) \times p(\frac{{{d_k}}}{{{t_D}}}) \times p(\frac{{{d_i}}}{{{t_E} - {t_D}}}) \times p(\frac{{{d_x}}}{{{t_E}}}){d_{t_E}}}
 \end{equation}
 
-The results are given in Table \ref{res_sma} and Fig.\ref{Fig.sub.5}. As can be seen, the mean and the standard deviation are close enough, which confirms that the two distribution are the same. Thus, Simple Distance is proved to be correct.
+The results are given in Table \ref{res_sma} and Fig.\ref{Fig.sub.5}. As can be seen, the mean and the standard deviation of MCMC samples and numerical integration are close to each other, which confirms that the two distribution are the same. Thus, Simple Distance is proved to be correct.
 
 \paragraph*{Using Small Pulley}
 
@@ -441,19 +442,19 @@ Although both ${d_x}$ and ${d_i}$ are changed during the sampling process when u
 
 Then, based on Eq.(\ref{integration}), the exact distribution of ${d_i}$ can be obtained by Eq.(\ref{integration3}), which is compared with the sampled distribution in Table \ref{res_sma} and Fig.\ref{Fig.sub.6}. Even though there exist some errors, the sampled parameters can be considered to follow the same distribution. So the Small Pulley is also able to provide correct samples.
 \begin{equation}\label{integration3}
-P(r,{d_i}) = \int_{{d_i} = 1}^{0.67} {P({t_E},{t_D}) \times P(\frac{{{d_j}}}{{{t_D}}}) \times P(\frac{{{d_k}}}{{{t_D}}}) \times P(\frac{{{d_i}}}{{{t_E} - {t_D}}}) \times P(\frac{{0.67 - {d_i}}}{{{t_E}}}){d_{d_i}}}
+p(r,{d_i}) = \int_{{d_i} = 1}^{0.67} {p({t_E},{t_D}) \times p(\frac{{{d_j}}}{{{t_D}}}) \times p(\frac{{{d_k}}}{{{t_D}}}) \times p(\frac{{{d_i}}}{{{t_E} - {t_D}}}) \times p(\frac{{0.67 - {d_i}}}{{{t_E}}}){d_{d_i}}}
 \end{equation}
 
 \paragraph*{Using Big Pulley}
 
-For $g_1$ in Fig.\ref{sampleprior} with tree taxa, a new tree, together with the root time $t_E$ and node time of its older child $t_D$, as well as a genetic distance $d_i$, is proposed by Big Pulley. In this case, the initial tree $g_1$ will either go to $g_2$ or $g_3$, as is shown in Fig.\ref{sampleprior}.  So the samples are repeatedly drawn from the 3 trees. Besides, according to the initial settings in Table \ref{ini_sim}, the genetic distances remain unchanged during the process, i.e. $d_{AB} = 1$, $d_{AC}  = 1$ and $d_{BC} = 1$ hold. Hence, the distribution we are about to achieve can be calculated by Eq.(\ref{integration5}).
+For $g_1$ in Fig.\ref{sampleprior}, a new tree, together with the root time $t_E$ and node time of its older child $t_D$, as well as a genetic distance $d_i$, is proposed by Big Pulley. In this case, the initial tree $g_1$ will either go to $g_2$ or $g_3$, as is shown in Fig.\ref{sampleprior}.  So the samples are repeatedly drawn from the 3 trees. Besides, according to the initial settings in Table \ref{ini_sim}, the genetic distances remain unchanged during the process, i.e. $d_{AB} = 1$, $d_{AC}  = 1$ and $d_{BC} = 1$ hold. Hence, the distribution we are about to achieve can be calculated by Eq.(\ref{integration5}).
 \begin{equation}\label{integration5}
 \begin{aligned}
-P({t_E},{t_D},{d_i}) &= \int_{{t_E} = 0}^{ + \infty } {\int_{{t_D} = 0}^{{t_E}} {\int_{{d_i} = 0}^{0.5} {P({t_E},{t_D})} } \times P(\frac{{0.5}}{{{t_D}}})}  \\&\times P(\frac{{0.5}}{{{t_D}}}) \times P(\frac{{{d_i}}}{{{t_E} - {t_D}}}) \times P(\frac{{0.5 - {d_i}}}{{{t_E}}}){d_{d_i}}{d_{t_D}}{d_{t_E}}
+p({t_E},{t_D},{d_i}) &= \int_{{t_E} = 0}^{ + \infty } {\int_{{t_D} = 0}^{{t_E}} {\int_{{d_i} = 0}^{0.5} {p({t_E},{t_D})} } \times p(\frac{{0.5}}{{{t_D}}})}  \\&\times p(\frac{{0.5}}{{{t_D}}}) \times p(\frac{{{d_i}}}{{{t_E} - {t_D}}}) \times p(\frac{{0.5 - {d_i}}}{{{t_E}}}){d_{d_i}}{d_{t_D}}{d_{t_E}}
 \end{aligned}
 \end{equation}
 
-The statistical measurements, i.e. mean and standard deviation, are compared in Table \ref{res_sma}. The histograms of samples and theoretical distributions of ${d_i}$ and ${t_E}$ are pictured in Fig.\ref{Fig.sub.9} and Fig.\ref{Fig.sub.10}. It is shown that the two distributions are consistent within the acceptable error range. Therefore, Big Pulley can also give the right combinations of rates and node times, under the condition that the genetic distances among taxa are constant.
+The statistical measurements, i.e. mean and standard deviation, are compared in Table \ref{res_sma}. The histograms of samples and numerical curves of ${d_i}$ and ${t_E}$ are pictured in Fig.\ref{Fig.sub.9} and Fig.\ref{Fig.sub.10}. It is shown that the two distributions are consistent within the acceptable error range. Therefore, Big Pulley can also give the right combinations of rates and node times, under the condition that the genetic distances among taxa are constant.
 
 
 \subsection*{Well-calibrated simulation study}
@@ -588,8 +589,8 @@ The work is partially supported by scholarship  from China Scholarship Council (
 
 \begin{figure}[h!]
 \includegraphics[width=12cm]{exchangemethod.eps}\\
-\caption{\csentence{The illustration of \textit{Exchange (\textbf{Node1},\textbf{Node2})} method.}
-             This method is applied to tree $g$ and proposes $g'$ by swapping \textbf{Node1} and \textbf{Node2}, so that the four distances are adjusted to maintain the distances among \textbf{Sib}, \textbf{Node1} and \textbf{Node2}.}
+\caption{\csentence{The illustration of \textit{Exchange (\textbf{M},\textbf{N})} method.}
+             This method is applied to tree $g$ and proposes $g'$ by swapping \textbf{M} and \textbf{N}, so that the four distances are adjusted to maintain the distances among \textbf{S}, \textbf{M} and \textbf{N}.}
 \label{exchangemethod}
 \end{figure}
 
@@ -662,7 +663,7 @@ The work is partially supported by scholarship  from China Scholarship Council (
 \begin{figure}[h!]
 \includegraphics[width=12cm]{ModelValidation.eps}\\
 \caption{\csentence{The models and prior distributions to simulate the sequence data.}
-             The sequence alignment is simulated through a phylogenetic continuous-time Markov Chain that consists of a substitution model (HKY) and a uncorrelated relaxed clock model. The random variables in HKY model, including frequency and ratio, construct the mutation rate matrix. The rates and phylogenetic time trees specified by a Yule model construct the substitution tree. The standard deviation of rates and the birth rate in Yule model are both random variables following LogNormal distributions.}
+             The sequence alignment is simulated through a phylogenetic continuous-time Markov Chain that consists of a substitution model (HKY) and an uncorrelated relaxed clock model. The random variables in HKY model, including frequency and ratio, construct the mutation rate matrix. The rates and phylogenetic time trees specified by a Yule model construct the substitution tree. The standard deviation of rates and the birth rate in Yule model are both random variables following LogNormal distributions.}
 \label{modelvalidation}
 \end{figure}
 
@@ -753,14 +754,14 @@ Scenario 1&0.1&0.2&0.4&0.27&1&10&0.1&0.2&0.04&0.03\\
 Scenario 2&0.4&0.8&2.4&1.6&0.4&0.8&1&2&3&4\\
   \hline
 \end{tabular}
-\caption{Initial settings for internal nodes}\label{ini_inter}
+\caption{Initial settings for testing operations on internal nodes}\label{ini_inter}
 \end{table}
 
 \begin{table}[h!]
   \centering
 \begin{tabular}{c|c|ccc|ccc|c}
   \hline
-&\multirow{2}*{Chain Length}&\multicolumn{3}{c|}{Sample from MCMC}&\multicolumn{3}{c|}{R curve}&Plot\\
+&\multirow{2}*{Chain Length}&\multicolumn{3}{c|}{Sample from MCMC}&\multicolumn{3}{c|}{Integral curve}&Plot\\
 &~&Mean&Err&StdEv&Mean&Err&StdEv&\\
 \hline
 \multirow{2}*{Senario 1}&10000000&3.2727&8.3e-3&0.5467&\multirow{2}*{3.2669}&\multirow{2}*{1.3e-06}&\multirow{2}*{0.5553}&Fig.\ref{Fig.sub.1}\\
@@ -770,7 +771,7 @@ Scenario 2&0.4&0.8&2.4&1.6&0.4&0.8&1&2&3&4\\
 ~&20000000&0.4672&2.8e-04&0.0262&~&~&~&Fig.\ref{Fig.sub.4}\\
   \hline
 \end{tabular}
-\caption{Results of internal nodes}\label{res_inter}
+\caption{Results of sampling the internal node}\label{res_inter}
 \end{table}
 
 \begin{table}[h!]
@@ -785,14 +786,14 @@ Small Pulley&0.1&0.2&\multicolumn{2}{|c|}{0.67}&1&10&0.1&0.2&0.04&0.03\\
 Big Pulley&0.5&0.5&\multicolumn{2}{|c|}{0.5}&5&10&0.1&0.1&0.03&0.04\\
   \hline
 \end{tabular}
-\caption{Initial settings for Simple Distance}\label{ini_sim}
+\caption{Initial settings for operations on the root}\label{ini_sim}
 \end{table}
 
 \begin{table}[h!]
 \centering
 \begin{tabular}{c|c|cc|cc|cc}
   \hline
-\multirow{2}*{Strategy}&\multirow{2}*{Variable}&\multicolumn{2}{c|}{Sample from MCMC}&\multicolumn{2}{c|}{R curve}&\multirow{2}*{Plot}\\
+\multirow{2}*{Strategy}&\multirow{2}*{Variable}&\multicolumn{2}{c|}{Sample from MCMC}&\multicolumn{2}{c|}{Integral curve}&\multirow{2}*{Plot}\\
 &~&Mean&StdEv&Mean&StdEv&\\
 \hline
 Simple Distance&$t_E$&7.8081&1.2884&7.8187&1.2992&Fig.\ref{Fig.sub.5}\\
@@ -803,7 +804,7 @@ Small Pulley&${d_i}$&0.3480&0.0492&0.3476&0.0494&Fig.\ref{Fig.sub.6}\\
 ~&$t_E$&3.3017&0.6908&3.3095&0.6912&Fig.\ref{Fig.sub.10}\\
 \hline
 \end{tabular}
-\caption{Results for root}\label{res_sma}
+\caption{Results of sampling the root}\label{res_sma}
 \end{table}
 
 \begin{table}[h!]
