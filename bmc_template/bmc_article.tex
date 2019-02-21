@@ -141,9 +141,9 @@ Bayesian MCMC has become a common approach for phylogenetic inference. This pape
 
 %%%%%%%%%%%%%%%%
 \section*{Introduction}
-Bayesian phylogenetics puts an emphasis on estimating probability distributions of parameters of interest, including the phylogenetic tree topology and divergence times, given the data \cite{hastings1970monte}. 
-Markov chain Monte Carlo (MCMC) has been the primary computational tool used in Bayesian phylogenetics for sampling from the posterior distribution. 
-Early implementations of Bayesian phylogenetic inference assumed a strict molecular clock in order to estimate divergence times \cite{yang1997bayesian,rannala2003bayes}. The introduction of relaxed molecular clocks allowed for the estimation of divergence times in the presence of rate heterogeneity among branches \cite{drummond2006relaxed}. 
+Bayesian phylogenetics puts an emphasis on estimating probability distributions of parameters of interest, including the phylogenetic tree topology and divergence times, given the data \cite{hastings1970monte}. Markov chain Monte Carlo (MCMC) has been the primary computational tool used in Bayesian phylogenetics for sampling from the posterior distribution. This paper is aimed at improving the performance of the relaxed clock model in Bayesian phylogenetic analysis. 
+
+Historically, early implementations of Bayesian phylogenetic inference assumed a strict molecular clock where the evolutionary rates are the same at every branch \cite{zuckerkandl1965evolutionary}, and has been preferred to estimate divergence times \cite{yang1997bayesian,rannala2003bayes}. The introduction of relaxed molecular clocks allowed for the estimation of divergence times in the presence of rate heterogeneity among branches \cite{drummond2006relaxed}. Since then, the relaxed clock model has been widely applied, such as the study of Nothofagus \cite{knapp2005relaxed}. By allowing rates to vary across lineages, it is considered that better estimates of divergence times can be obtained, according to the work in Ref.\cite{ho2005accuracy,renner2005relaxed,lepage2007general}. 
 
 Bayesian phylogenetic inference via MCMC is computationally intensive for large data sets. 
 Two approaches to improve efficiency are (i) by making faster likelihood calculations, and (ii) by incorporating effective proposals mechanisms. Calculating the phylogenetic likelihood is computationally expensive. 
@@ -175,38 +175,36 @@ However, due to the state space being large to explore and the marginal likeliho
 %In this paper, a Metropolis-Hastings algorithm (MH-MCMC) is implemented, which generates a new state given the current state through a proposal density and accepts the new state with a prescribed probability \cite{metropolis1953equation,hastings1970monte}.
 \subsection*{Tree proposals}
 \label{treeproposals}
-We use the term ``operator" to describe an algorithm that can be used to draw a new state $\theta'$ given an existing state $\theta = \{g,\Phi\}$ from a specific proposal kernel $q(\theta'|\theta)$ and also return the Hastings-Green ratio for the proposed state transition \cite{green1995reversible}. In MH-MCMC, an operator implements the proposal density and provided relevant information to calculate the acceptance probability for the next proposed state. 
-
-Standard na\"{i}ve operators such as the random walk operator propose a new state by adding a random variate to a component of the state \cite{suchard2005stochastic}. 
-Similarly, a scale operator multiplies the current state by a scale factor \cite{higuchi1997monte}. They are suitable for working on a single random variable, or a single component of the model, such as a population size. 
+We use the term ``operator" to describe an algorithm that can be used to draw a new state $\theta'$ given an existing state $\theta = \{g,\Phi\}$ from a specific proposal kernel $q(\theta'|\theta)$ and also return the Hastings-Green ratio for the proposed state transition \cite{green1995reversible}. 
+%In MH-MCMC, an operator implements the proposal density and provided relevant information to calculate the acceptance probability for the next proposed state. 
+ ?
+Standard na\"{i}ve operators such as the random walk operator propose a new state by adding a random variate to a component of the state \cite{suchard2005stochastic}. Similarly, the scale operator multiplies the current state by a scale factor \cite{higuchi1997monte}. They are suitable for working on a single random variable, or a single component of the model, such as a population size. 
 Standard operators for the tree topology and divergence times include the subtree slide operator, Wilson-balding and narrow exchange operators \cite{hohna2008clock}. 
 %On top of this, there are also some extended operators available to help give the better performance. For instance, the prune-and-regraft operator selects a random subtree and reattaches the subtree at a new random branch \cite{hohna2011guided}. 
 
-What matters for developing an operator in MH-MCMC is that the proposal should be reversible. In other words, the probability that the operator propose a new state from the current state is required to be equal to the probability that the proposed state goes back to current state. To be specific, let ${\pi (x)}$ be the target probability distribution and $p(x, x')$ be the transition kernel in the continuous Markov chain. The reversibility condition requires that ${\pi (x)}{p(x, x')} = {\pi (x')}{p(x', x)}$. And an operator provides a proposal $q(x, x')$ with some probability $\alpha(x, x')$ that the proposal is accepted. Thus, the reversibility condition is rewritten as ${\pi (x)}{q(x, x')}{\alpha(x, x')} = {\pi (x')}{q(x', x)}{\alpha(x', x)}$. 
-
-Considering the subspace $\varphi_1$ on $x$ and subspace $\varphi_2$ on $x'$, it is assumed that there is a symmetric measure on the combined parametric space $\varphi = {\varphi_1} \times {\varphi_2}$, so that ${\pi (x)}{q(x, x')}$ has a density with respect to a single measure on $\varphi$. Then, Green suggested that the reversibility condition should be satisfied by the detailed balance \cite{green1995reversible}, as is represented by Eq.(\ref{balance}). And according to Peskun' proof, it is optimal to take Eq.(\ref{Ratio}) as the acceptance probability to retain the detailed balance \cite{peskun1973optimum}.
-
-\begin{equation}\label{balance}
-\int_A {\pi (x) d_x} {\int_B  {q(x, x')}{\alpha(x, x')} d_x}  = \int_B {\pi (x') d_{x'}}{\int_A {q(x', x)}{\alpha(x', x)} d_{x'}}
-\end{equation}
-, where $A \in {\varphi_1}$ and $B \in  {\varphi_2}$ are two Borel sets. ${q(x, x')}$ denotes the probability that the operator proposes a new state $x'$ given the current state $x$.
-
-\begin{equation}\label{Ratio}
-{\alpha_m }(x, x') = \min \left\{ {1,\frac{{\pi (x'){p}(x',x)}}{{\pi (x){p}(x,x')}}} \right\}
-\end{equation}
-%, where ${p(x',dx)}/{p(x,dx')}$ is called Hastings ratio
-
-However, for operators that do not have a symmetric measure, it is necessary to include the Jacobian matrix ${\mathbf{J}}$  in order to deal with the dimension matching problem, as is discussed in Green's paper \cite{green1995reversible}. In this case, Eq.(\ref{Ratio}) is extended and defined as Green ratio, shown in Eq.(\ref{Green})
-\begin{equation}\label{Green}
-{\alpha_G}(x, x') = \min \left\{ {1,\frac{{\pi (x'){p}(x',x)}}{{\pi (x){p}(x,x')}}}\left|{\mathbf{J}}\right| \right\}
-\end{equation}
-, where ${\mathbf{J}} = {\nabla h(x, x')}$ represents a vector differential matrix of deterministic function $h$ that makes the proposal have a symmetric measure on each subspace in state $x$ and $x'$.
+%What matters for developing an operator in MH-MCMC is that the proposal should be reversible. In other words, the probability that the operator propose a new state from the current state is required to be equal to the probability that the proposed state goes back to current state. To be specific, let ${\pi (x)}$ be the target probability distribution and $p(x, x')$ be the transition kernel in the continuous Markov chain. The reversibility condition requires that ${\pi (x)}{p(x, x')} = {\pi (x')}{p(x', x)}$. And an operator provides a proposal $q(x, x')$ with some probability $\alpha(x, x')$ that the proposal is accepted. Thus, the reversibility condition is rewritten as ${\pi (x)}{q(x, x')}{\alpha(x, x')} = {\pi (x')}{q(x', x)}{\alpha(x', x)}$. 
+%
+%Considering the subspace $\varphi_1$ on $x$ and subspace $\varphi_2$ on $x'$, it is assumed that there is a symmetric measure on the combined parametric space $\varphi = {\varphi_1} \times {\varphi_2}$, so that ${\pi (x)}{q(x, x')}$ has a density with respect to a single measure on $\varphi$. Then, Green suggested that the reversibility condition should be satisfied by the detailed balance \cite{green1995reversible}, as is represented by Eq.(\ref{balance}). And according to Peskun' proof, it is optimal to take Eq.(\ref{Ratio}) as the acceptance probability to retain the detailed balance \cite{peskun1973optimum}.
+%
+%\begin{equation}\label{balance}
+%\int_A {\pi (x) d_x} {\int_B  {q(x, x')}{\alpha(x, x')} d_x}  = \int_B {\pi (x') d_{x'}}{\int_A {q(x', x)}{\alpha(x', x)} d_{x'}}
+%\end{equation}
+%, where $A \in {\varphi_1}$ and $B \in  {\varphi_2}$ are two Borel sets. ${q(x, x')}$ denotes the probability that the operator proposes a new state $x'$ given the current state $x$.
+%
+%\begin{equation}\label{Ratio}
+%{\alpha_m }(x, x') = \min \left\{ {1,\frac{{\pi (x'){p}(x',x)}}{{\pi (x){p}(x,x')}}} \right\}
+%\end{equation}
+%%, where ${p(x',dx)}/{p(x,dx')}$ is called Hastings ratio
+%
+%However, for operators that do not have a symmetric measure, it is necessary to include the Jacobian matrix ${\mathbf{J}}$  in order to deal with the dimension matching problem, as is discussed in Green's paper \cite{green1995reversible}. In this case, Eq.(\ref{Ratio}) is extended and defined as Green ratio, shown in Eq.(\ref{Green})
+%\begin{equation}\label{Green}
+%{\alpha_G}(x, x') = \min \left\{ {1,\frac{{\pi (x'){p}(x',x)}}{{\pi (x){p}(x,x')}}}\left|{\mathbf{J}}\right| \right\}
+%\end{equation}
+%, where ${\mathbf{J}} = {\nabla h(x, x')}$ represents a vector differential matrix of deterministic function $h$ that makes the proposal have a symmetric measure on each subspace in state $x$ and $x'$.
 
 \subsection*{Uncorrelated relaxed clock model}
-This paper is aimed at improving the performance of relaxed clock model in Bayesian phylogenetic analysis. First of all, a molecular clock model is used to model how nucleotides evolve with certain rates along branches in the phylogenetic tree, so that a time tree can reconcile with the genetic distances between sequences. In the very beginning, a strict clock model assumes evolutionary rates to be the same at every branch \cite{zuckerkandl1965evolutionary}. But recently, the idea of relaxing the molecular clock has become a research of interest and has been widely applied, such as the study of Nothofagus \cite{knapp2005relaxed}. By allowing rates to vary across lineages, it is considered that better estimates of divergence times can be obtained, according to the work in Ref.\cite{ho2005accuracy,renner2005relaxed,lepage2007general}. 
 %%define genetic distance
-
- In this paper, the proposed operator is based on an uncorrelated relaxed model, where the rates vary and follow a certain distribution. As is detailed in Ref.\cite{drummond2006relaxed}, uncorrelated rates indicate that the rates on branches are identically distributed and will be independently drawn from a certain distribution such as a log-normal distribution. As a result, the rates can change faster than making a slight move over multiple adjoining branches. In 2010, Smith et al. applied an uncorrelated relaxed-clock to flowering plants and the results show the consistency with the fossil record \cite{smith2010uncorrelated}.
+Molecular clock models how nucleotides evolve with certain substitution rates along branches in the phylogenetic tree, so that the time tree can reconcile with the genetic distances between sequences. In this paper, the proposed operator is based on an uncorrelated relaxed model, where the rates vary and follow a certain distribution. As is detailed in Ref.\cite{drummond2006relaxed}, uncorrelated rates indicate that the rates on branches are identically distributed and will be independently drawn from a certain distribution such as a log-normal distribution. As a result, the rates can change faster than making a slight move over multiple adjoining branches. In 2010, Smith et al. applied an uncorrelated relaxed-clock to flowering plants and the results show the consistency with the fossil record \cite{smith2010uncorrelated}.
 
 Referring to the Bayesian framework shown by Eq.(\ref{bayes}), the joint inference of evolutionary rates and divergence times can be obtained by the conditional distribution in Eq.(\ref{bayes1}). And the proposed operator is to sample the state $(t,r,\Phi)$ in the constructed Markov chain.
 \begin{equation}\label{bayes1}
