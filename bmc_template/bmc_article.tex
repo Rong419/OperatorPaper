@@ -175,9 +175,9 @@ However, due to the state space being large to explore and the marginal likeliho
 %In this paper, a Metropolis-Hastings algorithm (MH-MCMC) is implemented, which generates a new state given the current state through a proposal density and accepts the new state with a prescribed probability \cite{metropolis1953equation,hastings1970monte}.
 \subsection*{Tree proposals}
 \label{treeproposals}
-We use the term ``operator" to describe an algorithm that can be used to draw a new state $\theta'$ given an existing state $\theta = \{g,\Phi\}$ from a specific proposal kernel $q(\theta'|\theta)$ and also return the Hastings-Green ratio for the proposed state transition \cite{green1995reversible}. 
+We use the term ``operator" to describe an algorithm that can be used to draw a new state $\theta'$ given an existing state $\theta = \{g,\Phi\}$ from a specific proposal kernel $q(\theta'|\theta)$ and also return the Hastings-Green ratio for the proposed state transition \cite{hastings1970monte,green1995reversible}. 
 %In MH-MCMC, an operator implements the proposal density and provided relevant information to calculate the acceptance probability for the next proposed state. 
- ?
+
 Standard na\"{i}ve operators such as the random walk operator propose a new state by adding a random variate to a component of the state \cite{suchard2005stochastic}. Similarly, the scale operator multiplies the current state by a scale factor \cite{higuchi1997monte}. They are suitable for working on a single random variable, or a single component of the model, such as a population size. 
 Standard operators for the tree topology and divergence times include the subtree slide operator, Wilson-balding and narrow exchange operators \cite{hohna2008clock}. 
 %On top of this, there are also some extended operators available to help give the better performance. For instance, the prune-and-regraft operator selects a random subtree and reattaches the subtree at a new random branch \cite{hohna2011guided}. 
