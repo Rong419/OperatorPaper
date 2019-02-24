@@ -141,20 +141,19 @@ Bayesian MCMC has become a common approach for phylogenetic inference. This pape
 
 %%%%%%%%%%%%%%%%
 \section*{Introduction}
-Bayesian phylogenetics puts an emphasis on estimating probability distributions of parameters of interest, including the phylogenetic tree topology and divergence times, given the data \cite{hastings1970monte}. Markov chain Monte Carlo (MCMC) has been the primary computational tool used in Bayesian phylogenetics for sampling from the posterior distribution. This paper is aimed at improving the performance of the relaxed clock model in Bayesian phylogenetic analysis. 
+Bayesian phylogenetics puts an emphasis on estimating probability distributions of parameters of interest, including the phylogenetic tree topology and divergence times, given the data. The Metropolis-Hastings Markov chain Monte Carlo (MCMC) \cite{hastings1970monte} algorithm has been the primary computational tool used in Bayesian phylogenetics for sampling from the posterior distribution. This paper is aimed at improving the performance of the relaxed clock model in Bayesian phylogenetic analysis. 
 
-Historically, early implementations of Bayesian phylogenetic inference assumed a strict molecular clock where the evolutionary rates are the same at every branch \cite{zuckerkandl1965evolutionary}, and has been preferred to estimate divergence times \cite{yang1997bayesian,rannala2003bayes}. The introduction of relaxed molecular clocks allowed for the estimation of divergence times in the presence of rate heterogeneity among branches \cite{drummond2006relaxed}. Since then, the relaxed clock model has been widely applied, such as the study of Nothofagus \cite{knapp2005relaxed}. By allowing rates to vary across lineages, it is considered that better estimates of divergence times can be obtained, according to the work in Ref.\cite{ho2005accuracy,renner2005relaxed,lepage2007general}. 
+Historically, early implementations of Bayesian phylogenetic inference assumed a strict molecular clock where the evolutionary rates are the same at every branch \cite{zuckerkandl1965evolutionary}. This was the preferred method for estimating divergence times \cite{yang1997bayesian,rannala2003bayes}. The introduction of relaxed molecular clocks allowed for the estimation of divergence times in the presence of rate heterogeneity among branches \cite{drummond2006relaxed}. Since then, the relaxed clock model has been widely applied, such as the study of Nothofagus \cite{knapp2005relaxed} and flowering plants \cite{smith2010uncorrelated}. By allowing rates to vary across lineages, it is considered that better estimates of divergence times can be obtained, according to the work in Ref.\cite{ho2005accuracy,renner2005relaxed,lepage2007general}. 
 
 Bayesian phylogenetic inference via MCMC is computationally intensive for large data sets. 
 Two approaches to improve efficiency are (i) by making faster likelihood calculations, and (ii) by incorporating effective proposals mechanisms. Calculating the phylogenetic likelihood is computationally expensive. 
-Hence, researchers have tried many ways to tackle the computation burden in the likelihood calculations, such as detection of repeating sites \cite{kobert2017efficient},  approximate methods (e.g. \cite{reis2011approximate}) and the use of parallelisation strategies. 
+Hence, researchers have tried many ways to tackle the computation burden in the likelihood calculations, such as detection of repeating sites \cite{kobert2017efficient},  approximate methods (e.g. \cite{reis2011approximate}) and the use of parallelisation strategies (e.g. BEAGLE \cite{ayres2011beagle}). 
 
 However the overall efficiency of the sampling process also depends strongly on the construction of the proposal mechanism. An effective proposal mechanism  is proficient at exploring the posterior distribution, and can do so with fewer steps in the MCMC chain. Therefore fewer likelihood calculations are required, since each step in the chain requires a likelihood calculation.
 %More efficient proposal mechanisms require fewer steps in the MCMC chain and thus fewer likelihood computations, since each step of the MCMC chain entails a likelihood calculation. 
 
 A major limitation in Bayesian MCMC analysis of phylogeny lies in the efficiency with which operators sample the tree space \cite{lakner2008efficiency}. Fast and reliable estimation is dependent on a good mixture of operators in Bayesian MCMC, since the posterior distribution often exhibits correlations between the tree and other random variables. 
 %Many such tree proposal mechanisms have been described \cite{}. %According to the work in Ref.\cite{hohna2011guided}, the two common operators, i.e. prune-and-regraft and subtree-swap, both contribute to a tree with low likelihood since they propose a new tree by random movement of the current tree. So the authors introduced two new operators by proposing a state from a discrete set of possible proposals and narrowing the proposal distribution to the more likely proposals. Their experimental results proved that the two operators have faster average run time and more accurate predictability.
-
 
 In this paper, we present a novel operator that searches within a subspace of constant genetic distances. 
 Namely, the proposed operator changes both divergence times of nodes and neighbouring branch rates so that implied genetic distances are not changed. For time-reversible substitution models the phylogenetic likelihood will also be unchanged under this operation. The proposed operator has been implemented and tested in BEAST2 \cite{bouckaert2014beast}. 
@@ -165,10 +164,10 @@ Namely, the proposed operator changes both divergence times of nodes and neighbo
 %Section 5 ends the paper with a short conclusion.
 \section*{Prelimiaries}
 \subsection*{Bayesian MCMC}
-Let $D$ denote the data, $g$ and $\Phi $ be the phylogenetic tree and a set of parameters of interest. The posterior probability density can be calculated using Equation \ref{bayes}. It consists of prior distributions for the  tree, a phylogenetic likelihood that conveys information from data, and the posterior distribution to be inferred, which are denoted in the form of probability densities by $p(g) $, $p(\Phi )$, $\Pr(D|g,\Phi )$, $f(g,\Phi |D)$ correspondingly. From a Bayesian perspective, the phylogenetic trees and the parameters are random variables described by a posterior probability distribution given the observed data $D$. 
+Let $D$ denote the data, $g$ and $\Phi $ be the phylogenetic tree and a set of parameters of interest respectively. The posterior probability density can be calculated using Eq.(\ref{bayes}). It consists of prior distributions for the  tree and the parameters, a phylogenetic likelihood that conveys information from data, and the posterior distribution to be inferred. These are denoted in the form of probability densities by $p(g) $, $p(\Phi )$, $\Pr(D|g,\Phi )$, $f(g,\Phi |D)$ respectively. From a Bayesian perspective, the phylogenetic trees and the parameters are random variables described by a posterior probability distribution given the observed data $D$. 
 %As a result, it is possible to jointly infer evolutionary history of species  by incorporating various source of information such as molecular data and fossil records.
 \begin{equation}\label{bayes}
-p(g,\Phi |D) = \frac{{p (D|g,\Phi ) \times p (g) \times p (\Phi )}}{{\Pr (D)}}
+p(g,\Phi |D) = \frac{{p (D|g,\Phi ) \times p (g) \times p (\Phi )}}{{p (D)}}
 \end{equation}
 
 However, due to the state space being large to explore and the marginal likelihood being infeasible to calculate, MCMC is adopted to sample the posterior distribution. Specifically, MCMC algorithms construct a Markov chain whose stationary distribution is the posterior distribution $p(g,\Phi |D)$, in such a way that the computation of the marginal likelihood $p (D)$ is avoided. 
@@ -178,7 +177,7 @@ However, due to the state space being large to explore and the marginal likeliho
 We use the term ``operator" to describe an algorithm that can be used to draw a new state $\theta'$ given an existing state $\theta = \{g,\Phi\}$ from a specific proposal kernel $q(\theta'|\theta)$ and also return the Hastings-Green ratio for the proposed state transition \cite{hastings1970monte,green1995reversible}. 
 %In MH-MCMC, an operator implements the proposal density and provided relevant information to calculate the acceptance probability for the next proposed state. 
 
-Standard na\"{i}ve operators such as the random walk operator propose a new state by adding a random variate to a component of the state \cite{suchard2005stochastic}. Similarly, the scale operator multiplies the current state by a scale factor \cite{higuchi1997monte}. They are suitable for working on a single random variable, or a single component of the model, such as a population size. 
+Standard na\"{i}ve operators such as the random walk operator propose the new state $\theta^\prime$ by adding a random variate to a component of the current state $\theta$ \cite{suchard2005stochastic}. Similarly, scale operators multiply the current state by a scale factor \cite{higuchi1997monte}. They are suitable for working on a single random variable, or a single component of the model, such as a population size. 
 Standard operators for the tree topology and divergence times include the subtree slide operator, Wilson-balding and narrow exchange operators \cite{hohna2008clock}. 
 %On top of this, there are also some extended operators available to help give the better performance. For instance, the prune-and-regraft operator selects a random subtree and reattaches the subtree at a new random branch \cite{hohna2011guided}. 
 
@@ -204,58 +203,59 @@ Standard operators for the tree topology and divergence times include the subtre
 
 \subsection*{Uncorrelated relaxed clock model}
 %%define genetic distance
-Molecular clock models how nucleotides evolve with certain substitution rates along branches in the phylogenetic tree, so that the time tree can reconcile with the genetic distances between sequences. In this paper, the proposed operator is based on an uncorrelated relaxed model, where the rates vary and follow a certain distribution. As is detailed in Ref.\cite{drummond2006relaxed}, uncorrelated rates indicate that the rates on branches are identically distributed and will be independently drawn from a certain distribution such as a log-normal distribution. As a result, the rates can change faster than making a slight move over multiple adjoining branches. In 2010, Smith et al. applied an uncorrelated relaxed-clock to flowering plants and the results show the consistency with the fossil record \cite{smith2010uncorrelated}.
+Molecular clocks model how nucleotides evolve with certain substitution rates along branches in the phylogenetic tree, so that the time tree can reconcile with the genetic distances between sequences. In this paper, the proposed operator is based on an uncorrelated relaxed model, where the rates vary and follow a certain distribution. As is detailed in Ref.\cite{drummond2006relaxed}, uncorrelated rates indicate that the rates on branches are identically distributed and will be independently drawn from a certain distribution such as a log-normal distribution. As a result, the rates can change faster than making a slight move over multiple adjoining branches. 
 
-Referring to the Bayesian framework shown by Eq.(\ref{bayes}), the joint inference of evolutionary rates and divergence times can be obtained by the conditional distribution in Eq.(\ref{bayes1}). And the proposed operator is to sample the state $(t,r,\Phi)$ in the constructed Markov chain.
+Referring to the Bayesian framework shown by Eq.(\ref{bayes}), the joint inference of evolutionary rates and divergence times can be obtained by the conditional distribution in Eq.(\ref{bayes1}):
 \begin{equation}\label{bayes1}
-p(t,r,\Phi |D) = \frac{{p(D|t,r,\Phi )p(r|\Phi )p(t|\Phi )p(\Phi )}}{{p(D)}}
+p(t,r,\Phi |D) = \frac{{p(D|t,r,\Phi )p(r|\Phi )p(t|\Phi )p(\Phi )}}{{p(D)}} \text{,}
 \end{equation}
-, where $p(r|\Phi )$ is the prior for rates specified in uncorrelated relaxed clock model.
+where $p(r|\Phi )$ is the prior for rates specified in uncorrelated relaxed clock model.And the proposed operator is to sample the state $(t,r,\Phi)$ in the constructed Markov chain.
+
 \section*{Methodology: the proposed operator}
-In this section, we define the proposed operator as ConstantDistance Operator. Fig.\ref{flowchart} illustrates the flow chart of the proposed operator. In a phylogenetic tree, the node to operate on is denoted by \textbf{X}. The proposed operator works differently on the internal nodes and the root of the tree. The details of the operations are introduced step by step in the following subsections.
+In this section, we define the ConstantDistance Operator. Fig.\ref{flowchart} illustrates the flow chart of the proposed operator. In a phylogenetic tree, the node to operate on is denoted by \textbf{X}. The proposed operator works differently on internal nodes and the root node. The details of the operations are introduced step by step in the following subsections.
 \subsection*{Operations on internal nodes}
-Fig.\ref{internalnodes} represents the tree (or subtree of a phylogenetic tree) with the node \textbf{X} that is randomly selected among the internal nodes. The original tree in the current state is denoted by $g_{in}$. And the following 5 steps will propose a new tree ${g_{in}}'$.
+Fig.\ref{internalnodes} represents the tree (or subtree) with the node \textbf{X} that is randomly selected among the internal nodes.  Let $g$ be the tree in the current state. The following steps propose a new tree ${g}'$.
 
-\emph{Step 1} Get the parent node and two child nodes of \textbf{X}, denoted by \textbf{P}, \textbf{L} and \textbf{R} respectively.
+\emph{Step 1} Identify the parent node and two child nodes of \textbf{X}, denoted by \textbf{P}, \textbf{L} and \textbf{R} respectively.
 
-\emph{Step 2} Get the nodes times of \textbf{X}, \textbf{P}, \textbf{L} and \textbf{R} , denoted by $t_X$, $t_P$, $t_1$, $t_2$, as well as the rates on the branches above the nodes, denoted by $r_i$, $r_j$, $r_k$.
+\emph{Step 2} Access the nodes times of \textbf{X}, \textbf{P}, \textbf{L} and \textbf{R} , denoted by $t_X$, $t_P$, $t_L$, $t_R$, as well as the rates on the branches above the nodes, denoted by $r_X$, $r_L$ and $r_R$ respectively.
 
-\emph{Step 3} Propose a new node time for \textbf{X} by ${t_X}' = {t_X} + a$, where $a$ follows a Uniform distribution with a symmetric window size, i.e. $a \sim U[ - w, + w]$. Make sure that the proposed time is valid, i.e. $\max \{ {t_1},{t_2}\}  < {t_X}' < {t_P}$ holds.
+\emph{Step 3} Propose a new node time for \textbf{X} by ${t_X}' = {t_X} + a$, where $a$ follows a Uniform distribution with a symmetric window size $w$, i.e. $a \sim U[ - w, + w]$. Make sure that the proposed time is valid, i.e. $\max \{ {t_1},{t_2}\}  < {t_X}' < {t_P}$ holds.
 
 \emph{Step 4} Propose new rates by using Eq.(\ref{int_rate}).
 \begin{equation}
  \label{int_rate}
-{r_i}' = \frac{{r_i} \times ({{t_P} - {t_X}})}{{{t_P} - {t_X}'}}\\
-{r_j}' = \frac{{{r_j} \times ({{t_X} - {t_1}})}}{{{t_X}' - {t_1}}}\\
-{r_k}' = \frac{{{r_k} \times ({{t_X} - {t_2}})}}{{{t_X}' - {t_2}}}
+{r_X}' = \frac{{r_X} \times ({{t_P} - {t_X}})}{{{t_P} - {t_X}'}}\\
+{r_L}' = \frac{{{r_L} \times ({{t_X} - {t_L}})}}{{{t_X}' - {t_L}}}\\
+{r_R}' = \frac{{{r_R} \times ({{t_X} - {t_R}})}}{{{t_X}' - {t_R}}}
  \end{equation}
 
 \emph{Step 5} Return the Green ratio.
 \subsection*{Operations on the root}
-For the root of the tree, there are three strategies to propose the new rates and node times. To be more specific, Simple Distance is a way of proposing a new root time only. Considering the genetic distance, Small Pulley adjusts the distances of branches on both sides of the root. Moreover, under the constraint that the unrooted tree is fixed, Big Pulley proposes a new tree topology by rearranging the root.  Details are discussed below
+We present three strategies for proposing the new rates and times for the special case of when $X$ is the root node. To be more specific, Simple Distance is a way of proposing a new root time only. Considering the genetic distance, Small Pulley adjusts the distances of branches on both sides of the root. Under the constraint that the unrooted tree is fixed, Big Pulley proposes a new tree topology by rearranging the root.  
 \subsubsection*{Simple Distance}
-Fig.\ref{simpledistance} shows the trees that are rooted at the node $X$. The original tree in the current state is shown in Fig.\ref{simpledistance}(a), which is denoted by $g_r$. Inspired by the operations on internal nodes, we will use the following steps to propose a new tree ${g_{r1}}'$, and keep the genetic distances $d_i$ and $d_x$ constant at the same time. The steps are illustrated in Fig.\ref{simpledistance}(b).
+Fig.\ref{simpledistance} shows the trees that are rooted at the node $X$. The original tree in the current state is shown in Fig.\ref{simpledistance}(a), which is denoted by $g$. Similar to the operations on internal nodes, we will use the following steps to propose a new tree ${g}'$, while keeping the genetic distances of two branches linked to the root $d_i$ and $d_x$ constant at the same time. These steps are illustrated in Fig.\ref{simpledistance}(b).
 
-\emph{Step 1} Get the child nodes of the root \textbf{X}, denoted by \textbf{L} and \textbf{R}. Their corresponding node times and rates are $t_X$, $t_j$, $t_k$ and $r_i$, $r_x$.
+\emph{Step 1} Identify the child nodes of the root \textbf{X}, denoted by \textbf{L} and \textbf{R}. Their corresponding node times and rates are $t_X$, $t_j$, $t_k$ and $r_i$, $r_x$.
 
-\emph{Step 2} Propose a new node time for the root \textbf{X} by \textbf{X} by ${t_X}' = {t_X} + a$, where $a \sim U[ - w, + w]$. Make sure that ${t_X}' > \max \{ {t_j},{t_k}\} $ holds.
+\emph{Step 2} Propose a new node time for the root \textbf{X} by ${t_X}' = {t_X} + a$, where $a \sim U[ - w, + w]$. Make sure that ${t_X}' > \max \{ {t_j},{t_k}\} $ holds.
 
 \emph{Step 3} Propose new rates for branches on both sides of the root by using Eq.(\ref{sim_rate}).
 \begin{equation}
 \label{sim_rate}
-{r_i}' = \frac{{{r_i} \times ({{t_X} - {t_j}})}}{{{t_X}' - {t_j}}}\\
-{r_x}' = \frac{{{r_x} \times ({{t_X} - {t_k}})}}{{{t_X}' - {t_k}}}
+{r_L}' = \frac{{{r_L} \times ({{t_X} - {t_L}})}}{{{t_X}' - {t_L}}}\\
+{r_R}' = \frac{{{r_R} \times ({{t_X} - {t_R}})}}{{{t_X}' - {t_R}}}
  \end{equation}
 
 \emph{Step 4} Return the Green ratio.
 \subsubsection*{Small Pulley}
-Different from Simple Distance, a new genetic distance of branch on one side of the root is proposed in Small Pulley. As is illustrated in Fig.\ref{simpledistance}, Small Pulley proposes a new tree ${g_{r2}}'$ in Fig.\ref{simpledistance}(c), based on the original tree $g_r$ in Fig.\ref{simpledistance}(a). In order to maintain the total genetic distance of $d_i$ and $d_x$, once ${d_i}'$ is proposed, $d_x$ will be adjusted simultaneously. The detailed process includes the following 4 steps.
+In contrast to Simple Distance, a new genetic distance of branch on one side of the root is proposed in Small Pulley. As is illustrated in Fig.\ref{simpledistance}, Small Pulley proposes a new tree ${g}'$ based on the original tree $g$. In order to maintain the total genetic distance of $d_L$ and $d_R$, once ${d_L}'$ is proposed, $d_R$ will be adjusted simultaneously. The detailed process includes the following 4 steps.
 
-\emph{Step 1} Get the child nodes of the root \textbf{X}, denoted by \textbf{L} and \textbf{R}. Their corresponding node times and rates are $t_X$, $t_j$, $t_k$ and $r_i$, $r_x$. So the genetic distances of the two branches linked to the root can be calculated according to Eq.(\ref{sma1_dis}).
+\emph{Step 1} Identify the child nodes of the root \textbf{X}, denoted by \textbf{L} and \textbf{R}. Their corresponding node times and rates are $t_X$, $t_L$, $t_R$ and $r_L$, $r_R$. The genetic distances of the two branches linked to the root can be calculated according to Eq.(\ref{sma1_dis}).
 \begin{equation}
 \label{sma1_dis}
-{d_i} = {r_i} \times ({{t_X} - {t_j}})\\
-{d_x} = {r_x} \times ({{t_X} - {t_k}})
+{d_L} = {r_L} \times ({{t_X} - {t_L}})\\
+{d_R} = {r_R} \times ({{t_X} - {t_R}})
  \end{equation}
 
 \emph{Step 2} Propose a new genetic distance for $d_i$ by adding a random number that follows a Uniform distribution, i.e.  ${d_i}' = {d_i} + b$, where $b \sim U[ - v, + v]$. Make sure that $0 < {d_i}' < D$ holds, where $D = {d_i} + {d_x}$.
@@ -269,9 +269,9 @@ Different from Simple Distance, a new genetic distance of branch on one side of 
 
 \emph{Step 4} Return the Green ratio.
 \subsubsection*{Big Pulley}
-Big Pulley is used to sample the rates and times from a fixed unrooted tree, in the meantime, the genetic distances among taxon are constant, which means the location of the root will be rearranged.
+Big Pulley is used to resample the rates and times in a fixed unrooted tree. The genetic distances between the taxa are held constant, and therefore the location of the root will be rearranged.
 
-Firstly, a method called \textit{Exchange (,)} is designed to propose a new tree topology in this circumstances. To be specific, for the original tree $g$ in Fig.\ref{exchangemethod}, once the method \textit{Exchange (\textbf{M},\textbf{N})} is called, the following operations will be performed to propose a new tree $g'$.
+Firstly, a method called \textit{Exchange (,)} is designed to propose a new tree topology. As is seen Fig.\ref{exchangemethod}, node $R$ represents the root of the tree $g$, $C$ and $N$ are the child nodes of the root, $S$ and $M$ denote the child nodes of $C$. After the method \textit{Exchange (\textbf{M},\textbf{N})} is called, the following operations will be performed to propose a new tree $g'$ by exchanging one child node of the root \textbf{N} and one child node of its sibling \textbf{M}.
 \begin{itemize}
 \item Exchange \textbf{M} and \textbf{N} by pruning and grafting, i.e. cutting \textbf{M} (\textbf{N}) at its original position and attaching it to the original position of \textbf{N} (\textbf{M}).
 \item Propose ${d_C}'$ by ${d_C}' = {d_C} + b$, where $b \sim U[ - v, + v]$. Make sure that $0 < {d_C}' < D$ holds, where $D = {d_C} + {d_{N}}$.
@@ -290,19 +290,19 @@ Secondly, before applying this method in Big Pulley, there are two different tre
 
 For the symmetric tree in Fig.\ref{treeshape}, the operations are illustrated in Fig.\ref{symmetric}, after which one of the four possible trees (\textcircled1 \textcircled2 \textcircled3 \textcircled4) will be proposed.
 
-\emph{Step 1} Get the child nodes of the root \textbf{X}, denoted by \textbf{L} and \textbf{R}. Correspondingly, the node times are denoted by $t_X$, $t_j$, $t_k$. And the child nodes below them are denoted by \textbf{H1}, \textbf{H2}, \textbf{H3} and \textbf{H4}. 
+\emph{Step 1} Indentify the child nodes of the root \textbf{X}, denoted by \textbf{L} and \textbf{R}. Correspondingly, the node times are denoted by $t_X$, $t_j$, $t_k$. And the child nodes below them are denoted by \textbf{H1}, \textbf{H2}, \textbf{H3} and \textbf{H4}. 
 
 \emph{Step 2} Propose a new node time for the root \textbf{X} by ${t_X}' = {t_X} + a$, where $a \sim U[ - w, + w]$.
 
 \emph{Step 3} Propose a new node time either for \textbf{L} or \textbf{R}. And apply the method using \textbf{R} and either child node of \textbf{L}.
 \begin{itemize}
-\item With 0.5 probability to pick \textbf{L} and propose a new node time by ${t_j}' = {t_j} + {a_1}$, where ${a_1} \sim U[ - w, + w]$. Make sure that ${t_k} < {t_j}' < {t_X}'$ holds. Then, there are two options to apply the method, i.e.
+\item With 0.5 probability to pick \textbf{L} and propose a new node time by ${t_L}' = {t_L} + {a_1}$, where ${a_1} \sim U[ - w, + w]$. Make sure that ${t_R} < {t_L}' < {t_X}'$ holds. Then, there are two options to apply the method, i.e.
 
 With 0.5 probability to apply \textit{Exchange (\textbf{H1}, \textbf{R})} and propose tree \textcircled1
 
 With 0.5 probability to apply \textit{Exchange (\textbf{H2}, \textbf{R})} and propose tree \textcircled2
 
-\item With 0.5 probability to pick \textbf{R} and propose a new node time by ${t_k}' = {t_k} + {a_2}$, where ${a_2} \sim Uniform[ - w, + w]$. Make sure that ${t_j} < {t_k}' < {t_X}'$ holds. Similarly, there are two options to apply the method, i.e.
+\item With 0.5 probability to pick \textbf{R} and propose a new node time by ${t_R}' = {t_R} + {a_2}$, where ${a_2} \sim Uniform[ - w, + w]$. Make sure that ${t_L} < {t_R}' < {t_X}'$ holds. Similarly, there are two options to apply the method, i.e.
 
 With 0.5 probability to apply \textit{Exchange (\textbf{H3}, \textbf{L})} and propose tree \textcircled3
 
@@ -311,23 +311,23 @@ With 0.5 probability to apply \textit{Exchange (\textbf{H4}, \textbf{L})} and pr
 
 \emph{Step 4}  Update the rates using the adjusted genetic distances divided by the proposed node times. For example, suppose we are going to propose tree \textcircled1. After the new node times for the root \textbf{X} and \textbf{L} are proposed, we apply the method by \textit{Exchange (\textbf{H1}, \textbf{R})}, so that four distances are adjusted, as is shown in Eq.(\ref{example1.1}). Finally, the new rates are updated by using Eq.(\ref{example1.2}).
 \begin{equation}\label{example1.1}
-{d_1}' = {d_1} - {d_3}'  \\
+{d_1}' = {d_1} - {d_L}'  \\
 {d_2}' = {d_2} \\
-{d_3}' = {d_3} + b \\
-{d_4}' = {d_3} + {d_4}
+{d_L}' = {d_L} + b \\
+{d_R}' = {d_L} + {d_R}
 \end{equation}
 \begin{equation}\label{example1.2}
 {r_1}' = \frac{{{d_1}'}}{{{t_X}' - {t_1}}} \\
 {r_2}' = \frac{{{d_2}'}}{{{t_j}' - {t_2}}} \\
-{r_3}' = \frac{{{d_3}'}}{{{t_X}' - {t_j}'}} \\
-{r_4}' = \frac{{{d_4}'}}{{{t_j}' - {t_k}}} 
+{r_L}' = \frac{{{d_L}'}}{{{t_X}' - {t_L}'}} \\
+{r_R}' = \frac{{{d_R}'}}{{{t_L}' - {t_R}}} 
 \end{equation}
 \emph{Step 5} Return the Green ratio.
 \paragraph*{Asymmetric tree shape}
 
 How to operate on the asymmetric tree in Fig.\ref{treeshape} is illustrated Fig.\ref{asymmetric}, in which there are three possible trees (\textcircled5 \textcircled6 \textcircled7).
 
-\emph{Step 1} Get the older child of the root \textbf{X}, denoted by \textbf{O}, and the younger child of the root is denoted by \textbf{Y}. The node times of the root \textbf{X},  \textbf{O} and its child nodes are denoted by ${t_X}$, ${t_O}$, ${t_{G1}}$ and ${t_{G2}}$ respectively. 
+\emph{Step 1} Identify the older child of the root \textbf{X}, denoted by \textbf{O}, and the younger child of the root is denoted by \textbf{Y}. The node times of the root \textbf{X},  \textbf{O} and its child nodes are denoted by ${t_X}$, ${t_O}$, ${t_{G1}}$ and ${t_{G2}}$ respectively. 
 
 \emph{Step 2} Propose a new node time for the root \textbf{X} by ${t_X}' = {t_X} + a$, where $a \sim U[ - w, + w]$. Moreover, propose a new node time for \textbf{O} by ${t_O}' = {t_O} + {a_3}$, where ${a_3} \sim U[ - w, + w]$. To make it valid, make sure that ${t_O}' < {t_X}'$ holds.  
 
@@ -361,7 +361,7 @@ With 0.5 Probability to apply \textit{Exchange (\textbf{G2}, \textbf{Y})} and pr
 \subsection*{Calculate the Hastings ratio}
 As is mentioned in the previous section, the operator in phylogenetic analysis based on Bayesian MCMC should make a reversible proposal to satisfy the detailed balance (Eq.(\ref{balance})). Therefore, the last step of all the operations in the ConstantDistance Operator is to calculate the Green ratio for the acceptance probability (Eq.(\ref{Green})). 
 
-According to the third and forth steps in the operations for internal nodes, three rates on the branches linked to the selected internal node are proposed by one random number $a$ that is used to change the node time. There are four parameters involved in this proposal, including 3-dimensional rate space and 1-dimensional time space. The proposed operator utilises one random number in time space and makes changes in both time space and rate space, which leads to the inconsistency in parametric spaces. To solve this dimension-matching problem, as is mentioned in Green's paper \cite{green1995reversible}, it is necessary to construct a Jacobian matrix.  In Eq.(\ref{JacobianMatrix}), ${\mathbf{J_1}}$ deals with the parametric spaces before the proposal in vector ${\mathbf{X}} = [{t_X},{r_i},{r_j},{r_k}]$ and after the proposal in vector ${\mathbf{Y}} = [{t_X}',{r_i}',{r_j}',{r_k}']$.
+According to the third and forth steps in the operations for internal nodes, three rates on the branches linked to the selected internal node are proposed by one random number $a$ that is used to change the node time. There are four parameters involved in this proposal, including 3-dimensional rate space and 1-dimensional time space. The proposed operator utilises one random number in time space and makes changes in both time space and rate space, which leads to the inconsistency in parametric spaces. To solve this dimension-matching problem, as is mentioned in Green's paper \cite{green1995reversible}, it is necessary to construct a Jacobian matrix.  In Eq.(\ref{JacobianMatrix}), ${\mathbf{J_1}}$ deals with the parametric spaces before the proposal in vector ${\mathbf{X}} = [{t_X},{r_X},{r_L},{r_R}]$ and after the proposal in vector ${\mathbf{Y}} = [{t_X}',{r_X}',{r_L}',{r_R}']$.
 \begin{equation}\label{JacobianMatrix}
 {\mathbf{J_1}} = \left[ {\begin{array}{*{20}{c}}
   {\frac{{\partial {\mathbf{f}}}}{{\partial {t_x}}}}&{\frac{{\partial {\mathbf{f}}}}{{\partial {r_i}}}}&{\frac{{\partial {\mathbf{f}}}}{{\partial {r_j}}}}&{\frac{{\partial {\mathbf{f}}}}{{\partial {r_k}}}}
@@ -562,7 +562,7 @@ The work is partially supported by scholarship  from China Scholarship Council (
 \section*{Figures}
 \begin{figure}[h!]
 \includegraphics[width=12cm]{flowchart.eps}\\
-\caption{\csentence{The flow chart of the constant distance operator.}}
+\caption{\csentence{The flow chart of the ConstantDistance operator.}}
 \label{flowchart}
 \end{figure}
 
