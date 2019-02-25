@@ -270,7 +270,7 @@ In contrast to Simple Distance, a new genetic distance of branch on one side of 
 \subsubsection*{Big Pulley}
 Big Pulley is used to resample the rates and times in a fixed unrooted tree. The genetic distances between the taxa are held constant, and therefore the location of the root will be rearranged.
 
-Firstly, a method called \textit{Exchange (,)} is designed to propose a new tree topology. As is seen Fig.\ref{exchangemethod}, node $R$ represents the root of the tree $g$, $C$ and $N$ are the child nodes of the root, $S$ and $M$ denote the child nodes of $C$. After the method \textit{Exchange (\textbf{M},\textbf{N})} is called, the following operations will be performed to propose a new tree $g'$ by exchanging one child node of the root \textbf{N} and one child node of its sibling \textbf{M}.
+Firstly, a method called \textit{Exchange (,)} is designed to propose a new tree topology. As is seen Fig.\ref{exchangemethod}, node $R$ represents the root of the tree $g$, $C$ and $N$ are the child nodes of the root, $S$ and $M$ denote the child nodes of $C$. After \textit{Exchange (\textbf{M},\textbf{N})} has been called, the following operations will be performed to propose a new tree $g'$ by exchanging one child node of the root \textbf{N} and one child node of its sibling \textbf{M}.
 \begin{itemize}
 \item Exchange \textbf{M} and \textbf{N} by pruning and grafting, i.e. cutting \textbf{M} (\textbf{N}) at its original position and attaching it to the original position of \textbf{N} (\textbf{M}).
 \item Propose ${d_C}'$ by ${d_C}' = {d_C} + b$, where $b \sim U[ - v, + v]$. Make sure that $0 < {d_C}' < D$ holds, where $D = {d_C} + {d_{N}}$. Otherwise, we reject the proposal. 
