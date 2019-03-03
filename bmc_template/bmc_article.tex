@@ -371,78 +371,18 @@ where $\mu = p(g', g) / p(g, g')$ is defined as the proposal ratio of topology c
 \section*{Experimental results and analysis}
 To validate the correctness and determine the efficiency of the proposed operator, we conducted a series of experiments by implementing Constant Distance Operator in BEAST2 \cite{bouckaert2014beast}.
 
-
-First, we establish correctness of the operator by sampling trees from the prior distributions (i.e. without data). Second, we present a well-calibrated simulation study which demonstrates that our operator is able to function alongside other operators. By comparing effective sample size (ESS) \cite{Tracer} and running time, it is demonstrated that the performance is improved when using the proposed operator. Finally, the correlation of rates and node times is discussed, and some potential problems are mentioned in the future work. 
-\subsection*{Sampling from the prior}
-In Fig.\ref{sampleprior}, a tree with three taxa $A$, $B$ and $C$ (plus one internal node $D$, and root $E$) is used as a small example in this experiment. In the figure, $g_1$ is set as the initial tree. Firstly, a LogNormal distribution is used as the rate prior in the uncorrelated relaxed clock model, given by Eq.(\ref{rateprior}).
-\begin{equation}\label{rateprior}
-r = \{{r_A}\quad{r_B}\quad{r_C}\quad{r_D}\} \sim LogNormal(M = -3, S = 0.5)
-\end{equation}
-
-In addition, a Coalescent model \cite{pybus2002genie} with constant population size ($N=0.3$) is used to describe the tree prior. Hence, for the tree in Fig.\ref{sampleprior}, the probability of node times is calculated by Eq.(\ref{treeprior}).
-\begin{equation}\label{treeprior}
-p(t=\{{t_E},{t_D}\}) = (\frac{1}{N} \times {e^{ - \frac{1}{N}({t_E} - {t_D})}}) \times (\frac{1}{N} \times {e^{ - \frac{3}{N}{t_D}}})
-\end{equation}
-
-After the priors are specified, the distribution to sample can be exactly known, since the samples are drawn from the prior distributions. In other words, as the rates are functions of its genetic distance and times, the joint distribution to sample can be represented by Eq.(\ref{integration}).
-\begin{equation}\label{integration}
-\begin{aligned}
-p(r,t) &= p({t_E},{t_D}) \times p({r_D}) \times p({r_A}) \times p({r_B}) \times p({r_C}) \\&= p({t_E},{t_D}) \times p(\frac{{{d_D}}}{{t_E} - {t_D}}) \times p(\frac{{{d_A}}}{{t_D} - {t_A}}) \times p(\frac{{{d_B}}}{{t_D} - {t_B}}) \times p(\frac{{{d_C}}}{{t_E} - {t_C}})\text{,}
-\end{aligned}
-\end{equation}
-where $p({.})$ is the probability of certain rate values in the LogNormal distribution. Therefore, the whole probability can be obtained by conducting numerical integration on Eq.(\ref{integration}), which shows the probability distribution over all the possible values of parameters.
-\subsubsection*{Test the operator on internal nodes}
-The genetic distances, node times and rates for $g_1$ in Fig.\ref{sampleprior} are given in Table \ref{ini_inter}. To test roundly, two scenarios are designed. In each scenario, the genetic distances are fixed, the node time $t_D$ starts from the initial value and will be changed by the proposed operator during the sampling process. Essentially, the proposed operator makes node $D$ move between node $A$ and $E$. Besides, to make sure that the result is robust, two different MCMC chain lengths are performed in each scenario, i.e. 10 million and 20 million.
-
-The mean, mean error and the standard deviation of the MCMC samples are summarised in Table \ref{res_inter}. Besides, according to Eq.(\ref{integration}), the actual joint distribution is obtained by using Eq.(\ref{integration1}), and is used to evaluate the results, which is also included in Table \ref{res_inter}. Moreover, the histograms of MCMC samples that indicate the sampled distributions, as well as the curves of the numerical integration of Eq.(\ref{integration1}), are shown in Fig.\ref{res_int}. From Table \ref{res_inter} and Fig.\ref{res_int}, it can be seen that the red curves well fit the black histograms, and the mean values and standard deviations are consistent, which makes it safe to conclude that the proposed operator samples the internal node correctly.
-\begin{equation}
-\label{integration1}
-p(r,t) = \int_{{t_D} = 0}^{{t_E}} {p({t_E},{t_D}) \times p(\frac{{{d_A}}}{{{t_D}}}) \times p(\frac{{{d_B}}}{{{t_D}}}) \times p(\frac{{{d_D}}}{{{t_E} - {t_D}}}) \times p(\frac{{{d_C}}}{{{t_E}}}){d_{t_D}}}
-\end{equation}
-\subsubsection*{Test the operator on root}
-Still starting from $g_1$ in Fig.\ref{sampleprior}, the initial settings for testing the root are given in Table \ref{ini_sim}. And the three strategies are tested separately in the following parts.
-
-\paragraph*{Using Simple Distance}
-
-The root time $t_E$ is sampled by Simple Distance, which ranges from 1 to positive infinity theoretically. Namely, all the genetic distances and the node time $t_D$  are fixed. Similar to Eq.(\ref{integration1}), the joint distribution of $t_E$ and rates to sample can be obtained by Eq.(\ref{integration2}).
-\begin{equation}
-\label{integration2}
-p(r,t) = \int_{{t_E} = 1}^{ + \infty } {p({t_E},{t_D}) \times p(\frac{{{d_A}}}{{{t_D}}}) \times p(\frac{{{d_B}}}{{{t_D}}}) \times p(\frac{{{d_D}}}{{{t_E} - {t_D}}}) \times p(\frac{{{d_C}}}{{{t_E}}}){d_{t_E}}}
-\end{equation}
-
-The results are given in Table \ref{res_sma} and Fig.\ref{Fig.sub.5}. As can be seen, the mean and the standard deviation of MCMC samples and numerical integration are close to each other, which confirms that the two distribution are the same. Thus, Simple Distance is proved to be correct.
-
-\paragraph*{Using Small Pulley}
-
-Although both ${d_x}$ and ${d_i}$ are changed during the sampling process when using Small Pulley, the sum of ${d_D}$ and ${d_C}$ are kept 0.67 in this test, as the initial setting shown in Table \ref{ini_sim}. To make it simple, only ${d_D}$ is compared.
-
-Then, based on Eq.(\ref{integration}), the exact distribution of ${d_i}$ can be obtained by Eq.(\ref{integration3}), which is compared with the sampled distribution in Table \ref{res_sma} and Fig.\ref{Fig.sub.6}. Even though there exist some errors, the sampled parameters can be considered to follow the same distribution. So the Small Pulley is also able to provide correct samples.
-\begin{equation}\label{integration3}
-p(r,t) = \int_{{d_D} = 1}^{0.67} {p({t_E},{t_D}) \times p(\frac{{{d_A}}}{{{t_D}}}) \times p(\frac{{{d_B}}}{{{t_D}}}) \times p(\frac{{{d_D}}}{{{t_E} - {t_D}}}) \times p(\frac{{0.67 - {d_D}}}{{{t_E}}}){d_{d_D}}}
-\end{equation}
-
-\paragraph*{Using Big Pulley}
-
-For $g_1$ in Fig.\ref{sampleprior}, a new tree, together with the root time $t_E$ and node time of its older child $t_D$, as well as a genetic distance $d_i$, is proposed by Big Pulley. In this case, the initial tree $g_1$ will either go to $g_2$ or $g_3$, as is shown in Fig.\ref{sampleprior}.  So the samples are repeatedly drawn from the 3 trees. Besides, according to the initial settings in Table \ref{ini_sim}, the genetic distances remain unchanged during the process, i.e. $d_{AB} = 1$, $d_{AC}  = 1$ and $d_{BC} = 1$ hold. Hence, the distribution we are about to achieve can be calculated by Eq.(\ref{integration5}).
-\begin{equation}\label{integration5}
-\begin{aligned}
-p(r,t) &= \int_{{t_E} = 0}^{ + \infty } {\int_{{t_D} = 0}^{{t_E}} {\int_{{d_D} = 0}^{0.5} {p({t_E},{t_D})} } \times p(\frac{{0.5}}{{{t_D}}})}  \\&\times p(\frac{{0.5}}{{{t_D}}}) \times p(\frac{{{d_D}}}{{{t_E} - {t_D}}}) \times p(\frac{{0.5 - {d_D}}}{{{t_E}}}){d_{d_D}}{d_{t_D}}{d_{t_E}}
-\end{aligned}
-\end{equation}
-
-The statistical measurements, i.e. mean and standard deviation, are compared in Table \ref{res_sma}. The histograms of samples and numerical curves of ${d_D}$ and ${t_E}$ are pictured in Fig.\ref{Fig.sub.9} and Fig.\ref{Fig.sub.10}. It is shown that the two distributions are consistent within the acceptable error range. Therefore, Big Pulley can also give the right combinations of rates and node times, under the condition that the genetic distances among taxa are constant.
-
+First, we establish correctness of the operator using a well-calibrated simulation study, which shows our operator is able to function alongside other operators. Correctness was further confirmed by sampling trees from the prior distribution i.e. without data (*refer to supplementary information section on prior distributions*). By comparing effective sample size (ESS) \cite{Tracer} and running time, it is demonstrated that the performance is improved when using the proposed operator. Finally, the correlation of rates and node times is discussed, and some potential problems are mentioned in the future work. 
 
 \subsection*{Well-calibrated simulation study}
-As is discussed in Ref.\cite{dawid1982well}, a well-calibrated simulation study is a necessary criterion to evaluate the reliability of probability forecasting. Hence, this section is to verify how reliable the predictions are in Bayesian phylogenetic analysis using the proposed operator.
+As is discussed in Ref.\cite{dawid1982well}, a well-calibrated simulation study is a necessary criterion to evaluate the reliability of probability forecasting. 
 
 Fig.\ref{modelvalidation} shows the framework used in this study, which includes the genetic models and prior distributions of parameters. As is shown in the figure, the sequence alignment is simulated by a phylogenetic continuous-time Markov chain in BEAST2. It contains a mutation rate matrix given by HKY model and a substitution tree jointly provided by uncorrelated relaxed clock model and Yule model. More specifically, base frequencies $\pi$ follow a Dirichlet distribution and the ratio $\kappa$ follows a LogNormal distribution. The distribution of node times is described in a Yule tree $\Psi$ with birth rate $\lambda $ following a LogNormal distribution. The rates on branches $r_i$ have a LogNormal distribution with mean equaling to 1 and the standard deviation $S1$ following a hyper prior distribution.  
 
-In the first place, 100 independent samples of each parameter are obtained from their prior distributions, including UcldStdev $S1$, BirthRate $\lambda $, Frequency $\pi$ and Kappa $\kappa$. Then, the samples are utilised to simulate nucleotide sequences. To make this study more robust, two groups of sequence data are simulated, one group with 20 taxa and the other with 120 taxa ($n=2/120$). So there are 100 sets of sequence alignment in each group and all the sequences have same length (10 thousand site). 
+First, we independently sampled each parameter 100 times from its respective prior distribution. The parameters include: UcldStdev $S1$, BirthRate $\lambda $, Frequency $\pi$ and Kappa $\kappa$. Second, we simulated nucleotide alignments using the sampled parameters. To make this study more robust, two groups of sequence data were simulated, one group with $n=20$ taxa and the other with $n=120$ taxa. Each group contained 100 simulated sequence alignments with 10,000 sites. Third, we used BEAST2 with Constant Distance Operator to infer the tree and parameters in each of the 200 simulated sets. Finally, the estimated values of the parameters were compared with the real values that are used to simulate the corresponding sequence alignment. The comparisons of the two groups are shown in Fig.\ref{SmallTree} and Fig.\ref{LargeTree}. 
 
-In the second place, the 200 simulated data sets from two groups are specified in 200 seperate XML files. And all the XML files include the ConstantDistance Operator as well as the same models in Fig.\ref{modelvalidation}.  Afterwards, the XML files are run by BEAST2 software. 
+These results show that the true values of the parameters are within the 95\% highest posterior density (HPD) approximately 95\% of the time (Table 5) for both the small ($n=20$) and the large ($n=120$) trees. This well-calibrated simulation study confirms that the ConstantDistance operator can successfully provide reliable parameter estimates.
 
-Finally, the estimated values of the parameters are compared with the real values that are used to simulate the corresponding sequence alignment. The comparisons of the two groups are shown in Fig.\ref{SmallTree} and Fig.\ref{LargeTree}. It is noticed in the figure that 95\% HPD of the mean values of sampled rates are compared with 1, because the mean rate is fixed during the analysis. Besides, the height of the tree, which is determined by birth rate in Yule model, is considered as a random variable and is also compared in the figure. As is indicated in the figure, most real values of the parameters are within the 95\% HPD of the sampled distribution. According to Table \ref{num_hpd}, on average, 95 percent of estimated values are close to their corresponding real values. Therefore, it is proved that the proposed operator is able to provide reliable estimations for both small ($n=20$) and large ($n=120$) data sets.
+%It is noticed in the figure that 95\% HPD of the mean values of sampled rates are compared with 1, because the mean rate is fixed during the analysis. Besides, the height of the tree, which is determined by birth rate in Yule model, is considered as a random variable and is also compared in the figure. As is indicated in the figure, most real values of the parameters are within the 95\% HPD of the sampled distribution. According to Table \ref{num_hpd}, on average, 95 percent of estimated values are close to their corresponding real values. Therefore, it is proved that the proposed operator is able to provide reliable estimations for both small ($n=20$) and large ($n=120$) data sets.
 \subsection*{Performance comparison}
 For Bayesian phylogenetic analysis based on BEAST2, the performance is concerned with how well the parameters are estimated and how much time it requires to run an MCMC chain. Effective Sample Size (ESS) of a parameter is the number of effectively independent draws from the posterior distribution. The larger ESS indicates the better estimation of the parameter.  Besides, whether the ConstantDistance Operator is time-consuming or not is quantified by the time for BEAST2 to finish running the input XML file. Therefore, ESS and running time are adopted to valuate the performance of the ConstantDistance Operator. 
 
@@ -1020,5 +960,64 @@ Last but not least, due to the change of tree topology in \textit{Exchange (\tex
 \ENDFOR
 \end{algorithmic}
 \end{algorithm}
+\subsection{Sampling from the prior}
+In Fig.\ref{sampleprior}, a tree with three taxa $A$, $B$ and $C$ (plus one internal node $D$, and root $E$) is used as a small example in this experiment. In the figure, $g_1$ is set as the initial tree. Firstly, a LogNormal distribution is used as the rate prior in the uncorrelated relaxed clock model, given by Eq.(\ref{rateprior}).
+\begin{equation}\label{rateprior}
+r = \{{r_A}\quad{r_B}\quad{r_C}\quad{r_D}\} \sim LogNormal(M = -3, S = 0.5)
+\end{equation}
+
+In addition, a Coalescent model \cite{pybus2002genie} with constant population size ($N=0.3$) is used to describe the tree prior. Hence, for the tree in Fig.\ref{sampleprior}, the probability of node times is calculated by Eq.(\ref{treeprior}).
+\begin{equation}\label{treeprior}
+p(t=\{{t_E},{t_D}\}) = (\frac{1}{N} \times {e^{ - \frac{1}{N}({t_E} - {t_D})}}) \times (\frac{1}{N} \times {e^{ - \frac{3}{N}{t_D}}})
+\end{equation}
+
+After the priors are specified, the distribution to sample can be exactly known, since the samples are drawn from the prior distributions. In other words, as the rates are functions of its genetic distance and times, the joint distribution to sample can be represented by Eq.(\ref{integration}).
+\begin{equation}\label{integration}
+\begin{aligned}
+p(r,t) &= p({t_E},{t_D}) \times p({r_D}) \times p({r_A}) \times p({r_B}) \times p({r_C}) \\&= p({t_E},{t_D}) \times p(\frac{{{d_D}}}{{t_E} - {t_D}}) \times p(\frac{{{d_A}}}{{t_D} - {t_A}}) \times p(\frac{{{d_B}}}{{t_D} - {t_B}}) \times p(\frac{{{d_C}}}{{t_E} - {t_C}})\text{,}
+\end{aligned}
+\end{equation}
+where $p({.})$ is the probability of certain rate values in the LogNormal distribution. Therefore, the whole probability can be obtained by conducting numerical integration on Eq.(\ref{integration}), which shows the probability distribution over all the possible values of parameters.
+\subsubsection*{Test the operator on internal nodes}
+The genetic distances, node times and rates for $g_1$ in Fig.\ref{sampleprior} are given in Table \ref{ini_inter}. To test roundly, two scenarios are designed. In each scenario, the genetic distances are fixed, the node time $t_D$ starts from the initial value and will be changed by the proposed operator during the sampling process. Essentially, the proposed operator makes node $D$ move between node $A$ and $E$. Besides, to make sure that the result is robust, two different MCMC chain lengths are performed in each scenario, i.e. 10 million and 20 million.
+
+The mean, mean error and the standard deviation of the MCMC samples are summarised in Table \ref{res_inter}. Besides, according to Eq.(\ref{integration}), the actual joint distribution is obtained by using Eq.(\ref{integration1}), and is used to evaluate the results, which is also included in Table \ref{res_inter}. Moreover, the histograms of MCMC samples that indicate the sampled distributions, as well as the curves of the numerical integration of Eq.(\ref{integration1}), are shown in Fig.\ref{res_int}. From Table \ref{res_inter} and Fig.\ref{res_int}, it can be seen that the red curves well fit the black histograms, and the mean values and standard deviations are consistent, which makes it safe to conclude that the proposed operator samples the internal node correctly.
+\begin{equation}
+\label{integration1}
+p(r,t) = \int_{{t_D} = 0}^{{t_E}} {p({t_E},{t_D}) \times p(\frac{{{d_A}}}{{{t_D}}}) \times p(\frac{{{d_B}}}{{{t_D}}}) \times p(\frac{{{d_D}}}{{{t_E} - {t_D}}}) \times p(\frac{{{d_C}}}{{{t_E}}}){d_{t_D}}}
+\end{equation}
+\subsubsection*{Test the operator on root}
+Still starting from $g_1$ in Fig.\ref{sampleprior}, the initial settings for testing the root are given in Table \ref{ini_sim}. And the three strategies are tested separately in the following parts.
+
+\paragraph*{Using Simple Distance}
+
+The root time $t_E$ is sampled by Simple Distance, which ranges from 1 to positive infinity theoretically. Namely, all the genetic distances and the node time $t_D$  are fixed. Similar to Eq.(\ref{integration1}), the joint distribution of $t_E$ and rates to sample can be obtained by Eq.(\ref{integration2}).
+\begin{equation}
+\label{integration2}
+p(r,t) = \int_{{t_E} = 1}^{ + \infty } {p({t_E},{t_D}) \times p(\frac{{{d_A}}}{{{t_D}}}) \times p(\frac{{{d_B}}}{{{t_D}}}) \times p(\frac{{{d_D}}}{{{t_E} - {t_D}}}) \times p(\frac{{{d_C}}}{{{t_E}}}){d_{t_E}}}
+\end{equation}
+
+The results are given in Table \ref{res_sma} and Fig.\ref{Fig.sub.5}. As can be seen, the mean and the standard deviation of MCMC samples and numerical integration are close to each other, which confirms that the two distribution are the same. Thus, Simple Distance is proved to be correct.
+
+\paragraph*{Using Small Pulley}
+
+Although both ${d_x}$ and ${d_i}$ are changed during the sampling process when using Small Pulley, the sum of ${d_D}$ and ${d_C}$ are kept 0.67 in this test, as the initial setting shown in Table \ref{ini_sim}. To make it simple, only ${d_D}$ is compared.
+
+Then, based on Eq.(\ref{integration}), the exact distribution of ${d_i}$ can be obtained by Eq.(\ref{integration3}), which is compared with the sampled distribution in Table \ref{res_sma} and Fig.\ref{Fig.sub.6}. Even though there exist some errors, the sampled parameters can be considered to follow the same distribution. So the Small Pulley is also able to provide correct samples.
+\begin{equation}\label{integration3}
+p(r,t) = \int_{{d_D} = 1}^{0.67} {p({t_E},{t_D}) \times p(\frac{{{d_A}}}{{{t_D}}}) \times p(\frac{{{d_B}}}{{{t_D}}}) \times p(\frac{{{d_D}}}{{{t_E} - {t_D}}}) \times p(\frac{{0.67 - {d_D}}}{{{t_E}}}){d_{d_D}}}
+\end{equation}
+
+\paragraph*{Using Big Pulley}
+
+For $g_1$ in Fig.\ref{sampleprior}, a new tree, together with the root time $t_E$ and node time of its older child $t_D$, as well as a genetic distance $d_i$, is proposed by Big Pulley. In this case, the initial tree $g_1$ will either go to $g_2$ or $g_3$, as is shown in Fig.\ref{sampleprior}.  So the samples are repeatedly drawn from the 3 trees. Besides, according to the initial settings in Table \ref{ini_sim}, the genetic distances remain unchanged during the process, i.e. $d_{AB} = 1$, $d_{AC}  = 1$ and $d_{BC} = 1$ hold. Hence, the distribution we are about to achieve can be calculated by Eq.(\ref{integration5}).
+\begin{equation}\label{integration5}
+\begin{aligned}
+p(r,t) &= \int_{{t_E} = 0}^{ + \infty } {\int_{{t_D} = 0}^{{t_E}} {\int_{{d_D} = 0}^{0.5} {p({t_E},{t_D})} } \times p(\frac{{0.5}}{{{t_D}}})}  \\&\times p(\frac{{0.5}}{{{t_D}}}) \times p(\frac{{{d_D}}}{{{t_E} - {t_D}}}) \times p(\frac{{0.5 - {d_D}}}{{{t_E}}}){d_{d_D}}{d_{t_D}}{d_{t_E}}
+\end{aligned}
+\end{equation}
+
+The statistical measurements, i.e. mean and standard deviation, are compared in Table \ref{res_sma}. The histograms of samples and numerical curves of ${d_D}$ and ${t_E}$ are pictured in Fig.\ref{Fig.sub.9} and Fig.\ref{Fig.sub.10}. It is shown that the two distributions are consistent within the acceptable error range. Therefore, Big Pulley can also give the right combinations of rates and node times, under the condition that the genetic distances among taxa are constant.
+
 \end{backmatter}
 \end{document}
