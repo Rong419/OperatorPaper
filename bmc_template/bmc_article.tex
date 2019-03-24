@@ -185,7 +185,8 @@ Standard na\"{i}ve operators such as the random walk operator propose the new st
 %%define genetic distance
 Molecular clocks model how molecular sequences evolve along branches in the phylogenetic tree, so that a time tree can be reconciled with the genetic distances between sequences. In this paper, the proposed operator is based on an uncorrelated relaxed clock model, in which the rates vary from branch to branch, drawn independently and identically from a given prior distribution, such as the log-normal distribution \cite{drummond2006relaxed}. As a result, the rates can vary markedly between parent and child branches. 
 
-Referring to the Bayesian framework in Equation (\ref{bayes}), the joint inference of evolutionary rates and divergence times can be obtained by the conditional distribution in Equation (\ref{bayes1}): \alexei{$t$ and $r$ are not defined.}
+Referring to the Bayesian framework in Equation (\ref{bayes}), the joint inference of evolutionary rates $r$ and divergence times $t$ can be obtained by the conditional distribution in Equation (\ref{bayes1}):
+%\alexei{$t$ and $r$ are not defined.}
 \begin{equation}\label{bayes1}
 p(t,r,\Phi |D) = \frac{{p(D|t,r,\Phi )p(r|\Phi )p(t|\Phi )p(\Phi )}}{{p(D)}} \text{,}
 \end{equation}
