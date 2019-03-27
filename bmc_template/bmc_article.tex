@@ -518,14 +518,14 @@ The work is partially supported by scholarship from China Scholarship Council (F
 
 \begin{figure}[h!]
 \includegraphics[width=12cm]{internalnodes.eps}\\
-\caption{\csentence{The illustration of operations on internal nodes.}
-             The operator proposes a tree ${g_{in}}'$ based on tree $g_{in}$, during which $d_i$, $d_j$, $d_k$ are constant.}
+\caption{\csentence{Illustration of the operation on an internal node.}
+             The operator proposes a tree ${g_{in}}'$ based on tree $g_{in}$, during which $d_i$, $d_j$, $d_k$ are kept constant.}
 \label{internalnodes}
 \end{figure}
 
 \begin{figure}[h!]
 \includegraphics[width=12cm]{rootstrategy.eps}\\
-\caption{\csentence{The illustration of Simple Distance and Small Pulley.}
+\caption{\csentence{Illustration of Simple Distance and Small Pulley sub-moves.}
              Simple Distance proposes ${g_{r1}}'$ and keeps $d_i$, $d_x$ constant. Small Pulley proposes ${g_{r2}}'$ and ${d_i} + {d_x}$ remains constant.}
 \label{simpledistance}
 \end{figure}
@@ -533,8 +533,8 @@ The work is partially supported by scholarship from China Scholarship Council (F
 
 \begin{figure}[h!]
 \includegraphics[width=12cm]{exchangemethod.eps}\\
-\caption{\csentence{The illustration of \textit{Exchange (\textbf{M},\textbf{N})} method.}
-             This method is applied to tree $g$ and proposes $g'$ by swapping \textbf{M} and \textbf{N}, so that the four distances are adjusted to maintain the distances among \textbf{S}, \textbf{M} and \textbf{N}.}
+\caption{\csentence{Illustration of \textit{Exchange (\textbf{M},\textbf{N})} method.}
+             This method is applied to tree $g$ and proposes $g'$ by swapping \textbf{M} and \textbf{N}, so that the three distances are adjusted to maintain the distances among \textbf{S}, \textbf{M} and \textbf{N}. That is, $d_{N'} = d_C + d_N$ and $d_{M'} = d_{M} - d_{C'}$.}
 \label{exchangemethod}
 \end{figure}
 
@@ -547,15 +547,15 @@ The work is partially supported by scholarship from China Scholarship Council (F
 
 \begin{figure}[h!]
 \includegraphics[width=12cm]{symmetric.eps}\\
-\caption{\csentence{The illustration of operations on symmetric tree in Figure \ref{treeshape}.}
+\caption{\csentence{Illustration of operations on the symmetric tree in Figure \ref{treeshape}.}
              The proposed operator will propose one of the four possible trees, each with 0.25 probability.}
 \label{symmetric}
 \end{figure}
 
 \begin{figure}[h!]
 \includegraphics[width=12cm]{asymmetric.eps}\\
-\caption{\csentence{The illustration of operations on asymmetric tree in Figure \ref{treeshape}.}
-             The proposed operator will propose one of the three possible trees. Depending on ${t_o}'$, \textcircled5 has 1 probability, \textcircled6 and \textcircled7 have 0.5 probability each.}
+\caption{\csentence{Illustration of operations on the asymmetric tree in Figure \ref{treeshape}.}
+             The proposed operator will propose one of the three possible trees. If ${t_o}' < t_{G1}$, \textcircled7 has 1 probability, otherwise \textcircled5 and \textcircled6 have 0.5 probability each.}
 \label{asymmetric}
 \end{figure}
 
@@ -581,7 +581,7 @@ The work is partially supported by scholarship from China Scholarship Council (F
 \label{Fig.sub.4}
 \includegraphics[width=0.45\textwidth]{Fig8}}
 \caption{ \csentence{Sampled parameters in tests of internal nodes.}
-             The horizontal axis represents the node time of D in Figure \ref{sampleprior}. The two scenarios sample two trees with different distances specified in Table \ref{ini_inter} . And each scenario has two different lengths of MCMC chains.}
+             The horizontal axis represents the node time of D in Figure \ref{sampleprior}. The two scenarios sample two trees with different distances specified in Table \ref{ini_inter}.}
 \label{res_int}
 \end{figure}
 
