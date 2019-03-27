@@ -449,10 +449,10 @@ The resulting summary tree (Figure \ref{summary3}) is consistent with previous a
 
 %According to the analysis above, there still remain some problems. For instance, it still requires much running time for a large data set with long sequences. In the future, we will continue to improve the performance of the ConstantDistance Operator, mainly focusing on optimising the method of assigning weights of different strategies in the proposed operator and mechanism of choosing operators during MCMC in BEAST2.
 
-\section*{Discussion and conclusion}
-As data sets continue to increase inside, computational efficiency is growing in significance in Bayesian phylogenetic analysis. In this paper, we have discussed a new tree proposal that substantially increases the efficiency of Bayesian phylogenetic inference under the relaxed molecular clock models.
+\section*{Conclusion}
+As data sets continue to increase in size, the need for computational efficiency of Bayesian phylogenetic analyses is also increasing. In this paper, we have discussed a new tree proposal that substantially increases the efficiency of Bayesian phylogenetic inference under a popular class of relaxed molecular clock models.
 
-We demonstrate the correctness of this algorithm with a series of tests including a well-calibrated simulation study. Based on both simulated and real data sets, the proposed operator is much more effective and is able to sample the rates and times more efficiently, with performance improvements of greater than an order of magnitude over currently implemented relaxed clock methods in BEAST2. The proposed operator has been developed as an addition to the core of BEAST2. 
+We demonstrate the correctness of this algorithm with a series of tests including a well-calibrated simulation study. Based on both simulated and real data sets, the proposed operator is much more efficient than the current algorithms implemented in BEAST2. It is able to sample the rates and times more efficiently, with performance improvements of greater than an order of magnitude increase in ESS/hour on both real and simulated data. The proposed operator is available for use in the core code of BEAST2. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
