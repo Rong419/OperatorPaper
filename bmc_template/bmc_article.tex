@@ -534,7 +534,7 @@ The work is partially supported by scholarship from China Scholarship Council (F
 \begin{figure}[h!]
 \includegraphics[width=12cm]{exchangemethod.eps}\\
 \caption{\csentence{Illustration of \textit{Exchange (\textbf{M},\textbf{N})} method.}
-             This method is applied to tree $g$ and proposes $g'$ by swapping \textbf{M} and \textbf{N}, so that the three distances are adjusted to maintain the distances among \textbf{S}, \textbf{M} and \textbf{N}. That is, $d_{N'} = d_C + d_N$ and $d_{M'} = d_{M} - d_{C'}$.}
+             This method is applied to tree $g$ and proposes $g'$ by swapping \textbf{M} and \textbf{N}, so that the three distances are adjusted to maintain the distances among \textbf{S}, \textbf{M} and \textbf{N}. That is, ${d_C}' = {d_C} + b$, ${d_N}' = d_C + d_N$ and ${d_M}' = d_{M} - {d_C}'$, where $b \sim U[ - v, + v]$.}
 \label{exchangemethod}
 \end{figure}
 
@@ -589,16 +589,16 @@ The work is partially supported by scholarship from China Scholarship Council (F
 \centering
 \subfigure[$t_E$ in Simple Distance]{
 \label{Fig.sub.5}
-\includegraphics[width=0.35\textwidth]{RplotSD}}
+\includegraphics[width=0.45\textwidth]{RplotSD}}
 \subfigure[$d_D$ in Small Pulley]{
 \label{Fig.sub.6}
-\includegraphics[width=0.35\textwidth]{RplotSP2}}
+\includegraphics[width=0.45\textwidth]{RplotSP2}}
 \subfigure[${d_D}$ in Big pulley]{
 \label{Fig.sub.9}
-\includegraphics[width=0.35\textwidth]{bigd}}
+\includegraphics[width=0.45\textwidth]{bigd}}
 \subfigure[${t_E}$ in Big pulley]{
 \label{Fig.sub.10}
-\includegraphics[width=0.35\textwidth]{bigT}}
+\includegraphics[width=0.45\textwidth]{bigT}}
 \caption{\csentence{Sampled parameters in test of the root.}
              For the trees in Figure \ref{sampleprior}, Simple Distance samples the root time $t_E$ only, Small Pulley samples the distance $d_D$ only, and Big Pulley samples $t_E$, $t_D$, $d_D$. To make it simple, $t_E$ and $d_D$ are compared.}
 \label{res_roo1}
