@@ -452,7 +452,7 @@ As an initial starting point, the midpoint method is adopted to root the startin
 %Figure \ref{Fig.sub.12} is the rooted time tree used as the initial state in MCMC chain.
 %\alexei{Do we need to show the initial tree? The result of the analysis is not dependent on the initial tree!}
 
-The resulting summary tree (Figure \ref{withoutdata}(b)) is consistent with previous analyses of this data \cite{cooper2001complete} (Figure \ref{withoutdata}(c)). For large data sets of long sequences, this method may prove useful to provide faster divergence time estimates based on the assumption of known unrooted topology and branch lengths in units of expected substitutions per site.
+The resulting summary tree (Figure \ref{withoutdata}(c)) is consistent with previous analyses of this data (see Figure 2 in Ref. \cite{cooper2001complete}). For large data sets of long sequences, this method may prove useful to provide faster divergence time estimates based on the assumption of known unrooted topology and branch lengths in units of expected substitutions per site.
 
 %\subsection*{Discussions and future work}
 %This subsection further discusses how the Constant Distance operator makes a proposal by changing rates and node times. So the correlation of rates and node times is firstly studied. Besides, to elucidate the correctness of a proposal that maintains genetic distances, the operator is used to sample a fixed unrooted tree. In the experiments, the data set is assembled from Ref.\cite{cooper2001complete}, which includes seven ratites with the length of 10767 sites.
@@ -580,16 +580,16 @@ The author(s) would like to acknowledge support from a Royal Society of New Zeal
 \centering
 \subfigure[Senario 1: chain length = 10000000]{
 \label{Fig.sub.1}
-\includegraphics[width=0.45]{Fig1}}
+\includegraphics[width=0.45]{scenario1S}}
 \subfigure[Senario 1: chain length = 20000000]{
 \label{Fig.sub.2}
-\includegraphics[width=0.45]{Fig2}}
+\includegraphics[width=0.45]{scenario1L}}
 \subfigure[Senario 2: chain length = 10000000]{
 \label{Fig.sub.3}
-\includegraphics[width=0.45]{Fig7}}
+\includegraphics[width=0.45]{scenario2S}}
 \subfigure[Senario 2: chain length = 20000000]{
 \label{Fig.sub.4}
-\includegraphics[width=0.45]{Fig8}}
+\includegraphics[width=0.45]{scenario2L}}
 \caption{ \csentence{Sampled parameters in tests of internal nodes.}
              The horizontal axis represents the node time of D in Figure \ref{sampleprior}. The two scenarios sample two trees with different distances specified in Table \ref{ini_inter}.}
 \label{res_int}
@@ -602,7 +602,7 @@ The author(s) would like to acknowledge support from a Royal Society of New Zeal
 \includegraphics[width=0.45h]{RplotSD}}
 \subfigure[$d_D$ in Small Pulley]{
 \label{Fig.sub.6}
-\includegraphics[width=0.45]{RplotSP2}}
+\includegraphics[width=0.45]{RplotSP}}
 \subfigure[${d_D}$ in Big pulley]{
 \label{Fig.sub.9}
 \includegraphics[width=0.45]{bigd}}
@@ -646,10 +646,10 @@ The author(s) would like to acknowledge support from a Royal Society of New Zeal
 \centering
 \subfigure{
 \label{P_ess}
-\includegraphics[width=0.45]{primates2.eps}}
+\includegraphics[width=0.45]{primatesESS.eps}}
 \subfigure{
 \label{P_run}
-\includegraphics[width=0.45]{primates1.eps}}
+\includegraphics[width=0.45]{primatestime.eps}}
 \caption{\csentence{Comparison of ESS and running time using primates data.}
              The orange curve links the mean values of each boxplot and the values are shown on the left of the boxplot.}
 \label{eff_comp2}
@@ -678,10 +678,7 @@ The author(s) would like to acknowledge support from a Royal Society of New Zeal
 \includegraphics[width=0.4]{initialtree}}
 \subfigure[Summary tree of sampled trees]{
 \label{summary3}
-\includegraphics[width=0.4]{summary3}}
-\subfigure[Ratite phylogeography in Ref. \cite{cooper2001complete}]{
-\label{ratites}
-\includegraphics[width=0.45]{ratites}}
+\includegraphics[width=0.4]{summarytree}}
 \caption{\csentence{Illustration of sampling a fixed unrooted tree.}
             The unrooted tree is obtained from the ratites data set. The rooted time tree is the initial state in MCMC, with time on the nodes and rates on the branches.}
 \label{withoutdata}
