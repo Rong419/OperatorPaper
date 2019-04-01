@@ -1,4 +1,4 @@
-%% BioMed_Central_Tex_Template_v1.06
+%%BioMed_Central_Tex_Template_v1.06
 %%                                      %
 %  bmc_article.tex            ver: 1.06 %
 %                                       %
@@ -7,6 +7,15 @@
 %%It must be present to enable the BMC Submission system to
 %%recognise this template!!
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                     %%
+%%  LaTeX template for BioMed Central  %%
+%%     journal article submissions     %%
+%%                                     %%
+%%          <8 June 2012>              %%
+%%                                     %%
+%%                                     %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%% additional documentclass options:
 %  [doublespacing]
@@ -21,7 +30,7 @@
 %\usepackage{amsthm,amsmath}
 %\RequirePackage{natbib}
 %\RequirePackage[authoryear]{natbib}% uncomment this for author-year bibliography
-%\RequirePackage{hyperref}
+\RequirePackage{hyperref}
 \usepackage[utf8]{inputenc} %unicode support
 \usepackage{algorithmic}
 \usepackage{rotating}
@@ -57,7 +66,7 @@
 \startlocaldefs
 \endlocaldefs
 
-\newcommand{\alexei}[1]{{\textcolor{green}{#1}}} 
+%\newcommand{\alexei}[1]{{\textcolor{green}{#1}}} 
 
 
 \begin{document}
@@ -68,15 +77,15 @@
 \title{Improving the performance of Bayesian phylogenetic inference under relaxed clock models}
 
 \author[
-   %addressref={aff1},                   % id's of addresses, e.g. {aff1,aff2}
+   addressref={aff1},                   % id's of addresses, e.g. {aff1,aff2}
    %email={rzha419@aucklanduni.ac.nz}
-]{\inits{}\fnm{Rong} \snm{Zhang}}
+]{\inits{RZ}\fnm{Rong} \snm{Zhang}}
 \author[
    addressref={aff1},
    corref={aff1},                       % id of corresponding address, if any
    email={alexei@cs.auckland.ac.nz}   % email address
    %noteref={n1},                        % id's of article notes, if any
-]{\inits{}\fnm{Alexei} \snm{Drummond}}
+]{\inits{AJD}\fnm{Alexei} \snm{Drummond}}
 
 \address[id=aff1]{%                           % unique id
   \orgname{School of Computer Science, University of Auckland}, % university, etc
