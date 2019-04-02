@@ -570,16 +570,16 @@ The author(s) would like to acknowledge support from a Royal Society of New Zeal
 \centering
 \subfigure[Senario 1: chain length = 10000000]{
 \label{Fig.sub.1}
-\includegraphics[width=0.45\textwidth]{Fig1}}
+\includegraphics[width=0.45\textwidth]{scenario1S}}
 \subfigure[Senario 1: chain length = 20000000]{
 \label{Fig.sub.2}
-\includegraphics[width=0.45\textwidth]{Fig2}}
+\includegraphics[width=0.45\textwidth]{scenario1L}}
 \subfigure[Senario 2: chain length = 10000000]{
 \label{Fig.sub.3}
-\includegraphics[width=0.45\textwidth]{Fig7}}
+\includegraphics[width=0.45\textwidth]{scenario2S}}
 \subfigure[Senario 2: chain length = 20000000]{
 \label{Fig.sub.4}
-\includegraphics[width=0.45\textwidth]{Fig8}}
+\includegraphics[width=0.45\textwidth]{scenario2L}}
 \caption{ \csentence{Sampled parameters in tests of internal nodes.}
              The horizontal axis represents the node time of D in Figure \ref{sampleprior}. The two scenarios sample two trees with different distances specified in Table \ref{ini_inter}.}
 \label{res_int}
@@ -592,7 +592,7 @@ The author(s) would like to acknowledge support from a Royal Society of New Zeal
 \includegraphics[width=0.45\textwidth]{RplotSD}}
 \subfigure[$d_D$ in Small Pulley]{
 \label{Fig.sub.6}
-\includegraphics[width=0.45\textwidth]{RplotSP2}}
+\includegraphics[width=0.45\textwidth]{RplotSP}}
 \subfigure[${d_D}$ in Big pulley]{
 \label{Fig.sub.9}
 \includegraphics[width=0.45\textwidth]{bigd}}
@@ -636,10 +636,10 @@ The author(s) would like to acknowledge support from a Royal Society of New Zeal
 \centering
 \subfigure{
 \label{P_ess}
-\includegraphics[width=0.45\textwidth]{primates2.eps}}
+\includegraphics[width=0.45\textwidth]{primatesESS.eps}}
 \subfigure{
 \label{P_run}
-\includegraphics[width=0.45\textwidth]{primates1.eps}}
+\includegraphics[width=0.45\textwidth]{primatestime.eps}}
 \caption{\csentence{Comparison of ESS and running time using primates data.}
              The orange curve links the mean values of each boxplot and the values are shown on the left of the boxplot.}
 \label{eff_comp2}
@@ -654,7 +654,7 @@ The author(s) would like to acknowledge support from a Royal Society of New Zeal
 \label{Fig.sub.correlation}
 \includegraphics[width=0.4\textwidth]{rateandtime.eps}}
 \caption{\csentence{Correlation between rates and node times in the ratites tree.}
-             The rates and node times are in correspondence with the notations in Figure \ref{summary3}. Blue indicates the positive relation and red indicates the negative relation. The darker the colour is, the stronger the relation tends to be.}
+             The rates and node times are in correspondence with the notations in Figure \ref{withoutdata}(b). Blue indicates the positive relation and red indicates the negative relation. The darker the colour is, the stronger the relation tends to be.}
 \label{correlation}
 \end{figure}
 
@@ -663,15 +663,12 @@ The author(s) would like to acknowledge support from a Royal Society of New Zeal
 \subfigure[Unrooted tree]{
 \label{Fig.sub.11}
 \includegraphics[width=0.35\textwidth]{unrootedtree}}
-%\subfigure[Rooted time tree]{
-%\label{Fig.sub.12}
-%\includegraphics[width=0.4\textwidth]{initialtree}}
+\subfigure[Rooted time tree]{
+\label{Fig.sub.12}
+\includegraphics[width=0.4\textwidth]{initialtree}}
 \subfigure[Summary tree of sampled trees]{
 \label{summary3}
-\includegraphics[width=0.4\textwidth]{summary3}}
-\subfigure[Ratite phylogeography in Ref. \cite{cooper2001complete}]{
-\label{ratites}
-\includegraphics[width=0.45\textwidth]{ratites}}
+\includegraphics[width=0.4\textwidth]{summarytree}}
 \caption{\csentence{Illustration of sampling a fixed unrooted tree.}
             The unrooted tree is obtained from the ratites data set. The rooted time tree is the initial state in MCMC, with time on the nodes and rates on the branches.}
 \label{withoutdata}
