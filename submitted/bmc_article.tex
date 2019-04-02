@@ -759,10 +759,10 @@ Average&&179&43&10735&27236&59.87&5.72\\
 \clearpage
 \newpage
 \section*{Appendix}
-\subsection{The Green ratio}
+\subsection*{The Green ratio}
 When developing an operator for MCMC, the proposal function must be reversible. In other words, the probability that the operator propose a new state from the current state is required to be equal to the probability that the proposed state goes back to current state. To be specific, let ${\pi (x)}$ be the target probability distribution and $p(x, x')$ be the transition kernel in the continuous Markov chain. The reversibility condition requires that ${\pi (x)}{p(x, x')} = {\pi (x')}{p(x', x)}$. And an operator provides a proposal $q(x, x')$ with some probability $\alpha(x, x')$ that the proposal is accepted. Thus, the reversibility condition is rewritten as ${\pi (x)}{q(x, x')}{\alpha(x, x')} = {\pi (x')}{q(x', x)}{\alpha(x', x)}$.
 
-Considering the subspace $\varphi_1$ on $x$ and subspace $\varphi_2$ on $x'$, it is assumed that there is a symmetric measure on the combined parametric space $\varphi = {\varphi_1} \times {\varphi_2}$, so that ${\pi (x)}{q(x, x')}$ has a density with respect to a single measure on $\varphi$. Then, Green suggested that the reversibility condition should be satisfied by the detailed balance \cite{green1995reversible}, as is represented by Equation (\ref{balance}). And according to Peskun' proof, it is optimal to take Equation (\ref{Ratio}) as the acceptance probability to retain the detailed balance \cite{peskun1973optimum}.
+Considering the subspace $\varphi_1$ on $x$ and subspace $\varphi_2$ on $x'$, it is assumed that there is a symmetric measure on the combined parametric space $\varphi = {\varphi_1} \times {\varphi_2}$, so that ${\pi (x)}{q(x, x')}$ has a density with respect to a single measure on $\varphi$. Then, Green suggested that the reversibility condition should be satisfied by detailed balance \cite{green1995reversible}, as represented by Equation (\ref{balance}). And according to Peskun' proof, it is optimal to take Equation (\ref{Ratio}) as the acceptance probability to retain the detailed balance \cite{peskun1973optimum}.
 
 \begin{equation}\label{balance}
 \int_A {\pi (x) d_x} {\int_B  {q(x, x')}{\alpha(x, x')} d_x}  = \int_B {\pi (x') d_{x'}}{\int_A {q(x', x)}{\alpha(x', x)} d_{x'}} \text{,}
@@ -772,13 +772,13 @@ where $A \in {\varphi_1}$ and $B \in  {\varphi_2}$ are two Borel sets. ${q(x, x'
 \begin{equation}\label{Ratio}
 {\alpha_H}(x, x') = \min \left\{ {1,\frac{{\pi (x'){p}(x',x)}}{{\pi (x){p}(x,x')}}} \right\} \text{,}
 \end{equation}
-where ${p(x',dx)}/{p(x,dx')}$ is known as Hastings ratio
+where ${p(x',dx)}/{p(x,dx')}$ is known as the Hastings ratio.
 
 However, for operators that do not have a symmetric measure, it is necessary to include the Jacobian matrix ${\mathbf{J}}$  in order to deal with the dimension matching problem, as is discussed in Green's paper \cite{green1995reversible}. In this case, Equation (\ref{Ratio}) is extended, as is shown in Equation (\ref{Green}).
 \begin{equation}\label{Green}
 {\alpha_G}(x, x') = \min \left\{ {1,\frac{{\pi (x'){p}(x',x)}}{{\pi (x){p}(x,x')}}}\left|{\mathbf{J}}\right| \right\} \text{,}
 \end{equation}
-where ${\mathbf{J}} = {\nabla h(x, x')}$ represents a vector differential matrix of deterministic function $h$. $\alpha = \frac{{p}(x',x)}{{p}(x,x')}\left|{\mathbf{J}}\right|$ is defined as Green ratio, and ${\mathbf{J}}$ makes the proposal have a symmetric measure on each subspace in state $x$ and $x'$.
+where ${\mathbf{J}} = {\nabla h(x, x')}$ represents a vector differential matrix of deterministic function $h$. $\alpha = \frac{{p}(x',x)}{{p}(x,x')}\left|{\mathbf{J}}\right|$ is defined as the Green ratio, and ${\mathbf{J}}$ ensures that the proposal have a symmetric measure on each subspace in state $x$ and $x'$.
 
 \subsection*{Calculating the Green ratio for operations on internal nodes}
 The Constant Distance Operator firstly proposes a new time for the randomly selected internal node (Equation (\ref{in_HR1.1})), and then proposes three rates by the original distances and new node times(Equation (\ref{in_HR1.2})$\sim$Equation (\ref{in_HR1.3})).
@@ -849,7 +849,7 @@ So the determinant of ${{\mathbf{J}}_2}$ is calculated by Equation (\ref{SD_HR3}
 \left| {{{\mathbf{J}}_2}} \right| = \frac{{{t_X} - {t_L}}}{{{t_X}' - {t_L}}} \times \frac{{{t_X} - {t_R}}}{{{t_X}' - {t_R}}}
 \end{equation}
 \subsection*{Calculating the Green ratio for Small Pulley}
-Small Pulley proposes a new genetic distance of branch on one side of the root by adding a random number $b$, which is equal to adding a random number $b$ to the original product of rate and time on that branch. As a result, a new rate is proposed by Equation (\ref{SP_HR1.1}). Similarly, a new rate on another branch is proposed by Equation (\ref{SP_HR1.2}), because the total number of distances of both branches linked to the root is constant.
+Small Pulley proposes a new genetic distance of a branch on one side of the root by adding a random number $b$, which is equal to adding a random number $b$ to the original product of rate and time on that branch. As a result, a new rate is proposed by Equation (\ref{SP_HR1.1}). Similarly, a new rate on another branch is proposed by Equation (\ref{SP_HR1.2}), because the total distance of the two branches linked to the root should remain constant.
 \begin{subequations}\label{SP_HR1}
 \begin{equation}\label{SP_HR1.1}
 {r_L}' = \frac{{{r_L} \times ({t_X} - {t_L}) + b}}{{{t_X} - {t_L}}}
@@ -922,7 +922,7 @@ Last but not least, due to the change of tree topology in \textit{Exchange (\tex
 \caption{Calculation of $\mu$ for Big pulley}
 \label{alg1}
 \begin{algorithmic}[1]
-\IF{the node that has been exchanged with \textbf{dau} or \textbf{dau} has child nodes}
+\IF{either the node that has been exchanged with \textbf{dau} or \textbf{dau} itself has child nodes}
 \STATE $\alpha  = \beta  = 0.25$
 \ELSIF{${t_R} > {t_L}$}
 \STATE $\alpha  = 1,\beta  = 0.5$
@@ -950,7 +950,7 @@ Last but not least, due to the change of tree topology in \textit{Exchange (\tex
 \ENDFOR
 \end{algorithmic}
 \end{algorithm}
-\subsection{Sampling from the prior}
+\subsection*{Sampling from the prior}
 In Figure \ref{sampleprior}, a tree with three taxa $A$, $B$ and $C$ (plus one internal node $D$, and root $E$) is used as a small example in this experiment. In the figure, $g_1$ is set as the initial tree. Firstly, a LogNormal distribution is used as the rate prior in the uncorrelated relaxed clock model, given by Equation (\ref{rateprior}).
 \begin{equation}\label{rateprior}
 r = \{{r_A}\quad{r_B}\quad{r_C}\quad{r_D}\} \sim LogNormal(M = -3, S = 0.5)
