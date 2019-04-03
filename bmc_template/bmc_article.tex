@@ -510,61 +510,109 @@ The author(s) would like to acknowledge support from a Royal Society of New Zeal
 %% Do not use \listoffigures as most will included as separate files
 
 \section*{Figures}
+%\begin{figure}[h!]
+%\includegraphics[width=12cm]{flowchart.eps}\\
+%\caption{\csentence{The flow chart of the Constant Distance operator.}}
+%\label{flowchart}
+%\end{figure}
 \begin{figure}[h!]
-\includegraphics[width=12cm]{flowchart.eps}\\
+\includegraphics[width=12cm]{Fig01-flowchart.eps}\\
 \caption{\csentence{The flow chart of the Constant Distance operator.}}
 \label{flowchart}
 \end{figure}
 
+%\begin{figure}[h!]
+%\includegraphics[width=12cm]{internalnodes.eps}\\
+%\caption{\csentence{Illustration of the operation on an internal node.}
+%             The operator proposes a tree ${g_{in}}'$ based on tree $g_{in}$, during which $d_i$, $d_j$, $d_k$ are kept constant.}
+%\label{internalnodes}
+%\end{figure}
 \begin{figure}[h!]
-\includegraphics[width=12cm]{internalnodes.eps}\\
+\includegraphics[width=12cm]{Fig02-internalnodes.eps}\\
 \caption{\csentence{Illustration of the operation on an internal node.}
              The operator proposes a tree ${g_{in}}'$ based on tree $g_{in}$, during which $d_i$, $d_j$, $d_k$ are kept constant.}
 \label{internalnodes}
 \end{figure}
 
+%\begin{figure}[h!]
+%\includegraphics[width=12cm]{rootstrategy.eps}\\
+%\caption{\csentence{Illustration of Simple Distance and Small Pulley sub-moves.}
+%             Simple Distance proposes ${g_{r1}}'$ and keeps $d_i$, $d_x$ constant. Small Pulley proposes ${g_{r2}}'$ and ${d_i} + {d_x}$ remains constant.}
+%\label{simpledistance}
+%\end{figure}
 \begin{figure}[h!]
-\includegraphics[width=12cm]{rootstrategy.eps}\\
+\includegraphics[width=12cm]{Fig03-rootstrategy.eps}\\
 \caption{\csentence{Illustration of Simple Distance and Small Pulley sub-moves.}
              Simple Distance proposes ${g_{r1}}'$ and keeps $d_i$, $d_x$ constant. Small Pulley proposes ${g_{r2}}'$ and ${d_i} + {d_x}$ remains constant.}
 \label{simpledistance}
 \end{figure}
 
 
+%\begin{figure}[h!]
+%\includegraphics[width=12cm]{exchangemethod.eps}\\
+%\caption{\csentence{Illustration of \textit{Exchange (\textbf{M},\textbf{N})} method.}
+%             This method is applied to tree $g$ and proposes $g'$ by swapping \textbf{M} and \textbf{N}, so that the three distances are adjusted to maintain the distances among \textbf{S}, \textbf{M} and \textbf{N}. That is, ${d_C}' = {d_C} + b$, ${d_N}' = d_C + d_N$ and ${d_M}' = d_{M} - {d_C}'$, where $b \sim U[ - v, + v]$.}
+%\label{exchangemethod}
+%\end{figure}
 \begin{figure}[h!]
-\includegraphics[width=12cm]{exchangemethod.eps}\\
+\includegraphics[width=12cm]{Fig04-exchangemethod.eps}\\
 \caption{\csentence{Illustration of \textit{Exchange (\textbf{M},\textbf{N})} method.}
              This method is applied to tree $g$ and proposes $g'$ by swapping \textbf{M} and \textbf{N}, so that the three distances are adjusted to maintain the distances among \textbf{S}, \textbf{M} and \textbf{N}. That is, ${d_C}' = {d_C} + b$, ${d_N}' = d_C + d_N$ and ${d_M}' = d_{M} - {d_C}'$, where $b \sim U[ - v, + v]$.}
 \label{exchangemethod}
 \end{figure}
 
+%\begin{figure}[h!]
+%\includegraphics[width=12cm]{treeshape.eps}\\
+%\caption{\csentence{Two different tree shapes.}
+%             The symmetric tree is on the left and the asymmetric tree is on the right. The dashed triangles represent the potential subtrees rooted at the nodes.}
+%\label{treeshape}
+%\end{figure}
 \begin{figure}[h!]
-\includegraphics[width=12cm]{treeshape.eps}\\
+\includegraphics[width=12cm]{Fig05-treeshape.eps}\\
 \caption{\csentence{Two different tree shapes.}
              The symmetric tree is on the left and the asymmetric tree is on the right. The dashed triangles represent the potential subtrees rooted at the nodes.}
 \label{treeshape}
 \end{figure}
 
+%\begin{figure}[h!]
+%\includegraphics[width=12cm]{symmetric.eps}\\
+%\caption{\csentence{Illustration of operations on the symmetric tree in Figure \ref{treeshape}.}
+%             The proposed operator will propose one of the four possible trees, each with 0.25 probability.}
+%\label{symmetric}
+%\end{figure}
+%
+%\begin{figure}[h!]
+%\includegraphics[width=12cm]{asymmetric.eps}\\
+%\caption{\csentence{Illustration of operations on the asymmetric tree in Figure \ref{treeshape}.}
+%             The proposed operator will propose one of the three possible trees. If ${t_o}' < t_{G1}$, \textcircled7 has 1 probability, otherwise \textcircled5 and \textcircled6 have 0.5 probability each.}
+%\label{asymmetric}
+%\end{figure}
 \begin{figure}[h!]
-\includegraphics[width=12cm]{symmetric.eps}\\
+\includegraphics[width=12cm]{Fig06-symmetric.eps}\\
 \caption{\csentence{Illustration of operations on the symmetric tree in Figure \ref{treeshape}.}
              The proposed operator will propose one of the four possible trees, each with 0.25 probability.}
 \label{symmetric}
 \end{figure}
 
 \begin{figure}[h!]
-\includegraphics[width=12cm]{asymmetric.eps}\\
+\includegraphics[width=12cm]{Fig07-asymmetric.eps}\\
 \caption{\csentence{Illustration of operations on the asymmetric tree in Figure \ref{treeshape}.}
              The proposed operator will propose one of the three possible trees. If ${t_o}' < t_{G1}$, \textcircled7 has 1 probability, otherwise \textcircled5 and \textcircled6 have 0.5 probability each.}
 \label{asymmetric}
 \end{figure}
 
 \begin{figure}[h!]
-\includegraphics[width=12cm]{bigpulleyExp.eps}\\
+\includegraphics[width=12cm]{Fig08-sampleprior.eps}\\
 \caption{\csentence{The illustration of sampling from prior.}
              $g_1$ is set to be the original tree where an MCMC chain starts. When testing Big Pulley, the proposed operator samples the trees among $g_1$, $g_2$ and $g_3$.}
 \label{sampleprior}
 \end{figure}
+%\begin{figure}[h!]
+%\includegraphics[width=12cm]{bigpulleyExp.eps}\\
+%\caption{\csentence{The illustration of sampling from prior.}
+%             $g_1$ is set to be the original tree where an MCMC chain starts. When testing Big Pulley, the proposed operator samples the trees among $g_1$, $g_2$ and $g_3$.}
+%\label{sampleprior}
+%\end{figure}
 
 %\begin{figure}[h!]
 %\centering
