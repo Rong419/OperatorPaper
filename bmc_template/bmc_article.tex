@@ -566,116 +566,179 @@ The author(s) would like to acknowledge support from a Royal Society of New Zeal
 \label{sampleprior}
 \end{figure}
 
+%\begin{figure}[h!]
+%\centering
+%\subfigure[Senario 1: chain length = 10000000]{
+%\label{Fig.sub.1}
+%\includegraphics[width=0.45\textwidth]{scenario1S}}
+%\subfigure[Senario 1: chain length = 20000000]{
+%\label{Fig.sub.2}
+%\includegraphics[width=0.45\textwidth]{scenario1L}}
+%\subfigure[Senario 2: chain length = 10000000]{
+%\label{Fig.sub.3}
+%\includegraphics[width=0.45\textwidth]{scenario2S}}
+%\subfigure[Senario 2: chain length = 20000000]{
+%\label{Fig.sub.4}
+%\includegraphics[width=0.45\textwidth]{scenario2L}}
+%\caption{ \csentence{Sampled parameters in tests of internal nodes.}
+%             The horizontal axis represents the node time of D in Figure \ref{sampleprior}. The two scenarios sample two trees with different distances specified in Table \ref{ini_inter}.}
+%\label{res_int}
+%\end{figure}
+%
+%\begin{figure}[h!]
+%\centering
+%\subfigure[$t_E$ in Simple Distance]{
+%\label{Fig.sub.5}
+%\includegraphics[width=0.45\textwidth]{RplotSD}}
+%\subfigure[$d_D$ in Small Pulley]{
+%\label{Fig.sub.6}
+%\includegraphics[width=0.45\textwidth]{RplotSP}}
+%\subfigure[${d_D}$ in Big pulley]{
+%\label{Fig.sub.9}
+%\includegraphics[width=0.45\textwidth]{bigd}}
+%\subfigure[${t_E}$ in Big pulley]{
+%\label{Fig.sub.10}
+%\includegraphics[width=0.45\textwidth]{bigT}}
+%\caption{\csentence{Sampled parameters in test of the root.}
+%             For the trees in Figure \ref{sampleprior}, Simple Distance samples the root time $t_E$ only, Small Pulley samples the distance $d_D$ only, and Big Pulley samples $t_E$, $t_D$, $d_D$. To make it simple, $t_E$ and $d_D$ are compared.}
+%\label{res_roo1}
+%\end{figure}
+
 \begin{figure}[h!]
-\centering
-\subfigure[Senario 1: chain length = 10000000]{
-\label{Fig.sub.1}
-\includegraphics[width=0.45\textwidth]{scenario1S}}
-\subfigure[Senario 1: chain length = 20000000]{
-\label{Fig.sub.2}
-\includegraphics[width=0.45\textwidth]{scenario1L}}
-\subfigure[Senario 2: chain length = 10000000]{
-\label{Fig.sub.3}
-\includegraphics[width=0.45\textwidth]{scenario2S}}
-\subfigure[Senario 2: chain length = 20000000]{
-\label{Fig.sub.4}
-\includegraphics[width=0.45\textwidth]{scenario2L}}
+\includegraphics[width=12cm]{Fig09-testinternalnode.eps}\\
 \caption{ \csentence{Sampled parameters in tests of internal nodes.}
              The horizontal axis represents the node time of D in Figure \ref{sampleprior}. The two scenarios sample two trees with different distances specified in Table \ref{ini_inter}.}
 \label{res_int}
 \end{figure}
 
 \begin{figure}[h!]
-\centering
-\subfigure[$t_E$ in Simple Distance]{
-\label{Fig.sub.5}
-\includegraphics[width=0.45\textwidth]{RplotSD}}
-\subfigure[$d_D$ in Small Pulley]{
-\label{Fig.sub.6}
-\includegraphics[width=0.45\textwidth]{RplotSP}}
-\subfigure[${d_D}$ in Big pulley]{
-\label{Fig.sub.9}
-\includegraphics[width=0.45\textwidth]{bigd}}
-\subfigure[${t_E}$ in Big pulley]{
-\label{Fig.sub.10}
-\includegraphics[width=0.45\textwidth]{bigT}}
+\includegraphics[width=12cm]{Fig10-testroot.eps}\\
 \caption{\csentence{Sampled parameters in test of the root.}
              For the trees in Figure \ref{sampleprior}, Simple Distance samples the root time $t_E$ only, Small Pulley samples the distance $d_D$ only, and Big Pulley samples $t_E$, $t_D$, $d_D$. To make it simple, $t_E$ and $d_D$ are compared.}
 \label{res_roo1}
 \end{figure}
 
 \begin{figure}[h!]
-\includegraphics[width=12cm]{ModelValidation.eps}\\
+\includegraphics[width=12cm]{Fig11-modelvalidation.eps}\\
 \caption{\csentence{The models and prior distributions to simulate the sequence data.}
              The sequence alignment is simulated through a phylogenetic continuous-time Markov Chain that consists of a substitution model (HKY) and an uncorrelated relaxed clock model. The random variables in HKY model construct the mutation rate matrix, including frequency and ratio. The rates and time trees specified by a Yule model construct the substitution tree. The standard deviation of rates and the birth rate in Yule model are both random variables following LogNormal distributions.}
 \label{modelvalidation}
 \end{figure}
 
 \begin{figure}[h!]
-\includegraphics[width=12cm]{SmallTree.eps}\\
+\includegraphics[width=12cm]{Fig12-smalltree.eps}\\
 \caption{\csentence{Comparing the sampled parameters in simulation study with 20 taxa.}
              The red crossings represent the coordinates of real and estimated value. The vertical lines with circles show the 95\% HPD of the sampled parameters. The blue lines indicate that the estimated value is equal to the real value. The red line represents the fixed value of rate mean.}
 \label{SmallTree}
 \end{figure}
 
 \begin{figure}[h!]
-\includegraphics[width=12cm]{LargeTree.eps}\\
+\includegraphics[width=12cm]{Fig13-largetree.eps}\\
 \caption{\csentence{Comparing the sampled parameters in simulation study with 120 taxa.}
              }
 \label{LargeTree}
 \end{figure}
 
 \begin{figure}[h!]
-\includegraphics[width=12cm]{Efficiency.eps}\\
+\includegraphics[width=12cm]{Fig14-efficiency.eps}\\
 \caption{\csentence{Comparison of ESS and running time using simulated data.}
              The term long, medium and short represent the length of sequence with 20 thousand, 10 thousand and 5 thousand respectively.}
 \label{eff_comp}
 \end{figure}
 
 \begin{figure}[h!]
-\centering
-\subfigure{
-\label{P_ess}
-\includegraphics[width=0.45\textwidth]{primatesESS.eps}}
-\subfigure{
-\label{P_run}
-\includegraphics[width=0.45\textwidth]{primatestime.eps}}
+\includegraphics[width=12cm]{Fig15-primates.eps}\\
 \caption{\csentence{Comparison of ESS and running time using primates data.}
              The orange curve links the mean values of each boxplot and the values are shown on the left of the boxplot.}
 \label{eff_comp2}
 \end{figure}
 
 \begin{figure}[h!]
-\centering
-\subfigure[Clades]{
-\label{Fig.sub.tree}
-\includegraphics[width=0.5\textwidth]{correlationtree}}
-\subfigure[Pairwise compare]{
-\label{Fig.sub.correlation}
-\includegraphics[width=0.4\textwidth]{rateandtime.eps}}
+\includegraphics[width=12cm]{Fig16-correlation.eps}\\
 \caption{\csentence{Correlation between rates and node times in the ratites tree.}
-             The rates and node times are in correspondence with the notations in Figure \ref{withoutdata}(b). Blue indicates the positive relation and red indicates the negative relation. The darker the colour is, the stronger the relation tends to be.}
+             Blue indicates the positive relation and red indicates the negative relation. The darker the colour is, the stronger the relation tends to be.}
 \label{correlation}
 \end{figure}
 
 \begin{figure}[h!]
-\centering
-\subfigure[Unrooted tree]{
-\label{Fig.sub.11}
-\includegraphics[width=0.45\textwidth]{unrootedtree}}
-\subfigure[Summary tree with 94.44\% probability]{
-\label{summary1}
-\includegraphics[width=0.45\textwidth]{First}}
-\subfigure[Summary tree with 4.24\% probability]{
-\label{summary2}
-\includegraphics[width=0.45\textwidth]{Second}}
-\subfigure[Summary tree with 1.32\% probability]{
-\label{summary3}
-\includegraphics[width=0.45\textwidth]{Third}}
+\includegraphics[width=12cm]{Fig17-fixedtree.eps}\\
 \caption{\csentence{Illustration of sampling a fixed unrooted tree.}
             The unrooted tree is obtained from the ratites data set \cite{cooper2001complete}. The colour of branches from green to red indicates the rates increasing from small to large. The blue bars at represents the 95\% HPD of the node times. And the numbers besides the blue bars are the posterior values at the corresponding nodes.}
 \label{withoutdata}
 \end{figure}
+
+%\begin{figure}[h!]
+%\includegraphics[width=12cm]{ModelValidation.eps}\\
+%\caption{\csentence{The models and prior distributions to simulate the sequence data.}
+%             The sequence alignment is simulated through a phylogenetic continuous-time Markov Chain that consists of a substitution model (HKY) and an uncorrelated relaxed clock model. The random variables in HKY model construct the mutation rate matrix, including frequency and ratio. The rates and time trees specified by a Yule model construct the substitution tree. The standard deviation of rates and the birth rate in Yule model are both random variables following LogNormal distributions.}
+%\label{modelvalidation}
+%\end{figure}
+%
+%\begin{figure}[h!]
+%\includegraphics[width=12cm]{SmallTree.eps}\\
+%\caption{\csentence{Comparing the sampled parameters in simulation study with 20 taxa.}
+%             The red crossings represent the coordinates of real and estimated value. The vertical lines with circles show the 95\% HPD of the sampled parameters. The blue lines indicate that the estimated value is equal to the real value. The red line represents the fixed value of rate mean.}
+%\label{SmallTree}
+%\end{figure}
+%
+%\begin{figure}[h!]
+%\includegraphics[width=12cm]{LargeTree.eps}\\
+%\caption{\csentence{Comparing the sampled parameters in simulation study with 120 taxa.}
+%             }
+%\label{LargeTree}
+%\end{figure}
+%
+%\begin{figure}[h!]
+%\includegraphics[width=12cm]{Efficiency.eps}\\
+%\caption{\csentence{Comparison of ESS and running time using simulated data.}
+%             The term long, medium and short represent the length of sequence with 20 thousand, 10 thousand and 5 thousand respectively.}
+%\label{eff_comp}
+%\end{figure}
+%
+%\begin{figure}[h!]
+%\centering
+%\subfigure{
+%\label{P_ess}
+%\includegraphics[width=0.45\textwidth]{primatesESS.eps}}
+%\subfigure{
+%\label{P_run}
+%\includegraphics[width=0.45\textwidth]{primatestime.eps}}
+%\caption{\csentence{Comparison of ESS and running time using primates data.}
+%             The orange curve links the mean values of each boxplot and the values are shown on the left of the boxplot.}
+%\label{eff_comp2}
+%\end{figure}
+%
+%\begin{figure}[h!]
+%\centering
+%\subfigure[Clades]{
+%\label{Fig.sub.tree}
+%\includegraphics[width=0.5\textwidth]{correlationtree}}
+%\subfigure[Pairwise compare]{
+%\label{Fig.sub.correlation}
+%\includegraphics[width=0.4\textwidth]{rateandtime.eps}}
+%\caption{\csentence{Correlation between rates and node times in the ratites tree.}
+%             The rates and node times are in correspondence with the notations in Figure \ref{withoutdata}(b). Blue indicates the positive relation and red indicates the negative relation. The darker the colour is, the stronger the relation tends to be.}
+%\label{correlation}
+%\end{figure}
+%
+%\begin{figure}[h!]
+%\centering
+%\subfigure[Unrooted tree]{
+%\label{Fig.sub.11}
+%\includegraphics[width=0.45\textwidth]{unrootedtree}}
+%\subfigure[Summary tree with 94.44\% probability]{
+%\label{summary1}
+%\includegraphics[width=0.45\textwidth]{First}}
+%\subfigure[Summary tree with 4.24\% probability]{
+%\label{summary2}
+%\includegraphics[width=0.45\textwidth]{Second}}
+%\subfigure[Summary tree with 1.32\% probability]{
+%\label{summary3}
+%\includegraphics[width=0.45\textwidth]{Third}}
+%\caption{\csentence{Illustration of sampling a fixed unrooted tree.}
+%            The unrooted tree is obtained from the ratites data set \cite{cooper2001complete}. The colour of branches from green to red indicates the rates increasing from small to large. The blue bars at represents the 95\% HPD of the node times. And the numbers besides the blue bars are the posterior values at the corresponding nodes.}
+%\label{withoutdata}
+%\end{figure}
 
 \clearpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
