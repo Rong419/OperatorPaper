@@ -56,7 +56,7 @@
 \startlocaldefs
 \endlocaldefs
 
-\newcommand{\alexei}[1]{{\textcolor{green}{#1}}} 
+\newcommand{\alexei}[1]{{\textcolor{green}{#1}}}
 
 
 \begin{document}
@@ -142,48 +142,48 @@ Bayesian MCMC has become a common approach for phylogenetic inference. This pape
 
 %%%%%%%%%%%%%%%%
 \section*{Introduction}
-Bayesian phylogenetics puts an emphasis on estimating probability distributions over parameters of interest, including the phylogenetic tree topology and divergence times, given the data. The Metropolis-Hastings Markov chain Monte Carlo (MCMC) \cite{metropolis1953equation,hastings1970monte} algorithm has been the primary computational tool used in Bayesian phylogenetics for sampling from the posterior distribution. This paper is aimed at improving the performance of the relaxed clock model in Bayesian phylogenetic analysis. 
+Bayesian phylogenetics puts an emphasis on estimating probability distributions over parameters of interest, including the phylogenetic tree topology and divergence times, given the data. The Metropolis-Hastings Markov chain Monte Carlo (MCMC) \cite{metropolis1953equation,hastings1970monte} algorithm has been the primary computational tool used in Bayesian phylogenetics for sampling from the posterior distribution. This paper is aimed at improving the performance of the relaxed clock model in Bayesian phylogenetic analysis.
 
-Historically, early implementations of Bayesian phylogenetic inference \cite{yang1997bayesian} assumed a strict molecular clock where the evolutionary rates are the same at every branch \cite{zuckerkandl1965evolutionary}. This was the preferred method for estimating divergence times \cite{yang1997bayesian,rannala2003bayes}. The introduction of relaxed molecular clocks allowed for the estimation of divergence times \cite{thorne1998estimating} and phylogeny \cite{drummond2006relaxed} in the presence of rate heterogeneity among branches. Since then, the relaxed clock model has been widely applied, such as the study of Nothofagus \cite{knapp2005relaxed} and flowering plants \cite{smith2010uncorrelated}. By allowing rates to vary across lineages, it is considered that better estimates of divergence times can be obtained \cite{ho2005accuracy,renner2005relaxed,lepage2007general}. 
+Historically, early implementations of Bayesian phylogenetic inference \cite{yang1997bayesian} assumed a strict molecular clock where the evolutionary rates are the same at every branch \cite{zuckerkandl1965evolutionary}. This was the preferred method for estimating divergence times \cite{yang1997bayesian,rannala2003bayes}. The introduction of relaxed molecular clocks allowed for the estimation of divergence times \cite{thorne1998estimating} and phylogeny \cite{drummond2006relaxed} in the presence of rate heterogeneity among branches. Since then, the relaxed clock model has been widely applied, such as the study of Nothofagus \cite{knapp2005relaxed} and flowering plants \cite{smith2010uncorrelated}. By allowing rates to vary across lineages, it is considered that better estimates of divergence times can be obtained \cite{ho2005accuracy,renner2005relaxed,lepage2007general}.
 
-Bayesian phylogenetic inference via MCMC is computationally intensive for large data sets. 
-Two approaches to improve efficiency are (i) by making faster likelihood calculations, and (ii) by incorporating more effective proposal kernels. Calculating the phylogenetic likelihood is computationally expensive. 
-Hence, researchers have tried many ways to tackle the computation burden in the likelihood calculations, such as detection of repeating sites \cite{kobert2017efficient},  approximate methods (e.g. \cite{reis2011approximate}) and the use of parallelisation strategies (e.g. BEAGLE \cite{ayres2011beagle}). 
+Bayesian phylogenetic inference via MCMC is computationally intensive for large data sets.
+Two approaches to improve efficiency are (i) by making faster likelihood calculations, and (ii) by incorporating more effective proposal kernels. Calculating the phylogenetic likelihood is computationally expensive.
+Hence, researchers have tried many ways to tackle the computation burden in the likelihood calculations, such as detection of repeating sites \cite{kobert2017efficient},  approximate methods (e.g. \cite{reis2011approximate}) and the use of parallelisation strategies (e.g. BEAGLE \cite{ayres2011beagle}).
 
 However the overall efficiency of the sampling process also depends strongly on the construction of the proposal mechanism. An effective proposal mechanism is proficient at exploring the posterior distribution, and can do so with fewer steps in the MCMC chain. Therefore fewer likelihood calculations are required, since each step in the chain requires a likelihood calculation.
-%More efficient proposal mechanisms require fewer steps in the MCMC chain and thus fewer likelihood computations, since each step of the MCMC chain entails a likelihood calculation. 
+%More efficient proposal mechanisms require fewer steps in the MCMC chain and thus fewer likelihood computations, since each step of the MCMC chain entails a likelihood calculation.
 
-A major limitation in Bayesian MCMC analysis of phylogeny lies in the efficiency with which operators sample the tree space \cite{lakner2008efficiency,hohna2012guided}. Fast and reliable estimation is dependent on a good mixture of operators in Bayesian MCMC, since the posterior distribution often exhibits correlations between the tree and other random variables. 
+A major limitation in Bayesian MCMC analysis of phylogeny lies in the efficiency with which operators sample the tree space \cite{lakner2008efficiency,hohna2012guided}. Fast and reliable estimation is dependent on a good mixture of operators in Bayesian MCMC, since the posterior distribution often exhibits correlations between the tree and other random variables.
 %Many such tree proposal mechanisms have been described \cite{}. %According to the work in Ref.\cite{hohna2011guided}, the two common operators, i.e. prune-and-regraft and subtree-swap, both contribute to a tree with low likelihood since they propose a new tree by random movement of the current tree. So the authors introduced two new operators by proposing a state from a discrete set of possible proposals and narrowing the proposal distribution to the more likely proposals. Their experimental results proved that the two operators have faster average run time and more accurate predictability.
 
-In this paper, we present a novel operator that searches within a subspace of constant genetic distances. 
-Namely, the proposed operator changes both divergence times of nodes and neighbouring branch rates so that implied genetic distances are not changed. For time-reversible substitution models the phylogenetic likelihood will also be unchanged under this operation. The proposed operator has been implemented and tested in BEAST2 \cite{bouckaert2014beast}. 
+In this paper, we present a novel operator that searches within a subspace of constant genetic distances.
+Namely, the proposed operator changes both divergence times of nodes and neighbouring branch rates so that implied genetic distances are not changed. For time-reversible substitution models the phylogenetic likelihood will also be unchanged under this operation. The proposed operator has been implemented and tested in BEAST2 \cite{bouckaert2014beast}.
 
-%The paper is constructed as follows: Section 2 gives some preliminary theory related to this paper. 
-%Section 3 introduces the proposed operator, which includes the operations for internal nodes and three different strategies for the root. 
-%The experiments and discussions are detailed in Section 4 to validate the efficiency of the proposed operator. 
+%The paper is constructed as follows: Section 2 gives some preliminary theory related to this paper.
+%Section 3 introduces the proposed operator, which includes the operations for internal nodes and three different strategies for the root.
+%The experiments and discussions are detailed in Section 4 to validate the efficiency of the proposed operator.
 %Section 5 ends the paper with a short conclusion.
 \section*{Prelimiaries}
 \subsection*{Bayesian MCMC}
-Let $D$ denote the data, and let $g$ and $\Phi $ denote the phylogenetic tree and a set of evolutionary parameters respectively. The posterior probability density can be calculated using Equation (\ref{bayes}). It consists of prior distributions for the  tree and the parameters, a phylogenetic likelihood that conveys information from data, and the posterior distribution to be inferred. These are denoted in the form of probability densities by $p(g) $, $p(\Phi )$, $\Pr(D|g,\Phi )$, $p(g,\Phi |D)$ respectively. From a Bayesian perspective, the phylogenetic trees and the parameters are random variables described by a posterior probability distribution given the observed data $D$. 
+Let $D$ denote the data, and let $g$ and $\Phi $ denote the phylogenetic tree and a set of evolutionary parameters respectively. The posterior probability density can be calculated using Equation (\ref{bayes}). It consists of prior distributions for the  tree and the parameters, a phylogenetic likelihood that conveys information from data, and the posterior distribution to be inferred. These are denoted in the form of probability densities by $p(g) $, $p(\Phi )$, $\Pr(D|g,\Phi )$, $p(g,\Phi |D)$ respectively. From a Bayesian perspective, the phylogenetic trees and the parameters are random variables described by a posterior probability distribution given the observed data $D$.
 %As a result, it is possible to jointly infer evolutionary history of species  by incorporating various source of information such as molecular data and fossil records.
 \begin{equation}\label{bayes}
 p(g,\Phi |D) = \frac{{p (D|g,\Phi ) \times p (g) \times p (\Phi )}}{{p (D)}}
 \end{equation}
 
-However, due to the state space being large to explore and the marginal likelihood being infeasible to calculate, MCMC is adopted to sample the posterior distribution. Specifically, MCMC algorithms construct a Markov chain whose stationary distribution is the posterior distribution $p(g,\Phi |D)$, in such a way that the computation of the marginal likelihood $p (D)$ is avoided. 
+However, due to the state space being large to explore and the marginal likelihood being infeasible to calculate, MCMC is adopted to sample the posterior distribution. Specifically, MCMC algorithms construct a Markov chain whose stationary distribution is the posterior distribution $p(g,\Phi |D)$, in such a way that the computation of the marginal likelihood $p (D)$ is avoided.
 %In this paper, a Metropolis-Hastings algorithm (MH-MCMC) is implemented, which generates a new state given the current state through a proposal density and accepts the new state with a prescribed probability \cite{metropolis1953equation,hastings1970monte}.
 \subsection*{Tree proposals}
 \label{treeproposals}
-We use the term ``operator" to describe an algorithm that can be used to draw a new state $\theta'$ given an existing state $\theta = \{g,\Phi\}$ from a specific proposal kernel $q(\theta'|\theta)$ and also return the Hastings-Green ratio for the proposed state transition \cite{hastings1970monte,green1995reversible}. 
-%In MH-MCMC, an operator implements the proposal density and provided relevant information to calculate the acceptance probability for the next proposed state. 
+We use the term ``operator" to describe an algorithm that can be used to draw a new state $\theta'$ given an existing state $\theta = \{g,\Phi\}$ from a specific proposal kernel $q(\theta'|\theta)$ and also return the Hastings-Green ratio for the proposed state transition \cite{hastings1970monte,green1995reversible}.
+%In MH-MCMC, an operator implements the proposal density and provided relevant information to calculate the acceptance probability for the next proposed state.
 
-Standard na\"{i}ve operators such as the random walk operator propose the new state $\theta^\prime$ by adding a random variate to a component of the current state $\theta$ \cite{suchard2005stochastic}. Similarly, scale operators multiply a subset of the current state by a scale factor \cite{higuchi1997monte}. They are suitable for working on a single random variable, or a single component of the model, such as a population size. Standard operators for the tree topology and divergence times include the subtree slide operator, Wilson-balding and narrow exchange operators \cite{drummond2002estimatingdata,hohna2008clock}. 
-%On top of this, there are also some extended operators available to help give the better performance. For instance, the prune-and-regraft operator selects a random subtree and reattaches the subtree at a new random branch \cite{hohna2011guided}. 
+Standard na\"{i}ve operators such as the random walk operator propose the new state $\theta^\prime$ by adding a random variate to a component of the current state $\theta$ \cite{suchard2005stochastic}. Similarly, scale operators multiply a subset of the current state by a scale factor \cite{higuchi1997monte}. They are suitable for working on a single random variable, or a single component of the model, such as a population size. Standard operators for the tree topology and divergence times include the subtree slide operator, Wilson-balding and narrow exchange operators \cite{drummond2002estimatingdata,hohna2008clock}.
+%On top of this, there are also some extended operators available to help give the better performance. For instance, the prune-and-regraft operator selects a random subtree and reattaches the subtree at a new random branch \cite{hohna2011guided}.
 
 \subsection*{Uncorrelated relaxed clock model}
 %%define genetic distance
-Molecular clocks model how molecular sequences evolve along branches in the phylogenetic tree, so that a time tree can be reconciled with the genetic distances between sequences. In this paper, the proposed operator is based on an uncorrelated relaxed clock model, in which the rates vary from branch to branch, drawn independently and identically from a given prior distribution, such as the log-normal distribution \cite{drummond2006relaxed}. As a result, the rates can vary markedly between parent and child branches. 
+Molecular clocks model how molecular sequences evolve along branches in the phylogenetic tree, so that a time tree can be reconciled with the genetic distances between sequences. In this paper, the proposed operator is based on an uncorrelated relaxed clock model, in which the rates vary from branch to branch, drawn independently and identically from a given prior distribution, such as the log-normal distribution \cite{drummond2006relaxed}. As a result, the rates can vary markedly between parent and child branches.
 
 Referring to the Bayesian framework in Equation (\ref{bayes}), the joint inference of evolutionary rates $r$ and divergence times $t$ can be obtained by the conditional distribution in Equation (\ref{bayes1}):
 %\alexei{$t$ and $r$ are not defined.}
@@ -219,7 +219,7 @@ Figure \ref{simpledistance} shows the trees that are rooted at the node \textbf{
 
 \emph{Step 1} Identify the child nodes of the root \textbf{X}, denoted by \textbf{L} and \textbf{R}. Their corresponding node times and branch rates are $t_X$, $t_L$, $t_R$ and $r_L$, $r_R$.
 
-\emph{Step 2} Propose a new node time for the root \textbf{X} by ${t_X}' = {t_X} + a$, where $a \sim U[ - w, + w]$. Make sure that ${t_X}' > \max \{ {t_j},{t_k}\} $ holds. Otherwise, we reject the proposal. 
+\emph{Step 2} Propose a new node time for the root \textbf{X} by ${t_X}' = {t_X} + a$, where $a \sim U[ - w, + w]$. Make sure that ${t_X}' > \max \{ {t_j},{t_k}\} $ holds. Otherwise, we reject the proposal.
 
 \emph{Step 3} Propose new rates for branches on both sides of the root by using Equation (\ref{sim_rate}).
 \begin{equation}
@@ -255,7 +255,7 @@ Big Pulley resamples the rates and times in a fixed unrooted tree. The genetic d
 Firstly, a method called \textit{Exchange} is designed to propose a new tree topology. Let \textbf{R} denote the root of tree $g$, let \textbf{C} and \textbf{N} denote the two child nodes of \textbf{R}, and let \textbf{S} and \textbf{M} denote the two child nodes of \textbf{C} (Figure \ref{exchangemethod}). The following operations will be performed to propose a new tree $g'$.
 \begin{itemize}
 \item Call \textit{Exchange(\textbf{M},\textbf{N})} to swap the two nodes by pruning and grafting, i.e. cutting \textbf{M} (\textbf{N}) at its original position and attaching it to the original position of \textbf{N} (\textbf{M}).
-\item Propose ${d_C}'$ by ${d_C}' = {d_C} + b$, where $b \sim U[ - v, + v]$. Make sure that $0 < {d_C}' < D$ holds, where $D = {d_C} + {d_{N}}$. Otherwise, we reject the proposal. 
+\item Propose ${d_C}'$ by ${d_C}' = {d_C} + b$, where $b \sim U[ - v, + v]$. Make sure that $0 < {d_C}' < D$ holds, where $D = {d_C} + {d_{N}}$. Otherwise, we reject the proposal.
 \item The distances on the other three branches, i.e. $d_S$, $d_{M}$ and $d_{N}$, will be adjusted:
 \begin{equation}\label{big_dis}
 {d_S}' = {d_S}\\
@@ -264,14 +264,14 @@ Firstly, a method called \textit{Exchange} is designed to propose a new tree top
 \end{equation}
 \end{itemize}
 
-As can be seen from the above descriptions, the method \textit{Exchange (\textbf{M},\textbf{N})} is actually aimed at swapping two nodes and reassigning distances on the four branches. That is to say, after using \textit{Exchange (\textbf{M},\textbf{N})}, the distances $d_S$, $d_{M}$, $d_{N}$ and $d_{C}$ will be adjusted to maintain the implied genetic distances among three taxa \textbf{S}, \textbf{M} and \textbf{N}, as the tree topology changes. 
+As can be seen from the above descriptions, the method \textit{Exchange (\textbf{M},\textbf{N})} is actually aimed at swapping two nodes and reassigning distances on the four branches. That is to say, after using \textit{Exchange (\textbf{M},\textbf{N})}, the distances $d_S$, $d_{M}$, $d_{N}$ and $d_{C}$ will be adjusted to maintain the implied genetic distances among three taxa \textbf{S}, \textbf{M} and \textbf{N}, as the tree topology changes.
 
 Secondly, before applying this method in Big Pulley, there are two different tree shapes to take into consideration. In Figure \ref{treeshape}, a symmetric tree is shown on the left, in which both the child nodes of the root have child nodes. But in the asymmetric tree on the right, only one of the child nodes of the root has child nodes below it, and the other child node is a leaf node. The corresponding operations are detailed in the following two parts.
 \paragraph*{Symmetric tree}
 
 For the symmetric tree in Figure \ref{treeshape}, the operations are illustrated in Figure \ref{symmetric}, after which one of the four possible trees (\textcircled1 \textcircled2 \textcircled3 \textcircled4) will be proposed.
 
-\emph{Step 1} Identify the child nodes of the root \textbf{X}, denoted by \textbf{L} and \textbf{R}. Correspondingly, the node times are denoted by $t_X$, $t_L$, $t_R$. And the child nodes below them are denoted by \textbf{H1}, \textbf{H2}, \textbf{H3} and \textbf{H4}. 
+\emph{Step 1} Identify the child nodes of the root \textbf{X}, denoted by \textbf{L} and \textbf{R}. Correspondingly, the node times are denoted by $t_X$, $t_L$, $t_R$. And the child nodes below them are denoted by \textbf{H1}, \textbf{H2}, \textbf{H3} and \textbf{H4}.
 
 \emph{Step 2} Propose a new node time for the root \textbf{X} by ${t_X}' = {t_X} + a$, where $a \sim U[ - w, + w]$.
 
@@ -287,7 +287,7 @@ For the symmetric tree in Figure \ref{treeshape}, the operations are illustrated
 \item With 0.5 probability to pick \textbf{R} and propose a new node time by ${t_R}' = {t_R} + {a_2}$, where ${a_2} \sim Uniform[ - w, + w]$. Make sure that ${t_L} < {t_R}' < {t_X}'$ holds. Otherwise, we reject the proposal. Similarly, if we don't reject then there are two options to apply the method:
   \begin{itemize}
   \item With 0.5 probability to apply \textit{Exchange (\textbf{H3}, \textbf{L})} and propose tree \textcircled3
-  \item With 0.5 probability to apply \textit{Exchange (\textbf{H4}, \textbf{L})} and propose tree \textcircled4 
+  \item With 0.5 probability to apply \textit{Exchange (\textbf{H4}, \textbf{L})} and propose tree \textcircled4
   \end{itemize}
 \end{itemize}
 
@@ -306,16 +306,16 @@ Finally, in this example the new rates would be updated by:
 {r_1}' = \frac{{{d_1}'}}{{{t_X}' - {t_1}}} \\
 {r_2}' = \frac{{{d_2}'}}{{{t_j}' - {t_2}}} \\
 {r_L}' = \frac{{{d_L}'}}{{{t_X}' - {t_L}'}} \\
-{r_R}' = \frac{{{d_R}'}}{{{t_L}' - {t_R}}} 
+{r_R}' = \frac{{{d_R}'}}{{{t_L}' - {t_R}}}
 \end{equation}
 \emph{Step 5} Return the Green ratio ${\alpha_{BP}}$.
 \paragraph*{Asymmetric tree}
 
 For an asymmetric tree such as in Figure \ref{treeshape} we would operate as illustrated in Figure \ref{asymmetric}, in which there are three possible trees (\textcircled5 \textcircled6 \textcircled7).
 
-\emph{Step 1} Identify the older child of the root \textbf{X}, denoted by \textbf{O}, and the younger child of the root is denoted by \textbf{Y}. The node times of the root \textbf{X},  \textbf{O} and its child nodes are denoted by ${t_X}$, ${t_O}$, ${t_{G1}}$ and ${t_{G2}}$ respectively. 
+\emph{Step 1} Identify the older child of the root \textbf{X}, denoted by \textbf{O}, and the younger child of the root is denoted by \textbf{Y}. The node times of the root \textbf{X},  \textbf{O} and its child nodes are denoted by ${t_X}$, ${t_O}$, ${t_{G1}}$ and ${t_{G2}}$ respectively.
 
-\emph{Step 2} Propose a new node time for the root \textbf{X} by ${t_X}' = {t_X} + a$, where $a \sim U[ - w, + w]$. Moreover, propose a new node time for \textbf{O} by ${t_O}' = {t_O} + {a_3}$, where ${a_3} \sim U[ - w, + w]$. To make it valid, make sure that ${t_O}' < {t_X}'$ holds. Otherwise, we reject the proposal.  
+\emph{Step 2} Propose a new node time for the root \textbf{X} by ${t_X}' = {t_X} + a$, where $a \sim U[ - w, + w]$. Moreover, propose a new node time for \textbf{O} by ${t_O}' = {t_O} + {a_3}$, where ${a_3} \sim U[ - w, + w]$. To make it valid, make sure that ${t_O}' < {t_X}'$ holds. Otherwise, we reject the proposal.
 
 \emph{Step 3} Apply the method using \textbf{Y} and either child node of \textbf{O}, which is dependent on the value of ${t_O}'$.
 \begin{itemize}
@@ -326,8 +326,8 @@ For an asymmetric tree such as in Figure \ref{treeshape} we would operate as ill
 
     \item With 0.5 Probability to apply \textit{Exchange (\textbf{G2}, \textbf{Y})} and propose tree \textcircled6
   \end{itemize}
-\item if ${t_O}'$ satisfies $\min \{ {t_{G1}},{t_{G2}}\}  < {t_O}' < \max \{ {t_{G1}},{t_{G2}}\} $, then there is only one option: 
-\textcircled7: Exchange the older child of \textbf{O} and \textbf{Y}. 
+\item if ${t_O}'$ satisfies $\min \{ {t_{G1}},{t_{G2}}\}  < {t_O}' < \max \{ {t_{G1}},{t_{G2}}\} $, then there is only one option:
+\textcircled7: Exchange the older child of \textbf{O} and \textbf{Y}.
  (For the asymmetric tree in Figure \ref{treeshape}, we apply \textit{Exchange (\textbf{G1}, \textbf{Y})} and propose tree \textcircled7).
 \end{itemize}
 
@@ -337,7 +337,7 @@ For an asymmetric tree such as in Figure \ref{treeshape} we would operate as ill
 {d_{G1}}' = {d_{G1}} - {d_O}'  \\
 {d_{G2}}' = {d_{G2}}  \\
 {d_O}' = {d_O} + b  \\
-{d_Y}' = {d_Y} + {d_O} 
+{d_Y}' = {d_Y} + {d_O}
 \end{equation}
 
 And the four rates are updated as follows:
@@ -346,7 +346,7 @@ And the four rates are updated as follows:
 {r_{G1}}' = \frac{{{d_{G1}}'}}{{{t_X}' - {t_{G1}}}} \\
 {r_{G2}}' = \frac{{{d_{G2}}'}}{{{t_O}' - {t_{G2}}}} \\
 {r_O}' = \frac{{{d_O}'}}{{{t_X}' - {t_O}'}} \\
-{r_Y}' = \frac{{{d_Y}'}}{{{t_O}' - {t_Y}}} 
+{r_Y}' = \frac{{{d_Y}'}}{{{t_O}' - {t_Y}}}
 \end{equation}
 \emph{Step 5} Return the Green ratio ${\alpha_{BP}}$.
 
@@ -370,7 +370,7 @@ where the functions ${f_1}$, ${f_2}$, ${f_3}$ and ${f_4}$ represent how the oper
 \end{equation}
 where the proposal density ${p ( - a)}$ is equal to ${p ( a )}$ since the random number $a$ is drawn from Uniform distribution.
 
-Likewise, the Green ratio for Simple Distance, Small Pulley and  Big Pulley can be obtained: 
+Likewise, the Green ratio for Simple Distance, Small Pulley and  Big Pulley can be obtained:
 \begin{equation}\label{HR2}
 {\alpha_{SD}} = \frac{{{t_X} - {t_L}}}{{{t_X}' - {t_L}}} \times \frac{{{t_X} - {t_R}}}{{{t_X}' - {t_R}}}\text{,}
 \end{equation}
@@ -380,7 +380,7 @@ Likewise, the Green ratio for Simple Distance, Small Pulley and  Big Pulley can 
 \begin{equation}\label{HR4}
 {\alpha_{BP}} = \mu \times \frac{{{t_X}' - {t_C}}}{{{t_X}' - {t_C}'}} \times \frac{{{t_C} - {t_S}}}{{{t_C}' - {t_S}}} \times \frac{{{t_C} - {t_{N1}}}}{{{t_X}' - {t_{N1}}}} \times \frac{{{t_X} - {t_{N2}}}}{{{t_C}' - {t_{N2}}}}\text{,}
 \end{equation}
-where $\mu = p(g', g) / p(g, g')$ is defined as the proposal ratio of topology change and is obtained by Algorithm \ref{alg1}. More details of how to calculate the determinant of the Jacobian matrix are explained in the Appendix. 
+where $\mu = p(g', g) / p(g, g')$ is defined as the proposal ratio of topology change and is obtained by Algorithm \ref{alg1}. More details of how to calculate the determinant of the Jacobian matrix are explained in the Appendix.
 
 \section*{Experimental results and analysis}
 To validate the correctness and determine the efficiency of the proposed operator, we conducted a series of experiments by implementing Constant Distance operator in BEAST2 \cite{bouckaert2014beast}.
@@ -388,11 +388,11 @@ To validate the correctness and determine the efficiency of the proposed operato
 First, we establish correctness of the operator using a well-calibrated simulation study, which shows our operator is able to function alongside other operators. Correctness was further confirmed by sampling trees from the prior distribution i.e. without data (Refer to subsection Sampling from the prior in Appendix). By comparing effective sample sizes (ESS) \cite{Tracer} and running times, it is demonstrated that the performance is improved when using the proposed operator. Finally, the correlation of rates and node times are discussed.
 
 \subsection*{Well-calibrated simulation study}
-A well-calibrated simulation study is a necessary criterion to evaluate the reliability of a Bayesian model \cite{dawid1982well}. 
+A well-calibrated simulation study is a necessary criterion to evaluate the reliability of a Bayesian model \cite{dawid1982well}.
 
-Figure \ref{modelvalidation} shows the framework used in this study, which includes the evolutionary model and the prior distributions of parameters. As is shown in the figure, the sequence alignment is simulated by a phylogenetic continuous-time Markov chain in BEAST2. It contains a substitution rate matrix given by the HKY85 \cite{hasegawa1985dating} model and a substitution tree jointly provided by uncorrelated relaxed clock model and Yule model. More specifically, base frequencies $\pi$ follow a Dirichlet distribution and the transition-transversion ratio $\kappa$ follows a log-normal prior distribution. The distribution of node times is described in a Yule tree $\Psi$ with hyperparameter birth rate $\lambda $ following a log-normal distribution. The rates $r_i$ follow a log-normal distribution with mean of 1 and standard deviation $S1$ following a hyperprior distribution.  
+Figure \ref{modelvalidation} shows the framework used in this study, which includes the evolutionary model and the prior distributions of parameters. As is shown in the figure, the sequence alignment is simulated by a phylogenetic continuous-time Markov chain in BEAST2. It contains a substitution rate matrix given by the HKY85 \cite{hasegawa1985dating} model and a substitution tree jointly provided by uncorrelated relaxed clock model and Yule model. More specifically, base frequencies $\pi$ follow a Dirichlet distribution and the transition-transversion ratio $\kappa$ follows a log-normal prior distribution. The distribution of node times is described in a Yule tree $\Psi$ with hyperparameter birth rate $\lambda $ following a log-normal distribution. The rates $r_i$ follow a log-normal distribution with mean of 1 and standard deviation $S1$ following a hyperprior distribution.
 
-First, we independently simulated parameters and trees from the full model 100 times. The random parameters included: standard deviation of rates across branches $S1$, speciation rate $\lambda $, base frequencies $\pi$ and transition-transversion bias $\kappa$. Second, we simulated nucleotide alignments using the simulated parameters. To make this study more robust, two groups of sequence data were simulated, one group with $n=20$ taxa and the other with $n=120$ taxa. Each group contained 100 simulated sequence alignments with 10,000 sites. Third, we used BEAST2 with Constant Distance operator to infer the tree and parameters in each of the 200 simulated sets. Finally, the estimated values of the parameters were compared with the real values that were used to simulate the corresponding sequence alignment. The comparisons of the two groups are shown in Figures \ref{SmallTree} and \ref{LargeTree}. 
+First, we independently simulated parameters and trees from the full model 100 times. The random parameters included: standard deviation of rates across branches $S1$, speciation rate $\lambda $, base frequencies $\pi$ and transition-transversion bias $\kappa$. Second, we simulated nucleotide alignments using the simulated parameters. To make this study more robust, two groups of sequence data were simulated, one group with $n=20$ taxa and the other with $n=120$ taxa. Each group contained 100 simulated sequence alignments with 10,000 sites. Third, we used BEAST2 with Constant Distance operator to infer the tree and parameters in each of the 200 simulated sets. Finally, the estimated values of the parameters were compared with the real values that were used to simulate the corresponding sequence alignment. The comparisons of the two groups are shown in Figures \ref{SmallTree} and \ref{LargeTree}.
 
 These results show that the true values of the parameters are within the 95\% highest posterior density (HPD) interval approximately 95\% of the time (Table 5) for both the small ($n=20$) and the large ($n=120$) trees. This well-calibrated simulation study confirms that the Constant Distance operator can successfully provide reliable parameter estimates.
 
@@ -415,44 +415,44 @@ We calculated the ESS per hour for each configuration, averaged across the 6 sim
 
 \subsubsection*{Performance on real data}
 We used a real data set with 83 primates and 1234 sites \cite{finstermeier2013mitogenomic} to further evaluate the performance of Constant Distance operator. Similar to the process of simulated data sets, this analysis was performed in three configurations, i.e. categories, cons and nocons. Each configuration was run 100 times on this dataset.
-%The prior distributions include BirthDeath model for tree prior, HKY model with Kappa following LN(M=5, S=1.25) in substitution model, uncorrelated relaxed clock model where rates follow LN(M=1,S=ucldstdev) and ucldstdev follows Gamma($\alpha = 0.5396$, $\beta = 0.3819$). 
+%The prior distributions include BirthDeath model for tree prior, HKY model with Kappa following LN(M=5, S=1.25) in substitution model, uncorrelated relaxed clock model where rates follow LN(M=1,S=ucldstdev) and ucldstdev follows Gamma($\alpha = 0.5396$, $\beta = 0.3819$).
 
 These results (Figure \ref{eff_comp2}) show that, on average, the configuration using Constant Distance operator achieves a larger ESS of S3 and in less running time. Overall, Constant Distance operator improved the performance by providing 18.3 and 10.8 times larger ESS per hour, compared with categories and nocons respectively.
 
-%The box-plots of ESS and running time are compared in Figure \ref{eff_comp2}. As can be seen from the figure, on average, the configuration using the Constant Distance operator costs less running time and achieves much larger ESS. By using the mean values of the 100 runs in each configuration, the Constant Distance operator improves the performance by providing 18.311 and 10.846 times larger ESS per hour, compared with the configuration using discrete rate categories (categories) and without using the proposed operator (nocons) accordingly. 
+%The box-plots of ESS and running time are compared in Figure \ref{eff_comp2}. As can be seen from the figure, on average, the configuration using the Constant Distance operator costs less running time and achieves much larger ESS. By using the mean values of the 100 runs in each configuration, the Constant Distance operator improves the performance by providing 18.311 and 10.846 times larger ESS per hour, compared with the configuration using discrete rate categories (categories) and without using the proposed operator (nocons) accordingly.
 
 \subsection*{Correlation analysis of rates and node times}
-After analysing the ratites data set (with 7 taxa and 10767 sites \cite{cooper2001complete}) in BEAST2 using the Constant Distance operator, the sampled trees in the output tree file are filtered by the shared common ancestor of each taxa, which is implemented in a program called TreeStat2 \cite{TreeStat2}. Then, we conducted a pairwise comparison between each rate and node time in the filtered trees in order to see how they are correlated. 
+After analysing the ratites data set (with 7 taxa and 10767 sites \cite{cooper2001complete}) in BEAST2 using the Constant Distance operator, the sampled trees in the output tree file are filtered by the shared common ancestor of each taxa, which is implemented in a program called TreeStat2 \cite{TreeStat2}. Then, we conducted a pairwise comparison between each rate and node time in the filtered trees in order to see how they are correlated.
 
-The results are shown in Figure \ref{correlation}. The tree in Figure \ref{Fig.sub.tree} is used to filter the sampled trees to ensure that all trees examined have the same topology. Afterwards, a pairwise comparison was made by using 12 branch rates and 5 node times. As can be seen from upper right of Figure \ref{Fig.sub.correlation}, to a large degree, the rates are negatively correlated with the node times. This indicates that when a larger node time is proposed, the corresponding rates become smaller. For example, $t1$ has a negative correlation with $r1$ and $r2$, but has positive correlation with $r8$. That is to say, with the increase of $t1$, the rate $r8$ will also increase, but $r1$ and $r2$ will decrease. In addition, in the upper left of Figure \ref{Fig.sub.correlation}, most rates on two adjacent branches have positive correlations, but have a negative correlation with the rate above them. Take $r6$ and $r7$ as an example. They have a positive correlation with each other, but are negatively related to $r12$. This means a larger $r6$ incurs a larger $r7$ and a smaller $r12$. To sum up, this dynamic change of rates and node times is consistent with the mechanism of the proposed operator. Although there are some inconsistent correlations, it should be noticed that this is an average pairwise comparison in two dimensions. For comparisons in higher dimensions, the results would be closer to the mechanism of the proposed operator. 
+The results are shown in Figure \ref{correlation}. The tree in Figure \ref{Fig.sub.tree} is used to filter the sampled trees to ensure that all trees examined have the same topology. Afterwards, a pairwise comparison was made by using 12 branch rates and 5 node times. As can be seen from upper right of Figure \ref{Fig.sub.correlation}, to a large degree, the rates are negatively correlated with the node times. This indicates that when a larger node time is proposed, the corresponding rates become smaller. For example, $t1$ has a negative correlation with $r1$ and $r2$, but has positive correlation with $r8$. That is to say, with the increase of $t1$, the rate $r8$ will also increase, but $r1$ and $r2$ will decrease. In addition, in the upper left of Figure \ref{Fig.sub.correlation}, most rates on two adjacent branches have positive correlations, but have a negative correlation with the rate above them. Take $r6$ and $r7$ as an example. They have a positive correlation with each other, but are negatively related to $r12$. This means a larger $r6$ incurs a larger $r7$ and a smaller $r12$. To sum up, this dynamic change of rates and node times is consistent with the mechanism of the proposed operator. Although there are some inconsistent correlations, it should be noticed that this is an average pairwise comparison in two dimensions. For comparisons in higher dimensions, the results would be closer to the mechanism of the proposed operator.
 
 \subsection*{Sampling a fixed unrooted tree}
 %The tests that sample from the prior distributions in the previous section start from a tree with arbitrary genetic distances.
-%Here, the ratites data set is used to specify the genetic distances on an unrooted tree, so that the data is actually involved in %the inference analysis. 
-%Namely, the unrooted tree is sampled by only using the proposed operator. 
-%And the results are compared with those obtained by sampling the sequence data directly. 
+%Here, the ratites data set is used to specify the genetic distances on an unrooted tree, so that the data is actually involved in %the inference analysis.
+%Namely, the unrooted tree is sampled by only using the proposed operator.
+%And the results are compared with those obtained by sampling the sequence data directly.
 
-A limiting case for the relaxed molecular clock model (and one exploited in some of our validation tests) occurs for long sequences, when the branch lengths of the unrooted tree, in units of expected substitutions per site, becomes known without error.  With full length genomes now available, this limiting case might be approached in some data sets. This gives rise to an alternative approach to analysis, where a time tree, the root position and the branch rates are random variables, and the data are a set of branch lengths in units of substitution on a known unrooted tree topology. 
+A limiting case for the relaxed molecular clock model (and one exploited in some of our validation tests) occurs for long sequences, when the branch lengths of the unrooted tree, in units of expected substitutions per site, becomes known without error.  With full length genomes now available, this limiting case might be approached in some data sets. This gives rise to an alternative approach to analysis, where a time tree, the root position and the branch rates are random variables, and the data are a set of branch lengths in units of substitution on a known unrooted tree topology.
 
-We investigated this approach on a fixed substitution tree reconstructed from whole mitochondrial genomes from a set of ratite species. Since no uncertainty is admitted in the genetic distances, the phylogenetic likelihood is no longer needed and the unrooted tree becomes the data, rather than a multiple sequence alignment. 
+We investigated this approach on a fixed substitution tree reconstructed from whole mitochondrial genomes from a set of ratite species. Since no uncertainty is admitted in the genetic distances, the phylogenetic likelihood is no longer needed and the unrooted tree becomes the data, rather than a multiple sequence alignment.
 
-First of all, we used the ratites data set to construct an unrooted tree with an online program PhyML 3.0 \cite{phyml,guindon2010new}.  Figure \ref{Fig.sub.11} shows the unrooted tree with the genetic distances on the branches which are fixed in a subsequent relaxed clock analysis in BEAST2. 
+First of all, we used the ratites data set to construct an unrooted tree with an online program PhyML 3.0 \cite{phyml,guindon2010new}.  Figure \ref{Fig.sub.11} shows the unrooted tree with the genetic distances on the branches which are fixed in a subsequent relaxed clock analysis in BEAST2.
 
-As an initial starting point, the midpoint method is adopted to root the starting time tree. After that, based on the genetic distances among seven taxa and the topology of the rooted tree, consistent divergence times are assigned to each ancestral node, so that a valid rooted time tree is obtained. Once divergence times are determined, rates on the branches are also determined so that the products match the unrooted substitution tree. 
-%Figure \ref{Fig.sub.12} is the rooted time tree used as the initial state in MCMC chain. 
+As an initial starting point, the midpoint method is adopted to root the starting time tree. After that, based on the genetic distances among seven taxa and the topology of the rooted tree, consistent divergence times are assigned to each ancestral node, so that a valid rooted time tree is obtained. Once divergence times are determined, rates on the branches are also determined so that the products match the unrooted substitution tree.
+%Figure \ref{Fig.sub.12} is the rooted time tree used as the initial state in MCMC chain.
 %\alexei{Do we need to show the initial tree? The result of the analysis is not dependent on the initial tree!}
 
 The resulting summary tree (Figure \ref{summary3}) is consistent with previous analyses of this data \cite{cooper2001complete} (Figure \ref{ratites}). For large data sets of long sequences, this method may prove useful to provide faster divergence time estimates based on the assumption of known unrooted topology and branch lengths in units of expected substitutions per site.
 
 %\subsection*{Discussions and future work}
-%This subsection further discusses how the Constant Distance operator makes a proposal by changing rates and node times. So the correlation of rates and node times is firstly studied. Besides, to elucidate the correctness of a proposal that maintains genetic distances, the operator is used to sample a fixed unrooted tree. In the experiments, the data set is assembled from Ref.\cite{cooper2001complete}, which includes seven ratites with the length of 10767 sites. 
+%This subsection further discusses how the Constant Distance operator makes a proposal by changing rates and node times. So the correlation of rates and node times is firstly studied. Besides, to elucidate the correctness of a proposal that maintains genetic distances, the operator is used to sample a fixed unrooted tree. In the experiments, the data set is assembled from Ref.\cite{cooper2001complete}, which includes seven ratites with the length of 10767 sites.
 
 %According to the analysis above, there still remain some problems. For instance, it still requires much running time for a large data set with long sequences. In the future, we will continue to improve the performance of the ConstantDistance Operator, mainly focusing on optimising the method of assigning weights of different strategies in the proposed operator and mechanism of choosing operators during MCMC in BEAST2.
 
 \section*{Conclusion}
 As data sets continue to increase in size, the need for computational efficiency of Bayesian phylogenetic analyses is also increasing. In this paper, we have discussed a new tree proposal that substantially increases the efficiency of Bayesian phylogenetic inference under a popular class of relaxed molecular clock models.
 
-We demonstrate the correctness of this algorithm with a series of tests including a well-calibrated simulation study. Based on both simulated and real data sets, the proposed operator is much more efficient than the current algorithms implemented in BEAST2. It is able to sample the rates and times more efficiently, with performance improvements of greater than an order of magnitude increase in ESS/hour on both real and simulated data. The proposed operator is available for use in the core code of BEAST2. 
+We demonstrate the correctness of this algorithm with a series of tests including a well-calibrated simulation study. Based on both simulated and real data sets, the proposed operator is much more efficient than the current algorithms implemented in BEAST2. It is able to sample the rates and times more efficiently, with performance improvements of greater than an order of magnitude increase in ESS/hour on both real and simulated data. The proposed operator is available for use in the core code of BEAST2.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -535,7 +535,7 @@ The author(s) would like to acknowledge support from a Royal Society of New Zeal
 %\label{simpledistance}
 %\end{figure}
 \begin{figure}[h!]
-\includegraphics[width=12cm]{Fig02-internalnodes.eps}\\
+\includegraphics[width=12cm]{Fig02-internalnode.eps}\\
 \caption{\csentence{Illustration of the operation on an internal node.}
              The operator proposes a tree ${g}'$ based on tree $g$, during which $d_L$, $d_R$, $d_X$ are kept constant.}
 \label{internalnodes}
@@ -910,7 +910,7 @@ Average&&179&43&10735&27236&59.87&5.72\\
 \newpage
 \section*{Appendix}
 \subsection{The Green ratio}
-When developing an operator for MCMC, the proposal function must be reversible. In other words, the probability that the operator propose a new state from the current state is required to be equal to the probability that the proposed state goes back to current state. To be specific, let ${\pi (x)}$ be the target probability distribution and $p(x, x')$ be the transition kernel in the continuous Markov chain. The reversibility condition requires that ${\pi (x)}{p(x, x')} = {\pi (x')}{p(x', x)}$. And an operator provides a proposal $q(x, x')$ with some probability $\alpha(x, x')$ that the proposal is accepted. Thus, the reversibility condition is rewritten as ${\pi (x)}{q(x, x')}{\alpha(x, x')} = {\pi (x')}{q(x', x)}{\alpha(x', x)}$. 
+When developing an operator for MCMC, the proposal function must be reversible. In other words, the probability that the operator propose a new state from the current state is required to be equal to the probability that the proposed state goes back to current state. To be specific, let ${\pi (x)}$ be the target probability distribution and $p(x, x')$ be the transition kernel in the continuous Markov chain. The reversibility condition requires that ${\pi (x)}{p(x, x')} = {\pi (x')}{p(x', x)}$. And an operator provides a proposal $q(x, x')$ with some probability $\alpha(x, x')$ that the proposal is accepted. Thus, the reversibility condition is rewritten as ${\pi (x)}{q(x, x')}{\alpha(x, x')} = {\pi (x')}{q(x', x)}{\alpha(x', x)}$.
 
 Considering the subspace $\varphi_1$ on $x$ and subspace $\varphi_2$ on $x'$, it is assumed that there is a symmetric measure on the combined parametric space $\varphi = {\varphi_1} \times {\varphi_2}$, so that ${\pi (x)}{q(x, x')}$ has a density with respect to a single measure on $\varphi$. Then, Green suggested that the reversibility condition should be satisfied by the detailed balance \cite{green1995reversible}, as is represented by Equation (\ref{balance}). And according to Peskun' proof, it is optimal to take Equation (\ref{Ratio}) as the acceptance probability to retain the detailed balance \cite{peskun1973optimum}.
 
@@ -934,63 +934,63 @@ where ${\mathbf{J}} = {\nabla h(x, x')}$ represents a vector differential matrix
 The Constant Distance Operator firstly proposes a new time for the randomly selected internal node (Equation (\ref{in_HR1.1})), and then proposes three rates by the original distances and new node times(Equation (\ref{in_HR1.2})$\sim$Equation (\ref{in_HR1.3})).
 \begin{subequations}\label{in_HR1}
 \begin{equation}\label{in_HR1.1}
-{f_1}:{{\text{t}}_X}{\text{'  =  }}{{\text{t}}_X}{\text{  +  a}} 
-\end{equation}  
+{f_1}:{{\text{t}}_X}{\text{'  =  }}{{\text{t}}_X}{\text{  +  a}}
+\end{equation}
 \begin{equation}\label{in_HR1.2}
-{f_2}:{r_X}' = \frac{{{r_X} \times ({t_P} - {t_X})}}{{{t_P} - {t_X}'}} 
-\end{equation}  
+{f_2}:{r_X}' = \frac{{{r_X} \times ({t_P} - {t_X})}}{{{t_P} - {t_X}'}}
+\end{equation}
 \begin{equation}
-{f_3}:{r_L}' = \frac{{{r_L} \times ({t_X} - {t_L})}}{{{t_X}' - {t_L}}} 
-\end{equation}  
+{f_3}:{r_L}' = \frac{{{r_L} \times ({t_X} - {t_L})}}{{{t_X}' - {t_L}}}
+\end{equation}
 \begin{equation}\label{in_HR1.3}
-{f_4}:{r_R}' = \frac{{{r_R} \times ({t_X} - {t_2})}}{{{t_X}' - {t_R}}}  
-\end{equation}  
+{f_4}:{r_R}' = \frac{{{r_R} \times ({t_X} - {t_2})}}{{{t_X}' - {t_R}}}
+\end{equation}
 \end{subequations}
 
 Substituting Equation (\ref{in_HR1}) in the Jacobian matrix ${{\mathbf{J}}_1}$ (Equation (\ref{JacobianMatrix})), we can get Equation (\ref{in_HR2}), so that the determinant of ${{\mathbf{J}}_1}$ can be obtained by Equation (\ref{in_HR3}).
 \begin{equation}\label{in_HR2}
 {{\mathbf{J}}_1} = \left[ {\begin{array}{*{20}{c}}
-  1&0&0&0 \\ 
-  {\frac{{ - {r_X}}}{{{t_P} - {t_X}'}}}&{\frac{{{t_P} - {t_X}}}{{{t_P} - {t_X}'}}}&0&0 \\ 
-  {\frac{{{r_L}}}{{{t_X}' - {t_L}}}}&0&{\frac{{{t_X} - {t_L}}}{{{t_X}' - {t_L}}}}&0 \\ 
-  {\frac{{{r_R}}}{{{t_X}' - {t_R}}}}&0&0&{\frac{{{t_X} - {t_R}}}{{{t_X}' - {t_R}}}} 
+  1&0&0&0 \\
+  {\frac{{ - {r_X}}}{{{t_P} - {t_X}'}}}&{\frac{{{t_P} - {t_X}}}{{{t_P} - {t_X}'}}}&0&0 \\
+  {\frac{{{r_L}}}{{{t_X}' - {t_L}}}}&0&{\frac{{{t_X} - {t_L}}}{{{t_X}' - {t_L}}}}&0 \\
+  {\frac{{{r_R}}}{{{t_X}' - {t_R}}}}&0&0&{\frac{{{t_X} - {t_R}}}{{{t_X}' - {t_R}}}}
 \end{array}} \right]
-\end{equation}  
+\end{equation}
 \begin{equation}\label{in_HR3}
 \begin{aligned}
 \left| {{{\mathbf{J}}_1}} \right| &= 1 \times \left| {\begin{array}{*{20}{c}}
-  {\frac{{{t_P} - {t_X}}}{{{t_P} - {t_X}'}}}&0&0 \\ 
-  0&{\frac{{{t_X} - {t_L}}}{{{t_X}' - {t_L}}}}&0 \\ 
-  0&0&{\frac{{{t_X} - {t_R}}}{{{t_X}' - {t_R}}}} 
+  {\frac{{{t_P} - {t_X}}}{{{t_P} - {t_X}'}}}&0&0 \\
+  0&{\frac{{{t_X} - {t_L}}}{{{t_X}' - {t_L}}}}&0 \\
+  0&0&{\frac{{{t_X} - {t_R}}}{{{t_X}' - {t_R}}}}
 \end{array}} \right| \\&= \frac{{{t_P} - {t_X}}}{{{t_P} - {t_X}'}} \times \left| {\begin{array}{*{20}{c}}
-  {\frac{{{t_X} - {t_L}}}{{{t_X}' - {t_L}}}}&0 \\ 
-  0&{\frac{{{t_X} - {t_R}}}{{{t_X}' - {t_R}}}} 
+  {\frac{{{t_X} - {t_L}}}{{{t_X}' - {t_L}}}}&0 \\
+  0&{\frac{{{t_X} - {t_R}}}{{{t_X}' - {t_R}}}}
 \end{array}} \right| \\&= \frac{{{t_P} - {t_X}}}{{{t_P} - {t_X}'}} \times \frac{{{t_X} - {t_L}}}{{{t_X}' - {t_L}}} \times \frac{{{t_X} - {t_R}}}{{{t_X}' - {t_R}}}
 \end{aligned}
-\end{equation}  
+\end{equation}
 
 \subsection*{Calculating the Green ratio for Simple Distance}
 Simple Distance proposes two rates by using Equation (\ref{SD_HR1.2}) and Equation (\ref{SD_HR1.3}), according the new root time in Equation (\ref{SD_HR1.1}). So the Jacobian matrix can be obtained as is shown in Equation (\ref{SD_HR2}).
 \begin{subequations}\label{SD_HR1}
 \begin{equation}\label{SD_HR1.1}
  {t_X}' = {t_X} + a
-\end{equation}  
+\end{equation}
 \begin{equation} \label{SD_HR1.2}
-{r_L}' = \frac{{{r_L} \times ({t_X} - {t_L})}}{{{t_X}' - {t_L}}} 
-\end{equation}  
+{r_L}' = \frac{{{r_L} \times ({t_X} - {t_L})}}{{{t_X}' - {t_L}}}
+\end{equation}
 \begin{equation}\label{SD_HR1.3}
-  {r_R}' = \frac{{{r_R} \times ({t_X} - {t_R})}}{{{t_X}' - {t_R}}} 
-\end{equation}  
+  {r_R}' = \frac{{{r_R} \times ({t_X} - {t_R})}}{{{t_X}' - {t_R}}}
+\end{equation}
 \end{subequations}
 \begin{equation}\label{SD_HR2}
 {{\mathbf{J}}_2} = \left[ {\begin{array}{*{20}{c}}
-  {\frac{{\partial {t_X}'}}{{\partial {t_X}}}}&{\frac{{\partial {t_X}'}}{{\partial {r_X}}}}&{\frac{{\partial {t_X}'}}{{\partial {r_R}}}} \\ 
-  {\frac{{\partial {r_L}'}}{{\partial {t_X}}}}&{\frac{{\partial {r_L}'}}{{\partial {r_X}}}}&{\frac{{\partial {r_L}'}}{{\partial {r_R}}}} \\ 
-  {\frac{{\partial {r_X}'}}{{\partial {t_X}}}}&{\frac{{\partial {r_X}'}}{{\partial {r_X}}}}&{\frac{{\partial {r_X}'}}{{\partial {r_R}}}} 
+  {\frac{{\partial {t_X}'}}{{\partial {t_X}}}}&{\frac{{\partial {t_X}'}}{{\partial {r_X}}}}&{\frac{{\partial {t_X}'}}{{\partial {r_R}}}} \\
+  {\frac{{\partial {r_L}'}}{{\partial {t_X}}}}&{\frac{{\partial {r_L}'}}{{\partial {r_X}}}}&{\frac{{\partial {r_L}'}}{{\partial {r_R}}}} \\
+  {\frac{{\partial {r_X}'}}{{\partial {t_X}}}}&{\frac{{\partial {r_X}'}}{{\partial {r_X}}}}&{\frac{{\partial {r_X}'}}{{\partial {r_R}}}}
 \end{array}} \right] = \left[ {\begin{array}{*{20}{c}}
-  1&0&0 \\ 
-  {\frac{{{r_L}}}{{{t_X}' - {t_L}}}}&{\frac{{{t_X} - {t_L}}}{{{t_X}' - {t_L}}}}&0 \\ 
-  {\frac{{{r_x}}}{{{t_X}' - {t_R}}}}&0&{\frac{{{t_X} - {t_R}}}{{{t_X}' - {t_R}}}} 
+  1&0&0 \\
+  {\frac{{{r_L}}}{{{t_X}' - {t_L}}}}&{\frac{{{t_X} - {t_L}}}{{{t_X}' - {t_L}}}}&0 \\
+  {\frac{{{r_x}}}{{{t_X}' - {t_R}}}}&0&{\frac{{{t_X} - {t_R}}}{{{t_X}' - {t_R}}}}
 \end{array}} \right]
 \end{equation}
 
@@ -999,34 +999,34 @@ So the determinant of ${{\mathbf{J}}_2}$ is calculated by Equation (\ref{SD_HR3}
 \left| {{{\mathbf{J}}_2}} \right| = \frac{{{t_X} - {t_L}}}{{{t_X}' - {t_L}}} \times \frac{{{t_X} - {t_R}}}{{{t_X}' - {t_R}}}
 \end{equation}
 \subsection*{Calculating the Green ratio for Small Pulley}
-Small Pulley proposes a new genetic distance of branch on one side of the root by adding a random number $b$, which is equal to adding a random number $b$ to the original product of rate and time on that branch. As a result, a new rate is proposed by Equation (\ref{SP_HR1.1}). Similarly, a new rate on another branch is proposed by Equation (\ref{SP_HR1.2}), because the total number of distances of both branches linked to the root is constant. 
+Small Pulley proposes a new genetic distance of branch on one side of the root by adding a random number $b$, which is equal to adding a random number $b$ to the original product of rate and time on that branch. As a result, a new rate is proposed by Equation (\ref{SP_HR1.1}). Similarly, a new rate on another branch is proposed by Equation (\ref{SP_HR1.2}), because the total number of distances of both branches linked to the root is constant.
 \begin{subequations}\label{SP_HR1}
 \begin{equation}\label{SP_HR1.1}
-{r_L}' = \frac{{{r_L} \times ({t_X} - {t_L}) + b}}{{{t_X} - {t_L}}} 
-\end{equation}  
+{r_L}' = \frac{{{r_L} \times ({t_X} - {t_L}) + b}}{{{t_X} - {t_L}}}
+\end{equation}
 \begin{equation}\label{SP_HR1.2}
 {r_R}' = \frac{{[{r_R} \times ({t_X} - {t_R}) + {r_L} \times ({t_X} - {t_L})] - [{r_L} \times ({t_X} - {t_L}) + b]}}{{{t_X} - {t_R}}} = \frac{{{r_R} \times ({t_X} - {t_R}) - b}}{{{t_X} - {t_R}}}
-\end{equation}  
-\end{subequations}  
+\end{equation}
+\end{subequations}
 
 Then, as is illustrated in Equation (\ref{SP_HR2}), the Jacobian matrix ${{\mathbf{J}}_3}$ is simply obtained, which makes the determinant $\left| {{{\mathbf{J}}_3}} \right| = 1$.
 \begin{equation}\label{SP_HR2}
 {{\mathbf{J}}_3} = \left[ {\begin{array}{*{20}{c}}
-  {\frac{{\partial {r_L}'}}{{\partial {r_L}}}}&{\frac{{\partial {r_L}'}}{{\partial {r_X}}}} \\ 
-  {\frac{{\partial {r_R}'}}{{\partial {r_L}}}}&{\frac{{\partial {r_X}'}}{{\partial {r_X}}}} 
+  {\frac{{\partial {r_L}'}}{{\partial {r_L}}}}&{\frac{{\partial {r_L}'}}{{\partial {r_X}}}} \\
+  {\frac{{\partial {r_R}'}}{{\partial {r_L}}}}&{\frac{{\partial {r_X}'}}{{\partial {r_X}}}}
 \end{array}} \right] = \left[ {\begin{array}{*{20}{c}}
-  1&0 \\ 
-  0&1 
+  1&0 \\
+  0&1
 \end{array}} \right]
-\end{equation}  
+\end{equation}
 \subsection*{Calculating the Green ratio for Big Pulley}
 Two new node times are proposed in Big Pulley. One is the root time (Equation (\ref{BP_HR1.1})), the other is the node time of the child node of the root. It can be either children of the root, i.e. \textbf{son} and \textbf{dau}. So ${t_C}'$ is used to denote the node time proposed, as is seen in Equation (\ref{BP_HR1.2}). In addition, the distances are adjusted by the method \textit{Exchange (\textbf{M}, \textbf{N})}, dependent on which nodes are chosen. As a result, the four rates are proposed, as is shown in Equation (\ref{BP_HR1.3})$\sim$Equation (\ref{BP_HR1.6})
 \begin{subequations}\label{BP_HR1}
 \begin{equation}\label{BP_HR1.1}
-{t_X}' = {t_X} + a 
+{t_X}' = {t_X} + a
 \end{equation}
 \begin{equation}\label{BP_HR1.2}
-{t_C}' = {t_C} + {a_{1,2,3}} 
+{t_C}' = {t_C} + {a_{1,2,3}}
 \end{equation}
 \begin{equation}\label{BP_HR1.3}
 {r_C}' = \frac{{{r_C} \times (t{}_X - {t_C}) + b}}{{t{}_X' - {t_C}'}}
@@ -1047,25 +1047,25 @@ Therefore, the Jacobian matrix ${{\mathbf{J}}_4}$ for the six parameters in Equa
 \begin{equation}\label{BP_HR2}
 \begin{aligned}
 {{\mathbf{J}}_4} &= \left[ {\begin{array}{*{20}{c}}
-  {\frac{{\partial {t_X}'}}{{\partial {t_X}}}}&{\frac{{\partial {t_X}'}}{{\partial {t_C}}}}&{\frac{{\partial {t_X}'}}{{\partial {r_C}}}}&{\frac{{\partial {t_X}'}}{{\partial {r_S}}}}&{\frac{{\partial {t_X}'}}{{\partial {r_{M}}}}}&{\frac{{\partial {t_X}'}}{{\partial {r_{N2}}}}} \\ 
-  {\frac{{\partial {t_C}'}}{{\partial {t_X}}}}&{\frac{{\partial {t_C}'}}{{\partial {t_C}}}}&{\frac{{\partial {t_C}'}}{{\partial {r_C}}}}&{\frac{{\partial {t_C}'}}{{\partial {r_S}}}}&{\frac{{\partial {t_C}'}}{{\partial {r_{M}}}}}&{\frac{{\partial {t_C}'}}{{\partial {r_{N2}}}}} \\ 
-  {\frac{{\partial {r_C}'}}{{\partial {t_X}}}}&{\frac{{\partial {r_C}'}}{{\partial {t_C}}}}&{\frac{{\partial {r_C}'}}{{\partial {r_C}}}}&{\frac{{\partial {r_C}'}}{{\partial {r_S}}}}&{\frac{{\partial {r_C}'}}{{\partial {r_{M}}}}}&{\frac{{\partial {r_C}'}}{{\partial {r_{N2}}}}} \\ 
-  {\frac{{\partial {r_S}'}}{{\partial {t_X}}}}&{\frac{{\partial {r_S}'}}{{\partial {t_C}}}}&{\frac{{\partial {r_S}'}}{{\partial {r_C}}}}&{\frac{{\partial {r_S}'}}{{\partial {r_S}}}}&{\frac{{\partial {r_S}'}}{{\partial {r_{M}}}}}&{\frac{{\partial {r_S}'}}{{\partial {r_{N2}}}}} \\ 
-  {\frac{{\partial {r_{M}}'}}{{\partial {t_X}}}}&{\frac{{\partial {r_{M}}'}}{{\partial {t_C}}}}&{\frac{{\partial {r_{M}}'}}{{\partial {r_C}}}}&{\frac{{\partial {r_{M}}'}}{{\partial {r_S}}}}&{\frac{{\partial {r_{M}}'}}{{\partial {r_{M}}}}}&{\frac{{\partial {r_{M}}'}}{{\partial {r_{N}}}}} \\ 
-  {\frac{{\partial {t_{N}}'}}{{\partial {t_X}}}}&{\frac{{\partial {t_{N}}'}}{{\partial {t_C}}}}&{\frac{{\partial {t_{N}}'}}{{\partial {r_C}}}}&{\frac{{\partial {t_{N}}'}}{{\partial {r_S}}}}&{\frac{{\partial {t_{N}}'}}{{\partial {r_{N}}}}}&{\frac{{\partial {t_{N}}'}}{{\partial {r_{N}}}}} 
+  {\frac{{\partial {t_X}'}}{{\partial {t_X}}}}&{\frac{{\partial {t_X}'}}{{\partial {t_C}}}}&{\frac{{\partial {t_X}'}}{{\partial {r_C}}}}&{\frac{{\partial {t_X}'}}{{\partial {r_S}}}}&{\frac{{\partial {t_X}'}}{{\partial {r_{M}}}}}&{\frac{{\partial {t_X}'}}{{\partial {r_{N2}}}}} \\
+  {\frac{{\partial {t_C}'}}{{\partial {t_X}}}}&{\frac{{\partial {t_C}'}}{{\partial {t_C}}}}&{\frac{{\partial {t_C}'}}{{\partial {r_C}}}}&{\frac{{\partial {t_C}'}}{{\partial {r_S}}}}&{\frac{{\partial {t_C}'}}{{\partial {r_{M}}}}}&{\frac{{\partial {t_C}'}}{{\partial {r_{N2}}}}} \\
+  {\frac{{\partial {r_C}'}}{{\partial {t_X}}}}&{\frac{{\partial {r_C}'}}{{\partial {t_C}}}}&{\frac{{\partial {r_C}'}}{{\partial {r_C}}}}&{\frac{{\partial {r_C}'}}{{\partial {r_S}}}}&{\frac{{\partial {r_C}'}}{{\partial {r_{M}}}}}&{\frac{{\partial {r_C}'}}{{\partial {r_{N2}}}}} \\
+  {\frac{{\partial {r_S}'}}{{\partial {t_X}}}}&{\frac{{\partial {r_S}'}}{{\partial {t_C}}}}&{\frac{{\partial {r_S}'}}{{\partial {r_C}}}}&{\frac{{\partial {r_S}'}}{{\partial {r_S}}}}&{\frac{{\partial {r_S}'}}{{\partial {r_{M}}}}}&{\frac{{\partial {r_S}'}}{{\partial {r_{N2}}}}} \\
+  {\frac{{\partial {r_{M}}'}}{{\partial {t_X}}}}&{\frac{{\partial {r_{M}}'}}{{\partial {t_C}}}}&{\frac{{\partial {r_{M}}'}}{{\partial {r_C}}}}&{\frac{{\partial {r_{M}}'}}{{\partial {r_S}}}}&{\frac{{\partial {r_{M}}'}}{{\partial {r_{M}}}}}&{\frac{{\partial {r_{M}}'}}{{\partial {r_{N}}}}} \\
+  {\frac{{\partial {t_{N}}'}}{{\partial {t_X}}}}&{\frac{{\partial {t_{N}}'}}{{\partial {t_C}}}}&{\frac{{\partial {t_{N}}'}}{{\partial {r_C}}}}&{\frac{{\partial {t_{N}}'}}{{\partial {r_S}}}}&{\frac{{\partial {t_{N}}'}}{{\partial {r_{N}}}}}&{\frac{{\partial {t_{N}}'}}{{\partial {r_{N}}}}}
 \end{array}} \right] \\&= \left[ {\begin{array}{*{20}{c}}
-  1&0&0&0&0&0 \\ 
-  0&1&0&0&0&0 \\ 
-  {\frac{{{r_C}}}{{{t_X}' - {t_C}'}}}&{\frac{{ - {r_C}}}{{{t_X}' - {t_C}'}}}&{\frac{{{t_X}' - {t_C}}}{{{t_X}' - {t_C}'}}}&0&0&0 \\ 
-  0&{\frac{{{r_S}}}{{t' - {t_S}}}}&0&{\frac{{{t_C} - {t_S}}}{{{t_C}' - {t_S}}}}&0&0 \\ 
-  {\frac{{ - {r_C}}}{{{t_X}' - {t_{M}}}}}&{\frac{{{r_{N1}} + {r_C}}}{{{t_X}' - {t_{M}}}}}&{\frac{{ - ({t_X} - {t_C})}}{{{t_X}' - {t_{M}}}}}&0&{\frac{{{t_C} - {t_{M}}}}{{{t_X}' - {t_{M}}}}}&0 \\ 
-  {\frac{{{r_C} + {r_S}}}{{{t_C}' - {t_{N}}}}}&{\frac{{ - ({r_C} + {r_S})}}{{{t_C}' - {t_{N}}}}}&{\frac{{{t_X} - {t_C}}}{{{t_C}' - {t_{N}}}}}&0&0&{\frac{{{t_X} - {t_{N}}}}{{{t_C}' - {t_{N}}}}} 
+  1&0&0&0&0&0 \\
+  0&1&0&0&0&0 \\
+  {\frac{{{r_C}}}{{{t_X}' - {t_C}'}}}&{\frac{{ - {r_C}}}{{{t_X}' - {t_C}'}}}&{\frac{{{t_X}' - {t_C}}}{{{t_X}' - {t_C}'}}}&0&0&0 \\
+  0&{\frac{{{r_S}}}{{t' - {t_S}}}}&0&{\frac{{{t_C} - {t_S}}}{{{t_C}' - {t_S}}}}&0&0 \\
+  {\frac{{ - {r_C}}}{{{t_X}' - {t_{M}}}}}&{\frac{{{r_{N1}} + {r_C}}}{{{t_X}' - {t_{M}}}}}&{\frac{{ - ({t_X} - {t_C})}}{{{t_X}' - {t_{M}}}}}&0&{\frac{{{t_C} - {t_{M}}}}{{{t_X}' - {t_{M}}}}}&0 \\
+  {\frac{{{r_C} + {r_S}}}{{{t_C}' - {t_{N}}}}}&{\frac{{ - ({r_C} + {r_S})}}{{{t_C}' - {t_{N}}}}}&{\frac{{{t_X} - {t_C}}}{{{t_C}' - {t_{N}}}}}&0&0&{\frac{{{t_X} - {t_{N}}}}{{{t_C}' - {t_{N}}}}}
 \end{array}} \right]
 \end{aligned}
-\end{equation}  
+\end{equation}
 \begin{equation}\label{BP_HR3}
 \left| {{{\mathbf{J}}_4}} \right| = \frac{{{t_X}' - {t_C}}}{{{t_X}' - {t_C}'}} \times \frac{{{t_C} - {t_S}}}{{{t_C}' - {t_S}}} \times \frac{{{t_C} - {t_{M}}}}{{{t_X}' - {t_{M}}}} \times \frac{{{t_X} - {t_{N}}}}{{{t_C}' - {t_{N}}}}
-\end{equation}  
+\end{equation}
 
 Last but not least, due to the change of tree topology in \textit{Exchange (\textbf{M}, \textbf{N})}, the probability of the proposed tree going back to the original tree $p(g|g')$, as well as the probability of making the proposal $p(g'|g)$, should be considered. As the ratio of $p(g|g')/p(g'|g)$ is defined as $\mu$, the calculation of $\mu$ is detailed in the following algorithm.
 \begin{algorithm}
