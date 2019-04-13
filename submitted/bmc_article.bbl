@@ -87,15 +87,13 @@
 
 %%% 4
 \bibitem{zuckerkandl1965evolutionary}
-\begin{bchapter}
-\bauthor{\bsnm{Zuckerkandl}, \binits{E.}},
-\bauthor{\bsnm{Pauling}, \binits{L.}}:
-\bctitle{Evolutionary divergence and convergence in proteins}.
-In: \bbtitle{Evolving Genes and Proteins},
-pp. \bfpage{97}--\blpage{166}.
-\bpublisher{Elsevier}, \blocation{???}
-(\byear{1965})
-\end{bchapter}
+\begin{botherref}
+\oauthor{\bsnm{Zuckerkandl}, \binits{E.}},
+\oauthor{\bsnm{Pauling}, \binits{L.}}:
+Evolutionary divergence and convergence in proteins,
+97--166
+(1965)
+\end{botherref}
 \endbibitem
 
 %%% 5
@@ -214,7 +212,8 @@ Proceedings of the National Academy of Sciences,
 \bjtitle{Molecular biology and evolution}
 \bvolume{24}(\bissue{12}),
 \bfpage{2669}--\blpage{2680}
-(\byear{2007})
+(\byear{2007}).
+doi:\doiurl{10.1016/B978-1-4832-2734-4.50017-6}
 \end{barticle}
 \endbibitem
 
@@ -586,7 +585,7 @@ PhyML3.0: New Algorithms, Methods and Utilities.
     <au><snm>Pauling</snm><fnm>L</fnm></au>
   </aug>
   <source>Evolving genes and proteins</source>
-  <publisher>Elsevier</publisher>
+  <publisher>Academic Press</publisher>
   <pubdate>1965</pubdate>
   <fpage>97</fpage>
   <lpage>-166</lpage>
