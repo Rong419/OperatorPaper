@@ -1,6 +1,6 @@
 %% BioMed_Central_Bib_Style_v1.01
 
-\begin{thebibliography}{33}
+\begin{thebibliography}{36}
 % BibTex style file: bmc-mathphys.bst (version 2.1), 2014-07-24
 \ifx \bisbn   \undefined \def \bisbn  #1{ISBN #1}\fi
 \ifx \binits  \undefined \def \binits#1{#1}\fi
@@ -497,6 +497,42 @@ PhyML3.0: New Algorithms, Methods and Utilities.
 \endbibitem
 
 %%% 32
+\bibitem{beal2003variational}
+\begin{bbook}
+\bauthor{\bsnm{Beal}, \binits{M.J.}}, \betal:
+\bbtitle{Variational Algorithms for Approximate Bayesian Inference}.
+\bpublisher{university of London London}, \blocation{???}
+(\byear{2003})
+\end{bbook}
+\endbibitem
+
+%%% 33
+\bibitem{zhang2018variational}
+\begin{bchapter}
+\bauthor{\bsnm{Zhang}, \binits{C.}},
+\bauthor{\bsnm{IV}, \binits{F.A.M.}}:
+\bctitle{Variational bayesian phylogenetic inference}.
+In: \bbtitle{International Conference on Learning Representations}
+(\byear{2019}).
+\burl{https://openreview.net/forum?id=SJVmjjR9FX}
+\end{bchapter}
+\endbibitem
+
+%%% 34
+\bibitem{dang2019stochastic}
+\begin{barticle}
+\bauthor{\bsnm{Dang}, \binits{T.}},
+\bauthor{\bsnm{Kishino}, \binits{H.}}:
+\batitle{Stochastic variational inference for bayesian phylogenetics: A case of
+  cat model}.
+\bjtitle{Molecular biology and evolution}
+\bvolume{36}(\bissue{4}),
+\bfpage{825}--\blpage{833}
+(\byear{2019})
+\end{barticle}
+\endbibitem
+
+%%% 35
 \bibitem{peskun1973optimum}
 \begin{barticle}
 \bauthor{\bsnm{Peskun}, \binits{P.H.}}:
@@ -508,7 +544,7 @@ PhyML3.0: New Algorithms, Methods and Utilities.
 \end{barticle}
 \endbibitem
 
-%%% 33
+%%% 36
 \bibitem{pybus2002genie}
 \begin{barticle}
 \bauthor{\bsnm{Pybus}, \binits{O.G.}},
@@ -1021,6 +1057,44 @@ PhyML3.0: New Algorithms, Methods and Utilities.
 </bibl>
 
 <bibl id="B32">
+  <title><p>Variational algorithms for approximate Bayesian
+  inference</p></title>
+  <aug>
+    <au><snm>Beal</snm><fnm>MJ</fnm></au>
+    <au><cnm>others</cnm></au>
+  </aug>
+  <publisher>university of London London</publisher>
+  <pubdate>2003</pubdate>
+</bibl>
+
+<bibl id="B33">
+  <title><p>Variational Bayesian Phylogenetic Inference</p></title>
+  <aug>
+    <au><snm>Zhang</snm><fnm>C</fnm></au>
+    <au><snm>IV</snm><fnm>FAM</fnm></au>
+  </aug>
+  <source>International Conference on Learning Representations</source>
+  <pubdate>2019</pubdate>
+  <url>https://openreview.net/forum?id=SJVmjjR9FX</url>
+</bibl>
+
+<bibl id="B34">
+  <title><p>Stochastic Variational Inference for Bayesian Phylogenetics: A Case
+  of CAT Model</p></title>
+  <aug>
+    <au><snm>Dang</snm><fnm>T</fnm></au>
+    <au><snm>Kishino</snm><fnm>H</fnm></au>
+  </aug>
+  <source>Molecular biology and evolution</source>
+  <publisher>Oxford University Press</publisher>
+  <pubdate>2019</pubdate>
+  <volume>36</volume>
+  <issue>4</issue>
+  <fpage>825</fpage>
+  <lpage>-833</lpage>
+</bibl>
+
+<bibl id="B35">
   <title><p>Optimum monte-carlo sampling using markov chains</p></title>
   <aug>
     <au><snm>Peskun</snm><fnm>PH</fnm></au>
@@ -1034,7 +1108,7 @@ PhyML3.0: New Algorithms, Methods and Utilities.
   <lpage>-612</lpage>
 </bibl>
 
-<bibl id="B33">
+<bibl id="B36">
   <title><p>GENIE: estimating demographic history from molecular
   phylogenies</p></title>
   <aug>
