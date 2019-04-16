@@ -499,9 +499,11 @@ PhyML3.0: New Algorithms, Methods and Utilities.
 %%% 32
 \bibitem{beal2003variational}
 \begin{bbook}
-\bauthor{\bsnm{Beal}, \binits{M.J.}}, \betal:
-\bbtitle{Variational Algorithms for Approximate Bayesian Inference}.
-\bpublisher{university of London London}, \blocation{???}
+\bauthor{\bsnm{Beal}, \binits{M.J.}}:
+\bbtitle{Variational Algorithms for Approximate Bayesian Inference},
+p. \bfpage{281}.
+\bpublisher{university of London London},
+\blocation{England}
 (\byear{2003})
 \end{bbook}
 \endbibitem
@@ -1061,10 +1063,10 @@ In: \bbtitle{International Conference on Learning Representations}
   inference</p></title>
   <aug>
     <au><snm>Beal</snm><fnm>MJ</fnm></au>
-    <au><cnm>others</cnm></au>
   </aug>
-  <publisher>university of London London</publisher>
+  <publisher>England: university of London London</publisher>
   <pubdate>2003</pubdate>
+  <fpage>281</fpage>
 </bibl>
 
 <bibl id="B33">
