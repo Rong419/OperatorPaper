@@ -770,6 +770,24 @@ Small Pulley&${d_i}$&0.3480&0.0492&0.3476&0.0494&Figure \ref{res_roo1}(b)\\
 
 \begin{table}[h!]
   \centering
+\begin{tabular}{ccc|ccc}
+\hline
+\multirow{2}*{Parameter}&\multicolumn{2}{c|}{Coverage}&\multirow{2}*{Parameter}&\multicolumn{2}{c}{Coverage}\\
+&20 taxa & 120 taxa & & 20 taxa & 120 taxa\\
+\hline
+TreeHeight & 94\% & 100\% & RateMean & 100\% & 100\%\\
+TreeLength & 91\% & 99\% & Frequency1 & 90\% & 92\%\\ 
+Kappa      & 96\% & 99\% & Frequency2 & 93\% & 96\%\\
+Ucldstdev  & 95\% & 96\% & Frequency3 & 93\% & 97\% \\
+BirthRate  & 94\% & 100\% & Frequency4 & 96\% & 91\%\\
+\hline
+\end{tabular}
+\caption{Number of real values lying in the 95\% HPD in Figure \ref{SmallTree} and Figure \ref{LargeTree} }\label{num_hpd2}
+\end{table}
+
+
+\begin{table}[h!]
+  \centering
 \begin{tabular}{cc|cc|cc|cc}
 \hline
 &&\multicolumn{2}{c|}{ESS of of analysis}&\multicolumn{2}{c|}{Running time(second)}&\multicolumn{2}{c}{ESS per hour}\\
