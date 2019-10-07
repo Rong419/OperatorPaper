@@ -59,8 +59,8 @@
 %%                                             %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\def\includegraphic{}
-\def\includegraphics{}
+%\def\includegraphic{}
+%\def\includegraphics{}
 
 %%% Put your definitions there:
 \startlocaldefs
@@ -569,7 +569,7 @@ The author(s) wish to acknowledge the use of New Zealand eScience Infrastructure
 \end{figure}
 
 \begin{figure}[h!]
-\includegraphics[width=12cm]{Fig02-internalnodes.eps}\\
+\includegraphics[width=12cm]{Fig02-internalnode.eps}\\
 \caption{\csentence{Illustration of the operation on an internal node.}
              The operator proposes a tree ${g}'$ based on tree $g$, during which $d_L$, $d_R$, $d_X$ are kept constant.}
 \label{internalnodes}
@@ -1051,5 +1051,21 @@ p(r,t) &= \int_{{t_E} = 0}^{ + \infty } {\int_{{t_D} = 0}^{{t_E}} {\int_{{d_D} =
 
 The statistical measurements, i.e. mean and standard deviation, are compared in Table \ref{res_sma}. The histograms of samples and numerical curves of ${d_D}$ and ${t_E}$ are pictured in Figure \ref{res_roo1}(c) and Figure \ref{res_roo1}(d). It is shown that the two distributions are consistent within the acceptable error range. Therefore, Big Pulley can also give the right combinations of rates and node times, under the condition that the genetic distances among taxa are constant.
 
+\subsection*{UcldstdevScalerOperator: a scale operator on standard deviation}
+It should be noted that the proposed ConstantDistance operator parameterises branch rates as continuous random variables, instead of discrete rate categories as is used in current BEAST2 settings. In uncorrelated relaxed clock model, branch rates are assumed to have a lognormal prior distribution, where the real mean is fixed to 1 and the standard deviation (denoted by Ucldstdev) is usually sampled with a hyper prior such as gamma($\alpha = 0.5396, \beta = 0.3819$). When a new Ucldstdev is proposed in one state during MCMC sampling by normal operators, the probability of all rates change as well under the new log normal distribution. Therefore, the authors implemented a separate operator working on Ucldstdev, which is able to solve this problem properly. 
+
+The first step is to propose a new Ucldstdev by a scale operation, which multiplies  current Ucldstdev by a random factor, as is shown in Equation (\ref{ucldstdev_multiplier}).
+\begin{equation}\label{ucldstdev_multiplier}
+Ucldstdev' = Ucldstdev \times {\rm{scale}}
+\end{equation}
+where ${\rm{scale = Factor  +  }}\left[ {\xi  \times {\rm{(}}\frac{1}{{{\rm{Factor}}}}{\rm{  -  Factor)}}} \right]$ and  $\xi$ is a random variable from a $Uniform(0,1)$,  ${\rm{Factor}}$ is a user-defined parameter to specify how bold the proposal is.
+
+Secondly, all the branch rates are proposed based on the new $Ucldstdev'$, given the probability of original $Ucldstdev$, which is calculated using Equation (\ref{ucldstdev_rates}).
+\begin{equation}\label{ucldstdev_rates}
+r_{i}' = icd{f_{stdev'}}\left[ {cd{f_{stdev}}({r_i})} \right]
+\end{equation}
+where the notations $cdf(\cdot)$ and $icdf(\cdot)$ represent the cumulative and inverse cumulative density function of log normal distribution.
+
+Finally, it is important to return the corrected hastings ratio since the proposal is associated with one random variable, $Ucldstdev$ and $(2n-1)$ branch rates.
 \end{backmatter}
 \end{document}
