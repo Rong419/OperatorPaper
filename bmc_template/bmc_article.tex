@@ -1,4 +1,4 @@
-%% BioMed_Central_Tex_Template_v1.06
+%%BioMed_Central_Tex_Template_v1.06
 %%                                      %
 %  bmc_article.tex            ver: 1.06 %
 %                                       %
@@ -7,6 +7,15 @@
 %%It must be present to enable the BMC Submission system to
 %%recognise this template!!
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                     %%
+%%  LaTeX template for BioMed Central  %%
+%%     journal article submissions     %%
+%%                                     %%
+%%          <8 June 2012>              %%
+%%                                     %%
+%%                                     %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%% additional documentclass options:
 %  [doublespacing]
@@ -19,9 +28,9 @@
 
 %%% Load packages
 %\usepackage{amsthm,amsmath}
-%\RequirePackage{natbib}
+\RequirePackage{natbib}
 %\RequirePackage[authoryear]{natbib}% uncomment this for author-year bibliography
-%\RequirePackage{hyperref}
+\RequirePackage{hyperref}
 \usepackage[utf8]{inputenc} %unicode support
 \usepackage{algorithmic}
 \usepackage{rotating}
@@ -30,6 +39,7 @@
 \usepackage{enumerate}
 \usepackage{algorithm}
 \usepackage{subfigure}
+\usepackage{graphicx}
 %\usepackage[applemac]{inputenc} %applemac support if unicode package fails
 %\usepackage[latin1]{inputenc} %UNIX support if unicode package fails
 
@@ -56,30 +66,35 @@
 \startlocaldefs
 \endlocaldefs
 
-\newcommand{\alexei}[1]{{\textcolor{green}{#1}}}
-
-
 \begin{document}
 \begin{frontmatter}
 \begin{fmbox}
-\dochead{Research}
+\dochead{Methodology article}
 
 \title{Improving the performance of Bayesian phylogenetic inference under relaxed clock models}
 
 \author[
-   %addressref={aff1},                   % id's of addresses, e.g. {aff1,aff2}
-   %email={rzha419@aucklanduni.ac.nz}
-]{\inits{}\fnm{Rong} \snm{Zhang}}
+   addressref={aff1},                   % id's of addresses, e.g. {aff1,aff2}
+   email={rzha419@aucklanduni.ac.nz}
+]{\inits{RZ}\fnm{Rong} \snm{Zhang}}
 \author[
-   addressref={aff1},
-   corref={aff1},                       % id of corresponding address, if any
+   addressref={aff2},
+   corref={aff2},                       % id of corresponding address, if any
    email={alexei@cs.auckland.ac.nz}   % email address
    %noteref={n1},                        % id's of article notes, if any
-]{\inits{}\fnm{Alexei} \snm{Drummond}}
+]{\inits{AJD}\fnm{Alexei} \snm{Drummond}}
 
 \address[id=aff1]{%                           % unique id
   \orgname{School of Computer Science, University of Auckland}, % university, etc
-  \street{Princes Street},                     %
+  \street{38 Princes Street},                     %
+  \postcode{1010}                                % post or zip code
+  \city{Auckland},                              % city
+  \cny{New Zealand}                                    % country
+}
+
+\address[id=aff2]{%                           % unique id
+  \orgname{School of Computer Science, University of Auckland}, % university, etc
+  \street{38 Princes Street},                     %
   \postcode{1010}                                % post or zip code
   \city{Auckland},                              % city
   \cny{New Zealand}                                    % country
@@ -123,7 +138,8 @@ The results demonstrate that the proposed operator is able to improve the perfor
 
 \begin{keyword}
 \kwd{Bayesian MCMC}
-\kwd{Operator}
+\kwd{Bayesian phylogenetics}
+\kwd{Proposal kernel}
 \kwd{Genetic distances}
 \kwd{Divergence times}
 \kwd{Evolutionary rates}
@@ -430,7 +446,7 @@ These results (Figure \ref{eff_comp2}) show that, on average, the configuration 
 \subsection*{Correlation analysis of rates and node times}
 After analysing the ratites data set (with 7 taxa and 10767 sites \cite{cooper2001complete}) in BEAST2 using the Constant Distance operator, the sampled trees in the output tree file are filtered by the shared common ancestor of each taxa, which is implemented in a program called TreeStat2 \cite{TreeStat2}. Then, we conducted a pairwise comparison between each rate and node time in the filtered trees in order to see how they are correlated.
 
-The results are shown in Figure \ref{correlation}. The tree in Figure \ref{Fig.sub.tree} is used to filter the sampled trees to ensure that all trees examined have the same topology. Afterwards, a pairwise comparison was made by using 12 branch rates and 6 node times. As can be seen from upper right of Figure \ref{Fig.sub.correlation}, to a large degree, the rates are negatively correlated with the node times. This indicates that when a larger node time is proposed, the corresponding rates become smaller. For example, $t1$ has a negative correlation with $r1$ and $r2$, but has positive correlation with $r8$. That is to say, with the increase of $t1$, the rate $r8$ will also increase, but $r1$ and $r2$ will decrease. In addition, in the upper left of Figure \ref{Fig.sub.correlation}, most rates on two adjacent branches have positive correlations, but have a negative correlation with the rate above them. Take $r5$ and $r6$ as an example. They have a positive correlation with each other, but are negatively related to $r11$. This means a larger $r5$ incurs a larger $r6$ and a smaller $r11$. To sum up, this dynamic change of rates and node times is consistent with the mechanism of the proposed operator. Although there are some inconsistent correlations, it should be noticed that this is an average pairwise comparison in two dimensions. For comparisons in higher dimensions, the results would be closer to the mechanism of the proposed operator.
+The results are shown in Figure \ref{correlation}. The tree in Figure \ref{correlation}(a) is used to filter the sampled trees to ensure that all trees examined have the same topology. Afterwards, a pairwise comparison was made by using 12 branch rates and 5 node times. As can be seen from upper right of Figure \ref{correlation}(b), to a large degree, the rates are negatively correlated with the node times. This indicates that when a larger node time is proposed, the corresponding rates become smaller. For example, $t1$ has a negative correlation with $r1$ and $r2$, but has positive correlation with $r8$. That is to say, with the increase of $t1$, the rate $r8$ will also increase, but $r1$ and $r2$ will decrease. In addition, in the upper left of Figure \ref{correlation}(b), most rates on two adjacent branches have positive correlations, but have a negative correlation with the rate above them. Take $r6$ and $r7$ as an example. They have a positive correlation with each other, but are negatively related to $r12$. This means a larger $r6$ incurs a larger $r7$ and a smaller $r12$. To sum up, this dynamic change of rates and node times is consistent with the mechanism of the proposed operator. Although there are some inconsistent correlations, it should be noticed that this is an average pairwise comparison in two dimensions. For comparisons in higher dimensions, the results would be closer to the mechanism of the proposed operator.
 
 \subsection*{Sampling a fixed unrooted tree}
 %The tests that sample from the prior distributions in the previous section start from a tree with arbitrary genetic distances.
@@ -442,26 +458,25 @@ A limiting case for the relaxed molecular clock model (and one exploited in some
 
 We investigated this approach on a fixed substitution tree reconstructed from whole mitochondrial genomes from a set of ratite species. Since no uncertainty is admitted in the genetic distances, the phylogenetic likelihood is no longer needed and the unrooted tree becomes the data, rather than a multiple sequence alignment.
 
-First of all, we used the ratites data set to construct an unrooted tree with an online program PhyML 3.0 \cite{phyml,guindon2010new}.  Figure \ref{Fig.sub.11} shows the unrooted tree with the genetic distances on the branches which are fixed in a subsequent relaxed clock analysis in BEAST2.
+First of all, we used the ratites data set to construct an unrooted tree with an online program PhyML 3.0 \cite{phyml,guindon2010new}.  Figure \ref{withoutdata}(a) shows the unrooted tree with the genetic distances on the branches which are fixed in a subsequent relaxed clock analysis in BEAST2.
 
 As an initial starting point, the midpoint method is adopted to root the starting time tree. After that, based on the genetic distances among seven taxa and the topology of the rooted tree, consistent divergence times are assigned to each ancestral node, so that a valid rooted time tree is obtained. Once divergence times are determined, rates on the branches are also determined so that the products match the unrooted substitution tree.
 %Figure \ref{Fig.sub.12} is the rooted time tree used as the initial state in MCMC chain.
 %\alexei{Do we need to show the initial tree? The result of the analysis is not dependent on the initial tree!}
 
-The resulting summary trees are shown in Figure \ref{summary3}. As can be seen, the most probable tree in Figure  \ref{summary3} (b) is consistent with previous analyses of this data \cite{cooper2001complete} (Figure \ref{ratites}). For large data sets of long sequences, this method may prove useful to provide faster divergence time estimates based on the assumption of known unrooted topology and branch lengths in units of expected substitutions per site.
+The resulting summary trees are shown in Figure \ref{withoutdata}. As can be seen, the most probable tree in Figure \ref{withoutdata}(b) is consistent with previous analyses of this data (see Figure 2 in Ref. \cite{cooper2001complete}). For large data sets of long sequences, the proposed method may prove useful to provide faster divergence time estimates based on the assumption of known unrooted topology and branch lengths in units of expected substitutions per site.
 
 \section*{Discussion}
 We have demonstrated that the presented operator is valid and able to improve the efficiency of phylogenetic MCMC for relaxed clock models. The overall performance of a Bayesian phylogenetic analysis will be affected by the proportion of MCMC steps that this operator is chosen to make the proposal. In BEAST2 software, this can be changed by modifying the weights of different operators. The ideal proportion is non trivial to determine for an arbitrary data set. In this study, we assigned equal weights on operations to all internal nodes (including the root). How to assign weights to achieve better performance is not studied in this paper, and users may assign different weights in practice. Hence, an optimal method of assigning weights still needs further investigation. 
 
 The key idea of the presented operator (to maintain the genetic distances) shows a novel direction for more efficient proposals in Bayesian phylogenetic MCMC. For example, the operations on the internal nodes, in the current study, involve one random internal node, one node time and three branch rates. If two or more nodes are selected, then more associated rates and node times can be sampled in one proposal, which may achieve even better efficiency. Another possible approach is to make small changes to the genetic distances as well. To minimise the number of changes to genetic distances, a two-dimensional random draw will be used to change four parameters (one divergence time and one rate changed directly, the other two rates derived so as to minimise changes to genetic distances). Future work could elaborate a larger class of operators along these lines.
 
-As data sets increase in size the impetus to improve efficiency of Bayesian phylogenetic inference algorithms has steadily increased. Besides more effective proposal mechanisms within Metropolis-Hastings MCMC, completely novel approaches to Bayesian phylogenetics have also begun to get some attention. Variational methods are a non-stochastic approach to approximating Bayesian inference \cite{beal2003variational}. These approaches make inference an optimisation problem and take advantages of a set of tractable distributions, which decreases the computational cost by avoiding high-dimensional integrals in MCMC sampling schemes. Recent work has investigated the potential for applying variational methods to phylogenetics \cite{zhang2018variational,dang2019stochastic}. Our improved MCMC methods provide a mature performance baseline for these new approaches.
+As data sets have increased in size the impetus to improve efficiency of Bayesian phylogenetic inference algorithms has steadily increased. Besides more effective proposal mechanisms within Metropolis-Hastings MCMC, completely novel approaches to Bayesian phylogenetics have also begun to get some attention. Variational methods are one alternative for approximating Bayesian posterior distributions \cite{beal2003variational}. These approaches make inference an optimisation problem and take advantage of tractable variational distributions that approximate the posterior distribution, thus decreasing the computational cost by avoiding high-dimensional integrals in MCMC sampling schemes. Recent work has investigated the potential for applying variational methods to phylogenetics \cite{zhang2018variational,dang2019stochastic}. Our improved MCMC methods provide a mature performance baseline for these new approaches.
 
-\section*{Conclusion}
-As data sets continue to increase in size, the need for computational efficiency of Bayesian phylogenetic analyses is also increasing. In this paper, we have discussed a new tree proposal that substantially increases the efficiency of Bayesian phylogenetic inference under a popular class of relaxed molecular clock models.
+\section*{Conclusions}
+As data sets have increased in size, the need for computational efficiency of Bayesian phylogenetic analyses has also increased. In this paper, we have discussed a new tree proposal that substantially increases the efficiency of Bayesian phylogenetic inference under a popular class of relaxed molecular clock models.
 
-We demonstrate the correctness of this algorithm with a series of tests including a well-calibrated simulation study. Based on both simulated and real data sets, the proposed operator is much more efficient than the current algorithms implemented in BEAST2. It is able to sample the rates and times more efficiently, with performance improvements of greater than an order of magnitude increase in ESS/hour on both real and simulated data. The proposed operator is available for use in the core code of BEAST2.
-
+We demonstrate the correctness of this algorithm with a series of tests including a well-calibrated simulation study. Based on both simulated and real data sets, the proposed operator is much more efficient than the current algorithms implemented in BEAST2. It is able to sample the rates and times more efficiently, with performance improvements of greater than an order of magnitude increase in ESS/hour on both real and simulated data. The proposed operator is available for use as a package of BEAST2.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%                                          %%
@@ -503,7 +518,6 @@ RZ developed the operator and was a major contributor in writing the manuscript.
 
 \subsection*{Acknowledgements}
 The author(s) wish to acknowledge the use of New Zealand eScience Infrastructure (NeSI) high performance computing facilities, consulting support and/or training services as part of this research. New Zealand's national facilities are provided by NeSI and funded jointly by NeSI's collaborator institutions and through the Ministry of Business, Innovation \& Employment's Research Infrastructure programme. URL https://www.nesi.org.nz.
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%                  The Bibliography                       %%
 %%                                                         %%
@@ -548,30 +562,12 @@ The author(s) wish to acknowledge the use of New Zealand eScience Infrastructure
 %% Do not use \listoffigures as most will included as separate files
 
 \section*{Figure Legends}
-%\begin{figure}[h!]
-%\includegraphics[width=12cm]{flowchart.eps}\\
-%\caption{\csentence{The flow chart of the Constant Distance operator.}}
-%\label{flowchart}
-%\end{figure}
 \begin{figure}[h!]
 \includegraphics[width=12cm]{Fig01-flowchart.eps}\\
 \caption{\csentence{The flow chart of the Constant Distance operator.}}
 \label{flowchart}
 \end{figure}
 
-%\begin{figure}[h!]
-%\includegraphics[width=12cm]{internalnodes.eps}\\
-%\caption{\csentence{Illustration of the operation on an internal node.}
-%             The operator proposes a tree ${g_{in}}'$ based on tree $g_{in}$, during which $d_i$, $d_j$, $d_k$ are kept constant.}
-%\label{internalnodes}
-%\end{figure}
-
-%\begin{figure}[h!]
-%\includegraphics[width=12cm]{rootstrategy.eps}\\
-%\caption{\csentence{Illustration of Simple Distance and Small Pulley sub-moves.}
-%             Simple Distance proposes ${g_{r1}}'$ and keeps $d_i$, $d_x$ constant. Small Pulley proposes ${g_{r2}}'$ and ${d_i} + {d_x}$ remains constant.}
-%\label{simpledistance}
-%\end{figure}
 \begin{figure}[h!]
 \includegraphics[width=12cm]{Fig02-internalnode.eps}\\
 \caption{\csentence{Illustration of the operation on an internal node.}
@@ -587,12 +583,6 @@ The author(s) wish to acknowledge the use of New Zealand eScience Infrastructure
 \end{figure}
 
 
-%\begin{figure}[h!]
-%\includegraphics[width=12cm]{exchangemethod.eps}\\
-%\caption{\csentence{Illustration of \textit{Exchange (\textbf{M},\textbf{N})} method.}
-%             This method is applied to tree $g$ and proposes $g'$ by swapping \textbf{M} and \textbf{N}, so that the three distances are adjusted to maintain the distances among \textbf{S}, \textbf{M} and \textbf{N}. That is, ${d_C}' = {d_C} + b$, ${d_N}' = d_C + d_N$ and ${d_M}' = d_{M} - {d_C}'$, where $b \sim U[ - v, + v]$.}
-%\label{exchangemethod}
-%\end{figure}
 \begin{figure}[h!]
 \includegraphics[width=12cm]{Fig04-exchangemethod.eps}\\
 \caption{\csentence{Illustration of \textit{Exchange (\textbf{M},\textbf{N})} method.}
@@ -600,12 +590,6 @@ The author(s) wish to acknowledge the use of New Zealand eScience Infrastructure
 \label{exchangemethod}
 \end{figure}
 
-%\begin{figure}[h!]
-%\includegraphics[width=12cm]{treeshape.eps}\\
-%\caption{\csentence{Two different tree shapes.}
-%             The symmetric tree is on the left and the asymmetric tree is on the right. The dashed triangles represent the potential subtrees rooted at the nodes.}
-%\label{treeshape}
-%\end{figure}
 \begin{figure}[h!]
 \includegraphics[width=12cm]{Fig05-treeshape.eps}\\
 \caption{\csentence{Two different tree shapes.}
@@ -613,19 +597,6 @@ The author(s) wish to acknowledge the use of New Zealand eScience Infrastructure
 \label{treeshape}
 \end{figure}
 
-%\begin{figure}[h!]
-%\includegraphics[width=12cm]{symmetric.eps}\\
-%\caption{\csentence{Illustration of operations on the symmetric tree in Figure \ref{treeshape}.}
-%             The proposed operator will propose one of the four possible trees, each with 0.25 probability.}
-%\label{symmetric}
-%\end{figure}
-%
-%\begin{figure}[h!]
-%\includegraphics[width=12cm]{asymmetric.eps}\\
-%\caption{\csentence{Illustration of operations on the asymmetric tree in Figure \ref{treeshape}.}
-%             The proposed operator will propose one of the three possible trees. If ${t_o}' < t_{G1}$, \textcircled7 has 1 probability, otherwise \textcircled5 and \textcircled6 have 0.5 probability each.}
-%\label{asymmetric}
-%\end{figure}
 \begin{figure}[h!]
 \includegraphics[width=12cm]{Fig06-symmetric.eps}\\
 \caption{\csentence{Illustration of operations on the symmetric tree in Figure \ref{treeshape}.}
@@ -646,50 +617,6 @@ The author(s) wish to acknowledge the use of New Zealand eScience Infrastructure
              $g_1$ is set to be the original tree where an MCMC chain starts. When testing Big Pulley, the proposed operator samples the trees among $g_1$, $g_2$ and $g_3$.}
 \label{sampleprior}
 \end{figure}
-%\begin{figure}[h!]
-%\includegraphics[width=12cm]{bigpulleyExp.eps}\\
-%\caption{\csentence{The illustration of sampling from prior.}
-%             $g_1$ is set to be the original tree where an MCMC chain starts. When testing Big Pulley, the proposed operator samples the trees among $g_1$, $g_2$ and $g_3$.}
-%\label{sampleprior}
-%\end{figure}
-
-%\begin{figure}[h!]
-%\centering
-%\subfigure[Senario 1: chain length = 10000000]{
-%\label{Fig.sub.1}
-%\includegraphics[width=0.45\textwidth]{scenario1S}}
-%\subfigure[Senario 1: chain length = 20000000]{
-%\label{Fig.sub.2}
-%\includegraphics[width=0.45\textwidth]{scenario1L}}
-%\subfigure[Senario 2: chain length = 10000000]{
-%\label{Fig.sub.3}
-%\includegraphics[width=0.45\textwidth]{scenario2S}}
-%\subfigure[Senario 2: chain length = 20000000]{
-%\label{Fig.sub.4}
-%\includegraphics[width=0.45\textwidth]{scenario2L}}
-%\caption{ \csentence{Sampled parameters in tests of internal nodes.}
-%             The horizontal axis represents the node time of D in Figure \ref{sampleprior}. The two scenarios sample two trees with different distances specified in Table \ref{ini_inter}.}
-%\label{res_int}
-%\end{figure}
-%
-%\begin{figure}[h!]
-%\centering
-%\subfigure[$t_E$ in Simple Distance]{
-%\label{Fig.sub.5}
-%\includegraphics[width=0.45\textwidth]{RplotSD}}
-%\subfigure[$d_D$ in Small Pulley]{
-%\label{Fig.sub.6}
-%\includegraphics[width=0.45\textwidth]{RplotSP}}
-%\subfigure[${d_D}$ in Big pulley]{
-%\label{Fig.sub.9}
-%\includegraphics[width=0.45\textwidth]{bigd}}
-%\subfigure[${t_E}$ in Big pulley]{
-%\label{Fig.sub.10}
-%\includegraphics[width=0.45\textwidth]{bigT}}
-%\caption{\csentence{Sampled parameters in test of the root.}
-%             For the trees in Figure \ref{sampleprior}, Simple Distance samples the root time $t_E$ only, Small Pulley samples the distance $d_D$ only, and Big Pulley samples $t_E$, $t_D$, $d_D$. To make it simple, $t_E$ and $d_D$ are compared.}
-%\label{res_roo1}
-%\end{figure}
 
 \begin{figure}[h!]
 \includegraphics[width=12cm]{Fig09-testinternalnode.eps}\\
@@ -729,7 +656,7 @@ The author(s) wish to acknowledge the use of New Zealand eScience Infrastructure
 \begin{figure}[h!]
 \includegraphics[width=12cm]{Fig14-efficiency.eps}\\
 \caption{\csentence{Comparison of ESS and running time using simulated data.}
-             The terms long, medium and short used in the text represent the length of sequence with 20 thousand (filled in white), 10 thousand (filled in green) and 5 thousand (filled in blue) respectively.}
+                   The terms long, medium and short used in the text represent the length of sequence with 20 thousand (filled in white), 10 thousand (filled in green) and 5 thousand (filled in blue) respectively.}
 \label{eff_comp}
 \end{figure}
 
@@ -753,79 +680,6 @@ The author(s) wish to acknowledge the use of New Zealand eScience Infrastructure
             The unrooted tree is obtained from the ratites data set \cite{cooper2001complete}. In subfigure (a), the labeled numbers represent genetic distances. In subfigures (b) (c) and (d), the labeled numbers represent the rates at the corresponding branches. The colour of branches from green to red indicates the rates increasing from small to large, and the blue bars represent the 95\% HPD of the corresponding node times.}
 \label{withoutdata}
 \end{figure}
-
-%\begin{figure}[h!]
-%\includegraphics[width=12cm]{ModelValidation.eps}\\
-%\caption{\csentence{The models and prior distributions to simulate the sequence data.}
-%             The sequence alignment is simulated through a phylogenetic continuous-time Markov Chain that consists of a substitution model (HKY) and an uncorrelated relaxed clock model. The random variables in HKY model construct the mutation rate matrix, including frequency and ratio. The rates and time trees specified by a Yule model construct the substitution tree. The standard deviation of rates and the birth rate in Yule model are both random variables following LogNormal distributions.}
-%\label{modelvalidation}
-%\end{figure}
-%
-%\begin{figure}[h!]
-%\includegraphics[width=12cm]{SmallTree.eps}\\
-%\caption{\csentence{Comparing the sampled parameters in simulation study with 20 taxa.}
-%             The red crossings represent the coordinates of real and estimated value. The vertical lines with circles show the 95\% HPD of the sampled parameters. The blue lines indicate that the estimated value is equal to the real value. The red line represents the fixed value of rate mean.}
-%\label{SmallTree}
-%\end{figure}
-%
-%\begin{figure}[h!]
-%\includegraphics[width=12cm]{LargeTree.eps}\\
-%\caption{\csentence{Comparing the sampled parameters in simulation study with 120 taxa.}
-%             }
-%\label{LargeTree}
-%\end{figure}
-%
-%\begin{figure}[h!]
-%\includegraphics[width=12cm]{Efficiency.eps}\\
-%\caption{\csentence{Comparison of ESS and running time using simulated data.}
-%             The term long, medium and short represent the length of sequence with 20 thousand, 10 thousand and 5 thousand respectively.}
-%\label{eff_comp}
-%\end{figure}
-%
-%\begin{figure}[h!]
-%\centering
-%\subfigure{
-%\label{P_ess}
-%\includegraphics[width=0.45\textwidth]{primatesESS.eps}}
-%\subfigure{
-%\label{P_run}
-%\includegraphics[width=0.45\textwidth]{primatestime.eps}}
-%\caption{\csentence{Comparison of ESS and running time using primates data.}
-%             The orange curve links the mean values of each boxplot and the values are shown on the left of the boxplot.}
-%\label{eff_comp2}
-%\end{figure}
-%
-%\begin{figure}[h!]
-%\centering
-%\subfigure[Clades]{
-%\label{Fig.sub.tree}
-%\includegraphics[width=0.5\textwidth]{correlationtree}}
-%\subfigure[Pairwise compare]{
-%\label{Fig.sub.correlation}
-%\includegraphics[width=0.4\textwidth]{rateandtime.eps}}
-%\caption{\csentence{Correlation between rates and node times in the ratites tree.}
-%             The rates and node times are in correspondence with the notations in Figure \ref{withoutdata}(b). Blue indicates the positive relation and red indicates the negative relation. The darker the colour is, the stronger the relation tends to be.}
-%\label{correlation}
-%\end{figure}
-%
-%\begin{figure}[h!]
-%\centering
-%\subfigure[Unrooted tree]{
-%\label{Fig.sub.11}
-%\includegraphics[width=0.45\textwidth]{unrootedtree}}
-%\subfigure[Summary tree with 94.44\% probability]{
-%\label{summary1}
-%\includegraphics[width=0.45\textwidth]{First}}
-%\subfigure[Summary tree with 4.24\% probability]{
-%\label{summary2}
-%\includegraphics[width=0.45\textwidth]{Second}}
-%\subfigure[Summary tree with 1.32\% probability]{
-%\label{summary3}
-%\includegraphics[width=0.45\textwidth]{Third}}
-%\caption{\csentence{Illustration of sampling a fixed unrooted tree.}
-%            The unrooted tree is obtained from the ratites data set \cite{cooper2001complete}. The colour of branches from green to red indicates the rates increasing from small to large. The blue bars at represents the 95\% HPD of the node times. And the numbers besides the blue bars are the posterior values at the corresponding nodes.}
-%\label{withoutdata}
-%\end{figure}
 
 \clearpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -858,11 +712,11 @@ Scenario 2&0.4&0.8&2.4&1.6&0.4&0.8&1&2&3&4\\
 &\multirow{2}*{Chain Length}&\multicolumn{3}{c|}{Sample from MCMC}&\multicolumn{3}{c|}{Integral curve}&Plot\\
 &~&Mean&Err&StdEv&Mean&Err&StdEv&\\
 \hline
-\multirow{2}*{Senario 1}&10000000&3.2727&8.3e-3&0.5467&\multirow{2}*{3.2669}&\multirow{2}*{1.3e-06}&\multirow{2}*{0.5553}&Figure \ref{Fig.sub.1}\\
-~&20000000&3.271&6.1e-3&0.5616&~&~&~&Figure \ref{Fig.sub.2}\\
+\multirow{2}*{Senario 1}&10000000&3.2727&8.3e-3&0.5467&\multirow{2}*{3.2669}&\multirow{2}*{1.3e-06}&\multirow{2}*{0.5553}&Figure \ref{res_int}(a)\\
+~&20000000&3.271&6.1e-3&0.5616&~&~&~&Figure \ref{res_int}(b)\\
 \hline
-\multirow{2}*{Senario 2}&10000000&0.4677&3.9e-04&0.0265&\multirow{2}*{0.4667}&\multirow{2}*{3.5e-05}&\multirow{2}*{0.0262}&Figure \ref{Fig.sub.3}\\
-~&20000000&0.4672&2.8e-04&0.0262&~&~&~&Figure \ref{Fig.sub.4}\\
+\multirow{2}*{Senario 2}&10000000&0.4677&3.9e-04&0.0265&\multirow{2}*{0.4667}&\multirow{2}*{3.5e-05}&\multirow{2}*{0.0262}&Figure \ref{res_int}(c)\\
+~&20000000&0.4672&2.8e-04&0.0262&~&~&~&Figure \ref{res_int}(d)\\
   \hline
 \end{tabular}
 \caption{Results of sampling the internal node}\label{res_inter}
@@ -890,12 +744,12 @@ Big Pulley&0.5&0.5&\multicolumn{2}{|c|}{0.5}&5&10&0.1&0.1&0.03&0.04\\
 \multirow{2}*{Strategy}&\multirow{2}*{Variable}&\multicolumn{2}{c|}{Sample from MCMC}&\multicolumn{2}{c|}{Integral curve}&\multirow{2}*{Plot}\\
 &~&Mean&StdEv&Mean&StdEv&\\
 \hline
-Simple Distance&$t_E$&7.8081&1.2884&7.8187&1.2992&Figure \ref{Fig.sub.5}\\
+Simple Distance&$t_E$&7.8081&1.2884&7.8187&1.2992&Figure \ref{res_roo1}(a)\\
 \hline
-Small Pulley&${d_i}$&0.3480&0.0492&0.3476&0.0494&Figure \ref{Fig.sub.6}\\
+Small Pulley&${d_i}$&0.3480&0.0492&0.3476&0.0494&Figure \ref{res_roo1}(b)\\
 \hline
-\multirow{2}*{Big Pulley}&${d_i}$&0.1016&0.0766&0.0960&0.0760&Figure \ref{Fig.sub.9}\\
-~&$t_E$&3.3017&0.6908&3.3095&0.6912&Figure \ref{Fig.sub.10}\\
+\multirow{2}*{Big Pulley}&${d_i}$&0.1016&0.0766&0.0960&0.0760&Figure \ref{res_roo1}(c)\\
+~&$t_E$&3.3017&0.6908&3.3095&0.6912&Figure \ref{res_roo1}(d)\\
 \hline
 \end{tabular}
 \caption{Results of sampling the root}\label{res_sma}
@@ -913,6 +767,24 @@ Small Pulley&${d_i}$&0.3480&0.0492&0.3476&0.0494&Figure \ref{Fig.sub.6}\\
 \end{tabular}
 \caption{Number of real values lying in the 95\% HPD in Figure \ref{SmallTree} and Figure \ref{LargeTree} }\label{num_hpd}
 \end{table}
+
+\begin{table}[h!]
+  \centering
+\begin{tabular}{ccc|ccc}
+\hline
+\multirow{2}*{Parameter}&\multicolumn{2}{c|}{Coverage}&\multirow{2}*{Parameter}&\multicolumn{2}{c}{Coverage}\\
+&20 taxa & 120 taxa & & 20 taxa & 120 taxa\\
+\hline
+TreeHeight & 94\% & 100\% & RateMean & 100\% & 100\%\\
+TreeLength & 91\% & 99\% & Frequency1 & 90\% & 92\%\\ 
+Kappa      & 96\% & 99\% & Frequency2 & 93\% & 96\%\\
+Ucldstdev  & 95\% & 96\% & Frequency3 & 93\% & 97\% \\
+BirthRate  & 94\% & 100\% & Frequency4 & 96\% & 91\%\\
+\hline
+\end{tabular}
+\caption{Number of real values lying in the 95\% HPD in Figure \ref{SmallTree} and Figure \ref{LargeTree} }\label{num_hpd2}
+\end{table}
+
 
 \begin{table}[h!]
   \centering
@@ -947,10 +819,10 @@ Average&&179&43&10735&27236&59.87&5.72\\
 \clearpage
 \newpage
 \section*{Appendix}
-\subsection{The Green ratio}
+\subsection*{The Green ratio}
 When developing an operator for MCMC, the proposal function must be reversible. In other words, the probability that the operator propose a new state from the current state is required to be equal to the probability that the proposed state goes back to current state. To be specific, let ${\pi (x)}$ be the target probability distribution and $p(x, x')$ be the transition kernel in the continuous Markov chain. The reversibility condition requires that ${\pi (x)}{p(x, x')} = {\pi (x')}{p(x', x)}$. And an operator provides a proposal $q(x, x')$ with some probability $\alpha(x, x')$ that the proposal is accepted. Thus, the reversibility condition is rewritten as ${\pi (x)}{q(x, x')}{\alpha(x, x')} = {\pi (x')}{q(x', x)}{\alpha(x', x)}$.
 
-Considering the subspace $\varphi_1$ on $x$ and subspace $\varphi_2$ on $x'$, it is assumed that there is a symmetric measure on the combined parametric space $\varphi = {\varphi_1} \times {\varphi_2}$, so that ${\pi (x)}{q(x, x')}$ has a density with respect to a single measure on $\varphi$. Then, Green suggested that the reversibility condition should be satisfied by the detailed balance \cite{green1995reversible}, as is represented by Equation (\ref{balance}). And according to Peskun' proof, it is optimal to take Equation (\ref{Ratio}) as the acceptance probability to retain the detailed balance \cite{peskun1973optimum}.
+Considering the subspace $\varphi_1$ on $x$ and subspace $\varphi_2$ on $x'$, it is assumed that there is a symmetric measure on the combined parametric space $\varphi = {\varphi_1} \times {\varphi_2}$, so that ${\pi (x)}{q(x, x')}$ has a density with respect to a single measure on $\varphi$. Then, Green suggested that the reversibility condition should be satisfied by detailed balance \cite{green1995reversible}, as represented by Equation (\ref{balance}). And according to Peskun' proof, it is optimal to take Equation (\ref{Ratio}) as the acceptance probability to retain the detailed balance \cite{peskun1973optimum}.
 
 \begin{equation}\label{balance}
 \int_A {\pi (x) d_x} {\int_B  {q(x, x')}{\alpha(x, x')} d_x}  = \int_B {\pi (x') d_{x'}}{\int_A {q(x', x)}{\alpha(x', x)} d_{x'}} \text{,}
@@ -960,13 +832,13 @@ where $A \in {\varphi_1}$ and $B \in  {\varphi_2}$ are two Borel sets. ${q(x, x'
 \begin{equation}\label{Ratio}
 {\alpha_H}(x, x') = \min \left\{ {1,\frac{{\pi (x'){p}(x',x)}}{{\pi (x){p}(x,x')}}} \right\} \text{,}
 \end{equation}
-where ${p(x',dx)}/{p(x,dx')}$ is known as Hastings ratio
+where ${p(x',dx)}/{p(x,dx')}$ is known as the Hastings ratio.
 
 However, for operators that do not have a symmetric measure, it is necessary to include the Jacobian matrix ${\mathbf{J}}$  in order to deal with the dimension matching problem, as is discussed in Green's paper \cite{green1995reversible}. In this case, Equation (\ref{Ratio}) is extended, as is shown in Equation (\ref{Green}).
 \begin{equation}\label{Green}
 {\alpha_G}(x, x') = \min \left\{ {1,\frac{{\pi (x'){p}(x',x)}}{{\pi (x){p}(x,x')}}}\left|{\mathbf{J}}\right| \right\} \text{,}
 \end{equation}
-where ${\mathbf{J}} = {\nabla h(x, x')}$ represents a vector differential matrix of deterministic function $h$. $\alpha = \frac{{p}(x',x)}{{p}(x,x')}\left|{\mathbf{J}}\right|$ is defined as Green ratio, and ${\mathbf{J}}$ makes the proposal have a symmetric measure on each subspace in state $x$ and $x'$.
+where ${\mathbf{J}} = {\nabla h(x, x')}$ represents a vector differential matrix of deterministic function $h$. $\alpha = \frac{{p}(x',x)}{{p}(x,x')}\left|{\mathbf{J}}\right|$ is defined as the Green ratio, and ${\mathbf{J}}$ ensures that the proposal have a symmetric measure on each subspace in state $x$ and $x'$.
 
 \subsection*{Calculating the Green ratio for operations on internal nodes}
 The Constant Distance Operator firstly proposes a new time for the randomly selected internal node (Equation (\ref{in_HR1.1})), and then proposes three rates by the original distances and new node times(Equation (\ref{in_HR1.2})$\sim$Equation (\ref{in_HR1.3})).
@@ -1037,7 +909,7 @@ So the determinant of ${{\mathbf{J}}_2}$ is calculated by Equation (\ref{SD_HR3}
 \left| {{{\mathbf{J}}_2}} \right| = \frac{{{t_X} - {t_L}}}{{{t_X}' - {t_L}}} \times \frac{{{t_X} - {t_R}}}{{{t_X}' - {t_R}}}
 \end{equation}
 \subsection*{Calculating the Green ratio for Small Pulley}
-Small Pulley proposes a new genetic distance of branch on one side of the root by adding a random number $b$, which is equal to adding a random number $b$ to the original product of rate and time on that branch. As a result, a new rate is proposed by Equation (\ref{SP_HR1.1}). Similarly, a new rate on another branch is proposed by Equation (\ref{SP_HR1.2}), because the total number of distances of both branches linked to the root is constant.
+Small Pulley proposes a new genetic distance of a branch on one side of the root by adding a random number $b$, which is equal to adding a random number $b$ to the original product of rate and time on that branch. As a result, a new rate is proposed by Equation (\ref{SP_HR1.1}). Similarly, a new rate on another branch is proposed by Equation (\ref{SP_HR1.2}), because the total distance of the two branches linked to the root should remain constant.
 \begin{subequations}\label{SP_HR1}
 \begin{equation}\label{SP_HR1.1}
 {r_L}' = \frac{{{r_L} \times ({t_X} - {t_L}) + b}}{{{t_X} - {t_L}}}
@@ -1110,7 +982,7 @@ Last but not least, due to the change of tree topology in \textit{Exchange (\tex
 \caption{Calculation of $\mu$ for Big pulley}
 \label{alg1}
 \begin{algorithmic}[1]
-\IF{the node that has been exchanged with \textbf{dau} or \textbf{dau} has child nodes}
+\IF{either the node that has been exchanged with \textbf{dau} or \textbf{dau} itself has child nodes}
 \STATE $\alpha  = \beta  = 0.25$
 \ELSIF{${t_R} > {t_L}$}
 \STATE $\alpha  = 1,\beta  = 0.5$
@@ -1138,7 +1010,7 @@ Last but not least, due to the change of tree topology in \textit{Exchange (\tex
 \ENDFOR
 \end{algorithmic}
 \end{algorithm}
-\subsection{Sampling from the prior}
+\subsection*{Sampling from the prior}
 In Figure \ref{sampleprior}, a tree with three taxa $A$, $B$ and $C$ (plus one internal node $D$, and root $E$) is used as a small example in this experiment. In the figure, $g_1$ is set as the initial tree. Firstly, a LogNormal distribution is used as the rate prior in the uncorrelated relaxed clock model, given by Equation (\ref{rateprior}).
 \begin{equation}\label{rateprior}
 r = \{{r_A}\quad{r_B}\quad{r_C}\quad{r_D}\} \sim LogNormal(M = -3, S = 0.5)
@@ -1175,13 +1047,13 @@ The root time $t_E$ is sampled by Simple Distance, which ranges from 1 to positi
 p(r,t) = \int_{{t_E} = 1}^{ + \infty } {p({t_E},{t_D}) \times p(\frac{{{d_A}}}{{{t_D}}}) \times p(\frac{{{d_B}}}{{{t_D}}}) \times p(\frac{{{d_D}}}{{{t_E} - {t_D}}}) \times p(\frac{{{d_C}}}{{{t_E}}}){d_{t_E}}}
 \end{equation}
 
-The results are given in Table \ref{res_sma} and Figure \ref{Fig.sub.5}. As can be seen, the mean and the standard deviation of MCMC samples and numerical integration are close to each other, which confirms that the two distribution are the same. Thus, Simple Distance is proved to be correct.
+The results are given in Table \ref{res_sma} and Figure \ref{res_roo1}(a). As can be seen, the mean and the standard deviation of MCMC samples and numerical integration are close to each other, which confirms that the two distribution are the same. Thus, Simple Distance is proved to be correct.
 
 \paragraph*{Using Small Pulley}
 
 Although both ${d_x}$ and ${d_i}$ are changed during the sampling process when using Small Pulley, the sum of ${d_D}$ and ${d_C}$ are kept 0.67 in this test, as the initial setting shown in Table \ref{ini_sim}. To make it simple, only ${d_D}$ is compared.
 
-Then, based on Equation (\ref{integration}), the exact distribution of ${d_i}$ can be obtained by Equation (\ref{integration3}), which is compared with the sampled distribution in Table \ref{res_sma} and Figure \ref{Fig.sub.6}. Even though there exist some errors, the sampled parameters can be considered to follow the same distribution. So the Small Pulley is also able to provide correct samples.
+Then, based on Equation (\ref{integration}), the exact distribution of ${d_i}$ can be obtained by Equation (\ref{integration3}), which is compared with the sampled distribution in Table \ref{res_sma} and Figure \ref{res_roo1}(b). Even though there exist some errors, the sampled parameters can be considered to follow the same distribution. So the Small Pulley is also able to provide correct samples.
 \begin{equation}\label{integration3}
 p(r,t) = \int_{{d_D} = 1}^{0.67} {p({t_E},{t_D}) \times p(\frac{{{d_A}}}{{{t_D}}}) \times p(\frac{{{d_B}}}{{{t_D}}}) \times p(\frac{{{d_D}}}{{{t_E} - {t_D}}}) \times p(\frac{{0.67 - {d_D}}}{{{t_E}}}){d_{d_D}}}
 \end{equation}
@@ -1195,7 +1067,23 @@ p(r,t) &= \int_{{t_E} = 0}^{ + \infty } {\int_{{t_D} = 0}^{{t_E}} {\int_{{d_D} =
 \end{aligned}
 \end{equation}
 
-The statistical measurements, i.e. mean and standard deviation, are compared in Table \ref{res_sma}. The histograms of samples and numerical curves of ${d_D}$ and ${t_E}$ are pictured in Figure \ref{Fig.sub.9} and Figure \ref{Fig.sub.10}. It is shown that the two distributions are consistent within the acceptable error range. Therefore, Big Pulley can also give the right combinations of rates and node times, under the condition that the genetic distances among taxa are constant.
+The statistical measurements, i.e. mean and standard deviation, are compared in Table \ref{res_sma}. The histograms of samples and numerical curves of ${d_D}$ and ${t_E}$ are pictured in Figure \ref{res_roo1}(c) and Figure \ref{res_roo1}(d). It is shown that the two distributions are consistent within the acceptable error range. Therefore, Big Pulley can also give the right combinations of rates and node times, under the condition that the genetic distances among taxa are constant.
 
+\subsection*{UcldstdevScalerOperator: a scale operator on standard deviation}
+It should be noted that the proposed ConstantDistance operator parameterises branch rates as continuous random variables, instead of discrete rate categories as is used in current BEAST2 settings. In uncorrelated relaxed clock model, branch rates are assumed to have a lognormal prior distribution, where the real mean is fixed to 1 and the standard deviation (denoted by Ucldstdev) is usually sampled with a hyper prior such as gamma($\alpha = 0.5396, \beta = 0.3819$). When a new Ucldstdev is proposed in one state during MCMC sampling by normal operators, the probability of all rates change as well under the new log normal distribution. Therefore, the authors implemented a separate operator working on Ucldstdev, which is able to solve this problem properly. 
+
+The first step is to propose a new Ucldstdev by a scale operation, which multiplies  current Ucldstdev by a random factor, as is shown in Equation (\ref{ucldstdev_multiplier}).
+\begin{equation}\label{ucldstdev_multiplier}
+Ucldstdev' = Ucldstdev \times {\rm{scale}}
+\end{equation}
+where ${\rm{scale = Factor  +  }}\left[ {\xi  \times {\rm{(}}\frac{1}{{{\rm{Factor}}}}{\rm{  -  Factor)}}} \right]$ and  $\xi$ is a random variable from a $Uniform(0,1)$,  ${\rm{Factor}}$ is a user-defined parameter to specify how bold the proposal is.
+
+Secondly, all the branch rates are proposed based on the new $Ucldstdev'$, given the probability of original $Ucldstdev$, which is calculated using Equation (\ref{ucldstdev_rates}).
+\begin{equation}\label{ucldstdev_rates}
+r_{i}' = icd{f_{stdev'}}\left[ {cd{f_{stdev}}({r_i})} \right]
+\end{equation}
+where the notations $cdf(\cdot)$ and $icdf(\cdot)$ represent the cumulative and inverse cumulative density function of log normal distribution.
+
+Finally, it is important to return the corrected hastings ratio since the proposal is associated with one random variable, $Ucldstdev$ and $(2n-1)$ branch rates.
 \end{backmatter}
 \end{document}
