@@ -1084,6 +1084,11 @@ r_{i}' = icd{f_{stdev'}}\left[ {cd{f_{stdev}}({r_i})} \right]
 \end{equation}
 where the notations $cdf(\cdot)$ and $icdf(\cdot)$ represent the cumulative and inverse cumulative density function of log normal distribution.
 
-Finally, it is important to return the corrected hastings ratio since the proposal is associated with one random variable, $Ucldstdev$ and $(2n-1)$ branch rates.
+Finally, it is important to return the corrected hastings ratio, since the proposal is associated with one random variable, $Ucldstdev$ and $(2n-1)$ branch rates. As is shown in Equation (\ref{ucldstdev_hr}), the ratio includes the scale operation and rates changing under the same probability.
+\begin{equation}\label{ucldstdev_hr}
+{{\mathbf{J}}_{Ucldstdev}} = \frac{1}{{scale}} \times \prod\limits_{i = 1}^{2n - 1} {\frac{{\partial icd{f_{Ucldstdev'}}[cd{f_{Ucldstdev}}({r_i})]}}{{\partial {r_i}}}}
+\end{equation}
+
+
 \end{backmatter}
 \end{document}
