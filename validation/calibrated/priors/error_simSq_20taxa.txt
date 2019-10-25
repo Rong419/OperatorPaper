@@ -1,0 +1,1 @@
+File: getPriorSamplesFor20Taxa.xml seed: 1571968232614 threads: 8

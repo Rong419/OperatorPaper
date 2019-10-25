@@ -7,8 +7,8 @@ args = commandArgs(trailingOnly=TRUE)
 logfile.folder <- args[1] 
 output.txt.folder  <- args[2]
 
-#logfile.folder <- "~/Desktop/validation/well_calibrated/" 
-#output.txt.folder  <- "~/Desktop/validation/well_calibrated/output/" 
+#logfile.folder <- "~/validation/calibrated/priors/" 
+#output.txt.folder  <- "~/validation/calibrated/true/" 
 
 
 Taxa = c(20,120)

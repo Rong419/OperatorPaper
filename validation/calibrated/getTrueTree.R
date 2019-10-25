@@ -7,8 +7,8 @@ args = commandArgs(trailingOnly=TRUE)
 treefile.folder <- args[1] 
 output.txt.folder  <- args[2]
 
-#treefile.folder <- "~/Desktop/validation/well_calibrated/" 
-#output.txt.folder  <- "~/Desktop/validation/well_calibrated/output/" 
+#treefile.folder <- "~/validation/calibrated/priors/" 
+#output.txt.folder  <- "~/validation/calibrated/true/" 
 
 # get M samples in log file
 # in log file, there 10001 states
