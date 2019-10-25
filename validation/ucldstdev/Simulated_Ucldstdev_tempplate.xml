@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><beast beautitemplate='Standard' beautistatus='' namespace="consoperators:beast.core:beast.evolution.alignment:beast.evolution.tree.coalescent:beast.core.util:beast.evolution.nuc:beast.evolution.operators:beast.evolution.sitemodel:beast.evolution.substitutionmodel:beast.evolution.likelihood" required="BEAST v2.5.0" version="2.5">
+
+    <data spec='beast.app.seqgen.SimulatedAlignment' id="ucldstdev"
+	  sequencelength="5000"
+	  outputFileName="alignment_FILEHERE.xml">
+
+
+      <tree id='tree' spec='beast.util.TreeParser'
+	    newick="(((1:0.9694948587,(12:0.2034744155,20:0.2034744155):0.7660204432):0.01320202454,(2:0.0838611527,10:0.0838611527):0.8988357306):0.4444403396,((3:1.217042811,(4:0.03123953382,14:0.03123953382):1.185803277):0.04748584727,((((5:0.333932313,(6:0.008736326447,17:0.008736326447):0.3251959866):0.2548217492,((11:0.08673682707,19:0.08673682707):0.144557797,(13:0.1981637831,15:0.1981637831):0.03313084094):0.3574594382):0.3463382326,((7:0.4028323224,(8:0.07098291933,9:0.07098291933):0.331849403):0.3363717675,16:0.7392040899):0.195888205):0.2861757924,18:1.221268087):0.04326057083):0.1626085648):0;"
+	    IsLabelledNewick="true"/>
+
+      <data spec='Alignment' id="input_alignment" dataType="nucleotide">
+          <sequence taxon="1">?</sequence>
+          <sequence taxon="2">?</sequence>
+          <sequence taxon="3">?</sequence>
+          <sequence taxon="4">?</sequence>
+          <sequence taxon="5">?</sequence>
+          <sequence taxon="6">?</sequence>
+          <sequence taxon="7">?</sequence>
+          <sequence taxon="8">?</sequence>
+          <sequence taxon="9">?</sequence>
+          <sequence taxon="10">?</sequence>
+          <sequence taxon="11">?</sequence>
+          <sequence taxon="12">?</sequence>
+          <sequence taxon="13">?</sequence>
+          <sequence taxon="14">?</sequence>
+          <sequence taxon="15">?</sequence>
+          <sequence taxon="16">?</sequence>
+          <sequence taxon="17">?</sequence>
+          <sequence taxon="18">?</sequence>
+          <sequence taxon="19">?</sequence>
+          <sequence taxon="20">?</sequence>
+      </data>
+
+      <siteModel spec='SiteModel' id="siteModel" gammaCategoryCount='1'>
+      <substModel spec='HKY' id='hky'>
+      <parameter name='kappa' id="hky.kappa" value="3.0" lower="0.0"/>
+      <frequencies id='freqs' spec='Frequencies' frequencies="0.196485701763322 0.243555362253289 0.272913059618398 0.287045876364991"/>
+      </substModel>
+      </siteModel>
+      <branchRateModel id="UCRelaxedClock" spec="beast.evolution.branchratemodel.UCRelaxedClockModel" tree="@tree">
+      <parameter id="ucldMean" estimate="false" name="clock.rate">1.0</parameter>
+      <parameter id="branchrates" name="rates" spec="parameter.RealParameter" dimension="38">1.0</parameter>
+      <distr id='lognormal' spec="beast.math.distributions.LogNormalDistributionModel" meanInRealSpace="true">
+      <parameter name='M' id='M' value="1.0"/>
+      <parameter name='S' id='ucld.stdev' value="UCLDHERE"/>
+      </distr>
+      </branchRateModel>
+    </data>
+
+    <map name="Uniform" >beast.math.distributions.Uniform</map>
+    <map name="Exponential" >beast.math.distributions.Exponential</map>
+    <map name="LogNormal" >beast.math.distributions.LogNormalDistributionModel</map>
+    <map name="Normal" >beast.math.distributions.Normal</map>
+    <map name="Beta" >beast.math.distributions.Beta</map>
+    <map name="Gamma" >beast.math.distributions.Gamma</map>
+    <map name="LaplaceDistribution" >beast.math.distributions.LaplaceDistribution</map>
+    <map name="prior" >beast.math.distributions.Prior</map>
+    <map name="InverseGamma" >beast.math.distributions.InverseGamma</map>
+    <map name="OneOnX" >beast.math.distributions.OneOnX</map>
+    <map name="Dirichlet" >beast.math.distributions.Dirichlet</map>
+
+    <run id="mcmc" spec="MCMC" chainLength="10000000">
+        <state id="state" storeEvery="5000">
+            <tree id="Tree.t:ucldstdev" name="stateNode">
+                <taxonset id="TaxonSet.ucldstdev" spec="TaxonSet">
+                    <alignment idref="ucldstdev"/>
+                </taxonset>
+            </tree>
+        <parameter id="ucldStdev.c:ucldstdev" lower="0.0" name="stateNode">0.2</parameter>
+        <stateNode id="rates.c:ucldstdev" spec="parameter.RealParameter" dimension="38">1.0</stateNode>
+        <parameter id="BirthRate.t:ucldstdev" name="stateNode">2.0</parameter>
+        <parameter id="kappa.t:ucldstdev" lower="0.0" name="stateNode">2.0</parameter>
+        <parameter id="freqParameter.t:ucldstdev" dimension="4" name="stateNode">0.25</parameter>
+        </state>
+
+        <init id="RandomTree.t:dna" spec="beast.evolution.tree.RandomTree" estimate="false" initial="@Tree.t:ucldstdev" taxa="@ucldstdev">
+            <populationModel id="ConstantPopulation0.t:ucldstdev" spec="ConstantPopulation">
+                <parameter id="randomPopSize.t:ucldstdev" name="popSize">1.0</parameter>
+            </populationModel>
+        </init>
+
+        <distribution id="posterior" spec="util.CompoundDistribution">
+            <distribution id="prior" spec="util.CompoundDistribution">
+            <distribution id="YuleModel.t:ucldstdev" spec="beast.evolution.speciation.YuleModel" birthDiffRate="@BirthRate.t:ucldstdev" tree="@Tree.t:ucldstdev"/>
+            <prior id="BirthRatePrior.t:ucldstdev" name="distribution" x="@BirthRate.t:ucldstdev">
+                <LogNormal id="LogNormalDistribution1" S="0.2"  M="0.7" meanInRealSpace="false" name="distr">
+                </LogNormal>
+            </prior>
+
+            <prior id="FrequencyPrior.t:ucldstdev" name="distribution" x="@freqParameter.t:ucldstdev">
+                <Dirichlet id="Dirichlet1" alpha="10 10 10 10" name="distr"/>
+            </prior>
+
+            <prior id="KappaPrior.t:ucldstdev" name="distribution" x="@kappa.t:ucldstdev">
+                <LogNormal id="LogNormalDistribution0" S="0.2"  M="1.0" meanInRealSpace="false"  name="distr"/>
+            </prior>
+
+            <prior id="RatePrior.t:ucldstdev" name="distribution" x="@rates.c:ucldstdev">
+                <LogNormal id="LogNormalDistribution2" S="@ucldStdev.c:ucldstdev"  M="1.0" meanInRealSpace="true" name="distr"/>
+            </prior>
+
+            <prior id="ucldStdevPrior.c:ucldstdev" name="distribution" x="@ucldStdev.c:ucldstdev">
+                <Gamma id="Gamma.0" name="distr">
+                    <parameter id="RealParameter.4" spec="parameter.RealParameter" estimate="false" name="alpha">0.5396</parameter>
+                    <parameter id="RealParameter.5" spec="parameter.RealParameter" estimate="false" name="beta">0.3819</parameter>
+                </Gamma>
+            </prior>
+            </distribution>
+
+            <distribution id="likelihood" spec="util.CompoundDistribution" useThreads="true">
+                <distribution id="treeLikelihood.ucldstdev" spec="ThreadedTreeLikelihood" data="@ucldstdev" tree="@Tree.t:ucldstdev">
+                    <siteModel id="SiteModel.t:ucldstdev" spec="SiteModel">
+                        <parameter id="mutationRate.t:ucldstdev" estimate="false" name="mutationRate">1.0</parameter>
+                        <parameter id="gammaShape.t:ucldstdev" estimate="false" name="shape">1.0</parameter>
+                        <parameter id="proportionInvariant.t:ucldstdev" estimate="false" lower="0.0" name="proportionInvariant" upper="1.0">0.0</parameter>
+                        <substModel id="hky.t:ucldstdev" spec="HKY" kappa="@kappa.t:ucldstdev">
+                            <frequencies id="estimatedFreqs.t:ucldstdev" spec="Frequencies" frequencies="@freqParameter.t:ucldstdev"/>
+                        </substModel>
+                    </siteModel>
+                    <branchRateModel id="RelaxedClock.c:ucldstdev" spec="beast.evolution.branchratemodel.UCRelaxedClockModel"
+                                     rates="@rates.c:ucldstdev" tree="@Tree.t:ucldstdev" distr="@LogNormalDistribution2">
+                        <parameter id="ucldMean.c:ucldstdev" estimate="false" name="clock.rate">1.0</parameter>
+                    </branchRateModel>
+                </distribution>
+            </distribution>
+        </distribution>
+
+        <operator id="InternalnodesOperator.c:dna" spec="InConstantDistanceOperator" 
+                  twindowSize="0.017"  tree="@Tree.t:ucldstdev" rates="@rates.c:ucldstdev"  weight="10.0"/>
+
+        <operator id="RootOperator1.c:dna" spec="SimpleDistance"
+                  twindowSize="0.055" tree="@Tree.t:ucldstdev" rates="@rates.c:ucldstdev"  weight="0.5"/>
+
+        <operator id="RootOperator2.c:dna" spec="SmallPulley"
+                  dwindowSize="0.038" tree="@Tree.t:ucldstdev" rates="@rates.c:ucldstdev"  weight="0.5"/>
+
+        <operator id="RootOperator3.c:dna" spec="BigPulley"
+                  twindowSize="0.017" dwindowSize="0.032" tree="@Tree.t:ucldstdev" rates="@rates.c:ucldstdev"  weight="0.1"/>
+
+        <operator id="RatesRandomWalk.c:ucldstdev" spec="RealRandomWalkOperator" parameter="@rates.c:ucldstdev" weight="5.0" windowSize="0.1"/>
+
+        <operator id="RatesSwapOperator.c:ucldstdev" spec="SwapOperator" parameter="@rates.c:ucldstdev" weight="5.0"/>
+                
+        <operator id="YuleTreeScaler.t:ucldstdev" spec="ScaleOperator" scaleFactor="0.5" tree="@Tree.t:ucldstdev" weight="10.0"/>
+
+        <operator id="YuleTreeRootScaler.t:ucldstdev" spec="ScaleOperator" rootOnly="true" scaleFactor="0.5" tree="@Tree.t:ucldstdev" weight="5.0"/>
+
+        <operator id="YuleBirthRateScaler.t:ucldstdev" spec="ScaleOperator" parameter="@BirthRate.t:ucldstdev" scaleFactor="0.75" weight="10.0"/>
+
+        <operator id="YuleModelUniformOperator.t:ucldstdev" spec="Uniform" tree="@Tree.t:ucldstdev" weight="10.0"/>
+
+        <operator id="YuleModelSubtreeSlide.t:ucldstdev" spec="SubtreeSlide" tree="@Tree.t:ucldstdev" weight="5.0"/>
+
+        <operator id="YuleModelhNarrow.t:ucldstdev" spec="Exchange" tree="@Tree.t:ucldstdev" weight="5.0"/>
+
+        <operator id="YuleModelWide.t:ucldstdev" spec="Exchange" isNarrow="false" tree="@Tree.t:ucldstdev" weight="5.0"/>
+
+        <operator id="YuleModelWilsonBalding.t:ucldstdev" spec="WilsonBalding" tree="@Tree.t:ucldstdev" weight="5.0"/>
+
+        <operator id="KappaScaler.s:dna" spec="ScaleOperator" parameter="@kappa.t:ucldstdev" scaleFactor="0.5" weight="1.0"/>
+
+        <operator id="FrequenciesExchanger.s:dna" spec="DeltaExchangeOperator" delta="0.01" weight="0.2">
+            <parameter idref="freqParameter.t:ucldstdev"/>
+        </operator>
+
+        <operator id="ucldStdevScaler.c:ucldstdev" spec="consoperators.UcldScalerOperator"
+                  rates="@rates.c:ucldstdev" stdev="@ucldStdev.c:ucldstdev" distr="@LogNormalDistribution2" scaleFactor="0.5" weight="5.0"/>
+
+        <logger id="tracelog" fileName="FILEHERE.log" logEvery="2000" model="@posterior" sanitiseHeaders="true" sort="smart">
+            <log idref="posterior"/>
+            <log idref="likelihood"/>
+            <log idref="prior"/>
+            <log idref="treeLikelihood.ucldstdev"/>
+            <log id="TreeLength.t:ucldstdev" spec="beast.evolution.tree.TreeStatLogger" tree="@Tree.t:ucldstdev"/>
+            <log id="rate.c:ucldstdev" spec="beast.evolution.branchratemodel.RateStatistic" branchratemodel="@RelaxedClock.c:ucldstdev" tree="@Tree.t:ucldstdev"/>
+            <log idref="kappa.t:ucldstdev"/>
+            <log idref="freqParameter.t:ucldstdev"/>
+            <log idref="ucldStdev.c:ucldstdev"/>
+            <log idref="BirthRate.t:ucldstdev"/>
+        </logger>
+
+        <logger id="screenlog" logEvery="10000">
+            <log idref="posterior"/>
+            <log id="ESS.0" spec="util.ESS" arg="@posterior"/>
+            <log idref="likelihood"/>
+            <log idref="prior"/>
+        </logger>
+
+        <logger id="treelog.t:ucldstdev" fileName="FILEHERE.trees" logEvery="2000" mode="tree">
+            <log id="TreeWithMetaDataLogger.t:ucldstdev" spec="beast.evolution.tree.TreeWithMetaDataLogger" branchratemodel="@RelaxedClock.c:ucldstdev" tree="@Tree.t:ucldstdev"/>
+        </logger>
+
+    </run>
+
+</beast>
