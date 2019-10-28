@@ -8,9 +8,9 @@ log.file.path <- args[3]
 true.txt.path <- args[4]
 output.figure.folder <- args[5]
 
-#log.file.path <- "~/Desktop/validation/calibrated/logs/"
-#true.txt.path <- "~/Desktop/validation/calibrated/true/"
-#output.figure.folder <- "~/Desktop/validation/calibrated/figures/"
+#log.file.path <- "/Users/ryanzhang/Documents/UOALearning/OperatorPaper/validation/calibrated/logs/"
+#true.txt.path <- "/Users/ryanzhang/Documents/UOALearning/OperatorPaper/validation/calibrated/true/"
+#output.figure.folder <- "/Users/ryanzhang/Documents/UOALearning/OperatorPaper/validation/calibrated/figures/"
 
 # the prefix of true data file .txt
 # which is also the abbreviations of parameters to compare
@@ -27,23 +27,35 @@ for (para.name in parameter.names) {
 # iterating all the simulations to get 95% HPD and posterior mean
 for (i in 1:n.sim) {
    this.sim.df = read.table(file=paste0(log.file.path,"/calibrated",taxa,"taxa_",i,".log"),sep="\t",header=T)
-   log.TreH[i,1:3] = get.95(this.sim.df$Tree.height[501:5001])
-   log.TreL[i,1:3] = get.95(this.sim.df$Tree.treeLength[501:5001])
-   log.Kap[i,1:3] = get.95(this.sim.df$kappa[501:5001])
-   log.Ucld[i,1:3] = get.95(this.sim.df$ucldStdev[501:5001])
-   log.Bir[i,1:3] = get.95(this.sim.df$BirthRate[501:5001])
-   log.RatM[i,1:3] = get.95(this.sim.df$rate.mean[501:5001])
-   log.Freq1[i,1:3] = get.95(this.sim.df$freqParameter.1[501:5001])
-   log.Freq2[i,1:3] = get.95(this.sim.df$freqParameter.2[501:5001])
-   log.Freq3[i,1:3] = get.95(this.sim.df$freqParameter.3[501:5001])
-   log.Freq4[i,1:3] = get.95(this.sim.df$freqParameter.4[501:5001])
+   u=length(this.sim.df$Sample)
+   l=0.1*u
+   log.TreH[i,1:3] = get.95(this.sim.df$Tree.height[l:u])
+   log.TreL[i,1:3] = get.95(this.sim.df$Tree.treeLength[l:u])
+   log.Kap[i,1:3] = get.95(this.sim.df$kappa[l:u])
+   log.Ucld[i,1:3] = get.95(this.sim.df$ucldStdev[l:u])
+   log.Bir[i,1:3] = get.95(this.sim.df$BirthRate[l:u])
+   log.RatM[i,1:3] = get.95(this.sim.df$rate.mean[l:u])
+   log.Freq1[i,1:3] = get.95(this.sim.df$freqParameter.1[l:u])
+   log.Freq2[i,1:3] = get.95(this.sim.df$freqParameter.2[l:u])
+   log.Freq3[i,1:3] = get.95(this.sim.df$freqParameter.3[l:u])
+   log.Freq4[i,1:3] = get.95(this.sim.df$freqParameter.4[l:u])
+   #log.TreH[i,1:3] = get.95(this.sim.df$Tree.height[501:5001])
+   #log.TreL[i,1:3] = get.95(this.sim.df$Tree.treeLength[501:5001])
+   #log.Kap[i,1:3] = get.95(this.sim.df$kappa[501:5001])
+   #log.Ucld[i,1:3] = get.95(this.sim.df$ucldStdev[501:5001])
+   #log.Bir[i,1:3] = get.95(this.sim.df$BirthRate[501:5001])
+   #log.RatM[i,1:3] = get.95(this.sim.df$rate.mean[501:5001])
+   #log.Freq1[i,1:3] = get.95(this.sim.df$freqParameter.1[501:5001])
+   #log.Freq2[i,1:3] = get.95(this.sim.df$freqParameter.2[501:5001])
+   #log.Freq3[i,1:3] = get.95(this.sim.df$freqParameter.3[501:5001])
+   #log.Freq4[i,1:3] = get.95(this.sim.df$freqParameter.4[501:5001])
 }
 
-TreH.res <- get.calibrated.plot(true.TreH,log.TreH, n.sim, 0,4,0,4,"TreeHeight")
-TreL.res <- get.calibrated.plot(true.TreL,log.TreL, n.sim, 4,17,4,17,"TreeLength")
-Kap.res <- get.calibrated.plot(true.Kap,log.Kap, n.sim, 0,1,0,1,"Kappa")
+TreH.res <- get.calibrated.plot(true.TreH,log.TreH, n.sim, 0,2,0,2,"TreeHeight")
+TreL.res <- get.calibrated.plot(true.TreL,log.TreL, n.sim, 0,8,0,8,"TreeLength")
+Kap.res <- get.calibrated.plot(true.Kap,log.Kap, n.sim, 1,5,1,5,"Kappa")
 Ucld.res <- get.calibrated.plot(true.Ucld,log.Ucld, n.sim, 0,0.6,0,0.6,"UcldStdev")
-Bir.res <- get.calibrated.plot(true.Bir,log.Bir, n.sim,1,4,1,4,"BithRate")
+Bir.res <- get.calibrated.plot(true.Bir,log.Bir, n.sim,2,30,2,30,"BithRate")
 
 #TreH.res <- get.calibrated.plot(true.TreH,log.TreH, n.sim, 1,10,1,10,"TreeHeight")
 #TreL.res <- get.calibrated.plot(true.TreL,log.TreL, n.sim, 30,250,30,250,"TreeLength")
