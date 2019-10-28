@@ -1,7 +1,7 @@
 #!/bin/sh
 
 
-TEMPLATE=Simulated_Ucldstdev_tempplate.xml
+TEMPLATE=Simulated_Ucldstdev_template.xml
 k=1
 for ucld in $(seq 0.1 0.1 1)
 do 

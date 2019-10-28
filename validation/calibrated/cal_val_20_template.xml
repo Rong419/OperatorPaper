@@ -42,7 +42,7 @@
       </siteModel>
       <branchRateModel id="UCRelaxedClock" spec="beast.evolution.branchratemodel.UCRelaxedClockModel" tree="@tree">
       <parameter id="ucldMean" estimate="false" name="clock.rate">1.0</parameter>
-      <parameter id="branchrates" name="rates" spec="parameter.RealParameter" dimension="38">1.0</parameter>
+      <parameter id="branchrates" name="rateCategories" spec="parameter.IntegerParameter" dimension="38">1</parameter>
       <distr id='lognormal' spec="beast.math.distributions.LogNormalDistributionModel" meanInRealSpace="true">
       <parameter name='M' id='M' value="1.0"/>
       <parameter name='S' id='ucld.stdev' value="UCLDSTD"/>
