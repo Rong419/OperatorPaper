@@ -1,0 +1,1 @@
+/Applications/BEAST2.6.0/bin/loganalyser -oneline /Users/ryanzhang/Documents/UOALearning/OperatorPaper/validation/ucldstdev/logs/*.log >/Users/ryanzhang/Documents/UOALearning/OperatorPaper/validation/ucldstdev/ess/ESS_ucldstdev.txt

@@ -9,6 +9,10 @@ bmc_template/bmc_article.log
 bmc_template/bmc_article.synctex.gz
 bmc_template/bmc_article.synctex
 bmc_template/bmc_article.dvi
+validation/calibrated/logs/
 validation/calibrated/xml/
 validation/ucldstdev/xml/
+validation/ucldstdev/logs/
+validation/ucldstdev/output/
+validation/efficiency/simulated/xmls/xml/
 validation/efficiency/others/xml/xml/
