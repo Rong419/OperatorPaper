@@ -2,10 +2,11 @@
 
 for data in {anolis,Shankarappa,RSV2}
 do
-	for model in {Cons,Category}
-	do
+model=Cons
+	#for model in {Cons,Category}
+	#do
 	/Applications/BEAST2.6.0/bin/loganalyser -oneline /Users/ryanzhang/Documents/UOALearning/OperatorPaper/validation/efficiency/others/${data}${model}/logs/*.log >/Users/ryanzhang/Documents/UOALearning/OperatorPaper/validation/efficiency/others/ess/ESS_${data}${model}.txt
-	done	
+	#done	
 done
 
 
