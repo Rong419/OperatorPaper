@@ -5,6 +5,7 @@ get.simulated.efficiency <- function(txt.df, time.df) {
   prior = txt.df$prior.ESS / time.df
   birth.rate = txt.df$BirthRate.ESS / time.df
   tree.height = txt.df$Tree.height.ESS / time.df
+  tree.length = txt.df$Tree.treeLength.ESS / time.df
   ucld.stdev = txt.df$ucldStdev.ESS / time.df
   rate.mean = txt.df$rate.mean.ESS / time.df
   rate.variance = txt.df$rate.variance.ESS / time.df
@@ -14,7 +15,7 @@ get.simulated.efficiency <- function(txt.df, time.df) {
   frequency2 = txt.df$freqParameter.2.ESS / time.df
   frequency3 = txt.df$freqParameter.3.ESS / time.df
   frequency4 = txt.df$freqParameter.4.ESS / time.df
-  data = data.frame(cbind(posterior,likelihood,prior,birth.rate,tree.height,ucld.stdev,rate.mean,rate.variance,rate.coeff,kappa,frequency1,frequency2,frequency3,frequency4))
+  data = data.frame(cbind(posterior,likelihood,prior,birth.rate,tree.height,tree.length,ucld.stdev,rate.mean,rate.variance,rate.coeff,kappa,frequency1,frequency2,frequency3,frequency4))
   return (data)
 }
 

@@ -15,4 +15,8 @@ validation/ucldstdev/xml/
 validation/ucldstdev/logs/
 validation/ucldstdev/output/
 validation/efficiency/simulated/xmls/xml/
+validation/efficiency/simulated/20taxa/MediumCategory/logs/
+validation/efficiency/simulated/20taxa/ShortCategory/output/
+validation/efficiency/simulated/20taxa/MediumCons/logs/
+validation/efficiency/simulated/20taxa/ShortCons/output/
 validation/efficiency/others/xml/xml/
