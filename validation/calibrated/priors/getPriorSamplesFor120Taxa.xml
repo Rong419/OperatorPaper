@@ -169,7 +169,7 @@
 
             <distribution id="YuleModel.t:simSeq" spec="beast.evolution.speciation.YuleModel" birthDiffRate="@BirthRate.t:simSeq" tree="@Tree.t:simSeq"/>
             <prior id="BirthRatePrior.t:simSeq" name="distribution" x="@BirthRate.t:simSeq">
-				<LogNormal id="LogNormalDistribution1" S="0.3"  M="6" meanInRealSpace="true" name="distr"/>
+				<LogNormal id="LogNormalDistribution1" S="0.3"  M="10" meanInRealSpace="true" name="distr"/>
             </prior>
 
             <prior id="FrequencyPrior.t:simSeq" name="distribution" x="@freqParameter.t:simSeq">

@@ -86,7 +86,7 @@
             <distribution id="prior" spec="util.CompoundDistribution">
             <distribution id="YuleModel.t:calsim" spec="beast.evolution.speciation.YuleModel" birthDiffRate="@BirthRate.t:calsim" tree="@Tree.t:calsim"/>
             <prior id="BirthRatePrior.t:calsim" name="distribution" x="@BirthRate.t:calsim">
-				<LogNormal id="LogNormalDistribution1" S="2"  M="1000" meanInRealSpace="true" name="distr"/>
+       			<LogNormal id="LogNormalDistribution1" S="0.3"  M="10" meanInRealSpace="true" name="distr"/>
             </prior>
 
             <prior id="FrequencyPrior.t:calsim" name="distribution" x="@freqParameter.t:calsim">
