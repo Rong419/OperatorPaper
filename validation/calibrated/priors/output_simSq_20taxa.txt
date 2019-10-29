@@ -1,0 +1,64 @@
+
+                   BEAST v2.6.1 Prerelease, 2002-2019
+             Bayesian Evolutionary Analysis Sampling Trees
+                       Designed and developed by
+ Remco Bouckaert, Alexei J. Drummond, Andrew Rambaut & Marc A. Suchard
+                                    
+                   Centre for Computational Evolution
+                         University of Auckland
+                       r.bouckaert@auckland.ac.nz
+                        alexei@cs.auckland.ac.nz
+                                    
+                   Institute of Evolutionary Biology
+                        University of Edinburgh
+                           a.rambaut@ed.ac.uk
+                                    
+                    David Geffen School of Medicine
+                 University of California, Los Angeles
+                           msuchard@ucla.edu
+                                    
+                      Downloads, Help & Resources:
+                           http://beast2.org/
+                                    
+  Source code distributed under the GNU Lesser General Public License:
+                   http://github.com/CompEvol/beast2
+                                    
+                           BEAST developers:
+   Alex Alekseyenko, Trevor Bedford, Erik Bloomquist, Joseph Heled, 
+ Sebastian Hoehna, Denise Kuehnert, Philippe Lemey, Wai Lok Sibon Li, 
+Gerton Lunter, Sidney Markowitz, Vladimir Minin, Michael Defoin Platel, 
+          Oliver Pybus, Tim Vaughan, Chieh-Hsi Wu, Walter Xie
+                                    
+                               Thanks to:
+          Roald Forsberg, Beth Shapiro and Korbinian Strimmer
+
+Random number seed: 1572314933519
+
+1: 1 4
+2: 1 4
+3: 1 4
+4: 1 4
+5: 1 4
+6: 1 4
+7: 1 4
+8: 1 4
+9: 1 4
+10: 1 4
+11: 1 4
+12: 1 4
+13: 1 4
+14: 1 4
+15: 1 4
+16: 1 4
+17: 1 4
+18: 1 4
+19: 1 4
+20: 1 4
+Alignment(simSeq)
+  20 taxa
+  1 site
+
+  UCRelaxedClockModel: using real rates for rate distribution across branches.
+Writing file simSeq_20taxa.log
+Writing file simSeq_20taxa.trees
+Direct simulation of 2000000 samples completed.
