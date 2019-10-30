@@ -194,7 +194,7 @@ name="alignment">
 
     <operator id="RatesSwapOperator.c:primates" spec="SwapOperator" parameter="@rates.c:primates" weight="6.0"/>
 
-    <operator id="FastUcldStdevScaler.c:primates" spec="consoperators.UcldScalerOperator" distr="@LogNormalDistributionModel.c:primates" rates="@rates.c:primates" scaleFactor="0.5" stdev="@ucldStdev.c:primates" weight="7.0"/>
+    <operator id="FastUcldStdevScaler.c:primates" spec="consoperators.UcldScalerOperator" distr="@LogNormalDistributionModel.c:primates" rates="@rates.c:primates" scaleFactor="0.5" stdev="@ucldStdev.c:primates" weight="10.0"/>
 
     <operator id="YuleModelTreeScaler.t:primates" spec="ScaleOperator" scaleFactor="0.5" tree="@Tree.t:primates" weight="5.0"/>
 
@@ -210,13 +210,13 @@ name="alignment">
 
     <operator id="YuleModelWilsonBalding.t:primates" spec="WilsonBalding" tree="@Tree.t:primates" weight="10.0"/>
 
-    <operator id="YuleBirthRateScaler.t:primates" spec="ScaleOperator" parameter="@birthRate.t:primates" scaleFactor="0.75" weight="3.0"/>
+    <operator id="YuleBirthRateScaler.t:primates" spec="ScaleOperator" parameter="@birthRate.t:primates" scaleFactor="0.75" weight="5.0"/>
 
-    <operator id="FrequenciesExchanger.s:primates" spec="DeltaExchangeOperator" delta="0.01" weight="0.4">
+    <operator id="FrequenciesExchanger.s:primates" spec="DeltaExchangeOperator" delta="0.01" weight="0.5">
         <parameter idref="freqParameter.s:primates"/>
     </operator>
 
-    <operator id="KappaScaler.s:primates" spec="ScaleOperator" parameter="@kappa.t:primates" scaleFactor="0.5" weight="3.0"/>
+    <operator id="KappaScaler.s:primates" spec="ScaleOperator" parameter="@kappa.t:primates" scaleFactor="0.5" weight="5.0"/>
 
     <logger id="tracelog" spec="Logger" fileName="primatesMC3_FILE.log" logEvery="10000" model="@posterior" sanitiseHeaders="true" sort="smart">
         <log idref="posterior"/>
