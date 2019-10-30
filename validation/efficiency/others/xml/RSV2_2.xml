@@ -372,12 +372,12 @@ USALongs56=56                <taxa id="TaxonSet.RSV2" spec="TaxonSet">
     <operator id="RootOperator4.c:RSV2" spec="BigPulley"
               twindowSize="0.02" dwindowSize="0.02" tree="@Tree.t:RSV2" rates="@fastRates.c:RSV2"  weight="0.5"/>
 
-    <operator id="KappaScaler.s:RSV2" spec="ScaleOperator" parameter="@kappa.s:RSV2" scaleFactor="0.5" weight="1.0"/>
+    <operator id="KappaScaler.s:RSV2" spec="ScaleOperator" parameter="@kappa.s:RSV2" scaleFactor="0.5" weight="4.0"/>
 
-    <operator id="ucldMeanScaler.c:RSV2" spec="ScaleOperator" parameter="@ucldMean.c:RSV2" scaleFactor="0.5" weight="4.0"/>
+    <operator id="ucldMeanScaler.c:RSV2" spec="ScaleOperator" parameter="@ucldMean.c:RSV2" scaleFactor="0.5" weight="5.0"/>
 
     <operator id="FastUcldStdevScaler.c:dna" spec="consoperators.UcldScalerOperator"
-              rates="@fastRates.c:RSV2" stdev="@ucldStdev.c:RSV2" distr="@LogNormalDistributionModel.c:RSV2" scaleFactor="0.5" weight="10.0"/>
+              rates="@fastRates.c:RSV2" stdev="@ucldStdev.c:RSV2" distr="@LogNormalDistributionModel.c:RSV2" scaleFactor="0.5" weight="18.0"/>
               
     <operator id="FastRatesRandomWalk.c:RSV2" spec="RealRandomWalkOperator" parameter="@fastRates.c:RSV2" weight="10.0" windowSize="1"/>
 
@@ -402,9 +402,9 @@ USALongs56=56                <taxa id="TaxonSet.RSV2" spec="TaxonSet">
 
     <operator id="CoalescentConstantWilsonBalding.t:RSV2" spec="WilsonBalding" tree="@Tree.t:RSV2" weight="3.0"/>
 
-    <operator id="PopSizeScaler.t:RSV2" spec="ScaleOperator" parameter="@popSize.t:RSV2" scaleFactor="0.75" weight="15.0"/>
+    <operator id="PopSizeScaler.t:RSV2" spec="ScaleOperator" parameter="@popSize.t:RSV2" scaleFactor="0.75" weight="18.0"/>
 
-    <operator id="FrequenciesExchanger.s:RSV2" spec="DeltaExchangeOperator" delta="0.01" weight="0.4">
+    <operator id="FrequenciesExchanger.s:RSV2" spec="DeltaExchangeOperator" delta="0.01" weight="0.5">
         <parameter idref="freqParameter.s:RSV2"/>
     </operator>
 
