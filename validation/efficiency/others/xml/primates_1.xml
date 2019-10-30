@@ -110,7 +110,7 @@ name="alignment">
 <map name="OneOnX" >beast.math.distributions.OneOnX</map>
  <map name="Dirichlet" >beast.math.distributions.Dirichlet</map>
 
-<run id="mcmc" spec="MCMC" chainLength="100000000">
+<run id="mcmc" spec="MCMC" chainLength="80000000">
     <state id="state" storeEvery="20000">
         <tree id="Tree.t:primates" name="stateNode">
             <taxonset id="TaxonSet.primates" spec="TaxonSet">
@@ -223,7 +223,7 @@ name="alignment">
         <log idref="kappa.t:primates"/>
     </logger>
 
-    <logger id="screenlog" logEvery="1000000">
+    <logger id="screenlog" logEvery="800000">
         <log idref="posterior"/>
         <log id="ESS.0" spec="util.ESS" arg="@posterior"/>
         <log idref="likelihood"/>

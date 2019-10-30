@@ -182,7 +182,7 @@ name="alignment">
         </distribution>
     </distribution>
 
-    <operator id="InternalnodesOperator.c:primates" spec="consoperators.InConstantDistanceOperator" rates="@rates.c:primates" tree="@Tree.t:primates" twindowSize="0.2" weight="10.0"/>
+    <operator id="InternalnodesOperator.c:primates" spec="consoperators.InConstantDistanceOperator" rates="@rates.c:primates" tree="@Tree.t:primates" twindowSize="0.2" weight="20.0"/>
 
     <operator id="RootOperator1.c:primates" spec="consoperators.SimpleDistance" rates="@rates.c:primates" tree="@Tree.t:primates" twindowSize="0.2" weight="0.5"/>
 
@@ -190,11 +190,11 @@ name="alignment">
 
     <operator id="RootOperator3.c:primates" spec="consoperators.BigPulley" dwindowSize="0.04" rates="@rates.c:primates" tree="@Tree.t:primates" twindowSize="0.2" weight="0.5"/>
 
-    <operator id="RatesRandomWalk.c:primates" spec="RealRandomWalkOperator" parameter="@rates.c:primates" weight="5.0" windowSize="1.0"/>
+    <operator id="RatesRandomWalk.c:primates" spec="RealRandomWalkOperator" parameter="@rates.c:primates" weight="12.0" windowSize="1.0"/>
 
-    <operator id="RatesSwapOperator.c:primates" spec="SwapOperator" parameter="@rates.c:primates" weight="5.0"/>
+    <operator id="RatesSwapOperator.c:primates" spec="SwapOperator" parameter="@rates.c:primates" weight="6.0"/>
 
-    <operator id="FastUcldStdevScaler.c:primates" spec="consoperators.UcldScalerOperator" distr="@LogNormalDistributionModel.c:primates" rates="@rates.c:primates" scaleFactor="0.5" stdev="@ucldStdev.c:primates" weight="5.0"/>
+    <operator id="FastUcldStdevScaler.c:primates" spec="consoperators.UcldScalerOperator" distr="@LogNormalDistributionModel.c:primates" rates="@rates.c:primates" scaleFactor="0.5" stdev="@ucldStdev.c:primates" weight="7.0"/>
 
     <operator id="YuleModelTreeScaler.t:primates" spec="ScaleOperator" scaleFactor="0.5" tree="@Tree.t:primates" weight="5.0"/>
 
@@ -212,11 +212,11 @@ name="alignment">
 
     <operator id="YuleBirthRateScaler.t:primates" spec="ScaleOperator" parameter="@birthRate.t:primates" scaleFactor="0.75" weight="3.0"/>
 
-    <operator id="FrequenciesExchanger.s:primates" spec="DeltaExchangeOperator" delta="0.01" weight="0.2">
+    <operator id="FrequenciesExchanger.s:primates" spec="DeltaExchangeOperator" delta="0.01" weight="0.4">
         <parameter idref="freqParameter.s:primates"/>
     </operator>
 
-    <operator id="KappaScaler.s:primates" spec="ScaleOperator" parameter="@kappa.t:primates" scaleFactor="0.5" weight="2.0"/>
+    <operator id="KappaScaler.s:primates" spec="ScaleOperator" parameter="@kappa.t:primates" scaleFactor="0.5" weight="3.0"/>
 
     <logger id="tracelog" spec="Logger" fileName="primatesMC3_FILE.log" logEvery="10000" model="@posterior" sanitiseHeaders="true" sort="smart">
         <log idref="posterior"/>

@@ -1,0 +1,38 @@
+srun: WARNING: --mem and --mem-per-cpu are mutually exclusive.
+File: primates_2_12.xml seed: 1572296223954 threads: 8
+  Ignoring ambiguities in tree likelihood.
+  Ignoring character uncertainty in tree likelihood.
+  With 1527 unique site patterns.
+  Using rescaling scheme : dynamic
+  Ignoring ambiguities in tree likelihood.
+  Ignoring character uncertainty in tree likelihood.
+  With 1460 unique site patterns.
+  Using rescaling scheme : dynamic
+  Ignoring ambiguities in tree likelihood.
+  Ignoring character uncertainty in tree likelihood.
+  With 1421 unique site patterns.
+  Using rescaling scheme : dynamic
+  Ignoring ambiguities in tree likelihood.
+  Ignoring character uncertainty in tree likelihood.
+  With 1581 unique site patterns.
+  Using rescaling scheme : dynamic
+  Ignoring ambiguities in tree likelihood.
+  Ignoring character uncertainty in tree likelihood.
+  With 1595 unique site patterns.
+  Using rescaling scheme : dynamic
+  Ignoring ambiguities in tree likelihood.
+  Ignoring character uncertainty in tree likelihood.
+  With 1673 unique site patterns.
+  Using rescaling scheme : dynamic
+  Ignoring ambiguities in tree likelihood.
+  Ignoring character uncertainty in tree likelihood.
+  With 1744 unique site patterns.
+  Using rescaling scheme : dynamic
+  Ignoring ambiguities in tree likelihood.
+  Ignoring character uncertainty in tree likelihood.
+  With 1831 unique site patterns.
+  Using rescaling scheme : dynamic
+Warning: state contains a node ucldMean.c:primates for which there is no operator.
+End likelihood: -564458.7488603264
+240398.21user 86196.01system 15:47:46elapsed 574%CPU (0avgtext+0avgdata 806940maxresident)k
+0inputs+0outputs (0major+2452477minor)pagefaults 0swaps
