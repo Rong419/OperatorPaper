@@ -1,0 +1,11 @@
+parameter.names True False
+TreH 94 6
+TreL 86 14
+Kap 99 1
+Ucld 98 2
+Bir 97 3
+RatM 100 0
+Freq1 93 7
+Freq2 92 8
+Freq3 94 6
+Freq4 97 3

@@ -57,10 +57,7 @@ Kap.res <- get.calibrated.plot(true.Kap,log.Kap, n.sim, 1,5,1,5,"Kappa")
 Ucld.res <- get.calibrated.plot(true.Ucld,log.Ucld, n.sim, 0,0.6,0,0.6,"UcldStdev")
 Bir.res <- get.calibrated.plot(true.Bir,log.Bir, n.sim,2,30,2,30,"BithRate")
 
-#TreH.res <- get.calibrated.plot(true.TreH,log.TreH, n.sim, 1,10,1,10,"TreeHeight")
-#TreL.res <- get.calibrated.plot(true.TreL,log.TreL, n.sim, 30,250,30,250,"TreeLength")
-#Ucld.res <- get.calibrated.plot(true.Ucld,log.Ucld, n.sim, 0,2,0,2,"UcldStdev")
-#Bir.res <- get.calibrated.plot(true.Bir,log.Bir, n.sim,0.5,4,0.5,4,"BithRate")
+#TreL.res <- get.calibrated.plot(true.TreL,log.TreL, n.sim, 5,20,5,20,"TreeLength")
 
 Freq1.res <- get.calibrated.plot(true.Freq1,log.Freq1, n.sim,0,0.6,0,0.6,"Frequency1")
 Freq2.res <- get.calibrated.plot(true.Freq2,log.Freq2, n.sim,0,0.6,0,0.6,"Frequency2")
