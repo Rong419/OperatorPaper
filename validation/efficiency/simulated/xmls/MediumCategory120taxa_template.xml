@@ -20,7 +20,7 @@
     <map name="OneOnX" >beast.math.distributions.OneOnX</map>
     <map name="Dirichlet" >beast.math.distributions.Dirichlet</map>
 
-    <run id="mcmc" spec="MCMC" chainLength="100000000">
+    <run id="mcmc" spec="MCMC" chainLength="80000000">
         <state id="state" storeEvery="10000">
             <tree id="Tree.t:simulated" name="stateNode">
                 <taxonset id="TaxonSet.simulated" spec="TaxonSet">

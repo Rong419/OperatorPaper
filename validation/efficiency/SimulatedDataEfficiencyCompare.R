@@ -13,11 +13,12 @@ output.figure.folder <- args[4]
 #output.figure.folder <- "~/Desktop/validation/efficiency/figures/"
   
 n.model <- c("Cons","Category")
-l.sequence <- c("Short","Medium")
+#l.sequence <- c("Short","Medium")
+sequence.length <- "Short"
 n.taxa <- paste0(taxa,"taxa")
 
 
-  for (sequence.length in l.sequence) {
+  #for (sequence.length in l.sequence) {
     
     for (model.name in n.model) {
       
@@ -38,16 +39,18 @@ n.taxa <- paste0(taxa,"taxa")
     assign(paste0(sequence.length,".Ratio.df"), Cons.Efficiency.df/Category.Efficiency.df)
     Mean <- apply(get(paste0(sequence.length,".Ratio.df")), 2, mean, trim=0.05)
     write.table(t(Mean),file=paste0(output.figure.folder, "EfficiencyTable_",sequence.length, n.taxa, ".txt"),quote=F,sep="\t",row.names = FALSE)
-  }
+  #}
 
 
 
 pdf (file=paste0(output.figure.folder, "EfficiencyCompare_Simulated",n.taxa,".pdf"),width=7,height=4)
-boxplot(Short.Ratio.df, xlim = c(0,16), ylim=c(0,10), col="royalblue3", boxwex = 0.2, at = seq(0,16,length.out=15) - 0.2,outline=FALSE,xaxt="n",yaxt="n")
+#boxplot(Short.Ratio.df, xlim = c(0,16), ylim=c(0,10), col="royalblue3", boxwex = 0.2, at = seq(0,16,length.out=15) - 0.2,outline=FALSE,xaxt="n",yaxt="n")
+boxplot(Short.Ratio.df, xlim = c(0,16), ylim=c(0,10), col="royalblue3", boxwex = 0.2, at = seq(0,16,length.out=15),outline=FALSE,xaxt="n",yaxt="n")
 axis(1, at = seq(0,16,length.out=15), labels = colnames(Cons.Efficiency.df),las=2,cex.axis=0.8)
 axis(2,cex.axis=0.8)
-boxplot(Medium.Ratio.df, xlim = c(0,16), ylim=c(0,10),boxwex = 0.2, at = seq(0,16,length.out=15) + 0.2,col="mediumseagreen",outline=FALSE,xaxt="n",yaxt="n",add=TRUE)
+#boxplot(Medium.Ratio.df, xlim = c(0,16), ylim=c(0,10),boxwex = 0.2, at = seq(0,16,length.out=15) + 0.2,col="mediumseagreen",outline=FALSE,xaxt="n",yaxt="n",add=TRUE)
 abline(h=1.0,col="red",lwd=1.5)
-legend("topright",inset=.01,c("5000 sites","10000 sites"),fill =c("royalblue3","mediumseagreen"),box.lty = 0)
+#legend("topright",inset=.01,c("5000 sites","10000 sites"),fill =c("royalblue3","mediumseagreen"),box.lty = 0)
+legend("topright",inset=.01,c("5000 sites"),fill =c("royalblue3"),box.lty = 0)
 title(main=paste0("Simulated data set (",n.taxa, ")"), ylab = c("Ratio of ESS per hour (cons/categories)"))
 dev.off()
