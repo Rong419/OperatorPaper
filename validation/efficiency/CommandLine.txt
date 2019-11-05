@@ -5,3 +5,5 @@ Rscript RealDataEfficiencyCompare.R 20 "RSV2" "/Users/ryanzhang/Documents/UOALea
 Rscript RealDataEfficiencyCompare.R 20 "Shankarappa" "/Users/ryanzhang/Documents/UOALearning/OperatorPaper/validation/efficiency/others/" "/Users/ryanzhang/Documents/UOALearning/OperatorPaper/validation/efficiency/figures/"
 
 Rscript SimulatedDataEfficiencyCompare.R 20 20 "/Users/ryanzhang/Documents/UOALearning/OperatorPaper/validation/efficiency/simulated/" "/Users/ryanzhang/Documents/UOALearning/OperatorPaper/validation/efficiency/figures/"
+
+Rscript primatesDataEfficiencyCompare.R 20 "/Users/ryanzhang/Documents/UOALearning/OperatorPaper/validation/efficiency/others/" "/Users/ryanzhang/Documents/UOALearning/OperatorPaper/validation/efficiency/figures/"
