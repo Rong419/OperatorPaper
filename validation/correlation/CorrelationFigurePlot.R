@@ -1,6 +1,8 @@
 library(corrgram)
 library(ape)
+library(ggblur)
 
+source('CorrelationUtils.R')
 args = commandArgs(trailingOnly=TRUE)
 
 log.file.path <- args[1]
@@ -69,3 +71,49 @@ plot.distance.df <- U5[,1:12]
 pdf(paste(output.figure.folder,"DistanceCorrelation.pdf"), height=10, width=10)
 corrgram(plot.distance.df)
 dev.off()
+
+
+
+tao1 <- log(plot.df$t1)
+tao2 <- log(plot.df$t1)
+tao3 <- log(plot.df$t2)
+tao4 <- log(plot.df$t2)
+tao5 <- log(plot.df$t3)
+tao6 <- log(plot.df$t4)
+tao7 <- log(plot.df$T)
+tao8 <- log(plot.df$t5-plot.df$t1)
+tao9 <- log(plot.df$t3-plot.df$t2)
+tao10 <- log(plot.df$t4-plot.df$t3)
+tao11 <- log(plot.df$t5-plot.df$t4)
+tao12 <- log(plot.df$T-plot.df$t5)
+log.tao.df <- data.frame(cbind(tao1,tao2,tao3,tao4,tao5,tao6,tao7,tao8,tao9,tao10,tao11,tao12))
+log.rate.df <- data.frame(log(plot.df[,1:12]))
+
+corrgram(plot.distance.df)
+
+for (i in 1:12) {
+	tao = log.tao.df[,i]
+	for (j in 1:12) {
+		rate = log.rate.df[,j]
+		coeff.df = data.frame(cbind(tao,rate))
+		assign(paste0("t",i,"r",j),get.correlation.plot(coeff.df))
+	}
+}
+
+ggarrange(p2,p1, ncol = 12, nrow = 12)
+
+plot(x,y,pch=20,cex=1,col="darkblue",xlab ="rate",ylab="branch length ",xaxt="n",yaxt="n")
+axis(1,seq(-0.6,0.8,length.out=3))
+axis(2,seq(-2.2,1.0,length.out=3))
+axis(2,seq(-2.2,-1.0,length.out=3))	
+
+
+
+
+
+
+
+
+
+
+
