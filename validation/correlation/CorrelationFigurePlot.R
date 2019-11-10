@@ -1,6 +1,6 @@
 library(corrgram)
 library(ape)
-library(ggblur)
+library(corrplot)
 
 source('CorrelationUtils.R')
 args = commandArgs(trailingOnly=TRUE)
@@ -74,38 +74,49 @@ dev.off()
 
 
 
-tao1 <- log(plot.df$t1)
-tao2 <- log(plot.df$t1)
-tao3 <- log(plot.df$t2)
-tao4 <- log(plot.df$t2)
-tao5 <- log(plot.df$t3)
-tao6 <- log(plot.df$t4)
-tao7 <- log(plot.df$T)
-tao8 <- log(plot.df$t5-plot.df$t1)
-tao9 <- log(plot.df$t3-plot.df$t2)
-tao10 <- log(plot.df$t4-plot.df$t3)
-tao11 <- log(plot.df$t5-plot.df$t4)
-tao12 <- log(plot.df$T-plot.df$t5)
-log.tao.df <- data.frame(cbind(tao1,tao2,tao3,tao4,tao5,tao6,tao7,tao8,tao9,tao10,tao11,tao12))
+l1 <- log(plot.df$t1)
+l2 <- log(plot.df$t1)
+l3 <- log(plot.df$t2)
+l4 <- log(plot.df$t2)
+l5 <- log(plot.df$t3)
+l6 <- log(plot.df$t4)
+l7 <- log(plot.df$T)
+l8 <- log(plot.df$t5-plot.df$t1)
+l9 <- log(plot.df$t3-plot.df$t2)
+l10 <- log(plot.df$t4-plot.df$t3)
+l11 <- log(plot.df$t5-plot.df$t4)
+l12 <- log(plot.df$T-plot.df$t5)
+log.l.df <- data.frame(cbind(l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12))
 log.rate.df <- data.frame(log(plot.df[,1:12]))
 
-corrgram(plot.distance.df)
+plot.coeff.df <- data.frame(cbind(log.l.df,log.rate.df))
 
-for (i in 1:12) {
-	tao = log.tao.df[,i]
-	for (j in 1:12) {
-		rate = log.rate.df[,j]
-		coeff.df = data.frame(cbind(tao,rate))
-		assign(paste0("t",i,"r",j),get.correlation.plot(coeff.df))
-	}
-}
+pdf(paste(output.figure.folder,"BranchLengthRateCorrelation1.pdf"), height=10, width=10)
+corrgram(plot.coeff.df)
+dev.off()
 
-ggarrange(p2,p1, ncol = 12, nrow = 12)
+coeff.matrix <- cor(log.l.df,log.rate.df)
 
-plot(x,y,pch=20,cex=1,col="darkblue",xlab ="rate",ylab="branch length ",xaxt="n",yaxt="n")
-axis(1,seq(-0.6,0.8,length.out=3))
-axis(2,seq(-2.2,1.0,length.out=3))
-axis(2,seq(-2.2,-1.0,length.out=3))	
+pdf(paste(output.figure.folder,"BranchLengthRateCorrelation2.pdf"), height=10, width=10)
+par(mar=c(6,6,6,6))
+corrplot(coeff.matrix, method="circle",tl.srt=360, tl.col="black")
+dev.off()
+
+#for (i in 1:12) {
+	#l = log.l.df[,i]
+	#for (j in 1:12) {
+		#rate = log.rate.df[,j]
+		#coeff.df = data.frame(cbind(l,rate))
+		#assign(paste0("t",i,"r",j),get.correlation.plot(coeff.df))
+	#}
+#}
+
+#ggarrange(p2,p1, ncol = 12, nrow = 12)
+
+#plot(x,y,pch=20,cex=1,col="darkblue",xlab ="rate",ylab="branch length ",xaxt="n",yaxt="n")
+#axis(1,seq(-0.6,0.8,length.out=3))
+#axis(2,seq(-2.2,1.0,length.out=3))
+#axis(2,seq(-2.2,-1.0,length.out=3))	
 
 
 
