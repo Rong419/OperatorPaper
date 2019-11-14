@@ -166,7 +166,7 @@ The results demonstrate that the proposed operator is able to improve the perfor
 \section*{Background}
 Bayesian phylogenetics puts an emphasis on estimating probability distributions over parameters of interest, including the phylogenetic tree topology and divergence times, given the data. The Metropolis-Hastings Markov chain Monte Carlo (MCMC) \cite{metropolis1953equation,hastings1970monte} algorithm has been the primary computational tool used in Bayesian phylogenetics for sampling from the posterior distribution. This paper is aimed at improving the performance of the relaxed clock model in Bayesian phylogenetic analysis.
 
-Historically, early implementations of Bayesian phylogenetic inference \cite{yang1997bayesian} assumed a strict molecular clock where the evolutionary rates are the same at every branch \cite{zuckerkandl1965evolutionary}. This was the preferred method for estimating divergence times \cite{yang1997bayesian,rannala2003bayes}. The introduction of relaxed molecular clocks allowed for the estimation of divergence times \cite{thorne1998estimating} and phylogeny \cite{drummond2006relaxed} in the presence of rate heterogeneity among branches. Since then, the relaxed clock model has been widely applied, such as the study of Nothofagus \cite{knapp2005relaxed} and flowering plants \cite{smith2010uncorrelated}. By allowing rates to vary across lineages, it is considered that better estimates of divergence times can be obtained \cite{ho2005accuracy,renner2005relaxed,lepage2007general}.
+Historically, early implementations of Bayesian phylogenetic inference \cite{yang1997bayesian} assumed a strict molecular clock where the evolutionary rates are the same at every branch \cite{zuckerkandl1965evolutionary}. This was the preferred method for estimating divergence times \cite{yang1997bayesian,rannala2003bayes}. The introduction of relaxed molecular clocks allowed for the estimation of divergence times \cite{thorne1998estimating} and phylogeny \cite{drummond2006relaxed} in the presence of rate heterogeneity among branches. Since then, the relaxed clock model has been widely applied, such as the study of Nothofagus \cite{knapp2005relaxed} and flowering plants \cite{smith2010uncorrelated}. More specifically, as branch rates vary throughout a phylogenetic tree, it is able to identify regional gene bias in cooperation with fossil calibrations, according to Susanne's research in plant dispersal events \cite{renner2005relaxed}. Other studies such as accuracy evaluations \cite{ho2005accuracy} and performance comparisons \cite{lepage2007general} also suggested that relaxed clock models play an important role in estimating molecular rates and divergence times.
 
 Bayesian phylogenetic inference via MCMC is computationally intensive for large data sets.
 Two approaches to improve efficiency are (i) by making faster likelihood calculations, and (ii) by incorporating more effective proposal kernels. Calculating the phylogenetic likelihood is computationally expensive.
@@ -205,7 +205,7 @@ Standard na\"{i}ve operators such as the random walk operator propose the new st
 
 \subsection*{Uncorrelated relaxed clock model}
 %%define genetic distance
-Molecular clocks model how molecular sequences evolve along branches in the phylogenetic tree, so that a time tree can be reconciled with the genetic distances between sequences. In this paper, the proposed operator is based on an uncorrelated relaxed clock model, in which the rates vary from branch to branch, drawn independently and identically from a given prior distribution, such as the log-normal distribution \cite{drummond2006relaxed}. As a result, the rates can vary markedly between parent and child branches.
+Molecular clocks model how molecular sequences evolve along branches in the phylogenetic tree, so that a time tree can be reconciled with the genetic distances between sequences. In this paper, uncorrelated relaxed clock models are adopted, where the rates are drawn independently and identically from a given prior distribution, such as the log-normal distribution \cite{drummond2006relaxed}. As a result, the rates can vary markedly between parent and child branches.
 
 Referring to the Bayesian framework in Equation (\ref{bayes}), the joint inference of evolutionary rates $r$ and divergence times $t$ can be obtained by the conditional distribution in Equation (\ref{bayes1}):
 %\alexei{$t$ and $r$ are not defined.}
@@ -214,6 +214,7 @@ p(t,r,\Phi |D) = \frac{{p(D|t,r,\Phi )p(r|\Phi )p(t|\Phi )p(\Phi )}}{{p(D)}} \te
 \end{equation}
 where $p(r|\Phi )$ is the prior for rates specified in uncorrelated relaxed clock model. The proposed operator is to sample the state $(t,r,\Phi)$ in the constructed Markov chain.
 
+While the proposed operator is introduced based on uncorrelated clock models, it is admitted that it can be applied to any others relaxed models as well, such as autocorrelated clock models \cite{thorne1998estimating}.
 \section*{Methods}
 In this section, we define the Constant Distance Operator. Figure \ref{flowchart} illustrates the flow chart of the proposed operator. In a phylogenetic tree, the node to operate on is denoted by \textbf{X}. The proposed operator works differently on internal nodes and the root node. The details of the operations are introduced step by step in the following subsections.
 \subsection*{Operations on internal nodes}
@@ -241,7 +242,7 @@ Figure \ref{simpledistance} shows the trees that are rooted at the node \textbf{
 
 \emph{Step 1} Identify the child nodes of the root \textbf{X}, denoted by \textbf{L} and \textbf{R}. Their corresponding node times and branch rates are $t_X$, $t_L$, $t_R$ and $r_L$, $r_R$.
 
-\emph{Step 2} Propose a new node time for the root \textbf{X} by ${t_X}' = {t_X} + a$, where $a \sim U[ - w, + w]$. Make sure that ${t_X}' > \max \{ {t_j},{t_k}\} $ holds. Otherwise, we reject the proposal.
+\emph{Step 2} Propose a new node time for the root \textbf{X} by ${t_X}' = {t_X} + a$, where $a \sim U[ - w, + w]$. Make sure that ${t_X}' > \max \{ {t_L},{t_R}\} $ holds. Otherwise, we reject the proposal.
 
 \emph{Step 3} Propose new rates for branches on both sides of the root by using Equation (\ref{sim_rate}).
 \begin{equation}
@@ -274,9 +275,9 @@ In contrast to Simple Distance, Small Pulley proposes a new genetic distance of 
 \subsubsection*{Big Pulley}
 Big Pulley resamples the rates and times in a fixed unrooted tree. The genetic distances between the taxa are held constant, but the location of the root is readjusted.
 
-Firstly, a method called \textit{Exchange} is designed to propose a new tree topology. Let \textbf{R} denote the root of tree $g$, let \textbf{C} and \textbf{N} denote the two child nodes of \textbf{R}, and let \textbf{S} and \textbf{M} denote the two child nodes of \textbf{C} (Figure \ref{exchangemethod}). The following operations will be performed to propose a new tree $g'$.
+Before describing the detailed steps, we introduce a method called \textit{Exchange} that is designed to propose a new tree topology in Big Pulley operations. In Figure \ref{exchangemethod}, let (1) \textbf{X} denote the root of tree $g$, (2) \textbf{C} and \textbf{N} denote the two child nodes of \textbf{X}, (3) \textbf{S} and \textbf{M} denote the two child nodes of \textbf{C}. Once the method is called by certain step in Big Pulley, the following operations will be executed.
 \begin{itemize}
-\item Call \textit{Exchange(\textbf{M},\textbf{N})} to swap the two nodes by pruning and grafting, i.e. cutting \textbf{M} (\textbf{N}) at its original position and attaching it to the original position of \textbf{N} (\textbf{M}).
+\item Call \textit{Exchange(\textbf{M}, \textbf{N})} to swap the two nodes by pruning and grafting, i.e. cutting \textbf{M} (\textbf{N}) at its original position and attaching it to the original position of \textbf{N} (\textbf{M}).
 \item Propose ${d_C}'$ by ${d_C}' = {d_C} + b$, where $b \sim U[ - v, + v]$. Make sure that $0 < {d_C}' < D$ holds, where $D = {d_C} + {d_{N}}$. Otherwise, we reject the proposal.
 \item The distances on the other three branches, i.e. $d_S$, $d_{M}$ and $d_{N}$, will be adjusted:
 \begin{equation}\label{big_dis}
@@ -286,9 +287,9 @@ Firstly, a method called \textit{Exchange} is designed to propose a new tree top
 \end{equation}
 \end{itemize}
 
-As can be seen from the above descriptions, the method \textit{Exchange (\textbf{M},\textbf{N})} is actually aimed at swapping two nodes and reassigning distances on the four branches. That is to say, after using \textit{Exchange (\textbf{M},\textbf{N})}, the distances $d_S$, $d_{M}$, $d_{N}$ and $d_{C}$ will be adjusted to maintain the implied genetic distances among three taxa \textbf{S}, \textbf{M} and \textbf{N}, as the tree topology changes.
+As can be seen from the above descriptions, the method \textit{Exchange (\textbf{M}, \textbf{N})} is actually aimed at swapping two nodes and reassigning distances on the four branches. That is to say, after using \textit{Exchange (\textbf{M}, \textbf{N})}, the distances $d_S$, $d_{M}$, $d_{N}$ and $d_{C}$ will be adjusted to maintain the implied genetic distances among three taxa \textbf{S}, \textbf{M} and \textbf{N}, as the tree topology changes.
 
-Secondly, before applying this method in Big Pulley, there are two different tree shapes to take into consideration. In Figure \ref{treeshape}, a symmetric tree is shown on the left, in which both the child nodes of the root have child nodes. But in the asymmetric tree on the right, only one of the child nodes of the root has child nodes below it, and the other child node is a leaf node. The corresponding operations are detailed in the following two parts.
+Additionally, operations in Big Pulley vary depending on the shape of phylogenetic tree. In Figure \ref{treeshape}, a symmetric tree is shown on the left, in which both the child nodes of the root have child nodes, i.e. \textbf{L} having children \textbf{H1}, \textbf{H2} and \textbf{R} having children \textbf{H3}, \textbf{H4}. But in the asymmetric tree on the right, only one of the child nodes of the root has child nodes below it, i.e. \textbf{O} having children \textbf{G1}, \textbf{G2}. But the other child node \textbf{Y} doesn't any offsprings, which may be a fossil or sampled ancestor. The corresponding operations are detailed in the following two parts.
 \paragraph*{Symmetric tree}
 
 For the symmetric tree in Figure \ref{treeshape}, the operations are illustrated in Figure \ref{symmetric}, after which one of the four possible trees (\textcircled1 \textcircled2 \textcircled3 \textcircled4) will be proposed.
@@ -316,8 +317,8 @@ For the symmetric tree in Figure \ref{treeshape}, the operations are illustrated
 \emph{Step 4}  Update the rates using the adjusted genetic distances divided by the proposed node times. For example, suppose we are going to propose tree \textcircled1. After the new node times for the root \textbf{X} and \textbf{L} are proposed, we apply the method by \textit{Exchange (\textbf{H1}, \textbf{R})}, so that four distances are adjusted, as follows:
 
 \begin{equation}\label{example1.1}
-{d_1}' = {d_1} - {d_L}'  \\
-{d_2}' = {d_2} \\
+{d_{H1}}' = {d_{H1}} - {d_L}'  \\
+{d_{H2}}' = {d_{H2}} \\
 {d_L}' = {d_L} + b \\
 {d_R}' = {d_L} + {d_R}
 \end{equation}
@@ -325,8 +326,8 @@ For the symmetric tree in Figure \ref{treeshape}, the operations are illustrated
 Finally, in this example the new rates would be updated by:
 
 \begin{equation}\label{example1.2}
-{r_1}' = \frac{{{d_1}'}}{{{t_X}' - {t_1}}} \\
-{r_2}' = \frac{{{d_2}'}}{{{t_j}' - {t_2}}} \\
+{r_{H1}}' = \frac{{{d_{H1}}'}}{{{t_X}' - {t_{H1}}}} \\
+{r_{H2}}' = \frac{{{d_{H2}}'}}{{{t_L}' - {t_{H2}}}} \\
 {r_L}' = \frac{{{d_L}'}}{{{t_X}' - {t_L}'}} \\
 {r_R}' = \frac{{{d_R}'}}{{{t_L}' - {t_R}}}
 \end{equation}
@@ -335,9 +336,9 @@ Finally, in this example the new rates would be updated by:
 
 For an asymmetric tree such as in Figure \ref{treeshape} we would operate as illustrated in Figure \ref{asymmetric}, in which there are three possible trees (\textcircled5 \textcircled6 \textcircled7).
 
-\emph{Step 1} Identify the older child of the root \textbf{X}, denoted by \textbf{O}, and the younger child of the root is denoted by \textbf{Y}. The node times of the root \textbf{X},  \textbf{O} and its child nodes are denoted by ${t_X}$, ${t_O}$, ${t_{G1}}$ and ${t_{G2}}$ respectively.
+\emph{Step 1} Identify the child node of the root \textbf{X}, which has two child nodes below and is denoted by \textbf{O}. The other child node of the root, which does not have child nodes, is denoted by \textbf{Y}. The node times of the root \textbf{X},  \textbf{O} and its child nodes are denoted by ${t_X}$, ${t_O}$, ${t_{G1}}$ and ${t_{G2}}$ respectively.
 
-\emph{Step 2} Propose a new node time for the root \textbf{X} by ${t_X}' = {t_X} + a$, where $a \sim U[ - w, + w]$. Moreover, propose a new node time for \textbf{O} by ${t_O}' = {t_O} + {a_3}$, where ${a_3} \sim U[ - w, + w]$. To make it valid, make sure that ${t_O}' < {t_X}'$ holds. Otherwise, we reject the proposal.
+\emph{Step 2} Propose a new node time for the root \textbf{X} by ${t_X}' = {t_X} + a$, where $a \sim U[ - w, + w]$. Moreover, propose a new node time for \textbf{O} by ${t_O}' = {t_O} + {a_3}$, where ${a_3} \sim U[ - w, + w]$. To make it valid, make sure that ${t_Y} < {t_O}' < {t_X}'$ holds. Otherwise, we reject the proposal.
 
 \emph{Step 3} Apply the method using \textbf{Y} and either child node of \textbf{O}, which is dependent on the value of ${t_O}'$.
 \begin{itemize}
@@ -444,7 +445,7 @@ These results (Figure \ref{eff_comp2}) show that, on average, the configuration 
 %The box-plots of ESS and running time are compared in Figure \ref{eff_comp2}. As can be seen from the figure, on average, the configuration using the Constant Distance operator costs less running time and achieves much larger ESS. By using the mean values of the 100 runs in each configuration, the Constant Distance operator improves the performance by providing 18.311 and 10.846 times larger ESS per hour, compared with the configuration using discrete rate categories (categories) and without using the proposed operator (nocons) accordingly.
 
 \subsection*{Correlation analysis of rates and node times}
-After analysing the ratites data set (with 7 taxa and 10767 sites \cite{cooper2001complete}) in BEAST2 using the Constant Distance operator, the sampled trees in the output tree file are filtered by the shared common ancestor of each taxa, which is implemented in a program called TreeStat2 \cite{TreeStat2}. Then, we conducted a pairwise comparison between each rate and node time in the filtered trees in order to see how they are correlated.
+ We used a data set from Copper et al.'s work \cite{cooper2001complete}. This data set include 7 taxa of ratites and the genome sequences have 10767 sites. After analysing the ratites data set in BEAST2 using the Constant Distance operator, the sampled trees in the output tree file are filtered by the shared common ancestor of each taxon, which is implemented in a program called TreeStat2 \cite{TreeStat2}. Then, we conducted a pairwise comparison between each rate and node time in the filtered trees in order to see how they are correlated.
 
 The results are shown in Figure \ref{correlation}. The tree in Figure \ref{correlation}(a) is used to filter the sampled trees to ensure that all trees examined have the same topology. Afterwards, a pairwise comparison was made by using 12 branch rates and 5 node times. As can be seen from upper right of Figure \ref{correlation}(b), to a large degree, the rates are negatively correlated with the node times. This indicates that when a larger node time is proposed, the corresponding rates become smaller. For example, $t1$ has a negative correlation with $r1$ and $r2$, but has positive correlation with $r8$. That is to say, with the increase of $t1$, the rate $r8$ will also increase, but $r1$ and $r2$ will decrease. In addition, in the upper left of Figure \ref{correlation}(b), most rates on two adjacent branches have positive correlations, but have a negative correlation with the rate above them. Take $r6$ and $r7$ as an example. They have a positive correlation with each other, but are negatively related to $r12$. This means a larger $r6$ incurs a larger $r7$ and a smaller $r12$. To sum up, this dynamic change of rates and node times is consistent with the mechanism of the proposed operator. Although there are some inconsistent correlations, it should be noticed that this is an average pairwise comparison in two dimensions. For comparisons in higher dimensions, the results would be closer to the mechanism of the proposed operator.
 
