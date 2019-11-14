@@ -131,7 +131,7 @@
 Bayesian MCMC has become a common approach for phylogenetic inference. But the growing size of molecular sequence data sets has created a pressing need to improve the computational efficiency of Bayesian phylogenetic algorithms.
 %Phylogenetic trees describe the evolutionary history of a group of species. With the rapid accumulation of both genetic and morphological data, more and more models have been developed to infer phylogenetic trees. In recent years, Bayesian MCMC has become a common approach for phylogenetic inference. However, the huge amount of available data challenge the efficiency of phylogenetic models.
 \parttitle{Results}
-This paper develops a new algorithm to improve the efficiency of Bayesian phylogenetic inference for models that include a per-branch rate parameter. In a Markov chain Monte Carlo algorithm, the presented proposal kernel changes evolutionary rates and divergence times at the same time, under the constraint that the implied genetic distances remain constant. Specifically, the proposal operates on the divergence time of an internal node and the three adjacent branch rates. For the root of a phylogenetic tree, there are three strategies discussed, named Simple Distance, Small Pulley and Big Pulley. It is noticed that Big Pulley is able to change the tree topology, which enables the operator to sample all the possible rooted trees consistent with the implied unrooted tree. To validate its effectiveness, a series of experiments have been performed by implementing the proposed operator in the BEAST2 software.
+This paper develops a new algorithm to improve the efficiency of Bayesian phylogenetic inference for models that include a per-branch rate parameter. In a Markov chain Monte Carlo algorithm, the presented proposal kernel changes evolutionary rates and divergence times at the same time, under the constraint that the implied genetic distances remain constant. Specifically, the proposal operates on the divergence time of an internal node and the three adjacent branch rates. For the root of a phylogenetic tree, there are three strategies discussed, named Simple Distance, Small Pulley and Big Pulley. Note that Big Pulley is able to change the tree topology, which enables the operator to sample all the possible rooted trees consistent with the implied unrooted tree. To validate its effectiveness, a series of experiments have been performed by implementing the proposed operator in the BEAST2 software.
 \parttitle{Conclusions}
 The results demonstrate that the proposed operator is able to improve the performance by giving better estimates and using less running time. Measured by effective samples per hour, the proposed operator is more than an order of magnitude faster than the current operators in BEAST2 on real and simulated data sets.
 \end{abstract}
@@ -181,11 +181,7 @@ A major limitation in Bayesian MCMC analysis of phylogeny lies in the efficiency
 In this paper, we present a novel operator that searches within a subspace of constant genetic distances.
 Namely, the proposed operator changes both divergence times of nodes and neighbouring branch rates so that implied genetic distances are not changed. For time-reversible substitution models the phylogenetic likelihood will also be unchanged under this operation. The proposed operator has been implemented and tested in BEAST2 \cite{bouckaert2014beast}.
 
-%The paper is constructed as follows: Section 2 gives some preliminary theory related to this paper.
-%Section 3 introduces the proposed operator, which includes the operations for internal nodes and three different strategies for the root.
-%The experiments and discussions are detailed in Section 4 to validate the efficiency of the proposed operator.
-%Section 5 ends the paper with a short conclusion.
-\section*{Prelimiaries}
+\section*{Preliminaries}
 \subsection*{Bayesian MCMC}
 Let $D$ denote the data, and let $g$ and $\Phi $ denote the phylogenetic tree and a set of evolutionary parameters respectively. The posterior probability density can be calculated using Equation (\ref{bayes}). It consists of prior distributions for the  tree and the parameters, a phylogenetic likelihood that conveys information from data, and the posterior distribution to be inferred. These are denoted in the form of probability densities by $p(g) $, $p(\Phi )$, $\Pr(D|g,\Phi )$, $p(g,\Phi |D)$ respectively. From a Bayesian perspective, the phylogenetic trees and the parameters are random variables described by a posterior probability distribution given the observed data $D$.
 %As a result, it is possible to jointly infer evolutionary history of species  by incorporating various source of information such as molecular data and fossil records.
@@ -242,7 +238,7 @@ Figure \ref{simpledistance} shows the trees that are rooted at the node \textbf{
 
 \emph{Step 1} Identify the child nodes of the root \textbf{X}, denoted by \textbf{L} and \textbf{R}. Their corresponding node times and branch rates are $t_X$, $t_L$, $t_R$ and $r_L$, $r_R$.
 
-\emph{Step 2} Propose a new node time for the root \textbf{X} by ${t_X}' = {t_X} + a$, where $a \sim U[ - w, + w]$. Make sure that ${t_X}' > \max \{ {t_L},{t_R}\} $ holds. Otherwise, we reject the proposal.
+\emph{Step 2} Propose a new node time for the root \textbf{X} by ${t_X}' = {t_X} + a$, where $a \sim U[ - w, + w]$. Make sure that ${t_X}' > \max \{ {t_L}, {t_R}\} $ holds. Otherwise, we reject the proposal.
 
 \emph{Step 3} Propose new rates for branches on both sides of the root by using Equation (\ref{sim_rate}).
 \begin{equation}
@@ -253,7 +249,7 @@ Figure \ref{simpledistance} shows the trees that are rooted at the node \textbf{
 
 \emph{Step 4} Return the Green ratio ${\alpha_{SD}}$.
 \subsubsection*{Small Pulley}
-In contrast to Simple Distance, Small Pulley proposes a new genetic distance of a branch on one side of the root. As is illustrated in Figure \ref{simpledistance}, a new tree ${g}'$ is proposed based on the original tree $g$. In order to maintain the total genetic distance $d_L$ and $d_R$ of the two branches linked to the root, after ${d_L}'$ is proposed, $d_R$ will be adjusted simultaneously. The detailed process includes the following 4 steps.
+In contrast to Simple Distance, Small Pulley proposes a new genetic distance of a branch on one side of the root. As is illustrated in Figure \ref{simpledistance}, a new tree ${g}'$ is proposed based on the original tree $g$. In order to maintain the total genetic distance $d_L + d_R$ of the two branches linked to the root, after ${d_L}'$ is proposed, $d_R$ will be adjusted simultaneously. The detailed process includes the following 4 steps.
 
 \emph{Step 1} Identify the child nodes of the root \textbf{X}, denoted by \textbf{L} and \textbf{R}. Their corresponding node times and branch rates are $t_X$, $t_L$, $t_R$ and $r_L$, $r_R$. The implied genetic distances of the two branches linked to the root can be calculated by:
 \begin{equation}
@@ -349,9 +345,12 @@ For an asymmetric tree such as in Figure \ref{treeshape} we would operate as ill
 
     \item With 0.5 Probability to apply \textit{Exchange (\textbf{G2}, \textbf{Y})} and propose tree \textcircled6
   \end{itemize}
+  
 \item if ${t_O}'$ satisfies $\min \{ {t_{G1}},{t_{G2}}\}  < {t_O}' < \max \{ {t_{G1}},{t_{G2}}\} $, then there is only one option:
 \textcircled7: Exchange the older child of \textbf{O} and \textbf{Y}.
  (For the asymmetric tree in Figure \ref{treeshape}, we apply \textit{Exchange (\textbf{G1}, \textbf{Y})} and propose tree \textcircled7).
+ 
+ \item if ${t_O}' < \min \{ {t_{G1}},{t_{G2}}\}$, then we reject the proposal.
 \end{itemize}
 
 \emph{Step 4}  Update the rates using the adjusted genetic distances divided by the proposed node times. To give an example, assume we are going to propose tree \textcircled5. Firstly, ${t_X}'$ and ${t_O}'$ are proposed in \emph{Step 3}.  Then, in \emph{Step 4}, the method \textit{Exchange (\textbf{G1}, \textbf{Y})} is applied, after which the four distances are adjusted as follows:
@@ -413,18 +412,16 @@ First, we establish correctness of the operator using a well-calibrated simulati
 \subsection*{Well-calibrated simulation study}
 A well-calibrated simulation study is a necessary criterion to evaluate the reliability of a Bayesian model \cite{dawid1982well}.
 
-Figure \ref{modelvalidation} shows the framework used in this study, which includes the evolutionary model and the prior distributions of parameters. As is shown in the figure, the sequence alignment is simulated by a phylogenetic continuous-time Markov chain in BEAST2. It contains a substitution rate matrix given by the HKY85 \cite{hasegawa1985dating} model and a substitution tree jointly provided by uncorrelated relaxed clock model and Yule model. More specifically, base frequencies $\pi$ follow a Dirichlet distribution and the transition-transversion ratio $\kappa$ follows a log-normal prior distribution. The distribution of node times is described in a Yule tree $\Psi$ with hyperparameter birth rate $\lambda $ following a log-normal distribution. The rates $r_i$ follow a log-normal distribution with mean of 1 and standard deviation $S1$ following a hyperprior distribution.
+Figure \ref{modelvalidation} shows the framework used in this study, which includes the evolutionary model and the prior distributions of parameters. As is shown in the figure, the sequence alignment is simulated by a phylogenetic continuous-time Markov chain in BEAST2. It contains a substitution rate matrix given by the HKY85 \cite{hasegawa1985dating} model and a substitution tree jointly provided by uncorrelated relaxed clock model and Yule model. More specifically, base frequencies $\pi$ follow a Dirichlet distribution and the transition-transversion ratio $\kappa$ follows a log-normal prior distribution. The distribution of node times is described in a Yule tree $\psi$ with hyperparameter birth rate $\lambda $ following a log-normal distribution. The rates $r_i$ follow a log-normal distribution with mean of 1 and standard deviation $S1$ following a hyperprior distribution.
 
-First, we independently simulated parameters and trees from the full model 100 times. The random parameters included: standard deviation of rates across branches $S1$, speciation rate $\lambda $, base frequencies $\pi$ and transition-transversion bias $\kappa$. Second, we simulated nucleotide alignments using the simulated parameters. To make this study more robust, two groups of sequence data were simulated, one group with $n=20$ taxa and the other with $n=120$ taxa. Each group contained 100 simulated sequence alignments with 10,000 sites. Third, we used BEAST2 with Constant Distance operator to infer the tree and parameters in each of the 200 simulated sets. Finally, the estimated values of the parameters were compared with the real values that were used to simulate the corresponding sequence alignment. The comparisons of the two groups are shown in Figures \ref{SmallTree} and \ref{LargeTree}.
+First, we independently simulated parameters and trees from the full model 100 times. The random parameters included: standard deviation of rates across branches $S1$, birth rate $\lambda $, base frequencies $\pi$ and transition-transversion bias $\kappa$. Second, we simulated nucleotide alignments using the simulated parameters. In total, there are 100 data sets simulated, each with 120 taxa and 10,000 sites. Third, we used BEAST2 with Constant Distance operator to infer the tree and parameters in the 100 simulated data sets. Finally, the estimated values of the parameters were compared with the real values that were used to simulate the corresponding sequence alignment. The comparisons are shown in Figures \ref{LargeTree}.
 
-These results show that the true values of the parameters are within the 95\% highest posterior density (HPD) interval approximately 95\% of the time (Table 5) for both the small ($n=20$) and the large ($n=120$) trees. This well-calibrated simulation study confirms that the Constant Distance operator can successfully provide reliable parameter estimates.
+These results show that the true values of the parameters are within the 95\% highest posterior density (HPD) interval approximately 95\% of the time (Table \ref{num_hpd}). This well-calibrated simulation study confirms that the Constant Distance operator can successfully provide reliable parameter estimates.
 
-%It is noticed in the figure that 95\% HPD of the mean values of sampled rates are compared with 1, because the mean rate is fixed during the analysis. Besides, the height of the tree, which is determined by birth rate in Yule model, is considered as a random variable and is also compared in the figure. As is indicated in the figure, most real values of the parameters are within the 95\% HPD of the sampled distribution. According to Table \ref{num_hpd}, on average, 95 percent of estimated values are close to their corresponding real values. Therefore, it is proved that the proposed operator is able to provide reliable estimations for both small ($n=20$) and large ($n=120$) data sets.
 \subsection*{Performance comparison}
-To evaluate the performance of Constant Distance operator in a Bayesian phylogenetic analysis, we explored the time required to adequately sample the posterior distribution. This was achieved by examining i) the total time taken by BEAST2 to complete the MCMC simulation, and ii) the effective sample size (ESS) of $S3$ - the standard deviation of the relaxed clock. The effective sample size of a parameter is the number of effectively independent samples from the posterior distribution. Larger ESS indicates a better approximation of the marginal posterior distribution of the parameter. We used Tracer \cite{Tracer} to compute ESS.
+To evaluate the performance of Constant Distance operator in a Bayesian phylogenetic analysis, we explored the time required to adequately sample the posterior distribution. This was achieved by examining i) the total time taken by BEAST2 to complete the MCMC inference, and ii) the effective sample size (ESS) of $S3$ - the standard deviation of the relaxed clock. The effective sample size of a parameter is the number of effectively independent samples from the posterior distribution. Larger ESS indicates a better approximation of the marginal posterior distribution of the parameter. We used Tracer \cite{Tracer} to compute ESS.
 
 For each dataset, we compared three tree operator configurations. 1) Using the current operators in BEAST2 to sample discrete rate categories (categories). 2) Using the ConstantDistance operator to sample continuous rates specified by an uncorrelated related clock model (cons). 3) Using standard BEAST2 operators and the same clock model as cons (nocons). This analysis was performed 100 times on each dataset for each configuration, with the prior distributions and all other model specifications held constant.
-%In addition, to make fair comparisons, the exact same data set will be specified in XML files. The genetic models and prior distributions are also the same in all XML files. But the configurations of operators are different in the aspects of 1) using current operators in BEAST2 to sample discrete rate categories (categories), 2) using the ConstantDistance Operator  to sample continuous rates specified in uncorrelated relaxed clock model(cons), and 3) without using the ConstantDistance Operator to sample continuous rates (nocons). Moreover, because of the randomness of an MCMC chain, each XML file will be run 100 times. Last but not least, all the running jobs are submitted to Mahuika, a platform of NeSI that provides high performance computing \cite{nesi}.  After running the XML files by using one CPU and one single thread, the user time of each job is recorded as the running time of the corresponding simulation. And ESS of the parameters are obtained by Tracer V.1.6, a programme for analysing log files output by softwares such as BEAST2 \cite{Tracer}.
 
 \subsubsection*{Performance on simulated data}
 The framework described in Figure \ref{modelvalidation} was used to simulate two groups of sequence alignment: one with 20 taxa and one with 120 taxa. In each group, three data sets with different sequence lengths were simulated: containing 5,000 sites (short), 10,000 sites (medium), and 20,000 sites (long). Each of the 6 data sets were run 100 times in BEAST2, on each of the 3 configurations.
@@ -433,39 +430,28 @@ The ESS and running time are summarised in Figure \ref{eff_comp} and Table \ref{
 
 We calculated the ESS per hour for each configuration, averaged across the 6 simulated datasets (Table \ref{eff_comp1}). These results show that our proposed operator achieved an ESS per hour 21.4 times larger than categories and 4.1 times larger than nocons.
 
-%Table \ref{eff_comp1} lists the mean values of ESS and running time for the 100 analysis of each data set, based on which the value of ESS achieved in an hour (ESS per hour) is also calculated. It implies that the configuration using the proposed operator achieves 4.02 and 4.23 times larger ESS per hour, for 20 taxa and 120 taxa respectively, compared with configuration without using the proposed operator (nocons). And the improvement is more obvious when it is compared with configuration using rate categories, which is 8.84 and 33.95 times larger ESS per hour.
-%shorter sequences have larger ESS and requires less running time in all configurations. A large data set with 120 taxa has less ESS but needs more running time than a small data set with 20 taxa. What's important is
-
 \subsubsection*{Performance on real data}
 We used a real data set with 83 primates and 1234 sites \cite{finstermeier2013mitogenomic} to further evaluate the performance of Constant Distance operator. Similar to the process of simulated data sets, this analysis was performed in three configurations, i.e. categories, cons and nocons. Each configuration was run 100 times on this dataset.
-%The prior distributions include BirthDeath model for tree prior, HKY model with Kappa following LN(M=5, S=1.25) in substitution model, uncorrelated relaxed clock model where rates follow LN(M=1,S=ucldstdev) and ucldstdev follows Gamma($\alpha = 0.5396$, $\beta = 0.3819$).
 
 These results (Figure \ref{eff_comp2}) show that, on average, the configuration using Constant Distance operator achieves a larger ESS of S3 and in less running time. Overall, Constant Distance operator improved the performance by providing 18.3 and 10.8 times larger ESS per hour, compared with categories and nocons respectively.
 
-%The box-plots of ESS and running time are compared in Figure \ref{eff_comp2}. As can be seen from the figure, on average, the configuration using the Constant Distance operator costs less running time and achieves much larger ESS. By using the mean values of the 100 runs in each configuration, the Constant Distance operator improves the performance by providing 18.311 and 10.846 times larger ESS per hour, compared with the configuration using discrete rate categories (categories) and without using the proposed operator (nocons) accordingly.
-
 \subsection*{Correlation analysis of rates and node times}
- We used a data set from Copper et al.'s work \cite{cooper2001complete}. This data set include 7 taxa of ratites and the genome sequences have 10767 sites. After analysing the ratites data set in BEAST2 using the Constant Distance operator, the sampled trees in the output tree file are filtered by the shared common ancestor of each taxon, which is implemented in a program called TreeStat2 \cite{TreeStat2}. Then, we conducted a pairwise comparison between each rate and node time in the filtered trees in order to see how they are correlated.
+ We used a data set from Copper et al.'s work \cite{cooper2001complete}. This data set include 7 taxa of ratites and the genome sequences have 10767 sites. After analysing the ratites data set in BEAST2 using the Constant Distance operator, we conducted a pairwise comparison between each rate and branch length in order to see how they are correlated.
 
-The results are shown in Figure \ref{correlation}. The tree in Figure \ref{correlation}(a) is used to filter the sampled trees to ensure that all trees examined have the same topology. Afterwards, a pairwise comparison was made by using 12 branch rates and 5 node times. As can be seen from upper right of Figure \ref{correlation}(b), to a large degree, the rates are negatively correlated with the node times. This indicates that when a larger node time is proposed, the corresponding rates become smaller. For example, $t1$ has a negative correlation with $r1$ and $r2$, but has positive correlation with $r8$. That is to say, with the increase of $t1$, the rate $r8$ will also increase, but $r1$ and $r2$ will decrease. In addition, in the upper left of Figure \ref{correlation}(b), most rates on two adjacent branches have positive correlations, but have a negative correlation with the rate above them. Take $r6$ and $r7$ as an example. They have a positive correlation with each other, but are negatively related to $r12$. This means a larger $r6$ incurs a larger $r7$ and a smaller $r12$. To sum up, this dynamic change of rates and node times is consistent with the mechanism of the proposed operator. Although there are some inconsistent correlations, it should be noticed that this is an average pairwise comparison in two dimensions. For comparisons in higher dimensions, the results would be closer to the mechanism of the proposed operator.
+The results are summarised in Figure \ref{correlation}. Figure \ref{correlation}(a) presents the topology of the maximum clade credibility tree. Then we utilised the programme TreeStat2 \cite{TreeStat2} to obtain the filtered trees that have the same topology as the maximum clade credibility tree from the sampled tree in MCMC chain, which means the trees that do not match this reference topology are discarded. 
+
+Afterwards, Figure \ref{correlation}(b) shows the pairwise comparison of the 12 branch rates and 12 branch lengths on these filtered trees. As can be seen from upper right of , to a large degree, the rates are negatively correlated with the node times. This indicates that when a larger node time is proposed, the corresponding rates become smaller. For example, $t1$ has a negative correlation with $r1$ and $r2$, but has positive correlation with $r8$. That is to say, with the increase of $t1$, the rate $r8$ will also increase, but $r1$ and $r2$ will decrease. In addition, in the upper left of Figure \ref{correlation}(b), most rates on two adjacent branches have positive correlations, but have a negative correlation with the rate above them. Take $r6$ and $r7$ as an example. They have a positive correlation with each other, but are negatively related to $r12$. This means a larger $r6$ incurs a larger $r7$ and a smaller $r12$. To sum up, this dynamic change of rates and node times is consistent with the mechanism of the proposed operator. Although there are some inconsistent correlations, it should be noticed that this is an average pairwise comparison in two dimensions. For comparisons in higher dimensions, the results would be closer to the mechanism of the proposed operator.
 
 \subsection*{Sampling a fixed unrooted tree}
-%The tests that sample from the prior distributions in the previous section start from a tree with arbitrary genetic distances.
-%Here, the ratites data set is used to specify the genetic distances on an unrooted tree, so that the data is actually involved in %the inference analysis.
-%Namely, the unrooted tree is sampled by only using the proposed operator.
-%And the results are compared with those obtained by sampling the sequence data directly.
-
-A limiting case for the relaxed molecular clock model (and one exploited in some of our validation tests) occurs for long sequences, when the branch lengths of the unrooted tree, in units of expected substitutions per site, becomes known without error.  With full length genomes now available, this limiting case might be approached in some data sets. This gives rise to an alternative approach to analysis, where a time tree, the root position and the branch rates are random variables, and the data are a set of branch lengths in units of substitution on a known unrooted tree topology.
+A limiting case for the relaxed molecular clock model (and one exploited in some of our validation tests) occurs for long sequences, when the branch lengths of the unrooted tree, in units of expected substitutions per site, become known without error.  With full length genomes now available, this limiting case might be approached in some data sets. This gives rise to an alternative approach to analysis, where a time tree, the root position and the branch rates are random variables, and the data are a set of branch lengths in units of substitution on a known unrooted tree topology.
 
 We investigated this approach on a fixed substitution tree reconstructed from whole mitochondrial genomes from a set of ratite species. Since no uncertainty is admitted in the genetic distances, the phylogenetic likelihood is no longer needed and the unrooted tree becomes the data, rather than a multiple sequence alignment.
 
-First of all, we used the ratites data set to construct an unrooted tree with an online program PhyML 3.0 \cite{phyml,guindon2010new}.  Figure \ref{withoutdata}(a) shows the unrooted tree with the genetic distances on the branches which are fixed in a subsequent relaxed clock analysis in BEAST2.
+First of all, we used the ratites data set to construct an unrooted tree with an online program PhyML 3.0 \cite{phyml,guindon2010new}.  Figure \ref{withoutdata}(a) shows the unrooted tree with the genetic distances on the branches which are fixed in the subsequent relaxed clock analysis in BEAST2.
 
-As an initial starting point, the midpoint method is adopted to root the starting time tree. After that, based on the genetic distances among seven taxa and the topology of the rooted tree, consistent divergence times are assigned to each ancestral node, so that a valid rooted time tree is obtained. Once divergence times are determined, rates on the branches are also determined so that the products match the unrooted substitution tree.
-%Figure \ref{Fig.sub.12} is the rooted time tree used as the initial state in MCMC chain.
-%\alexei{Do we need to show the initial tree? The result of the analysis is not dependent on the initial tree!}
+As an initial starting point, the root is randomly assigned. In this paper, we used the midpoint method to root the starting time tree. After that, according to the genetic distances among seven taxa and the topology of the rooted tree, consistent divergence times are specified and assigned to each ancestral node, so that a valid rooted time tree is obtained. Once divergence times are determined, rates on the branches are also calculated so that the products match the unrooted substitution tree.
 
-The resulting summary trees are shown in Figure \ref{withoutdata}. As can be seen, the most probable tree in Figure \ref{withoutdata}(b) is consistent with previous analyses of this data (see Figure 2 in Ref. \cite{cooper2001complete}). For large data sets of long sequences, the proposed method may prove useful to provide faster divergence time estimates based on the assumption of known unrooted topology and branch lengths in units of expected substitutions per site.
+Then we used Constant Distance operator to sample this starting tree. The resulting summary trees are shown in Figure \ref{withoutdata}. As can be seen, the most probable tree in Figure \ref{withoutdata}(b) is consistent with previous analyses of this data (see Figure 2 in Ref. \cite{cooper2001complete}). For large data sets of long sequences, the proposed method may prove useful to provide faster divergence time estimates based on the assumption of known unrooted topology and branch lengths in units of expected substitutions per site.
 
 \section*{Discussion}
 We have demonstrated that the presented operator is valid and able to improve the efficiency of phylogenetic MCMC for relaxed clock models. The overall performance of a Bayesian phylogenetic analysis will be affected by the proportion of MCMC steps that this operator is chosen to make the proposal. In BEAST2 software, this can be changed by modifying the weights of different operators. The ideal proportion is non trivial to determine for an arbitrary data set. In this study, we assigned equal weights on operations to all internal nodes (including the root). How to assign weights to achieve better performance is not studied in this paper, and users may assign different weights in practice. Hence, an optimal method of assigning weights still needs further investigation. 
@@ -636,7 +622,7 @@ The author(s) wish to acknowledge the use of New Zealand eScience Infrastructure
 \begin{figure}[h!]
 \includegraphics[width=12cm]{Fig11-modelvalidation.eps}\\
 \caption{\csentence{The models and prior distributions to simulate the sequence data.}
-             The sequence alignment is simulated through a phylogenetic continuous-time Markov Chain that consists of a substitution model (HKY) and an uncorrelated relaxed clock model. The random variables in HKY model construct the mutation rate matrix, including frequency and ratio. The rates and time trees specified by a Yule model construct the substitution tree. The standard deviation of rates and the birth rate in Yule model are both random variables following LogNormal distributions.}
+             The sequence alignment (SA) is simulated through a phylogenetic continuous-time Markov Chain (PhyloCTMC) that consists of a substitution model (HKY) and an uncorrelated relaxed clock model (UCRelaxedClockModel). The random variables in HKY model construct the mutation rate matrix ($Q$), including base frequencies ($\pi$) and kappa ($\kappa$). The time trees ($\psi$) and branch rates ($r_i$ for each branch $i$ in $\psi$)  specified by a Yule model construct the substitution tree (ST). The branch rates have a LogNormal prior with fixed mean 1 and certain standard deviation (denoted by S1, abbreviated to UcldStdev). And the time trees have a Yule model prior with birth rate ($\lambda$) having a LogNormal prior. The other prior distributions include a Dirichlet distributions of $\pi$, a LogNormal of $\kappa$, and a LogNormal of S1. In the simulations, the number of taxa is fixed at 120 (n = 120).}
 \label{modelvalidation}
 \end{figure}
 
@@ -751,34 +737,15 @@ Small Pulley&${d_i}$&0.3480&0.0492&0.3476&0.0494&Figure \ref{res_roo1}(b)\\
 
 \begin{table}[h!]
   \centering
-\begin{tabular}{cccccccc}
+\begin{tabular}{c|cccccc}
 \hline
-&BirthRate&TreeHeight&RateMean&UcldStdev&Kappa&Frequency\\
+Parameters&BirthRate&TreeHeight&RateMean&UcldStdev&Kappa&Frequencies\\
 \hline
-20 taxa&93&98&100&95&100&100\\
-120 taxa&100&98&85&94&100&100\\
-\hline
-\end{tabular}
-\caption{Number of real values lying in the 95\% HPD in Figure \ref{SmallTree} and Figure \ref{LargeTree} }\label{num_hpd}
-\end{table}
-
-\begin{table}[h!]
-  \centering
-\begin{tabular}{ccc|ccc}
-\hline
-\multirow{2}*{Parameter}&\multicolumn{2}{c|}{Coverage}&\multirow{2}*{Parameter}&\multicolumn{2}{c}{Coverage}\\
-&20 taxa & 120 taxa & & 20 taxa & 120 taxa\\
-\hline
-TreeHeight & 94\% & 100\% & RateMean & 100\% & 100\%\\
-TreeLength & 91\% & 99\% & Frequency1 & 90\% & 92\%\\ 
-Kappa      & 96\% & 99\% & Frequency2 & 93\% & 96\%\\
-Ucldstdev  & 95\% & 96\% & Frequency3 & 93\% & 97\% \\
-BirthRate  & 94\% & 100\% & Frequency4 & 96\% & 91\%\\
+Coverage&100&98&85&94&100&100\\
 \hline
 \end{tabular}
-\caption{Number of real values lying in the 95\% HPD in Figure \ref{SmallTree} and Figure \ref{LargeTree} }\label{num_hpd2}
+\caption{Percentage of real values lying in the 95\% HPD in Figure \ref{LargeTree} }\label{num_hpd}
 \end{table}
-
 
 \begin{table}[h!]
   \centering
