@@ -599,27 +599,6 @@ The author(s) wish to acknowledge the use of New Zealand eScience Infrastructure
 \end{figure}
 
 \begin{figure}[h!]
-\includegraphics[width=12cm]{Fig08-sampleprior.eps}\\
-\caption{\csentence{The illustration of sampling from prior.}
-             $g_1$ is set to be the original tree where an MCMC chain starts. When testing Big Pulley, the proposed operator samples the trees among $g_1$, $g_2$ and $g_3$.}
-\label{sampleprior}
-\end{figure}
-
-\begin{figure}[h!]
-\includegraphics[width=12cm]{Fig09-testinternalnode.eps}\\
-\caption{ \csentence{Sampled parameters in tests of internal nodes.}
-             The horizontal axis represents the node time of D in Figure \ref{sampleprior}. The two scenarios sample two trees with different distances specified in Table \ref{ini_inter}.}
-\label{res_int}
-\end{figure}
-
-\begin{figure}[h!]
-\includegraphics[width=12cm]{Fig10-testroot.eps}\\
-\caption{\csentence{Sampled parameters in test of the root.}
-             For the trees in Figure \ref{sampleprior}, Simple Distance samples the root time $t_E$ only, Small Pulley samples the distance $d_D$ only, and Big Pulley samples $t_E$, $t_D$, $d_D$. To make it simple, $t_E$ and $d_D$ are compared.}
-\label{res_roo1}
-\end{figure}
-
-\begin{figure}[h!]
 \includegraphics[width=12cm]{Fig11-modelvalidation.eps}\\
 \caption{\csentence{The models and prior distributions to simulate the sequence data.}
              The sequence alignment (SA) is simulated through a phylogenetic continuous-time Markov Chain (PhyloCTMC) that consists of a substitution model (HKY) and an uncorrelated relaxed clock model (UCRelaxedClockModel). The random variables in HKY model construct the mutation rate matrix ($Q$), including base frequencies ($\pi$) and kappa ($\kappa$). The time trees ($\psi$) and branch rates ($r_i$ for each branch $i$ in $\psi$)  specified by a Yule model construct the substitution tree (ST). The branch rates have a LogNormal prior with fixed mean 1 and certain standard deviation (denoted by S1, abbreviated to UcldStdev). And the time trees have a Yule model prior with birth rate ($\lambda$) having a LogNormal prior. The other prior distributions include a Dirichlet distributions of $\pi$, a LogNormal of $\kappa$, and a LogNormal of S1. In the simulations, the number of taxa is fixed at 120 (n = 120).}
@@ -661,6 +640,27 @@ The author(s) wish to acknowledge the use of New Zealand eScience Infrastructure
 \label{withoutdata}
 \end{figure}
 
+\begin{figure}[h!]
+\includegraphics[width=12cm]{Fig08-sampleprior.eps}\\
+\caption{\csentence{The illustration of sampling from prior.}
+             $g_1$ is set to be the original tree where an MCMC chain starts. When testing Big Pulley, the proposed operator samples the trees among $g_1$, $g_2$ and $g_3$.}
+\label{sampleprior}
+\end{figure}
+
+\begin{figure}[h!]
+\includegraphics[width=12cm]{Fig09-testinternalnode.eps}\\
+\caption{ \csentence{Sampled parameters in tests of internal nodes.}
+             The horizontal axis represents the node time of D in Figure \ref{sampleprior}. The two scenarios sample two trees with different distances specified in Table \ref{ini_inter}.}
+\label{res_int}
+\end{figure}
+
+\begin{figure}[h!]
+\includegraphics[width=12cm]{Fig10-testroot.eps}\\
+\caption{\csentence{Sampled parameters in test of the root.}
+             For the trees in Figure \ref{sampleprior}, Simple Distance samples the root time $t_E$ only, Small Pulley samples the distance $d_D$ only, and Big Pulley samples $t_E$, $t_D$, $d_D$. To make it simple, $t_E$ and $d_D$ are compared.}
+\label{res_roo1}
+\end{figure}
+
 \clearpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%                               %%
@@ -670,6 +670,44 @@ The author(s) wish to acknowledge the use of New Zealand eScience Infrastructure
 %% Use of \listoftables is discouraged.
 %%
 \section*{Tables}
+\begin{table}[h!]
+  \centering
+\begin{tabular}{c|cccccc}
+\hline
+Parameters&BirthRate&TreeHeight&RateMean&UcldStdev&Kappa&Frequencies\\
+\hline
+Coverage&100&98&85&94&100&100\\
+\hline
+\end{tabular}
+\caption{Percentage of real values lying in the 95\% HPD in Figure \ref{LargeTree} }\label{num_hpd}
+\end{table}
+
+\begin{table}[h!]
+  \centering
+\begin{tabular}{cc|cc|cc|cc}
+\hline
+&&\multicolumn{2}{c|}{ESS of of analysis}&\multicolumn{2}{c|}{Running time(second)}&\multicolumn{2}{c}{ESS per hour}\\
+\hline
+&Length&20 taxa&120 taxa&20 taxa&120 taxa&20 taxa&120 taxa\\
+categories&20000&13&4&18635&44155&2.47&0.36\\
+&10000&58&6&8660&36406&24.11&0.62\\
+&5000&171&8&4690&15956&131.09&1.89\\
+Average&&81&6&10662&32172&27.19&0.71\\
+\hline
+cons&20000&616&147&20207&35406&109.72&14.92\\
+&10000&646&161&8967&25589&259.24&22.68\\
+&5000&993&186&4581&12487&780.50&53.70\\
+Average&&752&165&11252&24494&240.24&24.21\\
+\hline
+nocons&20000&86&63&19344&38245&16.09&5.91\\
+&10000&153&20&8361&30521&65.83&2.31\\
+&5000&296&48&4499&12940&237.04&13.22\\
+Average&&179&43&10735&27236&59.87&5.72\\
+\hline
+\end{tabular}
+\caption{Summary of ESS and running time using simulated data}\label{eff_comp1}
+\end{table}
+
 \begin{table}[h!]
   \centering
 \begin{tabular}{c|cccc|c|c|cccc}
@@ -733,44 +771,6 @@ Small Pulley&${d_i}$&0.3480&0.0492&0.3476&0.0494&Figure \ref{res_roo1}(b)\\
 \hline
 \end{tabular}
 \caption{Results of sampling the root}\label{res_sma}
-\end{table}
-
-\begin{table}[h!]
-  \centering
-\begin{tabular}{c|cccccc}
-\hline
-Parameters&BirthRate&TreeHeight&RateMean&UcldStdev&Kappa&Frequencies\\
-\hline
-Coverage&100&98&85&94&100&100\\
-\hline
-\end{tabular}
-\caption{Percentage of real values lying in the 95\% HPD in Figure \ref{LargeTree} }\label{num_hpd}
-\end{table}
-
-\begin{table}[h!]
-  \centering
-\begin{tabular}{cc|cc|cc|cc}
-\hline
-&&\multicolumn{2}{c|}{ESS of of analysis}&\multicolumn{2}{c|}{Running time(second)}&\multicolumn{2}{c}{ESS per hour}\\
-\hline
-&Length&20 taxa&120 taxa&20 taxa&120 taxa&20 taxa&120 taxa\\
-categories&20000&13&4&18635&44155&2.47&0.36\\
-&10000&58&6&8660&36406&24.11&0.62\\
-&5000&171&8&4690&15956&131.09&1.89\\
-Average&&81&6&10662&32172&27.19&0.71\\
-\hline
-cons&20000&616&147&20207&35406&109.72&14.92\\
-&10000&646&161&8967&25589&259.24&22.68\\
-&5000&993&186&4581&12487&780.50&53.70\\
-Average&&752&165&11252&24494&240.24&24.21\\
-\hline
-nocons&20000&86&63&19344&38245&16.09&5.91\\
-&10000&153&20&8361&30521&65.83&2.31\\
-&5000&296&48&4499&12940&237.04&13.22\\
-Average&&179&43&10735&27236&59.87&5.72\\
-\hline
-\end{tabular}
-\caption{Summary of ESS and running time using simulated data}\label{eff_comp1}
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%                               %%
