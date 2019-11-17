@@ -419,7 +419,7 @@ First, we independently simulated parameters and trees from the full model 100 t
 These results show that the true values of the parameters are within the 95\% highest posterior density (HPD) interval approximately 95\% of the time (Table \ref{num_hpd}). This well-calibrated simulation study confirms that the Constant Distance operator can successfully provide reliable parameter estimates.
 
 \subsection*{Performance comparison}
-To evaluate the performance of Constant Distance operator in a Bayesian phylogenetic analysis, we explored the time required to adequately sample the posterior distribution. This was achieved by examining i) the total time taken by BEAST2 to complete the MCMC inference, and ii) the effective sample size (ESS) of $S3$ - the standard deviation of the relaxed clock. The effective sample size of a parameter is the number of effectively independent samples from the posterior distribution. Larger ESS indicates a better approximation of the marginal posterior distribution of the parameter. We used Tracer \cite{Tracer} to compute ESS.
+To evaluate the performance of Constant Distance operator in a Bayesian phylogenetic analysis, we explored the time required to adequately sample the posterior distribution. This was achieved by examining i) the total time taken by BEAST2 to complete the MCMC inference, and ii) the effective sample size (ESS) of the sampled parameters. The effective sample size of a parameter is the number of effectively independent samples from the posterior distribution. Larger ESS indicates a better approximation of the marginal posterior distribution of the parameter. We used Tracer \cite{Tracer} to compute ESS.
 
 For each dataset, we compared three tree operator configurations. 1) Using the current operators in BEAST2 to sample discrete rate categories (categories). 2) Using the ConstantDistance operator to sample continuous rates specified by an uncorrelated related clock model (cons). 3) Using standard BEAST2 operators and the same clock model as cons (nocons). This analysis was performed 100 times on each dataset for each configuration, with the prior distributions and all other model specifications held constant.
 
@@ -474,7 +474,7 @@ We demonstrate the correctness of this algorithm with a series of tests includin
 \section*{Abbreviations}
 \begin{table}[h!]
 \raggedright
-\begin{tabular}{cc}
+\begin{tabular}{ll}
 MCMC&Markov chain Monte Carlo\\
 ESS&effective sample sizes\\ 
 HPD&highest posterior density\\
@@ -672,11 +672,15 @@ The author(s) wish to acknowledge the use of New Zealand eScience Infrastructure
 \section*{Tables}
 \begin{table}[h!]
   \centering
-\begin{tabular}{c|cccccc}
+\begin{tabular}{cc|cc}
 \hline
-Parameters&BirthRate&TreeHeight&RateMean&UcldStdev&Kappa&Frequencies\\
+Parameters&Coverage&Parameters&Coverage\\
 \hline
-Coverage&100&98&85&94&100&100\\
+TreeHeight&89&UcldStdev&91\\
+TreeLength&91&Frequency1&94\\
+Kappa&97&Frequency2&96\\
+BirthRate&99&Frequency3&95\\
+RateMean&100&Frequency4&97\\
 \hline
 \end{tabular}
 \caption{Percentage of real values lying in the 95\% HPD in Figure \ref{LargeTree} }\label{num_hpd}
