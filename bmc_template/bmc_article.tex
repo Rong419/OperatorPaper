@@ -436,9 +436,9 @@ We used a real data set with 83 primates and 1234 sites \cite{finstermeier2013mi
 These results (Figure \ref{eff_comp2}) show that, on average, the configuration using Constant Distance operator achieves a larger ESS of S3 and in less running time. Overall, Constant Distance operator improved the performance by providing 18.3 and 10.8 times larger ESS per hour, compared with categories and nocons respectively.
 
 \subsection*{Correlation analysis of rates and node times}
- We used a data set from Copper et al.'s work \cite{cooper2001complete}. This data set include 7 taxa of ratites and the genome sequences have 10767 sites. After analysing the ratites data set in BEAST2 using the Constant Distance operator, we conducted a pairwise comparison between each rate and branch length in order to see how they are correlated.
+ We used a data set from Copper et al.'s work \cite{cooper2001complete}. This data set includes 7 taxa of ratites and the genome sequences have 10767 sites. After analysing the ratites data set in BEAST2 using the Constant Distance operator, we conducted a pairwise comparison between each rate and branch length in order to see how they are correlated.
 
-The results are summarised in Figure \ref{correlation}. Figure \ref{correlation}(a) presents the topology of the maximum clade credibility tree. Then we utilised the programme TreeStat2 \cite{TreeStat2} to obtain the filtered trees that have the same topology as the maximum clade credibility tree from the sampled tree in MCMC chain, which means the trees that do not match this reference topology are discarded. 
+The results are summarised in Figure \ref{correlation}. Figure \ref{correlation}(a) presents the topology of the maximum clade credibility tree. Then we utilised the programme TreeStat2 \cite{TreeStat2} to obtain the filtered trees that have the same topology as the maximum clade credibility tree from the sampled trees in MCMC chain. This means the trees that have different shared common ancestors of each taxon in the reference tree are filtered out. 
 
 Afterwards, Figure \ref{correlation}(b) shows the pairwise comparison of the 12 branch rates and 12 branch lengths on these filtered trees. As can be seen from upper right of , to a large degree, the rates are negatively correlated with the node times. This indicates that when a larger node time is proposed, the corresponding rates become smaller. For example, $t1$ has a negative correlation with $r1$ and $r2$, but has positive correlation with $r8$. That is to say, with the increase of $t1$, the rate $r8$ will also increase, but $r1$ and $r2$ will decrease. In addition, in the upper left of Figure \ref{correlation}(b), most rates on two adjacent branches have positive correlations, but have a negative correlation with the rate above them. Take $r6$ and $r7$ as an example. They have a positive correlation with each other, but are negatively related to $r12$. This means a larger $r6$ incurs a larger $r7$ and a smaller $r12$. To sum up, this dynamic change of rates and node times is consistent with the mechanism of the proposed operator. Although there are some inconsistent correlations, it should be noticed that this is an average pairwise comparison in two dimensions. For comparisons in higher dimensions, the results would be closer to the mechanism of the proposed operator.
 
@@ -601,7 +601,7 @@ The author(s) wish to acknowledge the use of New Zealand eScience Infrastructure
 \begin{figure}[h!]
 \includegraphics[width=12cm]{Fig11-modelvalidation.eps}\\
 \caption{\csentence{The models and prior distributions to simulate the sequence data.}
-             The sequence alignment (SA) is simulated through a phylogenetic continuous-time Markov Chain (PhyloCTMC) that consists of a substitution model (HKY) and an uncorrelated relaxed clock model (UCRelaxedClockModel). The random variables in HKY model construct the mutation rate matrix ($Q$), including base frequencies ($\pi$) and kappa ($\kappa$). The time trees ($\psi$) and branch rates ($r_i$ for each branch $i$ in $\psi$) construct the substitution tree (ST). The branch rates have a LogNormal prior with fixed mean 1 and certain standard deviation (denoted by S1, abbreviated to UcldStdev). And the time trees have a Yule model prior with birth rate ($\lambda$) having a LogNormal prior. The other prior distributions include a Dirichlet distributions of $\pi$, a LogNormal of $\kappa$, and a LogNormal of S1. In the simulations, the number of taxa is fixed at 120 (n = 120).}
+             The sequence alignment (SA) is simulated through a phylogenetic continuous-time Markov Chain (PhyloCTMC) that consists of a substitution model (HKY) and an uncorrelated relaxed clock model (UCRelaxedClockModel). The random variables in HKY model construct the mutation rate matrix ($Q$), including base frequencies ($\pi$) and kappa ($\kappa$). The time trees ($\psi$) and branch rates ($r_i$ for each branch $i$ in $\psi$) construct the substitution tree (ST). The branch rates have a LogNormal prior with fixed mean 1 and certain standard deviation (denoted by S1, abbreviated to UcldStdev). And the time trees have a Yule model prior with birth rate ($\lambda$) having a LogNormal prior. The other prior distributions include a Dirichlet distributions of $\pi$, a LogNormal of $\kappa$, and a LogNormal of S1. For notations in LogNormal distributions, the uppercase letters represent the parameters in real space, and the lowercase letters represent the parameters in log space. In all the simulations, the number of taxa is fixed at 120 (n = 120).}
 \label{modelvalidation}
 \end{figure}
 
@@ -947,7 +947,8 @@ Last but not least, due to the change of tree topology in \textit{Exchange (\tex
 \caption{Calculation of $\mu$ for Big pulley}
 \label{alg1}
 \begin{algorithmic}[1]
-\IF{either the node that has been exchanged with \textbf{dau} or \textbf{dau} itself has child nodes}
+\STATE Original tree is symmetric:
+\IF{the node that has been exchanged with \textbf{L} or \textbf{R} has child nodes}
 \STATE $\alpha  = \beta  = 0.25$
 \ELSIF{${t_R} > {t_L}$}
 \STATE $\alpha  = 1,\beta  = 0.5$
@@ -956,23 +957,27 @@ Last but not least, due to the change of tree topology in \textit{Exchange (\tex
 \ELSIF{${t_R} = {t_L}$}
 \STATE $\alpha  = \beta  = 1$
 \ENDIF
+\IF{Proposed tree belongs to \textcircled1 or \textcircled2}
+\STATE Return $\mu = \frac{\alpha }{{0.25}}$
+\ENDIF
+\IF{Proposed tree belongs to \textcircled3 or \textcircled4}
+\STATE Return $\mu = \frac{\beta }{{0.25}}$
+\ENDIF
+\STATE
+\STATE Original tree is asymmetric:
 \IF{the node that has been exchanged with \textbf{O} has child nodes}
 \STATE $\gamma  = 0.25$
 \ELSE
 \STATE $\gamma  = 0.5$
 \ENDIF
-\FOR{\textcircled1 \textcircled2}
-\STATE Return $\mu = \frac{\alpha }{{0.25}}$
-\ENDFOR
-\FOR{\textcircled3 \textcircled4}
-\STATE Return $\mu = \frac{\beta }{{0.25}}$
-\ENDFOR
-\FOR{\textcircled5 \textcircled6}
+
+\IF{Proposed tree belongs to \textcircled5 or \textcircled6}
 \STATE Return $\mu = \frac{\gamma }{{0.5}}$
-\ENDFOR
-\FOR{\textcircled7}
+\ENDIF
+\IF{Proposed tree belongs to \textcircled7}
 \STATE Return $\mu = \frac{{0.25}}{1}$
-\ENDFOR
+\ENDIF
+
 \end{algorithmic}
 \end{algorithm}
 \subsection*{Sampling from the prior}
