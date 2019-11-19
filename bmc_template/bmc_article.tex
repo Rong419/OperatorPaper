@@ -274,7 +274,7 @@ In contrast to Simple Distance, Small Pulley proposes new genetic distances of b
 \subsubsection*{Big Pulley}
 Big Pulley resamples the rates and times in a fixed unrooted tree. The genetic distances between the taxa are held constant, but the location of the root is readjusted.
 
-Before describing the detailed steps, we introduce a method called \textit{Exchange} that is designed to propose a new tree topology in Big Pulley operations. In Figure \ref{exchangemethod}, let (1) \textbf{X} denote the root of tree $g$, (2) \textbf{C} and \textbf{N} denote the two child nodes of \textbf{X}, (3) \textbf{S} and \textbf{M} denote the two child nodes of \textbf{C}. Once the method is called by certain step in Big Pulley, the following operations will be executed.
+Before describing the detailed steps, we introduce a method \textit{Exchange} that proposes a new tree topology when it is called in Big Pulley. In Figure \ref{exchangemethod}, let (1) \textbf{X} denote the root of tree $g$, (2) \textbf{C} and \textbf{N} denote the two child nodes of \textbf{X}, (3) \textbf{S} and \textbf{M} denote the two child nodes of \textbf{C}. Once the method is called by certain step in Big Pulley, the following operations will be executed.
 \begin{itemize}
 \item Call \textit{Exchange(\textbf{M}, \textbf{N})} to swap the two nodes by pruning and grafting, i.e. cutting \textbf{M} (\textbf{N}) at its original position and attaching it to the original position of \textbf{N} (\textbf{M}).
 \item Propose ${d_C}'$ by ${d_C}' = {d_C} + b$, where $b \sim U[ - v, + v]$. Make sure that $0 < {d_C}' < D$ holds, where $D = {d_C} + {d_{N}}$. Otherwise, we reject the proposal.
@@ -297,7 +297,7 @@ For the symmetric tree in Figure \ref{treeshape}, the operations are illustrated
 
 \emph{Step 2} Propose a new node time for the root \textbf{X} by ${t_X}' = {t_X} + a$, where $a \sim U[ - w, + w]$.
 
-\emph{Step 3} Propose a new node time either for \textbf{L} or \textbf{R}. And apply the method using \textbf{R} and either child node of \textbf{L}.
+\emph{Step 3} Propose a new node time either for \textbf{L} or \textbf{R}. And apply the method to the selected node and one of its sibling's children.
 \begin{itemize}
 \item With 0.5 probability to pick \textbf{L} and propose a new node time by ${t_L}' = {t_L} + {a_1}$, where ${a_1} \sim U[ - w, + w]$. Make sure that ${t_R} < {t_L}' < {t_X}'$ holds. Otherwise, we reject the proposal. If we don't reject then there are two options to apply the method:
 \begin{itemize}
@@ -439,16 +439,16 @@ We used a real data set with 83 primates and 1234 sites \cite{finstermeier2013mi
 These results (Figure \ref{eff_comp2}) show that, on average, the configuration using Constant Distance operator achieves a larger ESS of S3 and in less running time. Overall, Constant Distance operator improved the performance by providing 18.3 and 10.8 times larger ESS per hour, compared with categories and nocons respectively.
 
 \subsection*{Correlation analysis of rates and branch lengths}
- We used a data set from Copper et al.'s work \cite{cooper2001complete}. This data set includes 7 taxa of ratites and the genome sequences have 10767 sites. After analysing the ratites data set in BEAST2 using the Constant Distance operator, we conducted a pairwise comparison between each rate and branch length. By analysing the correlations, we demonstrate that the proposed operators works properly.
+In this section, we conduct a pairwise comparison between rates and branch lengths, in order to show whether the proposed operators are able to sample rates and divergence times in a correct relationship by constraining the constant distances. We used a data set from Copper et al.'s work \cite{cooper2001complete}. This data set includes 7 taxa of ratites and the genome sequences have 10767 sites. After analysing the ratites data set in BEAST2 using the Constant Distance operator, we compare the correlations and demonstrate that the proposed operators work properly.
 
 The results are summarised in Figure \ref{correlation}. Figure \ref{correlation}(a) presents the topology of the maximum clade credibility tree. Then we utilised the programme TreeStat2 \cite{TreeStat2} to obtain the filtered trees that have the same topology as the maximum clade credibility tree from the sampled trees in MCMC chain. This means the trees that have different shared common ancestors of each taxon in the reference tree are filtered out. 
 
 Afterwards, Figure \ref{correlation}(b) shows the pairwise comparison of the 12 branch rates and 12 branch lengths (in time) on these filtered trees. As can be seen from the diagonal, to a large degree, the rates are negatively correlated with branch lengths, which indicates that a larger node time will lead to a smaller rate. This is because the operators propose a branch rate $r$ and a node time $t$, on condition that the distance $d$ is constant, i.e. $d = r \times \tau$.  The consequence is that we have a linear relationship between rate $r$ and branch length $\tau$ i.e. $r = d/\tau $.  For example, if a larger $t_1$ is proposed, ${\tau _1}$ increases as well, but $r_1$ goes down. At the same time, ${\tau _8}$ decreases, which causes $r_8$ to become larger, so that ${\tau _1}$ and $r_8$ have a positive relationship. To sum up, this dynamic change of rates and branch lengths is consistent with the mechanism of the proposed operator. Although there are some inconsistent correlations, it should be noticed that this is an average pairwise comparison in two dimensions and there are other operators sampling the rates and node times. For comparisons in higher dimensions, the results would be closer to the mechanism of the proposed operator.
 
 \subsection*{Sampling a fixed unrooted tree}
-A limiting case for the relaxed molecular clock model (and one exploited in some of our validation tests) occurs for long sequences, when the branch lengths of the unrooted tree, in units of expected substitutions per site, become known without error.  With full length genomes now available, this limiting case might be approached in some data sets. This gives rise to an alternative approach to analysis, where a time tree, the root position and the branch rates are random variables, and the data are a set of branch lengths in units of substitution on a known unrooted tree topology. 
+A limiting case for the relaxed molecular clock model (and one exploited in some of our validation tests) occurs for long sequences, when the branch lengths of the unrooted tree, in units of expected substitutions per site, become known without error. With full length genomes now available, although inferring trees from genomes involves complexities and assumptions such as a good partition scheme \cite{lanfear2012partitionfinder}, this limiting case might be approached in some data sets. As a simple test in this paper, this gives rise to an alternative approach to analysis, where a time tree, the root position and the branch rates are random variables, and the data are a set of branch lengths in units of substitution on a known unrooted tree topology. 
 
-Previous work done by Reis and Yang \cite{reis2011approximate} also tried to approximate the likelihood of such an unrooted tree in Bayesian phylogenetic inference. Similar researches in \cite{thorne1998estimating,guindon2010bayesian} show that these methods can account for rate changes in a relaxed clock model, but the genetic distances are not fixed because a Gibbs sampling algorithm is involved. Except Bayesian MCMC methods, other models, such as least-squares criteria \cite{to2015fast} and maximum likelihood \cite{sagulenko2018treetime,sanderson2003r8s}, are applied to unrooted trees to estimate substitution rates and divergence times.
+Previous work done by Reis and Yang \cite{reis2011approximate} also tried to approximate the likelihood of such an unrooted tree in Bayesian phylogenetic inference. Similar researches in \cite{thorne1998estimating,guindon2010bayesian} show that these methods can account for rate changes in a relaxed clock model, but the genetic distances are not fixed, for example St{\'e}phane Guindon used a Gibbs sampling algorithm \cite{guindon2010bayesian}. Except Bayesian MCMC methods, other models, such as least-squares criteria \cite{to2015fast} and maximum likelihood \cite{sagulenko2018treetime,sanderson2003r8s}, are applied to estimate substitution rates and divergence times in unrooted trees. 
 
 In this section, we investigated this approach on a fixed substitution tree reconstructed from whole mitochondrial genomes from a set of ratite species \cite{cooper2001complete}. Since no uncertainty is admitted in the genetic distances and the proposed operator don't change the genetic distances, the phylogenetic likelihood is no longer needed and the unrooted tree becomes the data, rather than a multiple sequence alignment.
 
@@ -633,8 +633,8 @@ The author(s) wish to acknowledge the use of New Zealand eScience Infrastructure
 
 \begin{figure}[h!]
 \includegraphics[width=12cm]{Fig16-correlation.eps}\\
-\caption{\csentence{Correlation between rates and node times in the ratites tree.}
-             Blue indicates positive correlations and red indicates negative correlations. The darker the colour is, the stronger the correlation tends to be.}
+\caption{\csentence{Correlation analysis in the ratites tree.}
+             Blue indicates positive correlations and red indicates negative correlations. The darker the colour is, the stronger the correlation tends to be. $\tau $ represents the length of a branch, that is the time difference between a parent node and a child node.}
 \label{correlation}
 \end{figure}
 
