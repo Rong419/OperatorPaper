@@ -234,7 +234,7 @@ Figure \ref{internalnodes} represents the tree (or subtree) with the node \textb
 \emph{Step 5} Return the Green ratio ${\alpha_{IN}}$ (Refer to `Calculating the Green Ratio' in the following subsection).
 
 \subsection*{Operations on the root}
-We present three strategies for proposing the new rates and times for the special case of when \textbf{X} is the root node. i) The Simple Distance operator only proposes a new root time. ii) Small Pulley adjusts the distances of branches on both sides of the root. iii) Big Pulley proposes a new tree topology by rearranging the root, without perturbing the unrooted tree. As is illustrated in Figure \ref{simpledistance}(a), all the operations on the root, including Big Pulley that changes tree topology, do not change the underlying unrooted tree. For instance, no matter where the root $X$ is, on branch $EF$ or $AD$, the operators maintain the distances ($d_{AB}$, $d_{AC}$, $d_{AD}$,$d_{BC}$, $d_{BD}$, $d_{CD}$) and preserve the unrooted tree at the same time.
+We present three strategies for proposing the new rates and times for the special case of when \textbf{X} is the root node. i) The Simple Distance operator only proposes a new root time. ii) Small Pulley adjusts the distances of branches on both sides of the root. iii) Big Pulley proposes a new tree topology by rearranging the root, without perturbing the unrooted tree. As is illustrated in Figure \ref{simpledistance}(a), all the operations on the root, including Big Pulley that changes tree topology, do not change the underlying unrooted tree. For instance, no matter where the root $X$ is, on branch $EF$ or $AE$, the operators maintain the distances ($d_{AB}$, $d_{AC}$, $d_{AD}$,$d_{BC}$, $d_{BD}$, $d_{CD}$) and preserve the unrooted tree at the same time.
 
 \subsubsection*{Simple Distance}
 Figure \ref{simpledistance} shows the trees that are rooted at the node \textbf{X}. The original tree in the current state is shown in Figure \ref{simpledistance}(b), which is denoted by $g$. Similar to the operations on internal nodes, we will use the following steps to propose a new root time and two rates in ${g}'$, while keeping the genetic distances of two branches linked to the root, i.e. $d_L$ and $d_R$, constant at the same time. These steps are illustrated in Figure \ref{simpledistance}(c).
@@ -252,7 +252,7 @@ Figure \ref{simpledistance} shows the trees that are rooted at the node \textbf{
 
 \emph{Step 4} Return the Green ratio ${\alpha_{SD}}$.
 \subsubsection*{Small Pulley}
-In contrast to Simple Distance, Small Pulley proposes new genetic distances of branches on both sides of the root. As is illustrated in Figure \ref{simpledistance}(d), two new rates in tree ${g}'$ is proposed based on those in the original tree $g$. In order to maintain the total genetic distance $d_L + d_R$ of the two branches linked to the root, after ${d_L}'$ is proposed, $d_R$ will be adjusted simultaneously. In other words, Small Pulley keeps $D = d_L + d_R$ constant. The detailed process includes the following 4 steps.
+In contrast to Simple Distance, Small Pulley changes genetic distances of branches on both sides of the root. As is illustrated in Figure \ref{simpledistance}(d), two new rates in tree ${g}'$ are proposed based on those in the original tree $g$. In order to maintain the total genetic distance $d_L + d_R$ of the two branches linked to the root, after ${d_L}'$ is proposed, $d_R$ will be adjusted simultaneously. In other words, Small Pulley keeps $D = d_L + d_R$ constant. The detailed process includes the following 4 steps.
 
 \emph{Step 1} Identify the child nodes of the root \textbf{X}, denoted by \textbf{L} and \textbf{R}. Their corresponding node times and branch rates are $t_X$, $t_L$, $t_R$ and $r_L$, $r_R$. The implied genetic distances of the two branches linked to the root can be calculated by:
 \begin{equation}
@@ -288,7 +288,7 @@ Before describing the detailed steps, we introduce a method \textit{Exchange} th
 
 As can be seen from the above descriptions, the method \textit{Exchange (\textbf{M}, \textbf{N})} is actually aimed at swapping two nodes and reassigning distances on the four branches. That is to say, after using \textit{Exchange (\textbf{M}, \textbf{N})}, the distances $d_S$, $d_{M}$, $d_{N}$ and $d_{C}$ will be adjusted to maintain the implied genetic distances among three taxa \textbf{S}, \textbf{M} and \textbf{N}, as the tree topology changes.
 
-Additionally, operations in Big Pulley vary depending on the shape of phylogenetic tree. In Figure \ref{treeshape}, a symmetric tree is shown on the left, in which both the child nodes of the root have child nodes, i.e. \textbf{L} having children \textbf{H1}, \textbf{H2} and \textbf{R} having children \textbf{H3}, \textbf{H4}. But in the asymmetric tree on the right, only one of the child nodes of the root has child nodes below it, i.e. \textbf{O} having children \textbf{G1}, \textbf{G2}. But the other child node \textbf{Y} doesn't any offsprings, which may be a tip or a sampled ancestor. The corresponding operations are detailed in the following two parts.
+Additionally, operations in Big Pulley vary depending on the shape of phylogenetic tree. In Figure \ref{treeshape}, a symmetric tree is shown on the left, in which both the child nodes of the root have child nodes, i.e. \textbf{L} having children \textbf{H1}, \textbf{H2} and \textbf{R} having children \textbf{H3}, \textbf{H4}. But in the asymmetric tree on the right, only one of the child nodes of the root has child nodes below it, i.e. \textbf{O} having children \textbf{G1}, \textbf{G2}. But the other child node \textbf{Y} doesn't have any offsprings, which may be a tip or a sampled ancestor. The corresponding operations are detailed in the following two parts.
 \paragraph*{Symmetric tree}
 
 For the symmetric tree in Figure \ref{treeshape}, the operations are illustrated in Figure \ref{symmetric}, after which one of the four possible trees (\textcircled1 \textcircled2 \textcircled3 \textcircled4) will be proposed.
@@ -570,7 +570,7 @@ The author(s) wish to acknowledge the use of New Zealand eScience Infrastructure
 \begin{figure}[h!]
 \includegraphics[width=12cm]{Fig03-rootstrategy.eps}\\
 \caption{\csentence{Illustration of operations on root.}
-             Subfigure (a) shows an example of a 4-taxa unrooted tree and two possible rooted tree for the operator to sample. during which the unrooted tree can not be changed. Based on the original tree in subfigure (b), Simple Distance proposes ${g}'$ and keeps $d_L$, $d_R$ constant in subfigure (c). Small Pulley proposes ${g}'$ and ${d_L} + {d_R}$ remains constant in subfigure (d).}
+             Subfigure (a) shows an example of a 4-taxa unrooted tree and two possible rooted tree for the operator to sample, during which the unrooted tree can not be changed. Based on the original tree in subfigure (b), Simple Distance proposes a node time and two rates in ${g}'$ and keeps $d_L$, $d_R$ constant in subfigure (c). Small Pulley proposes two distances and two rates in ${g}'$ and $D = {d_L} + {d_R}$ remains constant in subfigure (d).}
 \label{simpledistance}
 \end{figure}
 
@@ -634,7 +634,7 @@ The author(s) wish to acknowledge the use of New Zealand eScience Infrastructure
 \begin{figure}[h!]
 \includegraphics[width=12cm]{Fig16-correlation.eps}\\
 \caption{\csentence{Correlation analysis in the ratites tree.}
-             Blue indicates positive correlations and red indicates negative correlations. The darker the colour is, the stronger the correlation tends to be. $\tau $ represents the length of a branch, that is the time difference between a parent node and a child node.}
+             $\tau $ represents the length of a branch, that is the time difference between a parent node and a child node. The Pearson coefficients are calculated by converting the rates and branch lengths into log space, so that the coefficients range from -1 to 1, as is shown in the bar. Blue indicates positive correlations and red indicates negative correlations. The darker the colour is, the stronger the correlation tends to be. }
 \label{correlation}
 \end{figure}
 
