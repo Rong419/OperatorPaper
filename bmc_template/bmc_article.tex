@@ -183,7 +183,7 @@ Namely, the proposed operator changes both divergence times of nodes and neighbo
 
 \section*{Preliminaries}
 \subsection*{Bayesian MCMC}
-Let $D$ denote the data, and let $g$ and $\bf{\Phi}$ denote the phylogenetic tree and a set of evolutionary parameters respectively. The posterior probability density can be calculated using Equation (\ref{bayes}). It consists of prior distributions for the  tree and the parameters, a phylogenetic likelihood that conveys information from data, and the posterior distribution to be inferred. These are denoted in the form of probability densities by $p(g) $, $p(\bf{\Phi})$, $p(D|g,\bf{\Phi} )$, $p(g,{\bf{\Phi}}|D)$ respectively. From a Bayesian perspective, the phylogenetic trees and the parameters are random variables described by a posterior probability distribution given the observed data $D$.
+Let $D$ denote the data, and let $g$ and $\bf{\Phi}$ denote the phylogenetic tree topology and a set of evolutionary parameters respectively. The posterior probability density can be calculated using Equation (\ref{bayes}). It consists of prior distributions for the  tree and the parameters, a phylogenetic likelihood that conveys information from data, and the posterior distribution to be inferred. These are denoted in the form of probability densities by $p(g) $, $p(\bf{\Phi})$, $p(D|g,\bf{\Phi} )$, $p(g,{\bf{\Phi}}|D)$ respectively. From a Bayesian perspective, the phylogenetic trees and the parameters are random variables described by a posterior probability distribution given the observed data $D$.
 %As a result, it is possible to jointly infer evolutionary history of species  by incorporating various source of information such as molecular data and fossil records.
 \begin{equation}\label{bayes}
 p(g,{\bf{\Phi}} |D) = \frac{{p (D|g,{\bf{\Phi}} ) \times p (g) \times p ({\bf{\Phi}} )}}{{p (D)}}
@@ -208,7 +208,7 @@ Referring to the Bayesian framework in Equation (\ref{bayes}), the joint inferen
 \begin{equation}\label{bayes1}
 p({\bf{t}},{\bf{r}},g,{\bf{\Phi}} |D) = \frac{{p(D|{\bf{t}},{\bf{r}},{\bf{\Phi}} )p({\bf{r}}|{\bf{\Phi}} )p({\bf{t}}|g,{\bf{\Phi}} )p(g)p({\bf{\Phi}} )}}{{p(D)}} \text{,}
 \end{equation}
-where $p({\bf{r}}|{\bf{\Phi}} )$ is the prior for rates specified in uncorrelated relaxed clock model. The proposed operator is to sample the state $({\bf{t}},{\bf{r}},g,{\bf{\Phi}})$ in the constructed Markov chain.
+where $p({\bf{r}}|{\bf{\Phi}} )$ is the prior for rates specified in uncorrelated relaxed clock model. In the constructed Markov chain, the operator moves the original state $\theta =  \{ {\bf{t}},{\bf{r}},g,{\bf{\Phi}}\}$ by proposing a new state ${\theta^\prime} = ({\bf{t}^\prime},{\bf{r}^\prime},g^\prime,{\bf{\Phi}^\prime})$ state  .
 
 While the proposed operator is introduced based on uncorrelated clock models, it is admitted that it can be applied to any others relaxed models as well, such as autocorrelated clock models \cite{thorne1998estimating}.
 
@@ -237,7 +237,7 @@ Figure \ref{internalnodes} represents the tree (or subtree) with the node \textb
 We present three strategies for proposing the new rates and times for the special case of when \textbf{X} is the root node. i) The Simple Distance operator only proposes a new root time. ii) Small Pulley adjusts the distances of branches on both sides of the root. iii) Big Pulley proposes a new tree topology by rearranging the root, without perturbing the unrooted tree. As is illustrated in Figure \ref{simpledistance}(a), all the operations on the root, including Big Pulley that changes tree topology, do not change the underlying unrooted tree. For instance, no matter where the root $X$ is, on branch $EF$ or $AD$, the operators maintain the distances ($d_{AB}$, $d_{AC}$, $d_{AD}$,$d_{BC}$, $d_{BD}$, $d_{CD}$) and preserve the unrooted tree at the same time.
 
 \subsubsection*{Simple Distance}
-Figure \ref{simpledistance} shows the trees that are rooted at the node \textbf{X}. The original tree in the current state is shown in Figure \ref{simpledistance}(b), which is denoted by $g$. Similar to the operations on internal nodes, we will use the following steps to propose a new tree ${g}'$, while keeping the genetic distances of two branches linked to the root $d_L$ and $d_R$ constant at the same time. These steps are illustrated in Figure \ref{simpledistance}(c).
+Figure \ref{simpledistance} shows the trees that are rooted at the node \textbf{X}. The original tree in the current state is shown in Figure \ref{simpledistance}(b), which is denoted by $g$. Similar to the operations on internal nodes, we will use the following steps to propose a new root time and two rates in ${g}'$, while keeping the genetic distances of two branches linked to the root, i.e. $d_L$ and $d_R$, constant at the same time. These steps are illustrated in Figure \ref{simpledistance}(c).
 
 \emph{Step 1} Identify the child nodes of the root \textbf{X}, denoted by \textbf{L} and \textbf{R}. Their corresponding node times and branch rates are $t_X$, $t_L$, $t_R$ and $r_L$, $r_R$.
 
@@ -252,7 +252,7 @@ Figure \ref{simpledistance} shows the trees that are rooted at the node \textbf{
 
 \emph{Step 4} Return the Green ratio ${\alpha_{SD}}$.
 \subsubsection*{Small Pulley}
-In contrast to Simple Distance, Small Pulley proposes a new genetic distance of a branch on one side of the root. As is illustrated in Figure \ref{simpledistance}(d), a new tree ${g}'$ is proposed based on the original tree $g$. In order to maintain the total genetic distance $d_L + d_R$ of the two branches linked to the root, after ${d_L}'$ is proposed, $d_R$ will be adjusted simultaneously. The detailed process includes the following 4 steps.
+In contrast to Simple Distance, Small Pulley proposes new genetic distances of branches on both sides of the root. As is illustrated in Figure \ref{simpledistance}(d), two new rates in tree ${g}'$ is proposed based on those in the original tree $g$. In order to maintain the total genetic distance $d_L + d_R$ of the two branches linked to the root, after ${d_L}'$ is proposed, $d_R$ will be adjusted simultaneously. In other words, Small Pulley keeps $D = d_L + d_R$ constant. The detailed process includes the following 4 steps.
 
 \emph{Step 1} Identify the child nodes of the root \textbf{X}, denoted by \textbf{L} and \textbf{R}. Their corresponding node times and branch rates are $t_X$, $t_L$, $t_R$ and $r_L$, $r_R$. The implied genetic distances of the two branches linked to the root can be calculated by:
 \begin{equation}
@@ -261,7 +261,7 @@ In contrast to Simple Distance, Small Pulley proposes a new genetic distance of 
 {d_R} = {r_R} \times ({{t_X} - {t_R}})
  \end{equation}
 
-\emph{Step 2} Propose a new genetic distance for $d_L$ by adding a random number that follows a Uniform distribution, i.e.  ${d_L}' = {d_L} + b$, where $b \sim U[ - v, + v]$, for some window size $v$. Make sure that $0 < {d_L}' < D$ holds, where $D = {d_L} + {d_R}$. Otherwise, we reject the proposal.
+\emph{Step 2} Propose a new genetic distance for $d_L$ by adding a random number that follows a Uniform distribution, i.e.  ${d_L}' = {d_L} + b$, where $b \sim U[ - v, + v]$, for some window size $v$. Make sure that $0 < {d_L}' < D$ holds. Otherwise, we reject the proposal.
 
 \emph{Step 3} Propose new rates for branches on each side of the root:
 \begin{equation}
