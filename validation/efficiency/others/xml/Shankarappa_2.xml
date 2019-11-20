@@ -335,10 +335,13 @@ p9c129-04=129                <taxa id="TaxonSet.Shankarappa" spec="TaxonSet">
             </distribution>
         </distribution>
     </distribution>
-
+<!--
     <operator id="InternalnodesOperator.c:Shankarappa" spec="InConstantDistanceOperator"
               twindowSize="0.2"  tree="@Tree.t:Shankarappa" rates="@fastRates.c:Shankarappa"  weight="20.0"/>
-
+-->
+    <operator id="InternalnodesOperator.c:Shankarappa" spec="ConsInternalNode"
+              twindowSize="0.1" bactrian="true" tree="@Tree.t:Shankarappa" rates="@fastRates.c:Shankarappa"  weight="20.0"/>
+     
     <operator id="RootOperator2.c:Shankarappa" spec="SimpleDistance"
               twindowSize="0.2" tree="@Tree.t:Shankarappa" rates="@fastRates.c:Shankarappa"  weight="0.5"/>
 
