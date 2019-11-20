@@ -132,10 +132,13 @@ name="alignment">
 <!--
     <operator id="InternalnodesOperator.c:anolis" spec="InConstantDistanceOperator"
               twindowSize="1.0"  tree="@Tree.t:anolis" rates="@fastRates.c:anolis"  weight="20.0"/>
--->              
+              
     <operator id="InternalnodesOperator.c:anolis" spec="ConsInternalNode"
               twindowSize="0.5" bactrian="true" tree="@Tree.t:anolis" rates="@fastRates.c:anolis"  weight="20.0"/>
-              
+-->
+	<operator id="InternalnodesOperator.c:anolis" spec="ConsInternalNode"
+              uniform="true" tree="@Tree.t:anolis" rates="@fastRates.c:anolis"  weight="20.0"/>
+                  
     <operator id="RootOperator2.c:anolis" spec="SimpleDistance"
               twindowSize="0.027" tree="@Tree.t:anolis" rates="@fastRates.c:anolis"  weight="0.5"/>
 
@@ -166,7 +169,7 @@ name="alignment">
     <operator id="KappaScaler.s:anolis" spec="ScaleOperator" parameter="@kappa.s:anolis" scaleFactor="0.5" weight="0.2"/>
 
     <operator id="FastUcldStdevScaler.c:dna" spec="consoperators.UcldScalerOperator"
-              rates="@fastRates.c:anolis" stdev="@ucldStdev.c:anolis" distr="@LogNormalDistributionModel.c:anolis" scaleFactor="0.5" weight="7.0"/>
+              rates="@fastRates.c:anolis" stdev="@ucldStdev.c:anolis" distr="@LogNormalDistributionModel.c:anolis" scaleFactor="0.5" weight="3.0"/>
 
     <operator id="FastRatessRandomWalk.c:anolis" spec="RealRandomWalkOperator" parameter="@fastRates.c:anolis" weight="10.0" windowSize="1"/>
  
