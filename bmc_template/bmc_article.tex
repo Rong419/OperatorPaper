@@ -987,7 +987,7 @@ Last but not least, due to the change of tree topology in \textit{Exchange (\tex
 \end{algorithm}
 
 \subsection*{Sampling from the prior}
-In this section, we are aiming at validating the correctness of the proposed operators. To be more specific, we firstly run the simulations by sampling from prior distributions in BEAST2. Since the prior distributions are deterministic, we can analytically calculate the theoretical joint-distributions of sampled parameters in MCMC chains. By comparing the sampled distributions with the analytical results, we demonstrate whether the proposed operators are able to sample parameters correctly.
+In this section, we aim to validate the correctness of the proposed operators. To be more specific, we firstly run the simulations by sampling from prior distributions in BEAST2. Since the prior distributions are deterministic, we can analytically calculate the theoretical joint-distributions of sampled parameters in MCMC chains. By comparing the sampled distributions with the analytical results, we demonstrate whether the proposed operators are able to sample parameters correctly.
 
 In Figure \ref{sampleprior}, a tree with three taxa $A$, $B$ and $C$ (plus one internal node $D$, and root $E$) is used as a small example in the experiments in this section. In the figure, $g_1$ is set as the initial tree. Firstly, a LogNormal distribution is used as the rate prior in the uncorrelated relaxed clock model, given by Equation (\ref{rateprior}).
 \begin{equation}\label{rateprior}
