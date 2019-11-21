@@ -129,16 +129,16 @@ name="alignment">
             </distribution>
         </distribution>
     </distribution>
-<!--
+
     <operator id="InternalnodesOperator.c:anolis" spec="InConstantDistanceOperator"
               twindowSize="1.0"  tree="@Tree.t:anolis" rates="@fastRates.c:anolis"  weight="20.0"/>
-              
+<!--              
     <operator id="InternalnodesOperator.c:anolis" spec="ConsInternalNode"
               twindowSize="0.5" bactrian="true" tree="@Tree.t:anolis" rates="@fastRates.c:anolis"  weight="20.0"/>
--->
+
 	<operator id="InternalnodesOperator.c:anolis" spec="ConsInternalNode"
               uniform="true" tree="@Tree.t:anolis" rates="@fastRates.c:anolis"  weight="20.0"/>
-                  
+-->                 
     <operator id="RootOperator2.c:anolis" spec="SimpleDistance"
               twindowSize="0.027" tree="@Tree.t:anolis" rates="@fastRates.c:anolis"  weight="0.5"/>
 

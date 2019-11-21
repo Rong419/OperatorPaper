@@ -359,16 +359,16 @@ USALongs56=56                <taxa id="TaxonSet.RSV2" spec="TaxonSet">
             </distribution>
         </distribution>
     </distribution>
-<!--
+
     <operator id="InternalnodesOperator.c:RSV2" spec="InConstantDistanceOperator"
               twindowSize="0.2"  tree="@Tree.t:RSV2" rates="@fastRates.c:RSV2"  weight="20.0"/>
-
+<!--
     <operator id="InternalnodesOperator.c:RSV2" spec="ConsInternalNode"
               twindowSize="0.1" bactrian="true" tree="@Tree.t:RSV2" rates="@fastRates.c:RSV2"  weight="20.0"/>
--->    
+    
     <operator id="InternalnodesOperator.c:RSV2" spec="ConsInternalNode"
               uniform="true" tree="@Tree.t:RSV2" rates="@fastRates.c:RSV2"  weight="20.0"/>
-          
+-->          
     <operator id="RootOperator2.c:RSV2" spec="SimpleDistance"
               twindowSize="0.2" tree="@Tree.t:RSV2" rates="@fastRates.c:RSV2"  weight="0.5"/>
 
@@ -410,7 +410,7 @@ USALongs56=56                <taxa id="TaxonSet.RSV2" spec="TaxonSet">
 
     <operator id="PopSizeScaler.t:RSV2" spec="ScaleOperator" parameter="@popSize.t:RSV2" scaleFactor="0.75" weight="15.0"/>
 
-    <operator id="FrequenciesExchanger.s:RSV2" spec="DeltaExchangeOperator" delta="0.01" weight="0.4">
+    <operator id="FrequenciesExchanger.s:RSV2" spec="DeltaExchangeOperator" delta="0.01" weight="0.2">
         <parameter idref="freqParameter.s:RSV2"/>
     </operator>
 
