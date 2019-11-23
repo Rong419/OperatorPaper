@@ -337,35 +337,39 @@ p9c129-04=129                <taxa id="TaxonSet.Shankarappa" spec="TaxonSet">
     </distribution>
 <!--
     <operator id="InternalnodesOperator.c:Shankarappa" spec="InConstantDistanceOperator"
-              twindowSize="0.2"  tree="@Tree.t:Shankarappa" rates="@fastRates.c:Shankarappa"  weight="20.0"/>
+              twindowSize="0.2"  tree="@Tree.t:Shankarappa" rates="@fastRates.c:Shankarappa"  weight="24.4"/>
+-->
 
     <operator id="InternalnodesOperator.c:Shankarappa" spec="ConsInternalNode"
-              twindowSize="0.1" bactrian="true" tree="@Tree.t:Shankarappa" rates="@fastRates.c:Shankarappa"  weight="20.0"/>
+              twindowSize="0.25" random="true" tree="@Tree.t:Shankarappa" rates="@fastRates.c:Shankarappa"  weight="24.4"/>
+<!--              
+    <operator id="InternalnodesOperator.c:Shankarappa" spec="ConsInternalNode"
+              twindowSize="0.25" bactrian="true" tree="@Tree.t:Shankarappa" rates="@fastRates.c:Shankarappa"  weight="24.4"/>
     
     <operator id="InternalnodesOperator.c:Shankarappa" spec="ConsInternalNode"
-              uniform="true" tree="@Tree.t:Shankarappa" rates="@fastRates.c:Shankarappa"  weight="20.0"/>
--->    
+              uniform="true" tree="@Tree.t:Shankarappa" rates="@fastRates.c:Shankarappa"  weight="24.4"/>
+  
     <operator id="InternalnodesOperator.c:Shankarappa" spec="ConsInternalNode"
-              twindowSize="0.1" beta="true" tree="@Tree.t:Shankarappa" rates="@fastRates.c:Shankarappa"  weight="20.0"/>
-                
+              twindowSize="0.1" beta="true" tree="@Tree.t:Shankarappa" rates="@fastRates.c:Shankarappa"  weight="24.4"/>
+-->                
     <operator id="RootOperator2.c:Shankarappa" spec="SimpleDistance"
-              twindowSize="0.2" tree="@Tree.t:Shankarappa" rates="@fastRates.c:Shankarappa"  weight="0.5"/>
+              twindowSize="0.2" tree="@Tree.t:Shankarappa" rates="@fastRates.c:Shankarappa"  weight="0.2"/>
 
     <operator id="RootOperator3.c:Shankarappa" spec="SmallPulley"
-              dwindowSize="0.04" tree="@Tree.t:Shankarappa" rates="@fastRates.c:Shankarappa"  weight="0.5"/>
+              dwindowSize="0.04" tree="@Tree.t:Shankarappa" rates="@fastRates.c:Shankarappa"  weight="0.2"/>
     
     <operator id="RootOperator4.c:Shankarappa" spec="BigPulley"
-              twindowSize="0.02" dwindowSize="0.02" tree="@Tree.t:Shankarappa" rates="@fastRates.c:Shankarappa"  weight="0.5"/>
+              twindowSize="0.02" dwindowSize="0.02" tree="@Tree.t:Shankarappa" rates="@fastRates.c:Shankarappa"  weight="0.2"/>
 
     <operator id="CoalescentConstantTreeScaler.t:Shankarappa" spec="ScaleOperator" scaleFactor="0.5" tree="@Tree.t:Shankarappa" weight="3.0"/>
 
     <operator id="CoalescentConstantTreeRootScaler.t:Shankarappa" spec="ScaleOperator" rootOnly="true" scaleFactor="0.5" tree="@Tree.t:Shankarappa" weight="3.0"/>
 
-    <operator id="CoalescentConstantUniformOperator.t:Shankarappa" spec="Uniform" tree="@Tree.t:Shankarappa" weight="30.0"/>
+    <operator id="CoalescentConstantUniformOperator.t:Shankarappa" spec="Uniform" tree="@Tree.t:Shankarappa" weight="20.0"/>
 
-    <operator id="CoalescentConstantSubtreeSlide.t:Shankarappa" spec="SubtreeSlide" tree="@Tree.t:Shankarappa" weight="15.0"/>
+    <operator id="CoalescentConstantSubtreeSlide.t:Shankarappa" spec="SubtreeSlide" tree="@Tree.t:Shankarappa" weight="13.0"/>
 
-    <operator id="CoalescentConstantNarrow.t:Shankarappa" spec="Exchange" tree="@Tree.t:Shankarappa" weight="15.0"/>
+    <operator id="CoalescentConstantNarrow.t:Shankarappa" spec="Exchange" tree="@Tree.t:Shankarappa" weight="13.0"/>
 
     <operator id="CoalescentConstantWide.t:Shankarappa" spec="Exchange" isNarrow="false" tree="@Tree.t:Shankarappa" weight="3.0"/>
 
@@ -389,7 +393,7 @@ p9c129-04=129                <taxa id="TaxonSet.Shankarappa" spec="TaxonSet">
         <down idref="Tree.t:Shankarappa"/>
     </operator>
 
-    <operator id="FrequenciesExchanger.s:Shankarappa" spec="DeltaExchangeOperator" delta="0.01" weight="0.2">
+    <operator id="FrequenciesExchanger.s:Shankarappa" spec="DeltaExchangeOperator" delta="0.01" weight="0.1">
         <parameter idref="freqParameter.s:Shankarappa"/>
     </operator>
 
