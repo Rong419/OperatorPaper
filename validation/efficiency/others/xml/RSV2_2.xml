@@ -363,18 +363,22 @@ USALongs56=56                <taxa id="TaxonSet.RSV2" spec="TaxonSet">
     <operator id="InternalnodesOperator.c:RSV2" spec="InConstantDistanceOperator"
               twindowSize="0.2"  tree="@Tree.t:RSV2" rates="@fastRates.c:RSV2"  weight="24.7"/>
 -->
+<!--
     <operator id="InternalnodesOperator.c:RSV2" spec="ConsInternalNode"
               twindowSize="0.25" random="true" tree="@Tree.t:RSV2" rates="@fastRates.c:RSV2"  weight="24.7"/>
+-->
 <!--              
     <operator id="InternalnodesOperator.c:RSV2" spec="ConsInternalNode"
               twindowSize="0.25" bactrian="true" tree="@Tree.t:RSV2" rates="@fastRates.c:RSV2"  weight="24.7"/>
-    
+-->
+<!--    
     <operator id="InternalnodesOperator.c:RSV2" spec="ConsInternalNode"
               uniform="true" tree="@Tree.t:RSV2" rates="@fastRates.c:RSV2"  weight="24.7"/>
+-->
 
     <operator id="InternalnodesOperator.c:RSV2" spec="ConsInternalNode"
               twindowSize="0.1" beta="true" tree="@Tree.t:RSV2" rates="@fastRates.c:RSV2"  weight="24.7"/>
- -->       
+       
     <operator id="RootOperator2.c:RSV2" spec="SimpleDistance"
               twindowSize="0.2" tree="@Tree.t:RSV2" rates="@fastRates.c:RSV2"  weight="0.1"/>
 

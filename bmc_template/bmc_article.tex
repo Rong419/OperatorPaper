@@ -40,6 +40,7 @@
 \usepackage{algorithm}
 \usepackage{subfigure}
 \usepackage{graphicx}
+\usepackage{adjustbox}
 %\usepackage[applemac]{inputenc} %applemac support if unicode package fails
 %\usepackage[latin1]{inputenc} %UNIX support if unicode package fails
 
@@ -781,6 +782,39 @@ Small Pulley&${d_i}$&0.3480&0.0492&0.3476&0.0494&Figure \ref{res_roo1}(b)\\
 \end{tabular}
 \caption{Results of sampling the root}\label{res_sma}
 \end{table}
+
+%\begin{adjustbox}{angle=90}
+\begin{sidewaystable}
+\caption{Weight on operators}\label{weights}
+\centering
+\begin{tabular}{c|c|cc|cc|cc|cc}
+  \hline
+\multirow{2}*{Operator class}&\multirow{2}*{Name}&\multicolumn{2}{c|}{simulated data}&\multicolumn{2}{c|}{anolis}&\multicolumn{2}{c|}{RSV2}&\multicolumn{2}{c}{Shankarappa}\\
+&&Cons&Category&Cons&Category&Cons&Category&Cons&Category\\
+  \hline
+\multirow{8}*{rates times}&ConstantDistance Operator&0.2399&0.0000&0.2248&0.0000&0.2228&0.0000&0.2228&0.0000\\
+&Rate Normal Operators1&0.0960&0.2879&0.1349&0.2698&0.1337&0.2674&0.1337&0.2674\\
+&UcldStdev Scale Operator2&0.0288&0.0288&0.0270&0.0270&0.0267&0.0267&0.0267&0.0267\\
+&UcldMean Scale Operator&0.0000&0.0000&0.0000&0.0000&0.0357&0.0089&0.0089&0.0089\\
+&UcldMean Tree UpperDown Operator&0.0000&0.0000&0.0000&0.0000&0.0446&0.0267&0.0267&0.0267\\
+&InternalNodeTime Scale Operator&0.0960&0.0960&0.0270&0.0270&0.0267&0.0267&0.0267&0.0267\\
+&RootAge Scale Operator&0.0480&0.0480&0.0270&0.0270&0.0267&0.0267&0.0267&0.0267\\
+&AllNodeTimes Uniform Operator&0.0480&0.0960&0.1799&0.2698&0.1337&0.2674&0.1783&0.2674\\
+  \hline
+\multirow{7}*{Tree}&SubtreeSlide Operator&0.1440&0.1440&0.0989&0.1349&0.1070&0.1337&0.1159&0.1337\\
+&NarrowExchange Operator&0.1440&0.1440&0.0989&0.1349&0.1070&0.1337&0.1159&0.1337\\
+&WideExchange Operator&0.0480&0.0480&0.0270&0.0270&0.0267&0.0267&0.0267&0.0267\\
+&WilsonBoalding Operator&0.0480&0.0480&0.0270&0.0270&0.0267&0.0267&0.0267&0.0267\\
+&BirthRate Scale Operator&0.0480&0.0480&0.0629&0.0270&0.0000&0.0000&0.0000&0.0000\\
+&DeathRate Scale Operator&0.0000&0.0000&0.0629&0.0270&0.0000&0.0000&0.0000&0.0000\\
+&PopulationSize Scale Operator&0.0000&0.0000&0.0000&0.0000&0.0802&0.0267&0.0624&0.0267\\
+  \hline
+\multirow{2}*{Substituion model}&Kappa Scale Operator&0.0096&0.0096&0.0009&0.0009&0.0009&0.0009&0.0009&0.0009\\
+&Frequencies DeltaExchange Operator&0.0019&0.0019&0.0009&0.0009&0.0009&0.0009&0.0009&0.0009\\
+  \hline
+\end{tabular}
+\end{sidewaystable}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%                               %%
 %% Additional Files              %%
