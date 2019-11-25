@@ -13,17 +13,20 @@ output.figure.folder <- args[3]
 
 Ex.log <- read.table(file = paste0(log.file.path, "Ex.log"), sep = "\t", header = T)
 In.log <- read.table(file = paste0(log.file.path, "In.log"), sep = "\t", header = T)
-Monophyly.log <- read.table(file = paste0(log.file.path, "Mon.log"), sep = "\t", header = T)
+#Monophyly.log <- read.table(file = paste0(log.file.path, "Mon.log"), sep = "\t", header = T)
 
-monophyly <- Monophyly.log
-for (i in 2:length(Monophyly.log)) {
-  monophyly = monophyly[which(monophyly[, i]==1) ,]
-}
+#monophyly <- Monophyly.log
+#for (i in 2:length(Monophyly.log)) {
+  #monophyly = monophyly[which(monophyly[, i]==1) ,]
+#}
 
-sample.Nr <- monophyly$state
+#sample.Nr <- monophyly$state
 
-Ex.df <- Ex[sample.Nr,]
-In.df <- In[sample.Nr,]
+#Ex.df <- Ex[sample.Nr,]
+#In.df <- In[sample.Nr,]
+
+Ex.df <- Ex.log
+In.df <- In.log
 
 n.internal <- n.taxa - 2
 n.external <- n.taxa  
@@ -33,7 +36,6 @@ log.length.df <- log(cbind(Ex.df[,(n.external+2):length(Ex.df)],In.df[,(n.intern
 coeff.matrix <- cor(log.length.df,log.rate.df)
 
 pdf(paste(output.figure.folder,"BranchLengthRateCorrelation2.pdf"), height=10, width=10)
-par(mar=c(6,6,6,6))
 corrplot(coeff.matrix, method="circle",tl.srt=360, tl.col="black",tl.pos = "n")
 dev.off()
 
