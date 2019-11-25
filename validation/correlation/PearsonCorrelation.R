@@ -3,16 +3,18 @@ library(corrplot)
 source('CorrelationUtils.R')
 args = commandArgs(trailingOnly=TRUE)
 
-n.taxa <- an.numeric(args[1])
-log.file.path <- args[2]
-output.figure.folder <- args[3]
+data.name <- args[1]
+n.taxa <- an.numeric(args[2])
+log.file.path <- args[3]
+output.figure.folder <- args[4]
 
+#data.name <- "ratites"
 #n.taxa <- 7
 #log.file.path <- "/Users/ryanzhang/Documents/UOALearning/OperatorPaper/validation/correlation/"
 #output.figure.folder <- "/Users/ryanzhang/Documents/UOALearning/OperatorPaper/validation/correlation/figures/"
 
-Ex.log <- read.table(file = paste0(log.file.path, "Ex.log"), sep = "\t", header = T)
-In.log <- read.table(file = paste0(log.file.path, "In.log"), sep = "\t", header = T)
+Ex.log <- read.table(file = paste0(log.file.path, "Ex_", data.name, ".log"), sep = "\t", header = T)
+In.log <- read.table(file = paste0(log.file.path, "In_", data.name, ".log"), sep = "\t", header = T)
 #Monophyly.log <- read.table(file = paste0(log.file.path, "Mon.log"), sep = "\t", header = T)
 
 #monophyly <- Monophyly.log
@@ -35,7 +37,7 @@ log.length.df <- log(cbind(Ex.df[,(n.external+2):length(Ex.df)],In.df[,(n.intern
 
 coeff.matrix <- cor(log.length.df,log.rate.df)
 
-pdf(paste(output.figure.folder,"BranchLengthRateCorrelation2.pdf"), height=10, width=10)
+pdf(paste(output.figure.folder,"correlation", data.name, ".pdf"), height=10, width=10)
 corrplot(coeff.matrix, method="circle",tl.srt=360, tl.col="black",tl.pos = "n")
 dev.off()
 
