@@ -635,7 +635,7 @@ The author(s) wish to acknowledge the use of New Zealand eScience Infrastructure
 \begin{figure}[h!]
 \includegraphics[width=12cm]{Fig16-correlation.eps}\\
 \caption{\csentence{Correlation analysis in the ratites tree.}
-             $\tau $ represents the length of a branch, that is the time difference between a parent node and a child node. The Pearson coefficients are calculated by converting the rates and branch lengths into log space, so that the coefficients range from -1 to 1, as is shown in the bar. Blue indicates positive correlations and red indicates negative correlations. The darker the colour is, the stronger the correlation tends to be. }
+             $l$ represents the length of a branch, that is the time difference between a parent node and a child node, where ${l_1} = {l_2} =  {t_1} - 0$, ${l_3} = {l_4} = {t_2} - 0$, ${l_5} = {t_3} - 0$, ${l_6} = {t_4} - 0$, ${l_7} = T - 0$, ${l_8} = {t_5} - {t_1}$, ${l_9} = {t_3} - {t_2}$, ${l_{10}} = {t_4} - {t_3}$, ${l_{11}} = {t_5} - {t_4}$ and ${l_{12}} = T - {t_5}$. The Pearson coefficients are calculated by converting the rates and branch lengths into log space, so that the coefficients range from -1 to 1, as is shown in the bar. Blue indicates positive correlations and red indicates negative correlations. The darker the colour is, the stronger the correlation tends to be. }
 \label{correlation}
 \end{figure}
 
@@ -785,7 +785,7 @@ Small Pulley&${d_i}$&0.3480&0.0492&0.3476&0.0494&Figure \ref{res_roo1}(b)\\
 
 %\begin{adjustbox}{angle=90}
 \begin{sidewaystable}
-\caption{Weight on operators}\label{weights}
+\caption{Operator weights in MCMC chains}\label{weights}
 \centering
 \begin{tabular}{c|c|cc|cc|cc|cc}
   \hline
@@ -793,8 +793,8 @@ Small Pulley&${d_i}$&0.3480&0.0492&0.3476&0.0494&Figure \ref{res_roo1}(b)\\
 &&Cons&Category&Cons&Category&Cons&Category&Cons&Category\\
   \hline
 \multirow{8}*{rates times}&ConstantDistance Operator&0.2399&0.0000&0.2248&0.0000&0.2228&0.0000&0.2228&0.0000\\
-&Rate Normal Operators1&0.0960&0.2879&0.1349&0.2698&0.1337&0.2674&0.1337&0.2674\\
-&UcldStdev Scale Operator2&0.0288&0.0288&0.0270&0.0270&0.0267&0.0267&0.0267&0.0267\\
+&Rate Normal Operators$^1$&0.0960&0.2879&0.1349&0.2698&0.1337&0.2674&0.1337&0.2674\\
+&UcldStdev Scale Operator$^2$&0.0288&0.0288&0.0270&0.0270&0.0267&0.0267&0.0267&0.0267\\
 &UcldMean Scale Operator&0.0000&0.0000&0.0000&0.0000&0.0357&0.0089&0.0089&0.0089\\
 &UcldMean Tree UpperDown Operator&0.0000&0.0000&0.0000&0.0000&0.0446&0.0267&0.0267&0.0267\\
 &InternalNodeTime Scale Operator&0.0960&0.0960&0.0270&0.0270&0.0267&0.0267&0.0267&0.0267\\
@@ -812,6 +812,10 @@ Small Pulley&${d_i}$&0.3480&0.0492&0.3476&0.0494&Figure \ref{res_roo1}(b)\\
 \multirow{2}*{Substituion model}&Kappa Scale Operator&0.0096&0.0096&0.0009&0.0009&0.0009&0.0009&0.0009&0.0009\\
 &Frequencies DeltaExchange Operator&0.0019&0.0019&0.0009&0.0009&0.0009&0.0009&0.0009&0.0009\\
   \hline
+\multicolumn{10}{l}{Note}\\
+\multicolumn{10}{l}{1: Random walk operator and Swap operator in Cons configuration, Random walk operator, Scale operator and Swap operator in Category configuration.}\\
+\multicolumn{10}{l}{2: the operator introduced in Appendix is used in Cons configuration, a Scale operator is used in Category configuration
+.}\\
 \end{tabular}
 \end{sidewaystable}
 
@@ -1083,7 +1087,7 @@ p(r,t) &= \int_{{t_E} = 0}^{ + \infty } {\int_{{t_D} = 0}^{{t_E}} {\int_{{d_D} =
 
 The statistical measurements, i.e. mean and standard deviation, are compared in Table \ref{res_sma}. The histograms of samples and numerical curves of ${d_D}$ and ${t_E}$ are pictured in Figure \ref{res_roo1}(c) and Figure \ref{res_roo1}(d). It is shown that the two distributions are consistent within the acceptable error range. Therefore, Big Pulley can also give the right combinations of rates and node times, under the condition that the genetic distances among taxa are constant.
 
-\subsection*{UcldstdevScalerOperator: a scale operator on standard deviation}
+\subsection*{UcldstdevScalerOperator: a scale operator on standard deviation}\label{UcldstdevScaler}
 It should be noted that the proposed ConstantDistance operator parameterises branch rates as continuous random variables, instead of discrete rate categories as is used in current BEAST2 settings. In uncorrelated relaxed clock model, branch rates are assumed to have a lognormal prior distribution, where the real mean is fixed to 1 and the standard deviation (denoted by Ucldstdev) is usually sampled with a hyper prior such as gamma($\alpha = 0.5396, \beta = 0.3819$). When a new Ucldstdev is proposed in one state during MCMC sampling by normal operators, the probability of all rates change as well under the new log normal distribution. Therefore, the authors implemented a separate operator working on Ucldstdev, which is able to solve this problem properly. 
 
 The first step is to propose a new Ucldstdev by a scale operation, which multiplies  current Ucldstdev by a random factor, as is shown in Equation (\ref{ucldstdev_multiplier}).
