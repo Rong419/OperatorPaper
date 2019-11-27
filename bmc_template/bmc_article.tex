@@ -425,7 +425,7 @@ These results show that the true values of the parameters are within the 95\% hi
 \subsection*{Performance comparison}
 To evaluate the performance of Constant Distance operator in a Bayesian phylogenetic analysis, we explored the time required to adequately sample the posterior distribution. This was achieved by examining i) the total time taken by BEAST2 to complete the MCMC inference (running time), and ii) the effective sample size (ESS) of the sampled parameters. The effective sample size of a parameter is the number of effectively independent samples from the posterior distribution. Larger ESS indicates a better approximation of the marginal posterior distribution of the parameter. We used Tracer \cite{Tracer} to compute ESS.
 
-For each dataset, we compared two tree operator configurations. 1) Using the current operators in BEAST2 to sample discrete rate categories (Category). 2) Using the Constant Distance operator to sample continuous rates specified by an uncorrelated related clock model (Cons). The Category configuration is the default setting in the latest BEAST2 version. We aim to demonstrate the superiority of Constant Distance operator by showing the performance of Cons configuration being better than Category configuration. In each configuration, the data set was ran 20 times with the prior distributions and all other model specifications held constant. The details of operator weights are given in Appendix.
+For each dataset, we compared two tree operator configurations. 1) Using the current operators in BEAST2 to sample discrete rate categories (Category). 2) Using the Constant Distance operator to sample continuous rates specified by an uncorrelated related clock model (Cons). The Category configuration is the default setting in the latest BEAST2 version. We aim to demonstrate the superiority of Constant Distance operator by showing the performance of Cons configuration being better than Category configuration. In each configuration, the data set was ran 20 times with the prior distributions and all other model specifications held constant. The details of operator weights are given in Appendix 3.1.
 
 In the first place, we performed the analysis on two sets of simulated sequence alignment (See Appendix for more details). The simulated data sets both have 20 taxa but different sequence lengths, i.e. one data set containing 500 sites, the other containing1,000 sites. 
 
@@ -615,17 +615,10 @@ The author(s) wish to acknowledge the use of New Zealand eScience Infrastructure
 \end{figure}
 
 \begin{figure}[h!]
-\includegraphics[width=12cm]{Fig14-efficiency.eps}\\
+\includegraphics[width=12cm]{efficiencycompare.eps}\\
 \caption{\csentence{Comparison of ESS and running time using simulated data.}
                    The terms long, medium and short used in the text represent the length of sequence with 20 thousand (filled in white), 10 thousand (filled in green) and 5 thousand (filled in blue) respectively.}
 \label{eff_comp}
-\end{figure}
-
-\begin{figure}[h!]
-\includegraphics[width=12cm]{Fig15-primates.eps}\\
-\caption{\csentence{Comparison of ESS and running time using primates data.}
-             The orange curve links the mean values of each boxplot and the values are shown above the boxplots.}
-\label{eff_comp2}
 \end{figure}
 
 \begin{figure}[h!]
@@ -672,7 +665,7 @@ The author(s) wish to acknowledge the use of New Zealand eScience Infrastructure
 
 \begin{figure}[h!]
 \includegraphics[width=12cm]{AnolisTimeEss.eps}\\
-\caption{\csentence{Running time and ESS using Anolis data.}}
+\caption{\csentence{Running time and ESS using anolis data.}}
 \label{anolistimeess}
 \end{figure}
 
@@ -684,8 +677,14 @@ The author(s) wish to acknowledge the use of New Zealand eScience Infrastructure
 
 \begin{figure}[h!]
 \includegraphics[width=12cm]{ShankarappaTimeEss.eps}\\
-\caption{\csentence{Running time and ESS using Shankarappa data.}}
+\caption{\csentence{Running time and ESS using shankarappa data.}}
 \label{shankarappatimeess}
+\end{figure}
+
+\begin{figure}[h!]
+\includegraphics[width=12cm]{ShankarappaTimeEss.eps}\\
+\caption{\csentence{Running time and ESS using primates data.}}
+\label{primatestimeess}
 \end{figure}
 
 \begin{figure}[h!]
@@ -873,7 +872,7 @@ Small Pulley&${d_i}$&0.3480&0.0492&0.3476&0.0494&Figure \ref{res_roo1}(b)\\
 \newpage
 \section*{Appendix}
 
-\subsection*{The Green ratio}
+\subsection*{1. The Green ratio}
 
 When developing an operator for MCMC, the proposal function must be reversible. In other words, the probability that the operator propose a new state from the current state is required to be equal to the probability that the proposed state goes back to current state. To be specific, let ${\pi (x)}$ be the target probability distribution and $p(x, x')$ be the transition kernel in the continuous Markov chain. The reversibility condition requires that ${\pi (x)}{p(x, x')} = {\pi (x')}{p(x', x)}$. And an operator provides a proposal $q(x, x')$ with some probability $\alpha(x, x')$ that the proposal is accepted. Thus, the reversibility condition is rewritten as ${\pi (x)}{q(x, x')}{\alpha(x, x')} = {\pi (x')}{q(x', x)}{\alpha(x', x)}$.
 
@@ -895,7 +894,7 @@ However, for operators that do not have a symmetric measure, it is necessary to 
 \end{equation}
 where ${\mathbf{J}} = {\nabla h(x, x')}$ represents a vector differential matrix of deterministic function $h$. $\alpha = \frac{{p}(x',x)}{{p}(x,x')}\left|{\mathbf{J}}\right|$ is defined as the Green ratio, and ${\mathbf{J}}$ ensures that the proposal have a symmetric measure on each subspace in state $x$ and $x'$.
 
-\subsection*{Calculating the Green ratio for operations on internal nodes}
+\subsection*{1.1 Calculating the Green ratio for operations on internal nodes}
 
 The Constant Distance Operator firstly proposes a new time for the randomly selected internal node (Equation (\ref{in_HR1.1})), and then proposes three rates by the original distances and new node times(Equation (\ref{in_HR1.2})$\sim$Equation (\ref{in_HR1.3})).
 \begin{subequations}\label{in_HR1}
@@ -935,7 +934,7 @@ Substituting Equation (\ref{in_HR1}) in the Jacobian matrix ${{\mathbf{J}}_1}$ (
 \end{aligned}
 \end{equation}
 
-\subsection*{Calculating the Green ratio for Simple Distance}
+\subsection*{1.2 Calculating the Green ratio for Simple Distance}
 
 Simple Distance proposes two rates by using Equation (\ref{SD_HR1.2}) and Equation (\ref{SD_HR1.3}), according the new root time in Equation (\ref{SD_HR1.1}). So the Jacobian matrix can be obtained as is shown in Equation (\ref{SD_HR2}).
 \begin{subequations}\label{SD_HR1}
@@ -987,7 +986,7 @@ Then, as is illustrated in Equation (\ref{SP_HR2}), the Jacobian matrix ${{\math
   0&1
 \end{array}} \right]
 \end{equation}
-\subsection*{Calculating the Green ratio for Big Pulley}
+\subsection*{1.3 Calculating the Green ratio for Big Pulley}
 
 Two new node times are proposed in Big Pulley. One is the root time (Equation (\ref{BP_HR1.1})), the other is the node time of the child node of the root. It can be either children of the root, i.e. \textbf{son} and \textbf{dau}. So ${t_C}'$ is used to denote the node time proposed, as is seen in Equation (\ref{BP_HR1.2}). In addition, the distances are adjusted by the method \textit{Exchange (\textbf{M}, \textbf{N})}, dependent on which nodes are chosen. As a result, the four rates are proposed, as is shown in Equation (\ref{BP_HR1.3})$\sim$Equation (\ref{BP_HR1.6})
 \begin{subequations}\label{BP_HR1}
@@ -1075,7 +1074,7 @@ Last but not least, due to the change of tree topology in \textit{Exchange (\tex
 \end{algorithmic}
 \end{algorithm}
 
-\subsection*{Sampling from the prior}
+\subsection*{2. Sampling from the prior}
 
 In this section, we aim to validate the correctness of the proposed operators. To be more specific, we firstly run the simulations by sampling from prior distributions in BEAST2. Since the prior distributions are deterministic, we can analytically calculate the theoretical joint-distributions of sampled parameters in MCMC chains. By comparing the sampled distributions with the analytical results, we demonstrate whether the proposed operators are able to sample parameters correctly.
 
@@ -1097,7 +1096,7 @@ p(r,t) &= p({t_E},{t_D}) \times p({r_D}) \times p({r_A}) \times p({r_B}) \times 
 \end{equation}
 where $p({.})$ is the probability of certain rate values in the LogNormal distribution. Therefore, the whole probability can be obtained by conducting numerical integration on Equation (\ref{integration}), which shows the probability distribution over all the possible values of parameters.
 
-\subsubsection*{Test the operator on internal nodes}
+\subsubsection*{2.1 Test the operator on internal nodes}
 
 The genetic distances, node times and rates for $g_1$ in Figure \ref{sampleprior} are given in Table \ref{ini_inter}. To test roundly, two scenarios are designed. In each scenario, the genetic distances are fixed, the node time $t_D$ starts from the initial value and will be changed by the proposed operator during the sampling process. Essentially, the proposed operator makes node $D$ move between node $A$ and $E$. Besides, to make sure that the result is robust, two different MCMC chain lengths are performed in each scenario, i.e. 10 million and 20 million.
 
@@ -1107,11 +1106,11 @@ The mean, mean error and the standard deviation of the MCMC samples are summaris
 p(r,t) = \int_{{t_D} = 0}^{{t_E}} {p({t_E},{t_D}) \times p(\frac{{{d_A}}}{{{t_D}}}) \times p(\frac{{{d_B}}}{{{t_D}}}) \times p(\frac{{{d_D}}}{{{t_E} - {t_D}}}) \times p(\frac{{{d_C}}}{{{t_E}}}){d_{t_D}}}
 \end{equation}
 
-\subsubsection*{Test the operator on root}
+\subsubsection*{2.2 Test the operator on root}
 
 Still starting from $g_1$ in Figure \ref{sampleprior}, the initial settings for testing the root are given in Table \ref{ini_sim}. And the three strategies are tested separately in the following parts.
 
-\paragraph*{Using Simple Distance}
+\paragraph*{2.2.1 Using Simple Distance}
 
 The root time $t_E$ is sampled by Simple Distance, which ranges from 1 to positive infinity theoretically. Namely, all the genetic distances and the node time $t_D$  are fixed. Similar to Equation (\ref{integration1}), the joint distribution of $t_E$ and rates to sample can be obtained by Equation (\ref{integration2}).
 \begin{equation}
@@ -1121,7 +1120,7 @@ p(r,t) = \int_{{t_E} = 1}^{ + \infty } {p({t_E},{t_D}) \times p(\frac{{{d_A}}}{{
 
 The results are given in Table \ref{res_sma} and Figure \ref{res_roo1}(a). As can be seen, the mean and the standard deviation of MCMC samples and numerical integration are close to each other, which confirms that the two distribution are the same. Thus, Simple Distance is proved to be correct.
 
-\paragraph*{Using Small Pulley}
+\paragraph*{2.2.2 Using Small Pulley}
 
 Although both ${d_x}$ and ${d_i}$ are changed during the sampling process when using Small Pulley, the sum of ${d_D}$ and ${d_C}$ are kept 0.67 in this test, as the initial setting shown in Table \ref{ini_sim}. To make it simple, only ${d_D}$ is compared.
 
@@ -1130,7 +1129,7 @@ Then, based on Equation (\ref{integration}), the exact distribution of ${d_i}$ c
 p(r,t) = \int_{{d_D} = 1}^{0.67} {p({t_E},{t_D}) \times p(\frac{{{d_A}}}{{{t_D}}}) \times p(\frac{{{d_B}}}{{{t_D}}}) \times p(\frac{{{d_D}}}{{{t_E} - {t_D}}}) \times p(\frac{{0.67 - {d_D}}}{{{t_E}}}){d_{d_D}}}
 \end{equation}
 
-\paragraph*{Using Big Pulley}
+\paragraph*{2.2.3 Using Big Pulley}
 
 For $g_1$ in Figure \ref{sampleprior}, a new tree, together with the root time $t_E$ and node time of its older child $t_D$, as well as a genetic distance $d_i$, is proposed by Big Pulley. In this case, the initial tree $g_1$ will either go to $g_2$ or $g_3$, as is shown in Figure \ref{sampleprior}.  So the samples are repeatedly drawn from the 3 trees. Besides, according to the initial settings in Table \ref{ini_sim}, the genetic distances remain unchanged during the process, i.e. $d_{AB} = 1$, $d_{AC}  = 1$ and $d_{BC} = 1$ hold. Hence, the distribution we are about to achieve can be calculated by Equation (\ref{integration5}).
 \begin{equation}\label{integration5}
@@ -1141,29 +1140,28 @@ p(r,t) &= \int_{{t_E} = 0}^{ + \infty } {\int_{{t_D} = 0}^{{t_E}} {\int_{{d_D} =
 
 The statistical measurements, i.e. mean and standard deviation, are compared in Table \ref{res_sma}. The histograms of samples and numerical curves of ${d_D}$ and ${t_E}$ are pictured in Figure \ref{res_roo1}(c) and Figure \ref{res_roo1}(d). It is shown that the two distributions are consistent within the acceptable error range. Therefore, Big Pulley can also give the right combinations of rates and node times, under the condition that the genetic distances among taxa are constant.
 
-\subsection*{Performance analysis of operators}\label{performanceanalysis}
-
+\subsection*{3. Performance analysis of operators}\label{performanceanalysis}
 This section provides the details of the results presented in \textit{Performance comparison} section.
 
-\paragraph*{Operator weights}
+\paragraph*{3.1 Operator weights}
 
 The weights on operators for the simulations when comparing efficiency are listed in Table \ref{weights}. Although how to assign weights to achieve better performance is not studied in this paper, we maintain the percentage of weights on three operator class in Category and Cons configurations. But we modified some weights on the operators inside the same class, and we assigned different weights for different data sets.
 
-\paragraph*{Simulated data sets}
+\paragraph*{3.2 Simulated data sets}
 We simulated two sets of sequence alignment on the same tree with 20 taxa that is shown in Figure \ref{simulateddatatree}. We used HKY model as substitution model with $\kappa = 2.4751$, and the base frequencies are $\pi = (0.2193 0.2268 0.3007 0.2531)$. In the uncorrelated relaxed clock model, the standard deviation of the branch rates (Ucldstdev) is 0.1803. The models and prior distributions are the same as is described in Figure \ref{modelvalidation}.
 
-\paragraph*{Efficiency measured by ESS per hour}
+\paragraph*{3.3 Efficiency measured by ESS per hour}
 
 Since we compare the efficiency based on ESS per hour using two configurations, i.e. Category and Cons, the ratio of ESS per hour is calculated by a random simulation in the two configurations, as is shown in. Then Table lists the average running time and ESS of the simulations using different data sets. Here, we present the detailed running time and ESS of the simulations, which can be seen in Figure \ref{anolistimeess}, Figure \ref{rsv2timeess}, Figure \ref{shankarappatimeess} and Figure \ref{simulatedtimeess}.
 
-\paragraph*{Efficiency measured by proposals}
+\paragraph*{3.4 Efficiency measured by proposals}
 
 The operators introduced in the paper utilise a random walk proposal for the new node time, which draws a random number from a uniform distribution and moves the node uniformly on the branch. However, others proposals, such as a Bactrian proposal and a Beta proposal, assign a specific distribution on the new node time so that it is more probable to move to a certain height on the branch, either far away from or close to its original position. This section applied Random walk proposal (the operators in this paper), Bactrian proposal and Beta proposal to the three data sets, and the results are compared to those using Category configuration.
 
 The comparisons are shown in Figure \ref{anolisproposal}, Figure \ref{rsv2proposal} and Figure \ref{shankarappaproposal}.
 
 
-\subsection*{UcldstdevScaleOperator: a scale operator on standard deviation}\label{UcldstdevScaler}
+\subsection*{4. UcldstdevScaleOperator: a scale operator on standard deviation}\label{UcldstdevScaler}
 
 It should be noted that the proposed ConstantDistance operator parameterises branch rates as continuous random variables, instead of discrete rate categories as is used in current BEAST2 settings. In uncorrelated relaxed clock model, branch rates are assumed to have a lognormal prior distribution, where the real mean is fixed to 1 and the standard deviation (denoted by Ucldstdev) is usually sampled with a hyper prior such as gamma($\alpha = 0.5396, \beta = 0.3819$). When a new Ucldstdev is proposed in one state during MCMC sampling by normal operators, the probability of all rates change as well under the new log normal distribution. Therefore, the authors implemented a separate operator working on Ucldstdev, which is able to solve this problem properly. 
 
