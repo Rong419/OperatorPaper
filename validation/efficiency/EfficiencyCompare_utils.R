@@ -1,3 +1,27 @@
+get.efficiency <- function(txt.df, time.df, data.name) {
+	if (data.name == "Short" || data.name == "Medium") {
+		Efficiency.df = get.simulated.efficiency(txt.df, time.df)
+	}
+
+	if (data.name == "RSV2") {
+		Efficiency.df = get.RSV2.efficiency(txt.df, time.df)
+	}
+
+	if (data.name == "Shankarappa") {
+		Efficiency.df = get.Shankarappa.efficiency(txt.df, time.df)
+	}
+
+	if (data.name == "anolis") {
+		Efficiency.df = get.anolis.efficiency(txt.df, time.df)
+	}
+	
+	if (data.name == "primates") {
+		Efficiency.df = get.primates.efficiency(txt.df, time.df)
+	}
+	return(Efficiency.df)
+}
+
+
 
 get.simulated.efficiency <- function(txt.df, time.df) {
   posterior = txt.df$posterior.ESS / time.df
