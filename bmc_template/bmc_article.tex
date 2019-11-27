@@ -377,7 +377,7 @@ And the four rates are updated as follows:
 \emph{Step 5} Return the Green ratio ${\alpha_{BP}}$.
 
 \subsection*{Calculating the Green ratio}
-MCMC operators must use reversible proposal distributions to satisfy the detailed balance requirements of the MCMC algorithm (Refer to `The Green ratio' in the Appendix section). Therefore, all four of our operators involve a final step of calculating the Green ratio for the acceptance.
+MCMC operators must use reversible proposal distributions to satisfy the detailed balance requirements of the MCMC algorithm (Refer to  Appendix section 1 for more details). Therefore, all four of our operators involve a final step of calculating the Green ratio for the acceptance.
 
 According to the third and fourth steps in the operations for internal nodes, three rates on the branches linked to the selected internal node are proposed by one random number $a$ that is used to change the node time. There are four parameters involved in this proposal, comprised of a 3-dimensional rate space and a 1-dimensional time space. The proposed operator utilises one random number in time space and makes changes in both time and rate space, which leads to a dimension-matching problem. To solve this dimension-matching problem, as is mentioned in Green's paper \cite{green1995reversible}, it is necessary to construct a Jacobian matrix.  In Equation (\ref{JacobianMatrix}), ${\mathbf{J_1}}$ deals with the parametric spaces before the proposal in vector ${\mathbf{IN}} = [{t_X},{r_X},{r_L},{r_R}]$ and after the proposal in vector ${\mathbf{OUT}} = [{t_X}',{r_X}',{r_L}',{r_R}']$.
 \begin{equation}\label{JacobianMatrix}
@@ -406,12 +406,12 @@ Likewise, the Green ratio for Simple Distance, Small Pulley and  Big Pulley can 
 \begin{equation}\label{HR4}
 {\alpha_{BP}} = \mu \times \frac{{{t_X}' - {t_C}}}{{{t_X}' - {t_C}'}} \times \frac{{{t_C} - {t_S}}}{{{t_C}' - {t_S}}} \times \frac{{{t_C} - {t_{N1}}}}{{{t_X}' - {t_{N1}}}} \times \frac{{{t_X} - {t_{N2}}}}{{{t_C}' - {t_{N2}}}}\text{,}
 \end{equation}
-where $\mu = p(g', g) / p(g, g')$ is defined as the proposal ratio of topology change and is obtained by Algorithm \ref{alg1}. More details of how to calculate the determinant of the Jacobian matrix are explained in the Appendix.
+where $\mu = p(g', g) / p(g, g')$ is defined as the proposal ratio of topology change and is obtained by Algorithm \ref{alg1}. More details of how to calculate the determinant of the Jacobian matrix are explained in Appendix section 1.
 
 \section*{Results}
 To validate the correctness and determine the efficiency of the proposed operator, we conducted a series of experiments by implementing Constant Distance operator in BEAST2 \cite{bouckaert2014beast}.
 
-First, we establish correctness of the operator using a well-calibrated simulation study, which shows our operator is able to function alongside other operators. Correctness was further confirmed by sampling trees from the prior distribution i.e. without data (Refer to subsection Sampling from the prior in Appendix). By comparing effective sample sizes (ESS) \cite{Tracer} and running times, it is demonstrated that the performance is improved when using the proposed operator. Finally, the correlation of rates and node times are discussed.
+First, we establish correctness of the operator using a well-calibrated simulation study, which shows our operator is able to function alongside other operators. Correctness was further confirmed by sampling trees from the prior distribution i.e. without data (Refer to Appendix section 2 for more details). By comparing effective sample sizes (ESS) \cite{Tracer} and running times, it is demonstrated that the performance is improved when using the proposed operator. Finally, the correlation of rates and node times are discussed.
 
 \subsection*{Well-calibrated simulation study}
 A well-calibrated simulation study is a necessary criterion to evaluate the reliability of a Bayesian model \cite{dawid1982well}.
@@ -427,13 +427,9 @@ To evaluate the performance of Constant Distance operator in a Bayesian phylogen
 
 For each dataset, we compared two tree operator configurations. 1) Using the current operators in BEAST2 to sample discrete rate categories (Category). 2) Using the Constant Distance operator to sample continuous rates specified by an uncorrelated related clock model (Cons). The Category configuration is the default setting in the latest BEAST2 version. We aim to demonstrate the superiority of Constant Distance operator by showing the performance of Cons configuration being better than Category configuration. In each configuration, the data set was ran 20 times with the prior distributions and all other model specifications held constant. The details of operator weights are given in Appendix 3.1.
 
-In the first place, we performed the analysis on two sets of simulated sequence alignment (See Appendix for more details). The simulated data sets both have 20 taxa but different sequence lengths, i.e. one data set containing 500 sites, the other containing1,000 sites. 
+We performed the analysis on two sets of simulated sequence alignment (See Appendix 3.2 for more details). The simulated data sets both have 20 taxa but different sequence lengths, i.e. one data set containing 500 sites, the other containing1,000 sites. Moreover, we used four real data sets to further evaluate the performance of Constant Distance operator, including a primate data set from Ref.\cite{finstermeier2013mitogenomic} and three data sets (anolis, RSV2 and Shankarappa) in BEAST2 \cite{beast2data}.
 
-Then, we used real data sets to further evaluate the performance of Constant Distance operator. 
-
-%with 83 primates and 1234 sites \cite{finstermeier2013mitogenomic} 
-
-The ESS and running time are summarised in Figure \ref{eff_comp} and Table \ref{eff_comp1}. To be more specific, we measure the efficiency by using the ESS per hour of one simulation, which is calculated by the ESS of one simulation divided by the running time. And we compare the efficiency of two configurations by calculating the ratios of ESS per hour. Namely, if the ratio is larger than 1, then ESS per hour of Cons configuration is larger than that of Category configuration. As is shown in Figure \ref{eff_comp}, . Table \ref{eff_comp1} lists the average running time of the data sets. It can be seen that Cons configuration finished simulations with less time in most cases. Moreover, Table \ref{eff_comp1} also shows the parameter that has the smallest ESS in Category configuration, and compare with the corresponding ESS in Cons configuration. After calculating the ESS per hour, we conclude that Cons configuration improved the efficiency of the worst estimated parameter in Category configuration by  2.26 to 15.8. 
+The ESS and running time are summarised in Figure \ref{eff_comp} and Table \ref{eff_comp1}. To be more specific, we measure the efficiency by ESS per hour, which is calculated by the ESS of parameters in one simulation divided by the running time in hour. Then we compare the efficiency of two configurations by calculating the ratios of ESS per hour for simulations in the two configurations. Namely, if the ratio is larger than 1, then ESS per hour of Cons configuration is larger than that of Category configuration. As is shown in Figure \ref{eff_comp}, most ratios of the parameters are above the red line (larger than 1), which indicates that Cons configuration provides larger ESS per hour for most parameters. Although there are are several parameters sampled by Cons configuration having smaller ESS per hour in some data sets, it should be noticed that the ratio is calculated by choosing random simulations in the two configurations (See Appendix 3.3 for more details). On the other hand, Table \ref{eff_comp1} lists the average running time of the data sets. It can be seen that Cons configuration finished simulations with less time in most cases. Moreover, Table \ref{eff_comp1} also shows the parameter that has the smallest ESS in Category configuration, and is compare with the corresponding ESS in Cons configuration. After calculating the ESS per hour, we conclude that Cons configuration improved the efficiency of the worst estimated parameter in Category configuration by 2.26 to 15.8. 
 
 \subsection*{Correlation analysis of rates and branch lengths}
 In this section, we conduct a pairwise comparison between rates and branch lengths, in order to show whether the proposed operators are able to sample rates and divergence times in a correct relationship by constraining the constant distances. We used a data set from Copper et al.'s work \cite{cooper2001complete}. This data set includes 7 taxa of ratites and the genome sequences have 10767 sites. After analysing the ratites data set in BEAST2 using the Constant Distance operator, we compare the correlations and demonstrate that the proposed operators work properly.
@@ -601,112 +597,112 @@ The author(s) wish to acknowledge the use of New Zealand eScience Infrastructure
 \end{figure}
 
 \begin{figure}[h!]
-\includegraphics[width=12cm]{Fig11-modelvalidation.eps}\\
+\includegraphics[width=12cm]{Fig08-modelvalidation.eps}\\
 \caption{\csentence{The models and prior distributions to simulate the sequence data.}
              The sequence alignment (SA) is simulated through a phylogenetic continuous-time Markov Chain (PhyloCTMC) that consists of a substitution model (HKY) and an uncorrelated relaxed clock model (UCRelaxedClockModel). The random variables in HKY model construct the mutation rate matrix ($Q$), including base frequencies ($\pi$) and kappa ($\kappa$). The time trees ($\psi$) and branch rates ($r_i$ for each branch $i$ in $\psi$) construct the substitution tree (ST). The branch rates have a LogNormal prior with fixed mean 1 and certain standard deviation (denoted by S1, abbreviated to UcldStdev). And the time trees have a Yule model prior with birth rate ($\lambda$) having a LogNormal prior. The other prior distributions include a Dirichlet distributions of $\pi$, a LogNormal of $\kappa$, and a LogNormal of S1. For notations in LogNormal distributions, the uppercase letters represent the parameters in real space, and the lowercase letters represent the parameters in log space. In all the simulations, the number of taxa is fixed at 120 (n = 120).}
 \label{modelvalidation}
 \end{figure}
 
 \begin{figure}[h!]
-\includegraphics[width=12cm]{Fig13-Calibrated.eps}\\
+\includegraphics[width=12cm]{Fig09-calibrated.eps}\\
 \caption{\csentence{Comparing the sampled parameters in simulation study with 120 taxa.}
              }
 \label{LargeTree}
 \end{figure}
 
 \begin{figure}[h!]
-\includegraphics[width=12cm]{efficiencycompare.eps}\\
+\includegraphics[width=12cm]{Fig10-efficiencycompare.eps}\\
 \caption{\csentence{Comparison of ESS and running time using simulated data.}
                    The terms long, medium and short used in the text represent the length of sequence with 20 thousand (filled in white), 10 thousand (filled in green) and 5 thousand (filled in blue) respectively.}
 \label{eff_comp}
 \end{figure}
 
 \begin{figure}[h!]
-\includegraphics[width=12cm]{Fig16-correlation.eps}\\
+\includegraphics[width=12cm]{Fig11-correlation.eps}\\
 \caption{\csentence{Correlation analysis in the ratites tree.}
              $l$ represents the length of a branch, that is the time difference between a parent node and a child node, where ${l_1} = {l_2} =  {t_1} - 0$, ${l_3} = {l_4} = {t_2} - 0$, ${l_5} = {t_3} - 0$, ${l_6} = {t_4} - 0$, ${l_7} = T - 0$, ${l_8} = {t_5} - {t_1}$, ${l_9} = {t_3} - {t_2}$, ${l_{10}} = {t_4} - {t_3}$, ${l_{11}} = {t_5} - {t_4}$ and ${l_{12}} = T - {t_5}$. The Pearson coefficients are calculated by converting the rates and branch lengths into log space, so that the coefficients range from -1 to 1, as is shown in the bar. Blue indicates positive correlations and red indicates negative correlations. The darker the colour is, the stronger the correlation tends to be. }
 \label{correlation}
 \end{figure}
 
 \begin{figure}[h!]
-\includegraphics[width=12cm]{Fig17-fixedtree.eps}\\
+\includegraphics[width=12cm]{Fig12-fixedtree.eps}\\
 \caption{\csentence{Illustration of sampling a fixed unrooted tree.}
             In subfigure (a), the unrooted tree is obtained from the ratites data set \cite{cooper2001complete} by a maximum likelihood method \cite{phyml} and the labeled numbers represent genetic distances. The three unique tree topologies in subfigures (b) (c) and (d) are obtained from the sampled trees by using programme TreeTraceAnalysis \cite{TreeTraceAnalysis}. The branch rates and node times are summarised by using programme TreeAnnotator \cite{TreeAnnotator}. The labeled numbers represent the posterior mean of rates on the corresponding branches. The colour of branches from green to red indicates the rates increasing from small to large, and the blue bars represent the 95\% HPD of the corresponding node times.}
 \label{withoutdata}
 \end{figure}
 
 \begin{figure}[h!]
-\includegraphics[width=12cm]{Fig08-sampleprior.eps}\\
+\includegraphics[width=12cm]{Fig13-sampleprior.eps}\\
 \caption{\csentence{The illustration of sampling from prior.}
              $g_1$ is set to be the original tree where an MCMC chain starts. When testing Big Pulley, the proposed operator samples the trees among $g_1$, $g_2$ and $g_3$.}
 \label{sampleprior}
 \end{figure}
 
 \begin{figure}[h!]
-\includegraphics[width=12cm]{Fig09-testinternalnode.eps}\\
+\includegraphics[width=12cm]{Fig14-testinternalnode.eps}\\
 \caption{ \csentence{Sampled parameters in tests of internal nodes.}
              The horizontal axis represents the node time of D in Figure \ref{sampleprior}. The two scenarios sample two trees with different distances specified in Table \ref{ini_inter}.}
 \label{res_int}
 \end{figure}
 
 \begin{figure}[h!]
-\includegraphics[width=12cm]{Fig10-testroot.eps}\\
+\includegraphics[width=12cm]{Fig15-testroot.eps}\\
 \caption{\csentence{Sampled parameters in test of the root.}
              For the trees in Figure \ref{sampleprior}, Simple Distance samples the root time $t_E$ only, Small Pulley samples the distance $d_D$ only, and Big Pulley samples $t_E$, $t_D$, $d_D$. To make it simple, $t_E$ and $d_D$ are compared.}
 \label{res_roo1}
 \end{figure}
 
 \begin{figure}[h!]
-\includegraphics[width=12cm]{simulateddatatree.eps}\\
+\includegraphics[width=12cm]{Fig16-simulateddatatree.eps}\\
 \caption{\csentence{The tree used to simulate sequence alignment.}
              The taxa are denoted by t1 to t20. The divergence times are drawn near the node.}
 \label{simulateddatatree}
 \end{figure}
 
 \begin{figure}[h!]
-\includegraphics[width=12cm]{AnolisTimeEss.eps}\\
+\includegraphics[width=12cm]{Fig17-AnolisTimeEss.eps}\\
 \caption{\csentence{Running time and ESS using anolis data.}}
 \label{anolistimeess}
 \end{figure}
 
 \begin{figure}[h!]
-\includegraphics[width=12cm]{RSV2TimeEss.eps}\\
+\includegraphics[width=12cm]{Fig18-RSV2TimeEss.eps}\\
 \caption{\csentence{Running time and ESS using RSV2 data.}}
 \label{rsv2timeess}
 \end{figure}
 
 \begin{figure}[h!]
-\includegraphics[width=12cm]{ShankarappaTimeEss.eps}\\
+\includegraphics[width=12cm]{Fig19-ShankarappaTimeEss.eps}\\
 \caption{\csentence{Running time and ESS using shankarappa data.}}
 \label{shankarappatimeess}
 \end{figure}
 
 \begin{figure}[h!]
-\includegraphics[width=12cm]{ShankarappaTimeEss.eps}\\
+\includegraphics[width=12cm]{Fig20-PrimatesTimeEss.eps}\\
 \caption{\csentence{Running time and ESS using primates data.}}
 \label{primatestimeess}
 \end{figure}
 
 \begin{figure}[h!]
-\includegraphics[width=12cm]{SimulatedTimeEss.eps}\\
+\includegraphics[width=12cm]{Fig21-SimulatedTimeEss.eps}\\
 \caption{\csentence{Running time and ESS using simulated data.}}
 \label{simulatedtimeess}
 \end{figure}
 
 \begin{figure}[h!]
-\includegraphics[width=12cm]{AnolisProposal.eps}\\
+\includegraphics[width=12cm]{Fig22-AnolisProposal.eps}\\
 \caption{\csentence{Efficiency comparison of proposals using Anolis data.}}
 \label{anolisproposal}
 \end{figure}
 
 \begin{figure}[h!]
-\includegraphics[width=12cm]{RSV2Proposal.eps}\\
+\includegraphics[width=12cm]{Fig23-RSV2Proposal.eps}\\
 \caption{\csentence{Efficiency comparison of proposals using RSV2 data.}}
 \label{rsv2proposal}
 \end{figure}
 
 \begin{figure}[h!]
-\includegraphics[width=12cm]{ShankarappaProposal.eps}\\
+\includegraphics[width=12cm]{Fig24-ShankarappaProposal.eps}\\
 \caption{\csentence{Efficiency comparison of proposals using Shankarappa data.}}
 \label{shankarappaproposal}
 \end{figure}
@@ -751,10 +747,13 @@ Data&Configuration&Average running time&Parameter&ESS\\
 \multirow{2}*{Shankarappa}&Category&5.3436&\multirow{2}*{prior}&360.86\\
 &Cons&5.2128&&795.21\\
 \hline
-\multirow{2}*{Simualted}&Category&0.4644&\multirow{2}*{rate.coeff}&793.27\\
+\multirow{2}*{Primates}&Category&12.5615&\multirow{2}*{ucld.stdev}&57.47\\
+&Cons&12.3820&&164.52\\
+\hline
+\multirow{2}*{Simualted 500 sites}&Category&0.4644&\multirow{2}*{rate.coeff}&793.27\\
 &Cons&0.4805&&3047.09\\
 \hline
-\multirow{2}*{Simualted}&Category&1.9270&\multirow{2}*{rate.coeff}&1599.42\\
+\multirow{2}*{Simualted 1000 sites}&Category&1.9270&\multirow{2}*{rate.coeff}&1599.42\\
 &Cons&0.4805&&6255.03\\
 \hline
 \end{tabular}
@@ -1152,11 +1151,11 @@ We simulated two sets of sequence alignment on the same tree with 20 taxa that i
 
 \paragraph*{3.3 Efficiency measured by ESS per hour}
 
-Since we compare the efficiency based on ESS per hour using two configurations, i.e. Category and Cons, the ratio of ESS per hour is calculated by a random simulation in the two configurations, as is shown in. Then Table lists the average running time and ESS of the simulations using different data sets. Here, we present the detailed running time and ESS of the simulations, which can be seen in Figure \ref{anolistimeess}, Figure \ref{rsv2timeess}, Figure \ref{shankarappatimeess} and Figure \ref{simulatedtimeess}.
+Since we compare the efficiency based on ESS per hour using two configurations, i.e. Category and Cons, the ratio of ESS per hour is calculated by a random simulation in the two configurations, as is shown in Figure \ref{eff_comp}. Then Table \ref{eff_comp1} lists the average running time and ESS of particular parameters in the simulations using different data sets. Here, we present the detailed running time and ESS of the simulations, which can be seen in Figure \ref{anolistimeess} to Figure \ref{simulatedtimeess}. Overall, we conclude that the proposed operators are able to provide better performance, because the figures suggest that Cons configuration requires less running time and have larger ESS for most parameters in most simulations. Especially, for those poorly estimated parameters in Category configuration, the improvement is more obvious. For data sets such as primates and simulated data with 500 sites, the running time is slightly larger in Cons configuration, but the ESS are much larger, which makes it acceptable to reduce the MCMC chain length and get the same performance.
 
 \paragraph*{3.4 Efficiency measured by proposals}
 
-The operators introduced in the paper utilise a random walk proposal for the new node time, which draws a random number from a uniform distribution and moves the node uniformly on the branch. However, others proposals, such as a Bactrian proposal and a Beta proposal, assign a specific distribution on the new node time so that it is more probable to move to a certain height on the branch, either far away from or close to its original position. This section applied Random walk proposal (the operators in this paper), Bactrian proposal and Beta proposal to the three data sets, and the results are compared to those using Category configuration.
+The operators introduced in the paper utilise a random walk proposal for the new node time, which draws a random number from a uniform distribution and moves the node uniformly on the branch. However, others proposals, such as a Bactrian proposal \cite{Yang19307} and a Beta proposal \cite{betaproposal}, assign a specific distribution on the new node time so that it is more probable to move to a certain height on the branch, either far away from or close to its original position. This section applied Random walk proposal (the operators in this paper), Bactrian proposal and Beta proposal to the three data sets, and the results are compared to those using Category configuration.
 
 The comparisons are shown in Figure \ref{anolisproposal}, Figure \ref{rsv2proposal} and Figure \ref{shankarappaproposal}.
 
