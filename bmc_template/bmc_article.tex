@@ -562,7 +562,7 @@ The author(s) wish to acknowledge the use of New Zealand eScience Infrastructure
 \begin{figure}[h!]
 \includegraphics[width=12cm]{Fig03-rootstrategy.eps}\\
 \caption{\csentence{Illustration of operations on root.}
-             Subfigure (a) shows an example of a 4-taxa unrooted tree and two possible rooted tree for the operator to sample, during which the unrooted tree can not be changed. Based on the original tree in subfigure (b), Simple Distance proposes a node time and two rates in ${g}'$ and keeps $d_L$, $d_R$ constant in subfigure (c). Small Pulley proposes two distances and two rates in ${g}'$ and $D = {d_L} + {d_R}$ remains constant in subfigure (d).}
+             (a) An example of a 4-taxa unrooted tree and two possible rooted trees for the operator to sample, during which the unrooted tree can not be changed. Based on the original tree in (b), Simple Distance proposes a node time and two rates in ${g}'$ and keeps $d_L$, $d_R$ constant in (c). Small Pulley proposes two distances and two rates in ${g}'$ and $D = {d_L} + {d_R}$ remains constant in (d).}
 \label{simpledistance}
 \end{figure}
 
@@ -619,14 +619,14 @@ The author(s) wish to acknowledge the use of New Zealand eScience Infrastructure
 \begin{figure}[h!]
 \includegraphics[width=12cm]{Fig11-correlation.eps}\\
 \caption{\csentence{Correlation analysis in the ratites tree.}
-             $l$ represents the length of a branch, that is the time difference between a parent node and a child node, where ${l_1} = {l_2} =  {t_1} - 0$, ${l_3} = {l_4} = {t_2} - 0$, ${l_5} = {t_3} - 0$, ${l_6} = {t_4} - 0$, ${l_7} = T - 0$, ${l_8} = {t_5} - {t_1}$, ${l_9} = {t_3} - {t_2}$, ${l_{10}} = {t_4} - {t_3}$, ${l_{11}} = {t_5} - {t_4}$ and ${l_{12}} = T - {t_5}$. The Pearson coefficients are calculated by converting the rates and branch lengths into log space, so that the coefficients range from -1 to 1, as is shown in the bar. Blue indicates positive correlations and red indicates negative correlations. The darker the colour is, the stronger the correlation tends to be. }
+             $l$ represents the length of a branch, that is the time difference between a parent node and a child node, where ${l_1} = {l_2} =  {t_1} - 0$, ${l_3} = {l_4} = {t_2} - 0$, ${l_5} = {t_3} - 0$, ${l_6} = {t_4} - 0$, ${l_7} = T - 0$, ${l_8} = {t_5} - {t_1}$, ${l_9} = {t_3} - {t_2}$, ${l_{10}} = {t_4} - {t_3}$, ${l_{11}} = {t_5} - {t_4}$ and ${l_{12}} = T - {t_5}$. The rates and branch lengths are converted into log space and then Pearson's coefficients are computed, which range from -1 to 1. Blue indicates positive correlations and red indicates negative correlations. The darker the colour, the stronger the correlation. }
 \label{correlation}
 \end{figure}
 
 \begin{figure}[h!]
 \includegraphics[width=12cm]{Fig12-fixedtree.eps}\\
 \caption{\csentence{Illustration of sampling a fixed unrooted tree.}
-            In subfigure (a), the unrooted tree is obtained from the ratites data set \cite{cooper2001complete} by a maximum likelihood method \cite{phyml} and the labeled numbers represent genetic distances. The three unique tree topologies in subfigures (b) (c) and (d) are obtained from the sampled trees by using programme TreeTraceAnalysis \cite{TreeTraceAnalysis}. The branch rates and node times are summarised by using programme TreeAnnotator \cite{TreeAnnotator}. The labeled numbers represent the posterior mean of rates on the corresponding branches. The colour of branches from green to red indicates the rates increasing from small to large, and the blue bars represent the 95\% HPD of the corresponding node times.}
+            In subfigure (a), the unrooted tree is obtained from the ratites data set \cite{cooper2001complete} by a maximum likelihood method \cite{phyml} and the labeled numbers represent genetic distances. The three unique tree topologies in (b) (c) and (d) are obtained from the sampled trees by using program TreeTraceAnalysis \cite{TreeTraceAnalysis}. The branch rates and node times are summarised by using program TreeAnnotator \cite{TreeAnnotator}. The labeled numbers represent the posterior mean of rates on the corresponding branches. The colour of branches from green to red indicates the rates increasing from small to large, and the blue bars represent the 95\% HPD of the corresponding node times.}
 \label{withoutdata}
 \end{figure}
 
@@ -670,6 +670,7 @@ The author(s) wish to acknowledge the use of New Zealand eScience Infrastructure
 \label{rsv2timeess}
 \end{figure}
 
+\clearpage
 \begin{figure}[h!]
 \includegraphics[width=12cm]{Fig19-ShankarappaTimeEss.eps}\\
 \caption{\csentence{Running time and ESS using shankarappa data.}}
@@ -681,6 +682,7 @@ The author(s) wish to acknowledge the use of New Zealand eScience Infrastructure
 \caption{\csentence{Running time and ESS using primates data.}}
 \label{primatestimeess}
 \end{figure}
+\clearpage
 
 \begin{figure}[h!]
 \includegraphics[width=12cm]{Fig21-SimulatedTimeEss.eps}\\
@@ -779,7 +781,7 @@ Scenario 2&0.4&0.8&2.4&1.6&0.4&0.8&1&2&3&4\\
 \begin{tabular}{c|c|ccc|ccc|c}
   \hline
 &\multirow{2}*{Chain Length}&\multicolumn{3}{c|}{Sample from MCMC}&\multicolumn{3}{c|}{Integral curve}&Plot\\
-&~&Mean&Err&StdEv&Mean&Err&StdEv&\\
+&~&Mean&Err&St.dev&Mean&Err&St.dev&\\
 \hline
 \multirow{2}*{Senario 1}&10000000&3.2727&8.3e-3&0.5467&\multirow{2}*{3.2669}&\multirow{2}*{1.3e-06}&\multirow{2}*{0.5553}&Figure \ref{res_int}(a)\\
 ~&20000000&3.271&6.1e-3&0.5616&~&~&~&Figure \ref{res_int}(b)\\
@@ -811,7 +813,7 @@ Big Pulley&0.5&0.5&\multicolumn{2}{|c|}{0.5}&5&10&0.1&0.1&0.03&0.04\\
 \begin{tabular}{c|c|cc|cc|cc}
   \hline
 \multirow{2}*{Strategy}&\multirow{2}*{Variable}&\multicolumn{2}{c|}{Sample from MCMC}&\multicolumn{2}{c|}{Integral curve}&\multirow{2}*{Plot}\\
-&~&Mean&StdEv&Mean&StdEv&\\
+&~&Mean&St.dev&Mean&St.dev&\\
 \hline
 Simple Distance&$t_E$&7.8081&1.2884&7.8187&1.2992&Figure \ref{res_roo1}(a)\\
 \hline
