@@ -855,7 +855,7 @@ Small Pulley&${d_i}$&0.3480&0.0492&0.3476&0.0494&Figure \ref{res_roo1}(b)\\
   \hline
 \multicolumn{12}{l}{Note}\\
 \multicolumn{12}{l}{1: Random walk operator and Swap operator in Cons configuration, Random walk operator, Scale operator and Swap operator in Category configuration.}\\
-\multicolumn{12}{l}{2: The operator introduced in Appendix (UcldstdevScaleOperator) is used in Cons configuration, a Scale operator is used in Category configuration
+\multicolumn{12}{l}{2: The operator introduced in Appendix section 4 is used in Cons configuration, a Scale operator is used in Category configuration
 .}\\
 \multicolumn{12}{l}{-: The parameter is not sampled and no operator is assigned.}\\
 \end{tabular}
@@ -1156,8 +1156,7 @@ Since we compare the efficiency based on ESS per hour using two configurations, 
 
 The operators introduced in the paper utilise a random walk proposal for the new node time, which draws a random number from a uniform distribution and moves the node uniformly on the branch. However, others proposals, such as a Bactrian proposal \cite{Yang19307} and a Beta proposal \cite{betaproposal}, assign a specific distribution on the new node time so that it is more probable to move to a certain height on the branch, either far away from or close to its original position. This section applied Random walk proposal (the operators in this paper), Bactrian proposal and Beta proposal to the three data sets, and the results are compared to those using Category configuration.
 
-The comparisons are shown in Figure \ref{anolisproposal}, Figure \ref{rsv2proposal} and Figure \ref{shankarappaproposal}.
-
+The comparisons are shown in Figure \ref{anolisproposal}, Figure \ref{rsv2proposal} and Figure \ref{shankarappaproposal}. It is indicated that Beta proposal achieved worst performance in the three analysed data sets. The performance of the Constant Distance operator (Random walk) and Bactrian proposal varies depending on different data sets. However, these two proposal methods are both more efficient that the Category configuration. Therefore, it still needs further investigation to demonstrate the effectiveness of different proposals.
 
 \subsection*{4. UcldstdevScaleOperator: a scale operator on standard deviation}\label{UcldstdevScaler}
 
