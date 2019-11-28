@@ -3,16 +3,12 @@
 # by replacing values of some parameters 
 # including tree, frequencies, rates, kappa, ucld
 
-for taxa in {20,120}
+taxa=20
+TEMPLATE=SimulateAlignment${taxa}taxa_template.xml
+
+for length in {500,1000}
 do
-
-   TEMPLATE=SimulateAlignment${taxa}taxa_template.xml
-
-   for length in {5000,10000}
-   do
-   
-   sed "s/LENGTH/${length}/g" ./${TEMPLATE} > ./xml/${taxa}taxaAlignmentLength_${length}.xml
-
-   done
+	sed "s/LENGTH/${length}/g" ./${TEMPLATE} > ./xml/${taxa}taxaAlignmentLength_${length}.xml
 done
+
 

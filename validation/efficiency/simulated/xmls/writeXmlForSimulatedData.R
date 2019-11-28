@@ -9,14 +9,13 @@ data.folder <- args[4]
 #xml.folder <- "/Users/ryanzhang/Documents/UOALearning/OperatorPaper/validation/efficiency/simulated/xmls/xml/"
 #data.folder <- "/Users/ryanzhang/Documents/UOALearning/OperatorPaper/validation/efficiency/simulated/data/"
 
-n.taxa = c(20,120)
 sequence.length = c("Medium","Short")
-length = c(10000,5000)
+length = c(1000,500)
 model = c("Category","Cons")
 
 
+taxa = 120
 
-for (taxa in n.taxa) {
 	for (l in 1:2){
 		for (m in model){
         	template.lines <- readLines(paste0(template.path,sequence.length[l],m,taxa,"taxa_template.xml"))
@@ -31,4 +30,4 @@ for (taxa in n.taxa) {
                  }
         }
     }
-}
+

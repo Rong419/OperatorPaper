@@ -89,13 +89,13 @@
 
         <operator id="YuleTreeRootScaler.t:simulated" spec="ScaleOperator" rootOnly="true" scaleFactor="0.5" tree="@Tree.t:simulated" weight="5.0"/>
 
-        <operator id="YuleBirthRateScaler.t:simulated" spec="ScaleOperator" parameter="@BirthRate.t:simulated" scaleFactor="0.75" weight="10.0"/>
+        <operator id="YuleBirthRateScaler.t:simulated" spec="ScaleOperator" parameter="@BirthRate.t:simulated" scaleFactor="0.75" weight="5.0"/>
 
         <operator id="YuleModelUniformOperator.t:simulated" spec="Uniform" tree="@Tree.t:simulated" weight="10.0"/>
 
-        <operator id="YuleModelSubtreeSlide.t:simulated" spec="SubtreeSlide" tree="@Tree.t:simulated" weight="5.0"/>
+        <operator id="YuleModelSubtreeSlide.t:simulated" spec="SubtreeSlide" tree="@Tree.t:simulated" weight="15.0"/>
 
-        <operator id="YuleModelhNarrow.t:simulated" spec="Exchange" tree="@Tree.t:simulated" weight="5.0"/>
+        <operator id="YuleModelhNarrow.t:simulated" spec="Exchange" tree="@Tree.t:simulated" weight="15.0"/>
 
         <operator id="YuleModelWide.t:simulated" spec="Exchange" isNarrow="false" tree="@Tree.t:simulated" weight="5.0"/>
 
@@ -107,7 +107,7 @@
             <parameter idref="freqParameter.t:simulated"/>
         </operator>
 
-        <operator id="ucldStdevScaler.c:simulated" spec="ScaleOperator" parameter="@ucldStdev.c:simulated" scaleFactor="0.5" weight="5.0"/>
+        <operator id="ucldStdevScaler.c:simulated" spec="ScaleOperator" parameter="@ucldStdev.c:simulated" scaleFactor="0.5" weight="3.0"/>
 
         <logger id="tracelog" fileName="MediumCategory20taxa_[SimHere].log" logEvery="8000" model="@posterior" sanitiseHeaders="true" sort="smart">
             <log idref="posterior"/>

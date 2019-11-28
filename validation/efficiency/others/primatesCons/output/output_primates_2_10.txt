@@ -1,0 +1,245 @@
+
+                   BEAST v2.6.1 Prerelease, 2002-2019
+             Bayesian Evolutionary Analysis Sampling Trees
+                       Designed and developed by
+ Remco Bouckaert, Alexei J. Drummond, Andrew Rambaut & Marc A. Suchard
+                                    
+                   Centre for Computational Evolution
+                         University of Auckland
+                       r.bouckaert@auckland.ac.nz
+                        alexei@cs.auckland.ac.nz
+                                    
+                   Institute of Evolutionary Biology
+                        University of Edinburgh
+                           a.rambaut@ed.ac.uk
+                                    
+                    David Geffen School of Medicine
+                 University of California, Los Angeles
+                           msuchard@ucla.edu
+                                    
+                      Downloads, Help & Resources:
+                           http://beast2.org/
+                                    
+  Source code distributed under the GNU Lesser General Public License:
+                   http://github.com/CompEvol/beast2
+                                    
+                           BEAST developers:
+   Alex Alekseyenko, Trevor Bedford, Erik Bloomquist, Joseph Heled, 
+ Sebastian Hoehna, Denise Kuehnert, Philippe Lemey, Wai Lok Sibon Li, 
+Gerton Lunter, Sidney Markowitz, Vladimir Minin, Michael Defoin Platel, 
+          Oliver Pybus, Tim Vaughan, Chieh-Hsi Wu, Walter Xie
+                                    
+                               Thanks to:
+          Roald Forsberg, Beth Shapiro and Korbinian Strimmer
+
+Random number seed: 1574828871700
+
+Alignment(primates)
+  87 taxa
+  19220 sites
+  12347 patterns
+
+  UCRelaxedClockModel: using real rates for rate distribution across branches.
+Filter 1-2402
+87 taxa
+2402 sites
+1527 patterns
+  UCRelaxedClockModel: using real rates for rate distribution across branches.
+  Using BEAGLE version: 3.0.1 resource 0: CPU
+    with instance flags:  PRECISION_DOUBLE COMPUTATION_SYNCH EIGEN_REAL SCALING_MANUAL SCALERS_RAW VECTOR_SSE THREADING_NONE PROCESSOR_CPU FRAMEWORK_CPU
+Filter 2403-4804
+87 taxa
+2402 sites
+1460 patterns
+  UCRelaxedClockModel: using real rates for rate distribution across branches.
+  Using BEAGLE version: 3.0.1 resource 0: CPU
+    with instance flags:  PRECISION_DOUBLE COMPUTATION_SYNCH EIGEN_REAL SCALING_MANUAL SCALERS_RAW VECTOR_SSE THREADING_NONE PROCESSOR_CPU FRAMEWORK_CPU
+Filter 4805-7206
+87 taxa
+2402 sites
+1421 patterns
+  UCRelaxedClockModel: using real rates for rate distribution across branches.
+  Using BEAGLE version: 3.0.1 resource 0: CPU
+    with instance flags:  PRECISION_DOUBLE COMPUTATION_SYNCH EIGEN_REAL SCALING_MANUAL SCALERS_RAW VECTOR_SSE THREADING_NONE PROCESSOR_CPU FRAMEWORK_CPU
+Filter 7207-9608
+87 taxa
+2402 sites
+1581 patterns
+  UCRelaxedClockModel: using real rates for rate distribution across branches.
+  Using BEAGLE version: 3.0.1 resource 0: CPU
+    with instance flags:  PRECISION_DOUBLE COMPUTATION_SYNCH EIGEN_REAL SCALING_MANUAL SCALERS_RAW VECTOR_SSE THREADING_NONE PROCESSOR_CPU FRAMEWORK_CPU
+Filter 9609-12010
+87 taxa
+2402 sites
+1595 patterns
+  UCRelaxedClockModel: using real rates for rate distribution across branches.
+  Using BEAGLE version: 3.0.1 resource 0: CPU
+    with instance flags:  PRECISION_DOUBLE COMPUTATION_SYNCH EIGEN_REAL SCALING_MANUAL SCALERS_RAW VECTOR_SSE THREADING_NONE PROCESSOR_CPU FRAMEWORK_CPU
+Filter 12011-14412
+87 taxa
+2402 sites
+1673 patterns
+  UCRelaxedClockModel: using real rates for rate distribution across branches.
+  Using BEAGLE version: 3.0.1 resource 0: CPU
+    with instance flags:  PRECISION_DOUBLE COMPUTATION_SYNCH EIGEN_REAL SCALING_MANUAL SCALERS_RAW VECTOR_SSE THREADING_NONE PROCESSOR_CPU FRAMEWORK_CPU
+Filter 14413-16814
+87 taxa
+2402 sites
+1744 patterns
+  UCRelaxedClockModel: using real rates for rate distribution across branches.
+  Using BEAGLE version: 3.0.1 resource 0: CPU
+    with instance flags:  PRECISION_DOUBLE COMPUTATION_SYNCH EIGEN_REAL SCALING_MANUAL SCALERS_RAW VECTOR_SSE THREADING_NONE PROCESSOR_CPU FRAMEWORK_CPU
+Filter 16815-19220
+87 taxa
+2406 sites
+1831 patterns
+  UCRelaxedClockModel: using real rates for rate distribution across branches.
+  Using BEAGLE version: 3.0.1 resource 0: CPU
+    with instance flags:  PRECISION_DOUBLE COMPUTATION_SYNCH EIGEN_REAL SCALING_MANUAL SCALERS_RAW VECTOR_SSE THREADING_NONE PROCESSOR_CPU FRAMEWORK_CPU
+===============================================================================
+Citations for this model:
+
+Bouckaert, Remco, Timothy G. Vaughan, Joëlle Barido-Sottani, Sebastián Duchêne, 
+  Mathieu Fourment, Alexandra Gavryushkina, Joseph Heled et al. 
+  BEAST 2.5: An advanced software platform for Bayesian evolutionary analysis. 
+  PLoS computational biology 15, no. 4 (2019): e1006650.
+
+Hasegawa M, Kishino H, Yano T (1985) Dating the human-ape splitting by a
+  molecular clock of mitochondrial DNA. Journal of Molecular Evolution
+  22:160-174.
+
+Drummond AJ, Ho SYW, Phillips MJ, Rambaut A (2006) Relaxed Phylogenetics and
+  Dating with Confidence. PLoS Biol 4(5): e88
+
+===============================================================================
+Start likelihood: -1464165.6116660556 
+Writing file primates_2_10.log
+         Sample      posterior ESS(posterior)     likelihood          prior
+              0  -1463057.8978              N  -1463078.2773        20.3794 --
+         500000   -564449.3847         2.0      -564604.2522       154.8675 --
+        1000000   -564437.7933         3.0      -564584.3981       146.6047 --
+        1500000   -564443.1123         4.0      -564582.2191       139.1068 --
+        2000000   -564458.5715         5.0      -564603.3823       144.8108 --
+        2500000   -564440.6251         6.0      -564594.6141       153.9890 --
+        3000000   -564431.8284         7.0      -564584.3932       152.5647 14m7s/Msamples
+        3500000   -564453.0782         8.0      -564601.3883       148.3100 14m2s/Msamples
+        4000000   -564444.2793         9.0      -564593.3801       149.1008 14m5s/Msamples
+        4500000   -564450.6961         9.0      -564598.2442       147.5481 14m5s/Msamples
+        5000000   -564441.1638        10.0      -564593.4132       152.2494 14m10s/Msamples
+        5500000   -564442.1707        11.0      -564602.5325       160.3618 14m11s/Msamples
+        6000000   -564476.7651        12.0      -564613.7573       136.9921 14m10s/Msamples
+        6500000   -564448.7629        13.0      -564599.9921       151.2292 14m9s/Msamples
+        7000000   -564456.3805        14.0      -564599.7470       143.3665 14m9s/Msamples
+        7500000   -564459.6717        15.0      -564597.4176       137.7458 14m9s/Msamples
+        8000000   -564463.3062        16.0      -564609.3645       146.0582 14m9s/Msamples
+        8500000   -564432.5756        17.0      -564592.0516       159.4759 14m7s/Msamples
+        9000000   -564458.3901        18.0      -564609.0635       150.6733 14m6s/Msamples
+        9500000   -564461.6536        18.0      -564595.8863       134.2327 14m4s/Msamples
+       10000000   -564452.1315        19.0      -564595.5636       143.4321 14m4s/Msamples
+       10500000   -564466.5159        20.0      -564596.0879       129.5719 14m4s/Msamples
+       11000000   -564459.5215        21.0      -564609.9089       150.3874 14m4s/Msamples
+       11500000   -564437.1587        22.0      -564590.4515       153.2927 14m4s/Msamples
+       12000000   -564435.3348        23.0      -564594.4566       159.1217 14m4s/Msamples
+       12500000   -564448.6978        24.0      -564603.3205       154.6226 14m4s/Msamples
+       13000000   -564429.4031        25.0      -564592.8777       163.4746 14m4s/Msamples
+       13500000   -564439.6868        14.1      -564593.1048       153.4179 14m4s/Msamples
+       14000000   -564418.6006        11.5      -564583.1425       164.5418 14m4s/Msamples
+       14500000   -564462.0126        15.0      -564592.7753       130.7627 14m5s/Msamples
+       15000000   -564455.0520        17.0      -564589.8513       134.7993 14m5s/Msamples
+       15500000   -564444.1031        17.2      -564601.5874       157.4843 14m5s/Msamples
+       16000000   -564436.4145        17.1      -564586.1506       149.7361 14m5s/Msamples
+       16500000   -564471.8435        31.0      -564632.0968       160.2533 14m5s/Msamples
+       17000000   -564463.0312        18.3      -564605.5572       142.5260 14m5s/Msamples
+       17500000   -564448.3782        19.0      -564596.6954       148.3172 14m5s/Msamples
+       18000000   -564443.5123        20.2      -564599.8428       156.3304 14m6s/Msamples
+       18500000   -564434.2409        23.6      -564596.5295       162.2886 14m6s/Msamples
+       19000000   -564453.7695        24.6      -564605.4965       151.7269 14m6s/Msamples
+       19500000   -564435.4435        23.8      -564597.0340       161.5904 14m7s/Msamples
+       20000000   -564450.2431        24.8      -564611.7824       161.5393 14m7s/Msamples
+       20500000   -564449.3048        25.5      -564601.5514       152.2465 14m8s/Msamples
+       21000000   -564438.1664        25.9      -564605.2145       167.0480 14m9s/Msamples
+       21500000   -564474.0540        40.0      -564599.6568       125.6027 14m9s/Msamples
+       22000000   -564473.0958        30.2      -564603.9301       130.8342 14m10s/Msamples
+       22500000   -564457.8940        29.2      -564598.2548       140.3607 14m10s/Msamples
+       23000000   -564466.2851        26.4      -564611.6915       145.4063 14m10s/Msamples
+       23500000   -564444.4500        29.2      -564606.4803       162.0303 14m10s/Msamples
+       24000000   -564431.3668        35.3      -564585.5693       154.2025 14m11s/Msamples
+       24500000   -564448.9292        33.3      -564600.9730       152.0438 14m11s/Msamples
+       25000000   -564442.5375        33.7      -564588.6366       146.0991 14m11s/Msamples
+       25500000   -564464.3425        36.9      -564604.3826       140.0400 14m11s/Msamples
+       26000000   -564433.1056        37.6      -564607.7416       174.6359 14m12s/Msamples
+       26500000   -564458.6600        39.2      -564601.9984       143.3383 14m12s/Msamples
+       27000000   -564469.0584        40.6      -564607.7796       138.7211 14m12s/Msamples
+       27500000   -564432.3197        45.3      -564577.9835       145.6638 14m12s/Msamples
+       28000000   -564461.4109        47.1      -564603.4415       142.0305 14m13s/Msamples
+       28500000   -564458.8648        46.2      -564615.5333       156.6684 14m13s/Msamples
+       29000000   -564459.0151        45.5      -564600.8017       141.7866 14m13s/Msamples
+       29500000   -564428.7035        54.0      -564589.1437       160.4402 14m13s/Msamples
+       30000000   -564486.7835        55.0      -564613.3307       126.5471 14m13s/Msamples
+       30500000   -564426.3236        56.0      -564578.4393       152.1157 14m14s/Msamples
+       31000000   -564434.0085        57.0      -564594.0634       160.0549 14m14s/Msamples
+       31500000   -564438.3035        58.0      -564578.6819       140.3784 14m14s/Msamples
+       32000000   -564458.2492        59.0      -564598.5356       140.2863 14m14s/Msamples
+       32500000   -564455.3100        60.0      -564610.8076       155.4976 14m14s/Msamples
+       33000000   -564459.1433        61.0      -564610.0145       150.8711 14m14s/Msamples
+       33500000   -564455.6718        62.0      -564604.1841       148.5123 14m14s/Msamples
+       34000000   -564437.6686        63.0      -564590.0049       152.3362 14m14s/Msamples
+       34500000   -564447.8157        63.0      -564590.3302       142.5145 14m14s/Msamples
+       35000000   -564462.3202        64.0      -564598.4035       136.0832 14m15s/Msamples
+       35500000   -564456.8048        65.0      -564605.4548       148.6499 14m15s/Msamples
+       36000000   -564461.8775        66.0      -564610.3958       148.5183 14m15s/Msamples
+       36500000   -564448.2718        67.0      -564593.9019       145.6301 14m15s/Msamples
+       37000000   -564456.3165        68.0      -564612.9212       156.6047 14m15s/Msamples
+       37500000   -564463.8425        69.0      -564595.0103       131.1678 14m15s/Msamples
+       38000000   -564446.4113        70.0      -564593.9692       147.5579 14m15s/Msamples
+       38500000   -564472.8697        71.0      -564614.0434       141.1737 14m15s/Msamples
+       39000000   -564440.8768        72.0      -564595.8873       155.0104 14m15s/Msamples
+       39500000   -564477.2741        72.0      -564613.7038       136.4297 14m16s/Msamples
+       40000000   -564461.8193        73.0      -564612.8635       151.0441 14m16s/Msamples
+       40500000   -564472.2514        62.9      -564611.7223       139.4709 14m16s/Msamples
+       41000000   -564448.2704        65.0      -564607.1024       158.8320 14m16s/Msamples
+       41500000   -564463.7742        61.2      -564594.0845       130.3103 14m16s/Msamples
+       42000000   -564430.0804        68.8      -564583.5020       153.4216 14m16s/Msamples
+       42500000   -564467.2806        68.8      -564602.8206       135.5399 14m16s/Msamples
+       43000000   -564456.7296        69.7      -564606.2049       149.4752 14m16s/Msamples
+       43500000   -564445.1638        80.0      -564591.2967       146.1328 14m16s/Msamples
+       44000000   -564481.8447        81.0      -564622.9419       141.0971 14m16s/Msamples
+       44500000   -564451.4749        81.0      -564607.6988       156.2238 14m16s/Msamples
+       45000000   -564458.2717        82.0      -564606.0414       147.7697 14m16s/Msamples
+       45500000   -564452.4035        83.0      -564588.6154       136.2118 14m16s/Msamples
+       46000000   -564459.9758        74.0      -564606.4811       146.5052 14m16s/Msamples
+       46500000   -564456.8832        74.4      -564593.8137       136.9305 14m16s/Msamples
+       47000000   -564459.0286        74.4      -564608.0864       149.0578 14m16s/Msamples
+       47500000   -564475.3894        72.4      -564614.0342       138.6447 14m17s/Msamples
+       48000000   -564415.5665        88.0      -564586.1110       170.5445 14m16s/Msamples
+       48500000   -564465.0762        89.0      -564601.6542       136.5780 14m16s/Msamples
+       49000000   -564457.9627        90.0      -564604.7336       146.7708 14m16s/Msamples
+       49500000   -564454.3086        90.0      -564605.0788       150.7702 14m16s/Msamples
+       50000000   -564468.0006        91.0      -564605.1754       137.1748 14m16s/Msamples
+
+Operator                                                             Tuning    #accept    #reject      Pr(m)  Pr(acc|m)
+consoperators.ConsInternalNode(InternalnodesOperator.c:primates)    0.11496    1325351    7742937    0.18131    0.14615 
+consoperators.SimpleDistance(RootOperator1.c:primates)              0.02818      19172      73426    0.00185    0.20705 
+consoperators.SmallPulley(RootOperator2.c:primates)                 0.03932      12740      79503    0.00185    0.13811 
+RealRandomWalkOperator(RatesRandomWalk.c:primates)                  0.35199    1165097    3460175    0.09251    0.25190 
+SwapOperator(RatesSwapOperator.c:primates)                                -     755100    3871062    0.09251    0.16322 
+consoperators.UcldScalerOperator(FastUcldStdevScaler.c:primates)    0.87120     236385    1150266    0.02775    0.17047 
+ScaleOperator(YuleModelTreeScaler.t:primates)                       0.94281     159856    2153856    0.04625    0.06909 Try setting scaleFactor to about 0.971
+ScaleOperator(YuleModelTreeRootScaler.t:primates)                   0.89573     134129    2180477    0.04625    0.05795 Try setting scaleFactor to about 0.946
+Uniform(YuleModelUniformOperator.t:primates)                              -     476504    8772241    0.18501    0.05152 
+SubtreeSlide(YuleModelSubtreeSlide.t:primates)                      0.10620      75525    6862087    0.13876    0.01089 Try decreasing size to about 0.053
+Exchange(YuleModelNarrow.t:primates)                                      -        622    2312572    0.04625    0.00027 
+Exchange(YuleModelWidet:primates)                                         -         31    2312078    0.04625    0.00001 
+WilsonBalding(YuleModelWilsonBalding.t:primates)                          -         85    2310837    0.04625    0.00004 
+ScaleOperator(YuleBirthRateScaler.t:primates)                       0.50632     324901    1063137    0.02775    0.23407 
+DeltaExchangeOperator(FrequenciesExchanger.s:primates)              0.00867       7749      38526    0.00093    0.16746 
+ScaleOperator(KappaScaler.s:primates)                               0.91581      95811     827763    0.01850    0.10374 
+
+     Tuning: The value of the operator's tuning parameter, or '-' if the operator can't be optimized.
+    #accept: The total number of times a proposal by this operator has been accepted.
+    #reject: The total number of times a proposal by this operator has been rejected.
+      Pr(m): The probability this operator is chosen in a step of the MCMC (i.e. the normalized weight).
+  Pr(acc|m): The acceptance probability (#accept as a fraction of the total proposals for this operator).
+
+
+Total calculation time: 42822.913 seconds

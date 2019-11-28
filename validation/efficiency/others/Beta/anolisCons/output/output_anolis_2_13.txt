@@ -1,0 +1,579 @@
+
+                   BEAST v2.6.1 Prerelease, 2002-2019
+             Bayesian Evolutionary Analysis Sampling Trees
+                       Designed and developed by
+ Remco Bouckaert, Alexei J. Drummond, Andrew Rambaut & Marc A. Suchard
+                                    
+                   Centre for Computational Evolution
+                         University of Auckland
+                       r.bouckaert@auckland.ac.nz
+                        alexei@cs.auckland.ac.nz
+                                    
+                   Institute of Evolutionary Biology
+                        University of Edinburgh
+                           a.rambaut@ed.ac.uk
+                                    
+                    David Geffen School of Medicine
+                 University of California, Los Angeles
+                           msuchard@ucla.edu
+                                    
+                      Downloads, Help & Resources:
+                           http://beast2.org/
+                                    
+  Source code distributed under the GNU Lesser General Public License:
+                   http://github.com/CompEvol/beast2
+                                    
+                           BEAST developers:
+   Alex Alekseyenko, Trevor Bedford, Erik Bloomquist, Joseph Heled, 
+ Sebastian Hoehna, Denise Kuehnert, Philippe Lemey, Wai Lok Sibon Li, 
+Gerton Lunter, Sidney Markowitz, Vladimir Minin, Michael Defoin Platel, 
+          Oliver Pybus, Tim Vaughan, Chieh-Hsi Wu, Walter Xie
+                                    
+                               Thanks to:
+          Roald Forsberg, Beth Shapiro and Korbinian Strimmer
+
+Random number seed: 1574507629232
+
+Anolis_ahli: 1456 4
+Anolis_aliniger: 1456 4
+Anolis_alutaceus: 1456 4
+Anolis_angusticeps: 1456 4
+Anolis_bahorucoensis: 1456 4
+Anolis_barahonae: 1456 4
+Anolis_brevirostris: 1456 4
+Anolis_coelestinus: 1456 4
+Anolis_cristatellus: 1456 4
+Anolis_cuvieri: 1456 4
+Anolis_distichus: 1456 4
+Anolis_equestris: 1456 4
+Anolis_garmani: 1456 4
+Anolis_grahami: 1456 4
+Anolis_insolitus: 1456 4
+Anolis_krugi: 1456 4
+Anolis_lineatopus: 1456 4
+Anolis_loysiana: 1456 4
+Anolis_luteogularis: 1456 4
+Anolis_marcanoi: 1456 4
+Anolis_occultus: 1456 4
+Anolis_olssoni: 1456 4
+Anolis_ophiolepis: 1456 4
+Anolis_paternus: 1456 4
+Anolis_sagrei: 1456 4
+Anolis_strahmi: 1456 4
+Anolis_stratulus: 1456 4
+Anolis_valencienni: 1456 4
+Anolis_vanidicus: 1456 4
+Alignment(anolis)
+  29 taxa
+  1456 sites
+  934 patterns
+
+  UCRelaxedClockModel: using real rates for rate distribution across branches.
+Filter 1-182
+29 taxa
+182 sites
+128 patterns
+  UCRelaxedClockModel: using real rates for rate distribution across branches.
+  Using BEAGLE version: 3.0.1 resource 0: CPU
+    with instance flags:  PRECISION_DOUBLE COMPUTATION_SYNCH EIGEN_REAL SCALING_MANUAL SCALERS_RAW VECTOR_SSE THREADING_NONE PROCESSOR_CPU FRAMEWORK_CPU
+Filter 183-364
+29 taxa
+182 sites
+117 patterns
+  UCRelaxedClockModel: using real rates for rate distribution across branches.
+  Using BEAGLE version: 3.0.1 resource 0: CPU
+    with instance flags:  PRECISION_DOUBLE COMPUTATION_SYNCH EIGEN_REAL SCALING_MANUAL SCALERS_RAW VECTOR_SSE THREADING_NONE PROCESSOR_CPU FRAMEWORK_CPU
+Filter 365-546
+29 taxa
+182 sites
+120 patterns
+  UCRelaxedClockModel: using real rates for rate distribution across branches.
+  Using BEAGLE version: 3.0.1 resource 0: CPU
+    with instance flags:  PRECISION_DOUBLE COMPUTATION_SYNCH EIGEN_REAL SCALING_MANUAL SCALERS_RAW VECTOR_SSE THREADING_NONE PROCESSOR_CPU FRAMEWORK_CPU
+Filter 547-728
+29 taxa
+182 sites
+135 patterns
+  UCRelaxedClockModel: using real rates for rate distribution across branches.
+  Using BEAGLE version: 3.0.1 resource 0: CPU
+    with instance flags:  PRECISION_DOUBLE COMPUTATION_SYNCH EIGEN_REAL SCALING_MANUAL SCALERS_RAW VECTOR_SSE THREADING_NONE PROCESSOR_CPU FRAMEWORK_CPU
+Filter 729-910
+29 taxa
+182 sites
+130 patterns
+  UCRelaxedClockModel: using real rates for rate distribution across branches.
+  Using BEAGLE version: 3.0.1 resource 0: CPU
+    with instance flags:  PRECISION_DOUBLE COMPUTATION_SYNCH EIGEN_REAL SCALING_MANUAL SCALERS_RAW VECTOR_SSE THREADING_NONE PROCESSOR_CPU FRAMEWORK_CPU
+Filter 911-1092
+29 taxa
+182 sites
+140 patterns
+  UCRelaxedClockModel: using real rates for rate distribution across branches.
+  Using BEAGLE version: 3.0.1 resource 0: CPU
+    with instance flags:  PRECISION_DOUBLE COMPUTATION_SYNCH EIGEN_REAL SCALING_MANUAL SCALERS_RAW VECTOR_SSE THREADING_NONE PROCESSOR_CPU FRAMEWORK_CPU
+Filter 1093-1274
+29 taxa
+182 sites
+99 patterns
+  UCRelaxedClockModel: using real rates for rate distribution across branches.
+  Using BEAGLE version: 3.0.1 resource 0: CPU
+    with instance flags:  PRECISION_DOUBLE COMPUTATION_SYNCH EIGEN_REAL SCALING_MANUAL SCALERS_RAW VECTOR_SSE THREADING_NONE PROCESSOR_CPU FRAMEWORK_CPU
+Filter 1275-1456
+29 taxa
+182 sites
+120 patterns
+  UCRelaxedClockModel: using real rates for rate distribution across branches.
+  Using BEAGLE version: 3.0.1 resource 0: CPU
+    with instance flags:  PRECISION_DOUBLE COMPUTATION_SYNCH EIGEN_REAL SCALING_MANUAL SCALERS_RAW VECTOR_SSE THREADING_NONE PROCESSOR_CPU FRAMEWORK_CPU
+===============================================================================
+Citations for this model:
+
+Bouckaert, Remco, Timothy G. Vaughan, Joëlle Barido-Sottani, Sebastián Duchêne, 
+  Mathieu Fourment, Alexandra Gavryushkina, Joseph Heled et al. 
+  BEAST 2.5: An advanced software platform for Bayesian evolutionary analysis. 
+  PLoS computational biology 15, no. 4 (2019): e1006650.
+
+Gernhard 2008. The conditioned reconstructed process. Journal of Theoretical Biology Volume 253, Issue 4, 21 August 2008, Pages 769-778
+
+Hasegawa M, Kishino H, Yano T (1985) Dating the human-ape splitting by a
+  molecular clock of mitochondrial DNA. Journal of Molecular Evolution
+  22:160-174.
+
+Drummond AJ, Ho SYW, Phillips MJ, Rambaut A (2006) Relaxed Phylogenetics and
+  Dating with Confidence. PLoS Biol 4(5): e88
+
+===============================================================================
+Start likelihood: -34205.29241987522 
+Writing file anolis_2_13.log
+Writing file anolis_2_13.trees
+         Sample      posterior     likelihood          prior
+              0    -33906.9311    -33989.4565        82.5253 --
+          50000    -22430.6603    -22493.6131        62.9527 --
+         100000    -22362.0945    -22421.0911        58.9965 --
+         150000    -22378.4234    -22427.5183        49.0949 --
+         200000    -22371.8786    -22430.6941        58.8154 --
+         250000    -22377.0436    -22424.3322        47.2886 --
+         300000    -22369.4516    -22432.6962        63.2445 1m39s/Msamples
+         350000    -22377.8107    -22424.1092        46.2985 1m38s/Msamples
+         400000    -22384.6605    -22434.3921        49.7315 1m39s/Msamples
+         450000    -22374.8906    -22428.3085        53.4178 1m39s/Msamples
+         500000    -22370.1514    -22427.3563        57.2048 1m40s/Msamples
+         550000    -22392.6169    -22435.5350        42.9180 1m40s/Msamples
+         600000    -22376.5337    -22435.7125        59.1788 1m39s/Msamples
+         650000    -22377.0427    -22424.9729        47.9301 1m40s/Msamples
+         700000    -22385.5337    -22445.8783        60.3446 1m40s/Msamples
+         750000    -22380.9993    -22429.7305        48.7311 1m40s/Msamples
+         800000    -22383.5394    -22431.5570        48.0176 1m40s/Msamples
+         850000    -22357.4975    -22441.1608        83.6633 1m40s/Msamples
+         900000    -22385.8614    -22433.0626        47.2012 1m40s/Msamples
+         950000    -22384.5331    -22433.3820        48.8489 1m40s/Msamples
+        1000000    -22366.2807    -22438.1063        71.8255 1m40s/Msamples
+        1050000    -22389.1217    -22431.4101        42.2884 1m40s/Msamples
+        1100000    -22343.4699    -22435.4212        91.9512 1m40s/Msamples
+        1150000    -22396.6273    -22442.5382        45.9108 1m40s/Msamples
+        1200000    -22372.3210    -22420.4440        48.1229 1m40s/Msamples
+        1250000    -22379.6239    -22438.0976        58.4736 1m40s/Msamples
+        1300000    -22387.8531    -22441.0461        53.1930 1m40s/Msamples
+        1350000    -22382.0346    -22430.0627        48.0280 1m40s/Msamples
+        1400000    -22379.5917    -22428.2446        48.6529 1m40s/Msamples
+        1450000    -22375.7084    -22431.4732        55.7648 1m40s/Msamples
+        1500000    -22387.3540    -22429.1972        41.8432 1m40s/Msamples
+        1550000    -22380.2534    -22428.1621        47.9086 1m40s/Msamples
+        1600000    -22377.5580    -22424.2144        46.6563 1m40s/Msamples
+        1650000    -22377.3586    -22422.0550        44.6964 1m40s/Msamples
+        1700000    -22365.6152    -22426.6738        61.0585 1m40s/Msamples
+        1750000    -22391.2400    -22429.8908        38.6508 1m40s/Msamples
+        1800000    -22384.8286    -22428.1802        43.3515 1m40s/Msamples
+        1850000    -22359.0631    -22431.8754        72.8123 1m40s/Msamples
+        1900000    -22379.6942    -22429.9187        50.2245 1m40s/Msamples
+        1950000    -22376.8483    -22435.4070        58.5586 1m40s/Msamples
+        2000000    -22373.8092    -22431.5288        57.7195 1m40s/Msamples
+        2050000    -22376.3341    -22422.8844        46.5503 1m40s/Msamples
+        2100000    -22355.5815    -22431.7462        76.1646 1m40s/Msamples
+        2150000    -22378.5633    -22430.7009        52.1375 1m40s/Msamples
+        2200000    -22378.3775    -22435.8051        57.4275 1m40s/Msamples
+        2250000    -22383.1250    -22430.0920        46.9670 1m40s/Msamples
+        2300000    -22376.4751    -22427.2808        50.8057 1m40s/Msamples
+        2350000    -22381.7844    -22419.6391        37.8546 1m40s/Msamples
+        2400000    -22378.6764    -22422.9315        44.2550 1m40s/Msamples
+        2450000    -22381.9358    -22423.1419        41.2060 1m40s/Msamples
+        2500000    -22375.8510    -22423.7897        47.9386 1m40s/Msamples
+        2550000    -22373.9652    -22429.2615        55.2963 1m40s/Msamples
+        2600000    -22378.2938    -22424.7119        46.4181 1m40s/Msamples
+        2650000    -22386.8029    -22418.3359        31.5330 1m40s/Msamples
+        2700000    -22379.7401    -22430.8246        51.0844 1m40s/Msamples
+        2750000    -22380.2897    -22433.6547        53.3649 1m40s/Msamples
+        2800000    -22350.6794    -22433.6532        82.9737 1m40s/Msamples
+        2850000    -22382.0778    -22425.9335        43.8557 1m40s/Msamples
+        2900000    -22385.1837    -22437.2190        52.0352 1m40s/Msamples
+        2950000    -22374.7150    -22430.9408        56.2257 1m40s/Msamples
+        3000000    -22387.7454    -22441.6938        53.9484 1m40s/Msamples
+        3050000    -22373.5770    -22423.8116        50.2345 1m40s/Msamples
+        3100000    -22381.9988    -22435.8858        53.8870 1m40s/Msamples
+        3150000    -22376.9245    -22428.0505        51.1260 1m40s/Msamples
+        3200000    -22370.0886    -22429.4297        59.3411 1m40s/Msamples
+        3250000    -22390.5207    -22430.7010        40.1802 1m40s/Msamples
+        3300000    -22378.1698    -22422.5313        44.3614 1m40s/Msamples
+        3350000    -22350.2494    -22430.2261        79.9766 1m40s/Msamples
+        3400000    -22369.0759    -22423.8301        54.7542 1m40s/Msamples
+        3450000    -22378.7407    -22423.6775        44.9368 1m40s/Msamples
+        3500000    -22378.6358    -22426.5673        47.9314 1m40s/Msamples
+        3550000    -22398.1299    -22428.6546        30.5246 1m40s/Msamples
+        3600000    -22352.4052    -22421.1493        68.7440 1m40s/Msamples
+        3650000    -22365.1276    -22426.4392        61.3116 1m40s/Msamples
+        3700000    -22390.2075    -22429.3507        39.1431 1m40s/Msamples
+        3750000    -22393.0993    -22435.0379        41.9386 1m40s/Msamples
+        3800000    -22370.6821    -22434.9409        64.2588 1m40s/Msamples
+        3850000    -22376.2464    -22421.8035        45.5570 1m40s/Msamples
+        3900000    -22397.3340    -22430.3534        33.0194 1m40s/Msamples
+        3950000    -22376.6292    -22432.1193        55.4901 1m40s/Msamples
+        4000000    -22372.1448    -22428.8496        56.7047 1m40s/Msamples
+        4050000    -22368.6992    -22431.0382        62.3389 1m40s/Msamples
+        4100000    -22387.7659    -22432.6767        44.9108 1m40s/Msamples
+        4150000    -22373.0031    -22422.7037        49.7005 1m40s/Msamples
+        4200000    -22373.8653    -22418.9195        45.0542 1m40s/Msamples
+        4250000    -22383.3668    -22433.4225        50.0557 1m40s/Msamples
+        4300000    -22373.4148    -22416.2366        42.8218 1m40s/Msamples
+        4350000    -22365.8292    -22432.7550        66.9257 1m40s/Msamples
+        4400000    -22359.6843    -22436.2722        76.5879 1m40s/Msamples
+        4450000    -22379.8759    -22424.6530        44.7770 1m40s/Msamples
+        4500000    -22337.8057    -22437.6970        99.8912 1m40s/Msamples
+        4550000    -22402.7990    -22439.9680        37.1690 1m40s/Msamples
+        4600000    -22377.1616    -22422.3572        45.1956 1m40s/Msamples
+        4650000    -22383.8024    -22427.2983        43.4959 1m40s/Msamples
+        4700000    -22366.4399    -22432.8455        66.4055 1m40s/Msamples
+        4750000    -22365.0063    -22432.5660        67.5596 1m40s/Msamples
+        4800000    -22377.5879    -22428.1050        50.5170 1m40s/Msamples
+        4850000    -22372.8848    -22430.0869        57.2021 1m39s/Msamples
+        4900000    -22387.9787    -22424.1136        36.1349 1m39s/Msamples
+        4950000    -22386.6889    -22430.4220        43.7330 1m39s/Msamples
+        5000000    -22375.0462    -22439.1411        64.0949 1m39s/Msamples
+        5050000    -22381.1221    -22421.9985        40.8764 1m39s/Msamples
+        5100000    -22374.0056    -22429.4584        55.4527 1m39s/Msamples
+        5150000    -22376.1304    -22427.5224        51.3920 1m39s/Msamples
+        5200000    -22377.2584    -22429.1636        51.9051 1m39s/Msamples
+        5250000    -22409.2668    -22457.2443        47.9774 1m39s/Msamples
+        5300000    -22366.7208    -22432.5438        65.8230 1m39s/Msamples
+        5350000    -22374.2573    -22438.8226        64.5653 1m39s/Msamples
+        5400000    -22382.9182    -22429.8286        46.9103 1m39s/Msamples
+        5450000    -22378.5528    -22437.6129        59.0600 1m39s/Msamples
+        5500000    -22387.0898    -22433.2093        46.1194 1m39s/Msamples
+        5550000    -22379.7204    -22438.0930        58.3725 1m39s/Msamples
+        5600000    -22371.9532    -22430.3677        58.4145 1m40s/Msamples
+        5650000    -22361.0684    -22427.6132        66.5447 1m40s/Msamples
+        5700000    -22385.9459    -22430.2878        44.3418 1m40s/Msamples
+        5750000    -22358.0373    -22434.9638        76.9264 1m40s/Msamples
+        5800000    -22365.0833    -22426.1361        61.0527 1m40s/Msamples
+        5850000    -22368.8729    -22430.4540        61.5810 1m40s/Msamples
+        5900000    -22364.2695    -22427.7510        63.4815 1m40s/Msamples
+        5950000    -22361.6133    -22425.6966        64.0832 1m40s/Msamples
+        6000000    -22390.6072    -22435.8130        45.2057 1m39s/Msamples
+        6050000    -22387.8995    -22441.5294        53.6299 1m39s/Msamples
+        6100000    -22373.9324    -22430.5739        56.6415 1m39s/Msamples
+        6150000    -22373.2667    -22430.4927        57.2259 1m39s/Msamples
+        6200000    -22365.2534    -22420.2289        54.9754 1m39s/Msamples
+        6250000    -22361.3594    -22440.0971        78.7377 1m39s/Msamples
+        6300000    -22389.8091    -22429.1815        39.3724 1m40s/Msamples
+        6350000    -22373.9937    -22422.2396        48.2458 1m40s/Msamples
+        6400000    -22375.3054    -22428.0198        52.7143 1m40s/Msamples
+        6450000    -22367.7054    -22419.1880        51.4825 1m40s/Msamples
+        6500000    -22378.0408    -22424.0150        45.9742 1m40s/Msamples
+        6550000    -22369.4981    -22429.8799        60.3818 1m40s/Msamples
+        6600000    -22381.7259    -22428.7249        46.9990 1m40s/Msamples
+        6650000    -22388.6181    -22442.2104        53.5922 1m39s/Msamples
+        6700000    -22360.2928    -22431.8828        71.5899 1m39s/Msamples
+        6750000    -22357.9507    -22428.6542        70.7035 1m39s/Msamples
+        6800000    -22383.2942    -22433.4002        50.1060 1m39s/Msamples
+        6850000    -22390.7331    -22426.5098        35.7766 1m39s/Msamples
+        6900000    -22364.7991    -22421.6867        56.8875 1m39s/Msamples
+        6950000    -22365.3448    -22424.2021        58.8573 1m39s/Msamples
+        7000000    -22389.9205    -22439.8397        49.9192 1m39s/Msamples
+        7050000    -22372.0464    -22423.8966        51.8501 1m39s/Msamples
+        7100000    -22386.0258    -22430.0661        44.0402 1m40s/Msamples
+        7150000    -22399.2298    -22434.8143        35.5845 1m40s/Msamples
+        7200000    -22363.7830    -22428.3508        64.5678 1m40s/Msamples
+        7250000    -22361.3842    -22425.7541        64.3699 1m40s/Msamples
+        7300000    -22383.6306    -22432.5945        48.9639 1m40s/Msamples
+        7350000    -22383.9427    -22430.3107        46.3680 1m40s/Msamples
+        7400000    -22365.3210    -22428.0486        62.7276 1m40s/Msamples
+        7450000    -22357.7255    -22436.7681        79.0425 1m40s/Msamples
+        7500000    -22365.8520    -22427.2663        61.4143 1m40s/Msamples
+        7550000    -22382.9019    -22436.8996        53.9977 1m40s/Msamples
+        7600000    -22382.7790    -22427.0216        44.2425 1m40s/Msamples
+        7650000    -22397.8337    -22441.3011        43.4673 1m40s/Msamples
+        7700000    -22376.8776    -22424.3957        47.5180 1m40s/Msamples
+        7750000    -22389.0649    -22428.9351        39.8702 1m40s/Msamples
+        7800000    -22365.8257    -22434.9858        69.1600 1m40s/Msamples
+        7850000    -22379.7250    -22428.4613        48.7362 1m40s/Msamples
+        7900000    -22387.8690    -22431.9263        44.0572 1m40s/Msamples
+        7950000    -22387.0830    -22443.8865        56.8034 1m40s/Msamples
+        8000000    -22385.0594    -22427.3217        42.2623 1m39s/Msamples
+        8050000    -22396.3291    -22434.2335        37.9043 1m39s/Msamples
+        8100000    -22395.3699    -22436.9937        41.6238 1m39s/Msamples
+        8150000    -22382.9956    -22431.4608        48.4651 1m39s/Msamples
+        8200000    -22378.1639    -22432.1110        53.9470 1m39s/Msamples
+        8250000    -22363.3960    -22427.8716        64.4756 1m39s/Msamples
+        8300000    -22375.8315    -22430.7878        54.9562 1m39s/Msamples
+        8350000    -22374.8294    -22427.3251        52.4956 1m39s/Msamples
+        8400000    -22364.8038    -22425.5852        60.7814 1m39s/Msamples
+        8450000    -22381.5803    -22419.4610        37.8806 1m39s/Msamples
+        8500000    -22376.9123    -22428.7713        51.8590 1m39s/Msamples
+        8550000    -22374.4709    -22432.9898        58.5188 1m39s/Msamples
+        8600000    -22386.1622    -22425.0506        38.8884 1m39s/Msamples
+        8650000    -22381.5171    -22432.5433        51.0262 1m39s/Msamples
+        8700000    -22382.8009    -22429.6096        46.8086 1m39s/Msamples
+        8750000    -22377.9874    -22433.3898        55.4023 1m39s/Msamples
+        8800000    -22372.3113    -22421.3816        49.0703 1m39s/Msamples
+        8850000    -22385.1730    -22426.2798        41.1068 1m39s/Msamples
+        8900000    -22380.8107    -22435.2756        54.4648 1m39s/Msamples
+        8950000    -22387.8222    -22427.7346        39.9124 1m39s/Msamples
+        9000000    -22369.0265    -22431.8649        62.8384 1m39s/Msamples
+        9050000    -22388.0711    -22436.9149        48.8438 1m39s/Msamples
+        9100000    -22378.3676    -22441.0353        62.6677 1m39s/Msamples
+        9150000    -22353.3337    -22431.7567        78.4230 1m39s/Msamples
+        9200000    -22367.5908    -22425.6863        58.0954 1m39s/Msamples
+        9250000    -22371.3123    -22429.8034        58.4911 1m39s/Msamples
+        9300000    -22385.8715    -22429.3723        43.5007 1m39s/Msamples
+        9350000    -22372.7627    -22439.9411        67.1784 1m39s/Msamples
+        9400000    -22364.7137    -22432.6336        67.9198 1m39s/Msamples
+        9450000    -22395.1332    -22430.8075        35.6743 1m39s/Msamples
+        9500000    -22375.0077    -22427.4659        52.4582 1m39s/Msamples
+        9550000    -22373.1668    -22423.5317        50.3648 1m39s/Msamples
+        9600000    -22387.3570    -22430.3590        43.0020 1m39s/Msamples
+        9650000    -22399.6292    -22436.6691        37.0398 1m39s/Msamples
+        9700000    -22384.0014    -22435.6670        51.6655 1m39s/Msamples
+        9750000    -22395.8772    -22432.0176        36.1403 1m39s/Msamples
+        9800000    -22374.5927    -22432.4096        57.8168 1m39s/Msamples
+        9850000    -22365.9061    -22428.9819        63.0758 1m39s/Msamples
+        9900000    -22387.9352    -22442.2110        54.2757 1m39s/Msamples
+        9950000    -22381.5557    -22420.6110        39.0553 1m39s/Msamples
+       10000000    -22379.7360    -22447.4100        67.6739 1m39s/Msamples
+       10050000    -22363.8482    -22426.5452        62.6969 1m39s/Msamples
+       10100000    -22363.0945    -22420.6102        57.5156 1m39s/Msamples
+       10150000    -22391.9085    -22426.8629        34.9543 1m39s/Msamples
+       10200000    -22399.3169    -22431.0299        31.7130 1m39s/Msamples
+       10250000    -22383.8009    -22430.2584        46.4575 1m39s/Msamples
+       10300000    -22373.0631    -22424.6559        51.5927 1m39s/Msamples
+       10350000    -22374.9850    -22428.5048        53.5198 1m39s/Msamples
+       10400000    -22379.3881    -22434.3459        54.9578 1m39s/Msamples
+       10450000    -22367.9856    -22428.8415        60.8559 1m39s/Msamples
+       10500000    -22358.3872    -22435.8958        77.5085 1m39s/Msamples
+       10550000    -22387.7288    -22425.0007        37.2719 1m39s/Msamples
+       10600000    -22375.6630    -22423.1550        47.4919 1m39s/Msamples
+       10650000    -22380.1024    -22428.0271        47.9247 1m39s/Msamples
+       10700000    -22368.1975    -22420.1387        51.9412 1m39s/Msamples
+       10750000    -22370.3111    -22423.8319        53.5207 1m39s/Msamples
+       10800000    -22391.3233    -22431.1607        39.8374 1m39s/Msamples
+       10850000    -22370.4606    -22416.7288        46.2682 1m39s/Msamples
+       10900000    -22367.6512    -22432.4070        64.7557 1m39s/Msamples
+       10950000    -22394.7211    -22429.4257        34.7045 1m39s/Msamples
+       11000000    -22390.8607    -22432.1824        41.3216 1m39s/Msamples
+       11050000    -22375.6914    -22422.5696        46.8782 1m39s/Msamples
+       11100000    -22372.8447    -22426.2996        53.4549 1m39s/Msamples
+       11150000    -22396.6567    -22431.2013        34.5446 1m39s/Msamples
+       11200000    -22383.8203    -22416.8314        33.0110 1m39s/Msamples
+       11250000    -22389.4566    -22438.1356        48.6789 1m39s/Msamples
+       11300000    -22367.2655    -22424.0265        56.7610 1m39s/Msamples
+       11350000    -22395.3238    -22430.6028        35.2790 1m39s/Msamples
+       11400000    -22376.9811    -22427.2094        50.2283 1m39s/Msamples
+       11450000    -22384.0552    -22427.6524        43.5971 1m39s/Msamples
+       11500000    -22381.4516    -22428.8435        47.3918 1m39s/Msamples
+       11550000    -22374.1793    -22430.5908        56.4115 1m39s/Msamples
+       11600000    -22381.7172    -22426.8527        45.1354 1m39s/Msamples
+       11650000    -22367.9227    -22426.4113        58.4885 1m39s/Msamples
+       11700000    -22370.8502    -22420.4458        49.5956 1m39s/Msamples
+       11750000    -22400.1486    -22428.7068        28.5582 1m39s/Msamples
+       11800000    -22387.4461    -22425.2396        37.7935 1m39s/Msamples
+       11850000    -22377.2415    -22431.6726        54.4311 1m39s/Msamples
+       11900000    -22378.8750    -22431.7189        52.8438 1m39s/Msamples
+       11950000    -22371.6775    -22423.9244        52.2468 1m39s/Msamples
+       12000000    -22381.0137    -22437.1956        56.1818 1m39s/Msamples
+       12050000    -22351.8919    -22426.5364        74.6444 1m39s/Msamples
+       12100000    -22374.8212    -22426.4895        51.6683 1m39s/Msamples
+       12150000    -22378.0257    -22426.2025        48.1768 1m39s/Msamples
+       12200000    -22344.1946    -22428.6571        84.4624 1m39s/Msamples
+       12250000    -22366.5563    -22436.1932        69.6368 1m39s/Msamples
+       12300000    -22369.6959    -22417.6085        47.9126 1m39s/Msamples
+       12350000    -22373.8867    -22421.3066        47.4198 1m39s/Msamples
+       12400000    -22377.8196    -22421.9020        44.0824 1m39s/Msamples
+       12450000    -22377.6122    -22437.1985        59.5863 1m39s/Msamples
+       12500000    -22376.4669    -22429.9322        53.4653 1m39s/Msamples
+       12550000    -22385.2695    -22434.7791        49.5095 1m39s/Msamples
+       12600000    -22391.0625    -22441.8268        50.7643 1m39s/Msamples
+       12650000    -22385.4806    -22425.7731        40.2925 1m39s/Msamples
+       12700000    -22364.6000    -22426.1427        61.5426 1m39s/Msamples
+       12750000    -22381.1140    -22436.7361        55.6221 1m39s/Msamples
+       12800000    -22363.9060    -22429.6089        65.7029 1m39s/Msamples
+       12850000    -22386.1906    -22422.5372        36.3465 1m39s/Msamples
+       12900000    -22382.4110    -22423.7653        41.3542 1m39s/Msamples
+       12950000    -22377.1835    -22423.7380        46.5544 1m39s/Msamples
+       13000000    -22383.9971    -22426.1067        42.1096 1m39s/Msamples
+       13050000    -22374.7731    -22420.6400        45.8668 1m39s/Msamples
+       13100000    -22373.8480    -22426.6557        52.8077 1m39s/Msamples
+       13150000    -22383.0935    -22427.7485        44.6550 1m39s/Msamples
+       13200000    -22369.1797    -22426.6118        57.4321 1m39s/Msamples
+       13250000    -22383.4282    -22425.8145        42.3863 1m39s/Msamples
+       13300000    -22401.6019    -22432.0064        30.4045 1m39s/Msamples
+       13350000    -22387.1357    -22434.4670        47.3312 1m39s/Msamples
+       13400000    -22389.2982    -22438.5459        49.2477 1m39s/Msamples
+       13450000    -22369.1372    -22423.1990        54.0618 1m39s/Msamples
+       13500000    -22379.6536    -22421.6666        42.0129 1m40s/Msamples
+       13550000    -22388.1738    -22425.1234        36.9495 1m40s/Msamples
+       13600000    -22379.1744    -22430.3023        51.1279 1m40s/Msamples
+       13650000    -22385.9317    -22427.3290        41.3973 1m40s/Msamples
+       13700000    -22361.9272    -22419.0023        57.0751 1m40s/Msamples
+       13750000    -22405.0845    -22428.9365        23.8519 1m39s/Msamples
+       13800000    -22370.0382    -22435.1564        65.1181 1m39s/Msamples
+       13850000    -22382.2547    -22422.4185        40.1638 1m39s/Msamples
+       13900000    -22373.9735    -22426.8139        52.8403 1m40s/Msamples
+       13950000    -22384.2705    -22432.7000        48.4295 1m40s/Msamples
+       14000000    -22373.8473    -22427.7036        53.8563 1m40s/Msamples
+       14050000    -22380.6416    -22432.4643        51.8227 1m40s/Msamples
+       14100000    -22386.7110    -22427.2428        40.5317 1m40s/Msamples
+       14150000    -22388.8483    -22427.0777        38.2293 1m40s/Msamples
+       14200000    -22385.5993    -22433.6303        48.0309 1m40s/Msamples
+       14250000    -22374.7722    -22429.6593        54.8871 1m40s/Msamples
+       14300000    -22376.4026    -22433.7624        57.3597 1m40s/Msamples
+       14350000    -22374.0298    -22422.2053        48.1754 1m40s/Msamples
+       14400000    -22368.4469    -22433.8256        65.3786 1m40s/Msamples
+       14450000    -22368.2081    -22426.7340        58.5259 1m40s/Msamples
+       14500000    -22380.6385    -22428.3845        47.7460 1m40s/Msamples
+       14550000    -22381.8988    -22427.8207        45.9219 1m40s/Msamples
+       14600000    -22388.6789    -22428.1604        39.4815 1m40s/Msamples
+       14650000    -22375.7048    -22437.4006        61.6957 1m40s/Msamples
+       14700000    -22386.5305    -22428.0209        41.4903 1m40s/Msamples
+       14750000    -22361.4820    -22420.1150        58.6329 1m40s/Msamples
+       14800000    -22387.3457    -22422.3800        35.0342 1m40s/Msamples
+       14850000    -22398.0242    -22431.6130        33.5888 1m40s/Msamples
+       14900000    -22354.2261    -22430.0294        75.8032 1m40s/Msamples
+       14950000    -22394.9280    -22443.4362        48.5082 1m40s/Msamples
+       15000000    -22374.9210    -22428.2700        53.3490 1m40s/Msamples
+       15050000    -22374.5323    -22428.6060        54.0736 1m40s/Msamples
+       15100000    -22395.8719    -22434.6410        38.7691 1m40s/Msamples
+       15150000    -22353.1292    -22418.4511        65.3219 1m40s/Msamples
+       15200000    -22368.7394    -22431.4928        62.7534 1m40s/Msamples
+       15250000    -22383.4872    -22426.7387        43.2514 1m40s/Msamples
+       15300000    -22364.1053    -22424.8672        60.7618 1m40s/Msamples
+       15350000    -22374.7814    -22422.0440        47.2626 1m40s/Msamples
+       15400000    -22373.5600    -22432.3353        58.7753 1m40s/Msamples
+       15450000    -22369.7942    -22431.3916        61.5974 1m40s/Msamples
+       15500000    -22372.4725    -22424.2518        51.7793 1m40s/Msamples
+       15550000    -22381.5346    -22428.3379        46.8033 1m40s/Msamples
+       15600000    -22371.3538    -22437.0512        65.6973 1m40s/Msamples
+       15650000    -22394.0439    -22430.9164        36.8724 1m40s/Msamples
+       15700000    -22374.2474    -22445.0149        70.7675 1m40s/Msamples
+       15750000    -22378.5627    -22437.4524        58.8896 1m40s/Msamples
+       15800000    -22367.5581    -22425.3829        57.8248 1m40s/Msamples
+       15850000    -22369.6439    -22431.8716        62.2277 1m40s/Msamples
+       15900000    -22385.0866    -22428.1947        43.1080 1m40s/Msamples
+       15950000    -22391.8510    -22428.8409        36.9899 1m40s/Msamples
+       16000000    -22387.4930    -22426.5477        39.0547 1m40s/Msamples
+       16050000    -22365.4993    -22428.9371        63.4378 1m40s/Msamples
+       16100000    -22375.8855    -22430.9359        55.0504 1m40s/Msamples
+       16150000    -22374.6274    -22427.8905        53.2631 1m40s/Msamples
+       16200000    -22387.7215    -22434.4483        46.7267 1m40s/Msamples
+       16250000    -22366.2255    -22431.9868        65.7613 1m40s/Msamples
+       16300000    -22378.0790    -22424.5705        46.4915 1m40s/Msamples
+       16350000    -22376.1261    -22430.1121        53.9860 1m40s/Msamples
+       16400000    -22390.9386    -22433.0211        42.0825 1m40s/Msamples
+       16450000    -22369.9458    -22419.6425        49.6966 1m40s/Msamples
+       16500000    -22369.9909    -22421.3275        51.3366 1m40s/Msamples
+       16550000    -22417.9767    -22435.3942        17.4174 1m40s/Msamples
+       16600000    -22371.3568    -22431.4148        60.0580 1m40s/Msamples
+       16650000    -22369.9573    -22426.7192        56.7618 1m40s/Msamples
+       16700000    -22357.2054    -22428.9251        71.7196 1m40s/Msamples
+       16750000    -22379.0082    -22434.7503        55.7420 1m40s/Msamples
+       16800000    -22394.1046    -22433.5041        39.3995 1m40s/Msamples
+       16850000    -22369.7607    -22425.0740        55.3133 1m40s/Msamples
+       16900000    -22359.8990    -22430.3703        70.4712 1m40s/Msamples
+       16950000    -22359.6243    -22426.2739        66.6495 1m40s/Msamples
+       17000000    -22385.0123    -22429.2473        44.2349 1m40s/Msamples
+       17050000    -22359.6149    -22431.6816        72.0667 1m40s/Msamples
+       17100000    -22362.7558    -22429.5148        66.7589 1m40s/Msamples
+       17150000    -22373.1909    -22422.7146        49.5236 1m40s/Msamples
+       17200000    -22379.6088    -22433.6998        54.0910 1m40s/Msamples
+       17250000    -22393.2289    -22435.0756        41.8467 1m40s/Msamples
+       17300000    -22383.9166    -22431.8332        47.9165 1m40s/Msamples
+       17350000    -22373.9748    -22439.1426        65.1677 1m40s/Msamples
+       17400000    -22371.9757    -22428.6536        56.6778 1m40s/Msamples
+       17450000    -22385.3914    -22423.7447        38.3532 1m40s/Msamples
+       17500000    -22387.5840    -22427.3377        39.7537 1m40s/Msamples
+       17550000    -22373.0243    -22422.7655        49.7412 1m40s/Msamples
+       17600000    -22371.8459    -22425.3715        53.5255 1m40s/Msamples
+       17650000    -22389.6562    -22435.7939        46.1377 1m40s/Msamples
+       17700000    -22386.8021    -22427.3836        40.5814 1m40s/Msamples
+       17750000    -22389.0050    -22431.6034        42.5984 1m40s/Msamples
+       17800000    -22370.4731    -22436.3994        65.9262 1m40s/Msamples
+       17850000    -22352.6780    -22440.1155        87.4374 1m40s/Msamples
+       17900000    -22405.3970    -22436.6573        31.2603 1m40s/Msamples
+       17950000    -22377.7560    -22425.1305        47.3745 1m40s/Msamples
+       18000000    -22393.1859    -22427.1338        33.9479 1m40s/Msamples
+       18050000    -22377.4599    -22423.4095        45.9496 1m40s/Msamples
+       18100000    -22370.1993    -22435.2525        65.0532 1m40s/Msamples
+       18150000    -22388.0042    -22436.7729        48.7686 1m40s/Msamples
+       18200000    -22381.0337    -22432.0012        50.9674 1m40s/Msamples
+       18250000    -22403.0774    -22419.3660        16.2886 1m40s/Msamples
+       18300000    -22375.1520    -22423.5665        48.4145 1m40s/Msamples
+       18350000    -22374.1003    -22434.2360        60.1356 1m40s/Msamples
+       18400000    -22382.6706    -22422.6699        39.9992 1m40s/Msamples
+       18450000    -22377.2568    -22418.8433        41.5864 1m40s/Msamples
+       18500000    -22385.9558    -22423.3803        37.4244 1m40s/Msamples
+       18550000    -22361.1394    -22423.9967        62.8572 1m40s/Msamples
+       18600000    -22360.5795    -22426.2030        65.6235 1m40s/Msamples
+       18650000    -22390.3604    -22430.4980        40.1376 1m40s/Msamples
+       18700000    -22390.2356    -22429.8594        39.6238 1m40s/Msamples
+       18750000    -22387.2284    -22435.0773        47.8489 1m40s/Msamples
+       18800000    -22363.1337    -22432.3566        69.2229 1m40s/Msamples
+       18850000    -22388.5701    -22435.9676        47.3975 1m40s/Msamples
+       18900000    -22358.6028    -22436.1930        77.5902 1m40s/Msamples
+       18950000    -22370.7876    -22434.1035        63.3158 1m40s/Msamples
+       19000000    -22380.9675    -22426.7865        45.8189 1m40s/Msamples
+       19050000    -22389.2721    -22422.5562        33.2841 1m40s/Msamples
+       19100000    -22384.6099    -22442.3304        57.7205 1m40s/Msamples
+       19150000    -22373.7889    -22424.4616        50.6727 1m40s/Msamples
+       19200000    -22356.1153    -22423.3572        67.2418 1m40s/Msamples
+       19250000    -22356.9824    -22423.7042        66.7217 1m40s/Msamples
+       19300000    -22367.6754    -22422.0957        54.4203 1m40s/Msamples
+       19350000    -22379.6627    -22424.9477        45.2849 1m40s/Msamples
+       19400000    -22394.8956    -22431.3926        36.4970 1m40s/Msamples
+       19450000    -22365.6223    -22441.4644        75.8421 1m40s/Msamples
+       19500000    -22369.9085    -22428.6881        58.7795 1m40s/Msamples
+       19550000    -22380.7744    -22422.5987        41.8243 1m40s/Msamples
+       19600000    -22379.8518    -22428.1870        48.3351 1m40s/Msamples
+       19650000    -22364.2752    -22432.9654        68.6901 1m40s/Msamples
+       19700000    -22373.0372    -22421.7047        48.6675 1m40s/Msamples
+       19750000    -22374.9965    -22430.2343        55.2377 1m40s/Msamples
+       19800000    -22370.0931    -22424.5405        54.4474 1m40s/Msamples
+       19850000    -22376.1793    -22424.3779        48.1986 1m40s/Msamples
+       19900000    -22398.3021    -22429.6700        31.3679 1m40s/Msamples
+       19950000    -22372.1504    -22429.2734        57.1230 1m40s/Msamples
+       20000000    -22386.2077    -22431.0445        44.8367 1m40s/Msamples
+
+Operator                                                           Tuning    #accept    #reject      Pr(m)  Pr(acc|m)
+consoperators.ConsInternalNode(InternalnodesOperator.c:anolis)    0.48475     577177    3402448    0.19884    0.14503 
+consoperators.SimpleDistance(RootOperator2.c:anolis)              0.01146       3883      45675    0.00248    0.07835 Try setting window size to about 0.006
+consoperators.SmallPulley(RootOperator3.c:anolis)                 0.60825         69      49263    0.00248    0.00140 Try setting window size to about 0.304
+consoperators.BigPulley(RootOperator4.c:anolis)                   0.00640          8      49900    0.00248    0.00016 Try setting window size to about 0.003
+ScaleOperator(BirthDeathTreeScaler.t:anolis)                      0.86498      75764     419171    0.02475    0.15308 
+ScaleOperator(BirthDeathTreeRootScaler.t:anolis)                  0.81208      36313     459042    0.02475    0.07331 Try setting scaleFactor to about 0.901
+Uniform(BirthDeathUniformOperator.t:anolis)                             -     952936    3996501    0.24752    0.19253 
+SubtreeSlide(BirthDeathSubtreeSlide.t:anolis)                     0.13444      63445    1751149    0.09076    0.03496 Try decreasing size to about 0.067
+Exchange(BirthDeathNarrow.t:anolis)                                     -      63805    1750447    0.09076    0.03517 
+Exchange(BirthDeathWide.t:anolis)                                       -        386     495483    0.02475    0.00078 
+WilsonBalding(BirthDeathWilsonBalding.t:anolis)                         -        678     494711    0.02475    0.00137 
+ScaleOperator(BirthRateScaler.t:anolis)                           0.34665     291023     864181    0.05776    0.25192 
+ScaleOperator(DeathRateScaler.t:anolis)                           0.14010     292668     863245    0.05776    0.25319 
+ScaleOperator(KappaScaler.s:anolis)                               0.74600       2520      13946    0.00083    0.15304 
+consoperators.UcldScalerOperator(FastUcldStdevScaler.c:anolis)    0.51546     133069     361155    0.02475    0.26925 
+RealRandomWalkOperator(FastRatessRandomWalk.c:anolis)             0.75198     339032    1310383    0.08251    0.20555 
+SwapOperator(FastRatesSwapOperator.c:anolis)                            -     392150     431905    0.04125    0.47588 
+DeltaExchangeOperator(FrequenciesExchanger.s:anolis)              0.03061       3746      12724    0.00083    0.22744 
+
+     Tuning: The value of the operator's tuning parameter, or '-' if the operator can't be optimized.
+    #accept: The total number of times a proposal by this operator has been accepted.
+    #reject: The total number of times a proposal by this operator has been rejected.
+      Pr(m): The probability this operator is chosen in a step of the MCMC (i.e. the normalized weight).
+  Pr(acc|m): The acceptance probability (#accept as a fraction of the total proposals for this operator).
+
+
+Total calculation time: 2002.992 seconds

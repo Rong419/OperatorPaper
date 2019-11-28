@@ -110,8 +110,8 @@ name="alignment">
 <map name="OneOnX" >beast.math.distributions.OneOnX</map>
  <map name="Dirichlet" >beast.math.distributions.Dirichlet</map>
 
-<run id="mcmc" spec="MCMC" chainLength="80000000">
-    <state id="state" storeEvery="20000">
+<run id="mcmc" spec="MCMC" chainLength="50000000">
+    <state id="state" storeEvery="10000">
         <tree id="Tree.t:primates" name="stateNode">
             <taxonset id="TaxonSet.primates" spec="TaxonSet">
                 <alignment idref="primates"/>
@@ -188,17 +188,17 @@ name="alignment">
 
     <operator id="YuleModelTreeScaler.t:primates" spec="ScaleOperator" scaleFactor="0.5" tree="@Tree.t:primates" weight="5.0"/>
 
-    <operator id="YuleModelTreeRootScaler.t:primates" spec="ScaleOperator" rootOnly="true" scaleFactor="0.5" tree="@Tree.t:primates" weight="8.0"/>
+    <operator id="YuleModelTreeRootScaler.t:primates" spec="ScaleOperator" rootOnly="true" scaleFactor="0.5" tree="@Tree.t:primates" weight="5.0"/>
 
     <operator id="YuleModelUniformOperator.t:primates" spec="Uniform" tree="@Tree.t:primates" weight="30.0"/>
 
     <operator id="YuleModelSubtreeSlide.t:primates" spec="SubtreeSlide" tree="@Tree.t:primates" weight="15.0"/>
 
-    <operator id="YuleModelNarrow.t:primates" spec="Exchange" tree="@Tree.t:primates" weight="15.0"/>
+    <operator id="YuleModelNarrow.t:primates" spec="Exchange" tree="@Tree.t:primates" weight="5.0"/>
 
-    <operator id="YuleModelWidet:primates" spec="Exchange" isNarrow="false" tree="@Tree.t:primates" weight="10.0"/>
+    <operator id="YuleModelWidet:primates" spec="Exchange" isNarrow="false" tree="@Tree.t:primates" weight="5.0"/>
 
-    <operator id="YuleModelWilsonBalding.t:primates" spec="WilsonBalding" tree="@Tree.t:primates" weight="10.0"/>
+    <operator id="YuleModelWilsonBalding.t:primates" spec="WilsonBalding" tree="@Tree.t:primates" weight="5.0"/>
 
     <operator id="YuleBirthRateScaler.t:primates" spec="ScaleOperator" parameter="@birthRate.t:primates" scaleFactor="0.75" weight="3.0"/>
 
@@ -206,9 +206,9 @@ name="alignment">
         <parameter idref="freqParameter.s:primates"/>
     </operator>
 
-   <operator id="KappaScaler.s:primates" spec="ScaleOperator" parameter="@kappa.t:primates" scaleFactor="0.5" weight="2.0"/>
- 
-    <logger id="tracelog" fileName="primates_FILE.log" logEvery="20000" model="@posterior" sanitiseHeaders="true" sort="smart">
+    <operator id="KappaScaler.s:primates" spec="ScaleOperator" parameter="@kappa.t:primates" scaleFactor="0.5" weight="2.0"/>
+
+    <logger id="tracelog" fileName="primates_FILE.log" logEvery="10000" model="@posterior" sanitiseHeaders="true" sort="smart">
         <log idref="posterior"/>
         <log idref="likelihood"/>
         <log idref="prior"/>
@@ -223,7 +223,7 @@ name="alignment">
         <log idref="kappa.t:primates"/>
     </logger>
 
-    <logger id="screenlog" logEvery="800000">
+    <logger id="screenlog" logEvery="500000">
         <log idref="posterior"/>
         <log id="ESS.0" spec="util.ESS" arg="@posterior"/>
         <log idref="likelihood"/>
