@@ -1,10 +1,11 @@
 library(corrplot)
+library(gplots)
 
 source('CorrelationUtils.R')
 args = commandArgs(trailingOnly=TRUE)
 
 data.name <- args[1]
-n.taxa <- an.numeric(args[2])
+n.taxa <- as.numeric(args[2])
 log.file.path <- args[3]
 output.figure.folder <- args[4]
 
@@ -12,6 +13,10 @@ output.figure.folder <- args[4]
 #n.taxa <- 7
 #log.file.path <- "/Users/ryanzhang/Documents/UOALearning/OperatorPaper/validation/correlation/"
 #output.figure.folder <- "/Users/ryanzhang/Documents/UOALearning/OperatorPaper/validation/correlation/figures/"
+#data.name <- "anolis"
+#n.taxa <- 29
+#log.file.path <- "~/Desktop/validation/correlation/"
+#output.figure.folder <- "~/Desktop/validation/correlation/figures/"
 
 Ex.log <- read.table(file = paste0(log.file.path, "Ex_", data.name, ".log"), sep = "\t", header = T)
 In.log <- read.table(file = paste0(log.file.path, "In_", data.name, ".log"), sep = "\t", header = T)
@@ -39,8 +44,14 @@ coeff.matrix <- cor(log.length.df,log.rate.df)
 
 pdf(paste(output.figure.folder,"correlation", data.name, ".pdf"), height=10, width=10)
 corrplot(coeff.matrix, method="circle",tl.srt=360, tl.col="black",tl.pos = "n")
+corrplot(coeff.matrix, method="circle",tl.srt=90, tl.col="black",tl.cex=0.5,order = "hclust")
 dev.off()
 
+pdf(paste(output.figure.folder,"correlation_heatmap", data.name, ".pdf"), height=8, width=13)
+heatmap.2(coeff.matrix, Colv=FALSE, dendrogram="row",margins = c(8, 9),col=bluered)
+heatmap.2(coeff.matrix, Rowv=FALSE, dendrogram="column",margins = c(8, 9),col=bluered)
+heatmap.2(coeff.matrix,dendrogram="both",margins = c(8, 9),col=bluered)
+dev.off()
 
 
 
