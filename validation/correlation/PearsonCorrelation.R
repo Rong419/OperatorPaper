@@ -44,13 +44,14 @@ coeff.matrix <- cor(log.length.df,log.rate.df)
 
 pdf(paste(output.figure.folder,"correlation", data.name, ".pdf"), height=10, width=10)
 corrplot(coeff.matrix, method="circle",tl.srt=360, tl.col="black",tl.pos = "n")
-corrplot(coeff.matrix, method="circle",tl.srt=90, tl.col="black",tl.cex=0.5,order = "hclust")
+corrplot(coeff.matrix, method="circle",tl.srt=90, tl.col="black",tl.cex=0.5)
+corrplot(coeff.matrix, method="circle",tl.srt=90, tl.col="black",tl.cex=0.5,order = "hclust",hclust.method = "single")
 dev.off()
 
 pdf(paste(output.figure.folder,"correlation_heatmap", data.name, ".pdf"), height=8, width=13)
 heatmap.2(coeff.matrix, Colv=FALSE, dendrogram="row",margins = c(8, 9),col=bluered)
 heatmap.2(coeff.matrix, Rowv=FALSE, dendrogram="column",margins = c(8, 9),col=bluered)
-heatmap.2(coeff.matrix,dendrogram="both",margins = c(8, 9),col=bluered)
+heatmap.2(coeff.matrix,dendrogram="both", symm=TRUE, margins = c(8, 9),col=bluered)
 dev.off()
 
 
