@@ -27,6 +27,7 @@ while (i <= length(strees)) {
   if (all.equal(target, strees[[i]], use.edge.length=FALSE)) {
     mapped.tree.order[j] = i
     j = j + 1
+    print(i)
   } 
   i = i + 1
 }
@@ -36,8 +37,9 @@ while (i <= length(strees)) {
 
 template.lines <- readLines(paste0(tree.file.foler, data.name, ".trees"))
 
-Lines <- 1: (10 + n.taxa * 2)
-Lines <- c(Lines, mapped.tree.order)
+last.valid.line <- 10 + n.taxa * 2
+Lines <- 1 : last.valid.line
+Lines <- c(Lines, mapped.tree.order + last.valid.line)
 
 for (line.Nr in Lines) {
   line = template.lines[line.Nr]
