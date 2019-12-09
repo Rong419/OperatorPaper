@@ -13,3 +13,5 @@ validation/calibrated/xml/
 validation/ucldstdev/xml/
 validation/efficiency/simulated/xmls/xml/
 validation/efficiency/others/xml/xml/
+validation/correlation/Shankarappa/Shankarappa.trees
+validation/correlation/RSV2/RSV2.trees
