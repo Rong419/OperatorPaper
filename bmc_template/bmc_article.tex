@@ -430,7 +430,7 @@ To evaluate the performance of Constant Distance operator in a Bayesian phylogen
 
 For each dataset, we compared two operator configurations. 1) Using the current operators in BEAST2 to sample discrete rate categories (Category). 2) Using the Constant Distance operator to sample continuous rates specified by an uncorrelated related clock model (Cons). The Category configuration is the default setting in BEAST 2.5. We aim to compare the performance of the Constant Distance operator to that of the existing operator schedule. In each configuration, the data set was analyzed 20 times with the prior distributions and all other model specifications held constant. The details of operator weights used are given in Appendix 3.1.
 
-We performed the analysis on two sets of simulated sequence alignment (See Appendix 3.2 for more details). The simulated data sets both have 20 taxa but different sequence lengths, i.e. one data set containing 500 sites, the other containing 1,000 sites. Moreover, we used four real data sets to further evaluate the performance of Constant Distance operator, including a primate data set \cite{finstermeier2013mitogenomic} and three other data sets (Anolis, RSV2 and Shankarappa) \alexei{Need to provide references to the original analyses of these data} in BEAST2 \cite{beast2data}.
+We performed the analysis on two sets of simulated sequence alignment (See Appendix 3.2 for more details). The simulated data sets both have 20 taxa but different sequence lengths, i.e. one data set containing 500 sites, the other containing 1,000 sites. Moreover, we used four real data sets to further evaluate the performance of Constant Distance operator, including a primate data set \cite{finstermeier2013mitogenomic} and three other data sets (Anolis \cite{jackman1999phylogenetic}, RSV2 \cite{zlateva2004molecular,zlateva2005genetic} and HIV-1 \cite{shankarappa1999consistent}) in BEAST2 \cite{beast2data}.
 
 The ESS and running time are summarised in Figure \ref{eff_comp} and Table \ref{eff_comp1}. To be more specific, we measure the efficiency by ESS per hour, which is calculated by the ESS of parameters in one simulation divided by the running time in hours. Then we compare the efficiency of two configurations by calculating the ratios of ESS per hour for simulations in the two configurations. If the ratio is larger than 1, then ESS per hour of Cons configuration is larger than that of Category configuration. As is shown in Figure \ref{eff_comp}, most ratios of the parameters are above the red line (larger than 1), which indicates that Cons configuration provides larger ESS per hour for most parameters. Although there are are several parameters sampled by Cons configuration having smaller ESS per hour in some data sets, it should be noticed that the ratio is calculated by choosing random simulations in the two configurations (See Appendix 3.3 for more details). Additionally, it is worth noting that the efficiency is improved more obviously in simulated data set having 1000 sites, compared with the data set having 500 sites. This means the proposed operators sample rates and node times more efficiently if the genetic distances are more accurate. On the other hand, Table \ref{eff_comp1} lists the average running time of the data sets. It can be seen that Cons configuration finished simulations with less time in most cases. Moreover, Table \ref{eff_comp1} also shows the parameter that has the smallest ESS in Category configuration, and is compare with the corresponding ESS in Cons configuration. After calculating the ESS per hour, we conclude that Cons configuration improved the efficiency of the worst estimated parameter in Category configuration by a factor of 2.3 to 15.8. 
 
@@ -666,7 +666,7 @@ The author(s) wish to acknowledge the use of New Zealand eScience Infrastructure
 
 \begin{figure}[h!]
 \includegraphics[width=12cm]{Fig17-AnolisTimeEss.eps}\\
-\caption{\csentence{Running time and ESS using anolis data.}}
+\caption{\csentence{Running time and ESS using Anolis data.}}
 \label{anolistimeess}
 \end{figure}
 
@@ -679,7 +679,7 @@ The author(s) wish to acknowledge the use of New Zealand eScience Infrastructure
 \clearpage
 \begin{figure}[h!]
 \includegraphics[width=12cm]{Fig19-ShankarappaTimeEss.eps}\\
-\caption{\csentence{Running time and ESS using shankarappa data.}}
+\caption{\csentence{Running time and ESS using HIV-1 data.}}
 \label{shankarappatimeess}
 \end{figure}
 
@@ -710,7 +710,7 @@ The author(s) wish to acknowledge the use of New Zealand eScience Infrastructure
 
 \begin{figure}[h!]
 \includegraphics[width=12cm]{Fig24-ShankarappaProposal.eps}\\
-\caption{\csentence{Efficiency comparison of proposals using Shankarappa data.}}
+\caption{\csentence{Efficiency comparison of proposals using HIV-1 data.}}
 \label{shankarappaproposal}
 \end{figure}
 
@@ -729,11 +729,11 @@ The author(s) wish to acknowledge the use of New Zealand eScience Infrastructure
 \hline
 Parameters&Coverage&Parameters&Coverage\\
 \hline
-TreeHeight&89&UcldStdev&91\\
-TreeLength&91&Frequency1&94\\
-Kappa&97&Frequency2&96\\
-BirthRate&99&Frequency3&95\\
-RateMean&100&Frequency4&97\\
+Tree height&89&Ucldstdev&91\\
+Tree length&91&${\pi_A}$&94\\
+Kappa&97&${\pi_C}$&96\\
+Birth rate&99&${\pi_G}$&95\\
+Rate mean&100&${\pi_T}$&97\\
 \hline
 \end{tabular}
 \caption{Percentage of real values lying in the 95\% HPD in Figure \ref{LargeTree} }\label{num_hpd}
@@ -751,7 +751,7 @@ Data&Configuration&Average running time&Parameter&ESS\\
 \multirow{2}*{RSV2}&Category&5.1009&\multirow{2}*{rate.coeff}&383.98\\
 &Cons&4.4077&&2379.33\\
 \hline
-\multirow{2}*{Shankarappa}&Category&5.3436&\multirow{2}*{prior}&360.86\\
+\multirow{2}*{HIV-1}&Category&5.3436&\multirow{2}*{prior}&360.86\\
 &Cons&5.2128&&795.21\\
 \hline
 \multirow{2}*{Primates}&Category&12.5615&\multirow{2}*{ucld.stdev}&57.47\\
@@ -838,7 +838,7 @@ Small Pulley&${d_i}$&0.3480&0.0492&0.3476&0.0494&Figure \ref{res_roo1}(b)\\
 \centering
 \begin{tabular}{c|c|cc|cc|cc|cc|cc}
   \hline
-\multirow{2}*{Operator class}&\multirow{2}*{Name}&\multicolumn{2}{c|}{Simulated data}&\multicolumn{2}{c|}{Anolis}&\multicolumn{2}{c|}{RSV2}&\multicolumn{2}{c|}{Shankarappa}&\multicolumn{2}{c}{Primates}\\
+\multirow{2}*{Operator class}&\multirow{2}*{Name}&\multicolumn{2}{c|}{Simulated data}&\multicolumn{2}{c|}{Anolis}&\multicolumn{2}{c|}{RSV2}&\multicolumn{2}{c|}{HIV-1}&\multicolumn{2}{c}{Primates}\\
 &&Cons&Category&Cons&Category&Cons&Category&Cons&Category&Cons&Category\\
   \hline
 \multirow{8}*{rates times}&ConstantDistance Operator&0.1919&-&0.2248&-&0.2228&-&0.2228&-&0.1850&-\\
