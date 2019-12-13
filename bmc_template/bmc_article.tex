@@ -225,7 +225,7 @@ Figure \ref{internalnodes} represents the tree (or subtree) with the node \textb
 
 \emph{Step 2} Denote the nodes times of \textbf{X}, \textbf{P}, \textbf{L} and \textbf{R} by $t_X$, $t_P$, $t_L$, $t_R$ respectively. Denote the rates on the branches above the nodes by $r_X$, $r_L$ and $r_R$ respectively.
 
-\emph{Step 3} Propose a new node time for \textbf{X} by ${t_X}' = {t_X} + a$, where $a$ follows a Uniform distribution with a symmetric window size $w$, i.e. $a \sim U[ - w, + w]$, for some window size $w$. Make sure that the proposed time is valid, i.e. $\max \{ {t_L},{t_R}\}  < {t_X}' < {t_P}$ holds. Otherwise, we reject the proposal.
+\emph{Step 3} Propose a new node time for \textbf{X} by ${t_X}' \leftarrow {t_X} + a$, where $a$ follows a Uniform distribution with a symmetric window size $w$, i.e. $a \sim$ Uniform[-w, +w], for some window size $w$. Make sure that the proposed time is valid, i.e. $\max \{ {t_L},{t_R}\}  < {t_X}' < {t_P}$ holds. Otherwise, we reject the proposal.
 
 \emph{Step 4} Propose new rates by using equation \ref{int_rate}.
 \begin{equation}
@@ -245,7 +245,7 @@ Figure \ref{simpledistance} (b), (c) and (d) show the trees that are rooted at t
 
 \emph{Step 1} Identify the child nodes of the root \textbf{X}, denoted by \textbf{L} and \textbf{R}. Their corresponding node times and branch rates are $t_X$, $t_L$, $t_R$ and $r_L$, $r_R$.
 
-\emph{Step 2} Propose a new node time for the root \textbf{X} by ${t_X}' = {t_X} + a$, where $a \sim U[ - w, + w]$. Make sure that ${t_X}' > \max \{ {t_L}, {t_R}\} $ holds. Otherwise, we reject the proposal.
+\emph{Step 2} Propose a new node time for the root \textbf{X} by ${t_X}' \leftarrow {t_X} + a$, where $a \sim$ Uniform[-w, +w]. Make sure that ${t_X}' > \max \{ {t_L}, {t_R}\} $ holds. Otherwise, we reject the proposal.
 
 \emph{Step 3} Propose new rates for branches on both sides of the root by using equation \ref{sim_rate}.
 \begin{equation}
@@ -265,7 +265,7 @@ In contrast to Simple Distance, Small Pulley changes genetic distances of branch
 {d_R} = {r_R} \times ({{t_X} - {t_R}})
  \end{equation}
 
-\emph{Step 2} Propose a new genetic distance for $d_L$ by adding a random number that follows a Uniform distribution, i.e.  ${d_L}' = {d_L} + b$, where $b \sim U[ - v, + v]$, for some window size $v$. Make sure that $0 < {d_L}' < D$ holds. Otherwise, we reject the proposal.
+\emph{Step 2} Propose a new genetic distance for $d_L$ by adding a random number that follows a Uniform distribution, i.e.  ${d_L}' \leftarrow {d_L} + b$, where $b \sim$ Uniform[-v, +v], for some window size $v$. Make sure that $0 < {d_L}' < D$ holds. Otherwise, we reject the proposal.
 
 \emph{Step 3} Propose new rates for branches on each side of the root:
 \begin{equation}
@@ -281,7 +281,7 @@ Big Pulley resamples the rates and times while maintaining the implied unrooted 
 Before describing the detailed steps, we introduce a method \textit{Exchange} that proposes a new root position. In Figure \ref{exchangemethod}, let (i) \textbf{X} denote the root of tree $g$, (ii) \textbf{C} and \textbf{N} denote the two child nodes of \textbf{X}, (iii) \textbf{S} and \textbf{M} denote the two child nodes of \textbf{C}. The \textit{Exchange(\textbf{M}, \textbf{N})} method involves the following steps:
 \begin{itemize}
 \item Swap the two nodes by pruning and regrafting, i.e. cutting \textbf{M} (\textbf{N}) at its original position and attaching it to the original position of \textbf{N} (\textbf{M}).
-\item Propose ${d_C}' \leftarrow {d_C} + b$, where $b \sim U[ - v, + v]$. Make sure that $0 < {d_C}' < D$ holds, where $D = {d_C} + {d_{N}}$. Otherwise, we reject the proposal.
+\item Propose ${d_C}' \leftarrow {d_C} + b$, where $b \sim$ Uniform[-v, +v]. Make sure that $0 < {d_C}' < D$ holds, where $D = {d_C} + {d_{N}}$. Otherwise, we reject the proposal.
 \item The distances on the other three branches, i.e. $d_S$, $d_{M}$ and $d_{N}$, will be adjusted:
 \begin{equation}\label{big_dis}
 {d_S}' = {d_S}\\
@@ -295,27 +295,22 @@ As can be seen from the above descriptions, the method \textit{Exchange(\textbf{
 Additionally, operations in Big Pulley vary depending on the shape of phylogenetic tree. In Figure \ref{treeshape}, a symmetric tree is shown on the left, in which both the child nodes of the root have child nodes, i.e. \textbf{L} having children \textbf{H1}, \textbf{H2} and \textbf{R} having children \textbf{H3}, \textbf{H4}. But in the asymmetric tree on the right, only one of the child nodes of the root has child nodes below it, i.e. \textbf{O} having children \textbf{G1}, \textbf{G2}. But the other child node \textbf{Y} doesn't have any offsprings, which may be a tip or a sampled ancestor. The corresponding operations are detailed in the following two parts.
 \paragraph*{Symmetric tree}
 
-For the symmetric tree in Figure \ref{treeshape}, the operations are illustrated in Figure \ref{symmetric}, after which one of the four possible trees (\textcircled1 \textcircled2 \textcircled3 \textcircled4) will be proposed.
+For the symmetric tree in Figure \ref{treeshape}, the operations are illustrated in Figure \ref{symmetric}, after which one of the four possible trees (\textcircled1 \textcircled2 \textcircled3 \textcircled4) will be proposed. The detailed process is described in Algorithm \ref{symmetric tree proposal}.
 
-\emph{Step 1} Identify the child nodes of the root \textbf{X}, denoted by \textbf{L} and \textbf{R}. Correspondingly, the node times are denoted by $t_X$, $t_L$, $t_R$. And the child nodes below them are denoted by \textbf{H1}, \textbf{H2}, \textbf{H3} and \textbf{H4}.
-
-\emph{Step 2} Propose a new node time for the root \textbf{X} by ${t_X}' = {t_X} + a$, where $a \sim U[ - w, + w]$.
-
-\emph{Step 3} Propose a new node time either for \textbf{L} or \textbf{R}. And apply the method to the selected node and one of its sibling's children, as is detailed by Algorithm \ref{symmetric tree proposal}.
 \begin{algorithm}
 \caption{Proposal for symmetric trees in Big pulley}
 \label{symmetric tree proposal}
 \begin{algorithmic}
-\STATE \COMMENT{Step 1: Identify the child nodes of the root \textbf{X}, denoted by \textbf{L} and \textbf{R}. Correspondingly, the node times are denoted by $t_X$, $t_L$, $t_R$. And the child nodes below them are denoted by \textbf{H1}, \textbf{H2}, \textbf{H3} and \textbf{H4}}
-\STATE Let \textbf{X} be the root of the tree
+\STATE \COMMENT{Step 1: Identify the child nodes of the root \textbf{X}, denoted by \textbf{L} and \textbf{R}. Correspondingly, the node times are denoted by $t_X$, $t_L$, $t_R$. And the child nodes below them are denoted by \textbf{H1}, \textbf{H2}, \textbf{H3} and \textbf{H4}.}
+\STATE Let \textbf{X} be the root of the tree.
 \STATE Let \textbf{L} and \textbf{R} be the left child and right child of \textbf{X}, respectively.
-\STATE \COMMENT{Step 2: Propose a new node time for the root X}
+\STATE \COMMENT{Step 2: Propose a new node time for the root \textbf{X}.}
 \STATE $a \sim$ Uniform[-w, +w]
 \STATE ${t_X}' \leftarrow {t_X} + a$
-\STATE \COMMENT{Step 3: Propose a new node time either for L or R, and adjust adjacent rates.}
+\STATE \COMMENT{Step 3: Propose a new node time either for \textbf{L} or \textbf{R}, and adjust adjacent rates.}
 \STATE Draw a random number $\sigma_1$ from Uniform(0,1).
 \IF{${\sigma_1} < 0.5$}
-\STATE Pick \textbf{L} and propose a new node time by ${t_L}' = {t_L} + {a_1}$, where ${a_1} \sim U[ - w, + w]$. 
+\STATE Pick \textbf{L} and propose a new node time by ${t_L}'  \leftarrow {t_L} + {a_1}$, where ${a_1} \sim$ Uniform[-w, +w]. 
 \IF{${t_R} < {t_L}' < {t_X}'$}
 \STATE Draw a random number $\sigma_2$ from Uniform(0,1). 
 \IF{${\sigma_2} < 0.5$}
@@ -327,7 +322,7 @@ For the symmetric tree in Figure \ref{treeshape}, the operations are illustrated
 \STATE Reject the proposal.
 \ENDIF
 \ELSE
-\STATE Pick \textbf{R} and propose a new node time by ${t_R}' = {t_R} + {a_2}$, where ${a_2} \sim Uniform[ - w, + w]$. 
+\STATE Pick \textbf{R} and propose a new node time by ${t_R}'  \leftarrow {t_R} + {a_2}$, where ${a_2} \sim$ Uniform[-w, +w]. 
 \IF{${t_L} < {t_R}' < {t_X}'$}
 \STATE Draw a random number $\sigma_3$ from Uniform(0,1). 
 \IF{${\sigma_3} < 0.5$}
@@ -339,25 +334,12 @@ For the symmetric tree in Figure \ref{treeshape}, the operations are illustrated
 \STATE Reject the proposal.
 \ENDIF
 \ENDIF
+\STATE \COMMENT{Step 4: Update the rates on the corresponding branches.} 
+\STATE \COMMENT{Step 5:  Return the Green ratio ${\alpha_{BP}}$.}
 \end{algorithmic}
 \end{algorithm}
 
-%\begin{itemize}
-%\item With 0.5 probability pick \textbf{L} and propose a new node time by ${t_L}' = {t_L} + {a_1}$, where ${a_1} \sim U[ - w, + w]$. Make sure that ${t_R} < {t_L}' < {t_X}'$ holds. Otherwise, we reject the proposal. If we don't reject then there are two options to apply the method:
-%\begin{itemize}
-%\item With probability 0.5 apply \textit{Exchange (\textbf{H1}, \textbf{R})} and propose tree \textcircled1
-%
-%\item otherwise apply \textit{Exchange (\textbf{H2}, \textbf{R})} and propose tree \textcircled2
-%\end{itemize}
-%
-%\item Otherwise pick \textbf{R} and propose a new node time by ${t_R}' = {t_R} + {a_2}$, where ${a_2} \sim Uniform[ - w, + w]$. Make sure that ${t_L} < {t_R}' < {t_X}'$ holds. Otherwise, we reject the proposal. Similarly, if we don't reject then there are two options to apply the method:
-%  \begin{itemize}
-%  \item With probability 0.5 apply \textit{Exchange (\textbf{H3}, \textbf{L})} and propose tree \textcircled3
-%  \item With probability 0.5 apply \textit{Exchange (\textbf{H4}, \textbf{L})} and propose tree \textcircled4
-%  \end{itemize}
-%\end{itemize}
-
-\emph{Step 4}  Update the rates using the adjusted genetic distances divided by the proposed node times. For example, suppose we are going to propose tree \textcircled1. After the new node times for the root \textbf{X} and \textbf{L} are proposed, we apply the method by \textit{Exchange (\textbf{H1}, \textbf{R})}, so that four distances are adjusted, as follows:
+For example, suppose we are going to propose tree \textcircled1. After the new node times for the root \textbf{X} and \textbf{L} are proposed, we apply the method by \textit{Exchange (\textbf{H1}, \textbf{R})}, so that four distances are adjusted, as follows:
 
 \begin{equation}\label{example1.1}
 {d_{H1}}' = {d_{H1}} - {d_L}'  \\
@@ -374,22 +356,30 @@ Finally, in this example the new rates would be updated by:
 {r_L}' = \frac{{{d_L}'}}{{{t_X}' - {t_L}'}} \\
 {r_R}' = \frac{{{d_R}'}}{{{t_L}' - {t_R}}}
 \end{equation}
-\emph{Step 5} Return the Green ratio ${\alpha_{BP}}$.
+
 \paragraph*{Asymmetric tree}
 
-For an asymmetric tree such as in Figure \ref{treeshape} we would operate as illustrated in Figure \ref{asymmetric}, in which there are three possible trees (\textcircled5 \textcircled6 \textcircled7).
+For an asymmetric tree such as in Figure \ref{treeshape} we would operate as illustrated in Figure \ref{asymmetric}, in which there are three possible trees (\textcircled5 \textcircled6 \textcircled7). The operations are detailed in Algorithm \ref{asymmetric tree proposal}.
 
-\emph{Step 1} Identify the extant child node of the root \textbf{X}, which has two child nodes below and is denoted by \textbf{O}. The extinct child node of the root, which does not have any child nodes, is denoted by \textbf{Y}. The node times of the root \textbf{X},  \textbf{Y}, \textbf{O} and its child nodes are denoted by ${t_X}$, ${t_Y}$, ${t_O}$, ${t_{G1}}$ and ${t_{G2}}$ respectively.
-
-\emph{Step 2} Propose a new node time for the root \textbf{X} by ${t_X}' = {t_X} + a$, where $a \sim U[ - w, + w]$. Moreover, propose a new node time for \textbf{O} by ${t_O}' = {t_O} + {a_3}$, where ${a_3} \sim U[ - w, + w]$. To make it valid, make sure that ${t_Y} < {t_O}' < {t_X}'$ holds. Otherwise, we reject the proposal.
-
-\emph{Step 3} Apply the method using \textbf{Y} and either child node of \textbf{O}, which is described in Algorithm \ref{asymmetric tree proposal}.
 \begin{algorithm}
 \caption{Proposal for asymmetric trees in Big pulley}
 \label{asymmetric tree proposal}
 \begin{algorithmic}
+\STATE \COMMENT{Step 1: Identify the extant child node of the root \textbf{X}, which has two child nodes below and is denoted by \textbf{O}. The extinct child node of the root, which does not have any child nodes, is denoted by \textbf{Y}. The node times of the root \textbf{X},  \textbf{Y}, \textbf{O} and its child nodes are denoted by ${t_X}$, ${t_Y}$, ${t_O}$, ${t_{G1}}$ and ${t_{G2}}$ respectively.}
+\STATE Let \textbf{X} be the root of the tree.
+\STATE Let \textbf{O} be the child of \textbf{X} that has children, and let \textbf{Y} be the child of \textbf{X} that does not have children. 
+\STATE \COMMENT{Step 2: Propose a new node time for the root \textbf{X}.}
+\STATE $a \sim$ Uniform[-w, +w]
+\STATE ${t_X}' \leftarrow {t_X} + a$
+\STATE \COMMENT{Step 3: Propose a new node time for the node \textbf{O}.}
+\STATE ${a_3} \sim$ Uniform[-w, +w]
+\STATE ${t_O}' \leftarrow {t_O} + {a_3}$
+\IF{${t_O}'<{t_Y}  $  or ${t_O}'> {t_X}'$}
+\STATE Reject the proposal.
+\ENDIF
+\STATE \COMMENT{Step 4: Adjust the distances according to the tree corresponding topologies.}
 \IF{${t_O}' > \max \{ {t_{G1}},{t_{G2}}\} $ or ${t_{G1}} = {t_{G2}}$}
-\STATE Draw a random number $\sigma_4$ from Unfirm[0,1]. 
+\STATE Draw a random number $\sigma_4$ from Uniform[0,1]. 
 \IF{${\sigma_4} < 0.5$}
 \STATE Apply \textit{Exchange (\textbf{G1}, \textbf{Y})} and propose tree \textcircled5.
 \ELSE
@@ -400,26 +390,12 @@ For an asymmetric tree such as in Figure \ref{treeshape} we would operate as ill
 \ELSIF{${t_O}' < \min \{ {t_{G1}},{t_{G2}}\}$}
 \STATE Reject the proposal.
 \ENDIF
+\STATE \COMMENT{Step 4: Update the rates on the corresponding branches.}
+\STATE \COMMENT{Step 5:  Return the Green ratio ${\alpha_{BP}}$.}
 \end{algorithmic}
 \end{algorithm}
 
-%\begin{itemize}
-%\item if ${t_O}'$ satisfies ${t_O}' > \max \{ {t_{G1}},{t_{G2}}\} $ or ${t_{G1}} = {t_{G2}}$, then there are two options:
-%
-%  \begin{itemize}
-%    \item With 0.5 Probability to apply \textit{Exchange (\textbf{G1}, \textbf{Y})} and propose tree \textcircled5
-%
-%    \item With 0.5 Probability to apply \textit{Exchange (\textbf{G2}, \textbf{Y})} and propose tree \textcircled6
-%  \end{itemize}
-%  
-%\item if ${t_O}'$ satisfies $\min \{ {t_{G1}},{t_{G2}}\}  < {t_O}' < \max \{ {t_{G1}},{t_{G2}}\} $, then there is only one option:
-%\textcircled7: Exchange the older child of \textbf{O} and \textbf{Y}.
-% (For the asymmetric tree in Figure \ref{treeshape}, we apply \textit{Exchange (\textbf{G1}, \textbf{Y})} and propose tree \textcircled7).
-% 
-% \item if ${t_O}' < \min \{ {t_{G1}},{t_{G2}}\}$, then we reject the proposal.
-%\end{itemize}
-
-\emph{Step 4}  Update the rates using the adjusted genetic distances divided by the proposed node times. To give an example, assume we are going to propose tree \textcircled5. Firstly, ${t_X}'$ and ${t_O}'$ are proposed in \emph{Step 3}.  Then, in \emph{Step 4}, the method \textit{Exchange (\textbf{G1}, \textbf{Y})} is applied, after which the four distances are adjusted as follows:
+To give an example, assume we are going to propose tree \textcircled5. Firstly, ${t_X}'$ and ${t_O}'$ are proposed in \emph{Step 3} and \emph{Step 4}. Then, in \emph{Step 4}, the method \textit{Exchange (\textbf{G1}, \textbf{Y})} is applied, after which the four distances are adjusted as follows:
 
 \begin{equation}\label{example2.1}
 {d_{G1}}' = {d_{G1}} - {d_O}'  \\
@@ -436,7 +412,6 @@ And the four rates are updated as follows:
 {r_O}' = \frac{{{d_O}'}}{{{t_X}' - {t_O}'}} \\
 {r_Y}' = \frac{{{d_Y}'}}{{{t_O}' - {t_Y}}}
 \end{equation}
-\emph{Step 5} Return the Green ratio ${\alpha_{BP}}$.
 
 \subsection*{Calculating the Green ratio}
 MCMC operators must use reversible proposal distributions to satisfy the detailed balance requirements of the MCMC algorithm (Refer to  Appendix section 1 for more details). Therefore, all four of our operators involve a final step of calculating the Green ratio for the proposal.
@@ -478,9 +453,9 @@ First, we perform a well-calibrated simulation study, which tests our operator a
 \subsection*{Well-calibrated simulation study}
 A well-calibrated simulation study is a powerful tool for evaluating and validating the implementation of a Bayesian model \cite{dawid1982well}.
 
-Figure \ref{modelvalidation} shows the Bayesian model used in this study, which includes the evolutionary model and the prior distributions of parameters. As is shown in the figure, the sequence alignment is simulated by a phylogenetic continuous-time Markov chain in BEAST2. It contains a substitution rate matrix given by the HKY85 \cite{hasegawa1985dating} model and a substitution tree determined by an uncorrelated relaxed clock model and Yule model. More specifically, base frequencies $\bf{\pi}$ follow a Dirichlet distribution and the transition-transversion ratio $\kappa$ follows a log-normal prior distribution. The distribution of node times is described in a Yule tree $\psi$ with hyperparameter birth rate $\lambda $ following a log-normal distribution. The rates $r_i$ follow a log-normal distribution with mean of 1 and standard deviation $s1$ \alexei{Why not $s_1$?} following a hyperprior distribution.
+Figure \ref{modelvalidation} shows the Bayesian model used in this study, which includes the evolutionary model and the prior distributions of parameters. As is shown in the figure, the sequence alignment is simulated by a phylogenetic continuous-time Markov chain in BEAST2. It contains a substitution rate matrix given by the HKY85 \cite{hasegawa1985dating} model and a substitution tree determined by an uncorrelated relaxed clock model and Yule model. More specifically, base frequencies $\bf{\pi}$ follow a Dirichlet distribution and the transition-transversion ratio $\kappa$ follows a log-normal prior distribution. The distribution of node times is described in a Yule tree $\psi$ with hyperparameter birth rate $\lambda $ following a log-normal distribution. The rates $r_i$ follow a log-normal distribution with mean of 1 and standard deviation $s_1$ following a hyperprior distribution.
 
-First, we sampled parameters and trees from the full model 100 times. The random parameters included: standard deviation of rates across branches $s1$, birth rate $\lambda $, base frequencies $\bf{\pi}$ and transition-transversion bias $\kappa$. Second, we simulated nucleotide alignments using the simulated parameters. In total, 100 data sets were simulated, each with 120 taxa. Third, we used BEAST2 with the Constant Distance operator to infer the tree and parameters from each of the 100 simulated data sets in turn. Finally, the posterior estimates of the parameters were compared with the real values that were used to simulate the corresponding sequence alignment. The comparisons are shown in Figures \ref{LargeTree}.
+First, we sampled parameters and trees from the full model 100 times. The random parameters included: standard deviation of rates across branches$s_1$, birth rate $\lambda $, base frequencies $\bf{\pi}$ and transition-transversion bias $\kappa$. Second, we simulated nucleotide alignments using the simulated parameters. In total, 100 data sets were simulated, each with 120 taxa. Third, we used BEAST2 with the Constant Distance operator to infer the tree and parameters from each of the 100 simulated data sets in turn. Finally, the posterior estimates of the parameters were compared with the real values that were used to simulate the corresponding sequence alignment. The comparisons are shown in Figures \ref{LargeTree}.
 
 These results show that the true values of the parameters are within the 95\% highest posterior density (HPD) interval approximately 95\% of the time (Table \ref{num_hpd}). This well-calibrated simulation study formed part of the validation of our implementation of the Constant Distance operator.
 
@@ -664,10 +639,9 @@ The author(s) wish to acknowledge the use of New Zealand eScience Infrastructure
 \begin{figure}[h!]
 \includegraphics[width=12cm]{Fig08-modelvalidation.eps}\\
 \caption{\csentence{The models and prior distributions to simulate the sequence data.}
-             The sequence alignment (SA) is simulated through a phylogenetic continuous-time Markov Chain (PhyloCTMC) that consists of a substitution model (HKY) and an uncorrelated relaxed clock model (UCRelaxedClockModel). The random variables in HKY model construct the mutation rate matrix ($Q$), including base frequencies (${\bf{\pi}} = \{{\pi_A}, {\pi_C}, {\pi_G}, {\pi_T}\}$) and kappa ($\kappa$). The time trees ($\psi$) and branch rates ($r_i$ for each branch $i$ in $\psi$) construct the substitution tree (ST). The branch rates have a LogNormal prior with fixed mean 1 and certain standard deviation (denoted by s1). And the time trees have a Yule model prior with birth rate ($\lambda$) having a LogNormal prior. The other prior distributions include a Dirichlet distributions on ${\bf{\pi}}$, a LogNormal distribution on $\kappa$, and a LogNormal distribution on s1. For notations in LogNormal distributions, the uppercase letters represent the parameters in real space, and the lowercase letters represent the parameters in log space. In all the simulations, the number of taxa is fixed at 120 (n = 120).}
+             The sequence alignment (SA) is simulated through a phylogenetic continuous-time Markov Chain (PhyloCTMC) that consists of a substitution model (HKY) and an uncorrelated relaxed clock model (UCRelaxedClockModel). The random variables in HKY model construct the mutation rate matrix ($Q$), including base frequencies (${\bf{\pi}} = \{{\pi_A}, {\pi_C}, {\pi_G}, {\pi_T}\}$) and kappa ($\kappa$). The time trees ($\psi$) and branch rates ($r_i$ for each branch $i$ in $\psi$) construct the substitution tree (ST). The branch rates have a LogNormal prior with fixed mean 1 and certain standard deviation (denoted by ${s_1}$). And the time trees have a Yule model prior with birth rate ($\lambda$) having a LogNormal prior. The other prior distributions include a Dirichlet distributions on ${\bf{\pi}}$, a LogNormal distribution on $\kappa$, and a LogNormal distribution on ${s_1}$. For notations in LogNormal distributions, the uppercase letters represent the parameters in real space, and the lowercase letters represent the parameters in log space. In all the simulations, the number of taxa is fixed at 120 (n = 120).}
 \label{modelvalidation}
 \end{figure}
-% \alexei{This is not correct. It is not possible to specify the lognormal stdev in real space in BEAST 2}
 
 \begin{figure}[h!]
 \includegraphics[width=12cm]{Fig09-calibrated.eps}\\
