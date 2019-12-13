@@ -306,11 +306,18 @@ For the symmetric tree in Figure \ref{treeshape}, the operations are illustrated
 \caption{Proposal for symmetric trees in Big pulley}
 \label{symmetric tree proposal}
 \begin{algorithmic}
-\STATE Draw a random number $\sigma_1$ from Unfirm[0,1].
+\STATE \COMMENT{Step 1: Identify the child nodes of the root \textbf{X}, denoted by \textbf{L} and \textbf{R}. Correspondingly, the node times are denoted by $t_X$, $t_L$, $t_R$. And the child nodes below them are denoted by \textbf{H1}, \textbf{H2}, \textbf{H3} and \textbf{H4}}
+\STATE Let \textbf{X} be the root of the tree
+\STATE Let \textbf{L} and \textbf{R} be the left child and right child of \textbf{X}, respectively.
+\STATE \COMMENT{Step 2: Propose a new node time for the root X}
+\STATE $a \sim$ Uniform[-w, +w]
+\STATE ${t_X}' \leftarrow {t_X} + a$
+\STATE \COMMENT{Step 3: Propose a new node time either for L or R, and adjust adjacent rates.}
+\STATE Draw a random number $\sigma_1$ from Uniform(0,1).
 \IF{${\sigma_1} < 0.5$}
 \STATE Pick \textbf{L} and propose a new node time by ${t_L}' = {t_L} + {a_1}$, where ${a_1} \sim U[ - w, + w]$. 
 \IF{${t_R} < {t_L}' < {t_X}'$}
-\STATE Draw a random number $\sigma_2$ from Unfirm[0,1]. 
+\STATE Draw a random number $\sigma_2$ from Uniform(0,1). 
 \IF{${\sigma_2} < 0.5$}
 \STATE Apply \textit{Exchange (\textbf{H1}, \textbf{R})} and propose tree \textcircled1.
 \ELSE
@@ -322,7 +329,7 @@ For the symmetric tree in Figure \ref{treeshape}, the operations are illustrated
 \ELSE
 \STATE Pick \textbf{R} and propose a new node time by ${t_R}' = {t_R} + {a_2}$, where ${a_2} \sim Uniform[ - w, + w]$. 
 \IF{${t_L} < {t_R}' < {t_X}'$}
-\STATE Draw a random number $\sigma_3$ from Unfirm[0,1]. 
+\STATE Draw a random number $\sigma_3$ from Uniform(0,1). 
 \IF{${\sigma_3} < 0.5$}
 \STATE Apply \textit{Exchange (\textbf{H3}, \textbf{L})} and propose tree \textcircled3.
 \ELSE
