@@ -208,7 +208,7 @@ In this paper, the novelty of the proposed operators lies in maintaining the gen
 \subsection*{Uncorrelated relaxed clock model}
 Molecular clocks model how molecular sequences evolve along branches in the phylogenetic tree, so that a time tree can be reconciled with the genetic distances between sequences. In this paper, uncorrelated relaxed clock models are adopted, where the rates are drawn independently and identically from a given prior distribution, such as the log-normal distribution \cite{drummond2006relaxed}. As a result, the rates can vary markedly between parent and child branches.
 
-Referring to the Bayesian framework in Equation (\ref{bayes}), the joint inference of evolutionary rates ${\bf{r}}$ and the time tree $g$ can be obtained by the conditional distribution in equation \ref{bayes1}:
+Referring to the Bayesian framework in equation (\ref{bayes}), the joint inference of evolutionary rates ${\bf{r}}$ and the time tree $g$ can be obtained by the conditional distribution in equation \ref{bayes1}:
 \begin{equation}\label{bayes1}
 p(g,{\bf{r}},{\bf{\Phi}} |{\bf{D}}) = \frac{{p({\bf{D}}|g,{\bf{r}},{\bf{\Phi}} )p({\bf{r}})p(g)p({\bf{\Phi}} )}}{{p({\bf{D}})}} \text{,}
 \end{equation}
@@ -301,23 +301,54 @@ For the symmetric tree in Figure \ref{treeshape}, the operations are illustrated
 
 \emph{Step 2} Propose a new node time for the root \textbf{X} by ${t_X}' = {t_X} + a$, where $a \sim U[ - w, + w]$.
 
-\emph{Step 3} Propose a new node time either for \textbf{L} or \textbf{R}. And apply the method to the selected node and one of its sibling's children. 
+\emph{Step 3} Propose a new node time either for \textbf{L} or \textbf{R}. And apply the method to the selected node and one of its sibling's children, as is detailed by Algorithm \ref{symmetric tree proposal}.
+\begin{algorithm}
+\caption{Proposal for symmetric trees in Big pulley}
+\label{symmetric tree proposal}
+\begin{algorithmic}
+\STATE Draw a random number $\sigma_1$ from Unfirm[0,1].
+\IF{${\sigma_1} < 0.5$}
+\STATE Pick \textbf{L} and propose a new node time by ${t_L}' = {t_L} + {a_1}$, where ${a_1} \sim U[ - w, + w]$. 
+\IF{${t_R} < {t_L}' < {t_X}'$}
+\STATE Draw a random number $\sigma_2$ from Unfirm[0,1]. 
+\IF{${\sigma_2} < 0.5$}
+\STATE Apply \textit{Exchange (\textbf{H1}, \textbf{R})} and propose tree \textcircled1.
+\ELSE
+\STATE Apply \textit{Exchange (\textbf{H2}, \textbf{R})} and propose tree \textcircled2.
+\ENDIF
+\ELSE
+\STATE Reject the proposal.
+\ENDIF
+\ELSE
+\STATE Pick \textbf{R} and propose a new node time by ${t_R}' = {t_R} + {a_2}$, where ${a_2} \sim Uniform[ - w, + w]$. 
+\IF{${t_L} < {t_R}' < {t_X}'$}
+\STATE Draw a random number $\sigma_3$ from Unfirm[0,1]. 
+\IF{${\sigma_3} < 0.5$}
+\STATE Apply \textit{Exchange (\textbf{H3}, \textbf{L})} and propose tree \textcircled3.
+\ELSE
+\STATE Apply \textit{Exchange (\textbf{H4}, \textbf{L})} and propose tree \textcircled4.
+\ENDIF
+\ELSE
+\STATE Reject the proposal.
+\ENDIF
+\ENDIF
+\end{algorithmic}
+\end{algorithm}
 
-\alexei{This is better written as pseudocode with explicit if/then/else for random decisions}
-\begin{itemize}
-\item With 0.5 probability pick \textbf{L} and propose a new node time by ${t_L}' = {t_L} + {a_1}$, where ${a_1} \sim U[ - w, + w]$. Make sure that ${t_R} < {t_L}' < {t_X}'$ holds. Otherwise, we reject the proposal. If we don't reject then there are two options to apply the method:
-\begin{itemize}
-\item With probability 0.5 apply \textit{Exchange (\textbf{H1}, \textbf{R})} and propose tree \textcircled1
-
-\item otherwise apply \textit{Exchange (\textbf{H2}, \textbf{R})} and propose tree \textcircled2
-\end{itemize}
-
-\item Otherwise pick \textbf{R} and propose a new node time by ${t_R}' = {t_R} + {a_2}$, where ${a_2} \sim Uniform[ - w, + w]$. Make sure that ${t_L} < {t_R}' < {t_X}'$ holds. Otherwise, we reject the proposal. Similarly, if we don't reject then there are two options to apply the method:
-  \begin{itemize}
-  \item With probability 0.5 apply \textit{Exchange (\textbf{H3}, \textbf{L})} and propose tree \textcircled3
-  \item With probability 0.5 apply \textit{Exchange (\textbf{H4}, \textbf{L})} and propose tree \textcircled4
-  \end{itemize}
-\end{itemize}
+%\begin{itemize}
+%\item With 0.5 probability pick \textbf{L} and propose a new node time by ${t_L}' = {t_L} + {a_1}$, where ${a_1} \sim U[ - w, + w]$. Make sure that ${t_R} < {t_L}' < {t_X}'$ holds. Otherwise, we reject the proposal. If we don't reject then there are two options to apply the method:
+%\begin{itemize}
+%\item With probability 0.5 apply \textit{Exchange (\textbf{H1}, \textbf{R})} and propose tree \textcircled1
+%
+%\item otherwise apply \textit{Exchange (\textbf{H2}, \textbf{R})} and propose tree \textcircled2
+%\end{itemize}
+%
+%\item Otherwise pick \textbf{R} and propose a new node time by ${t_R}' = {t_R} + {a_2}$, where ${a_2} \sim Uniform[ - w, + w]$. Make sure that ${t_L} < {t_R}' < {t_X}'$ holds. Otherwise, we reject the proposal. Similarly, if we don't reject then there are two options to apply the method:
+%  \begin{itemize}
+%  \item With probability 0.5 apply \textit{Exchange (\textbf{H3}, \textbf{L})} and propose tree \textcircled3
+%  \item With probability 0.5 apply \textit{Exchange (\textbf{H4}, \textbf{L})} and propose tree \textcircled4
+%  \end{itemize}
+%\end{itemize}
 
 \emph{Step 4}  Update the rates using the adjusted genetic distances divided by the proposed node times. For example, suppose we are going to propose tree \textcircled1. After the new node times for the root \textbf{X} and \textbf{L} are proposed, we apply the method by \textit{Exchange (\textbf{H1}, \textbf{R})}, so that four distances are adjusted, as follows:
 
@@ -345,22 +376,41 @@ For an asymmetric tree such as in Figure \ref{treeshape} we would operate as ill
 
 \emph{Step 2} Propose a new node time for the root \textbf{X} by ${t_X}' = {t_X} + a$, where $a \sim U[ - w, + w]$. Moreover, propose a new node time for \textbf{O} by ${t_O}' = {t_O} + {a_3}$, where ${a_3} \sim U[ - w, + w]$. To make it valid, make sure that ${t_Y} < {t_O}' < {t_X}'$ holds. Otherwise, we reject the proposal.
 
-\emph{Step 3} Apply the method using \textbf{Y} and either child node of \textbf{O}, which is dependent on the value of ${t_O}'$.
-\begin{itemize}
-\item if ${t_O}'$ satisfies ${t_O}' > \max \{ {t_{G1}},{t_{G2}}\} $ or ${t_{G1}} = {t_{G2}}$, then there are two options:
+\emph{Step 3} Apply the method using \textbf{Y} and either child node of \textbf{O}, which is described in Algorithm \ref{asymmetric tree proposal}.
+\begin{algorithm}
+\caption{Proposal for asymmetric trees in Big pulley}
+\label{asymmetric tree proposal}
+\begin{algorithmic}
+\IF{${t_O}' > \max \{ {t_{G1}},{t_{G2}}\} $ or ${t_{G1}} = {t_{G2}}$}
+\STATE Draw a random number $\sigma_4$ from Unfirm[0,1]. 
+\IF{${\sigma_4} < 0.5$}
+\STATE Apply \textit{Exchange (\textbf{G1}, \textbf{Y})} and propose tree \textcircled5.
+\ELSE
+\STATE Apply \textit{Exchange (\textbf{G2}, \textbf{Y})} and propose tree \textcircled6.
+\ENDIF
+\ELSIF {$\min \{ {t_{G1}},{t_{G2}}\}  < {t_O}' < \max \{ {t_{G1}},{t_{G2}}\} $}
+\STATE Exchange the older child of \textbf{O} and \textbf{Y}.  (For the asymmetric tree in Figure \ref{treeshape}, we apply \textit{Exchange (\textbf{G1}, \textbf{Y})} and propose tree \textcircled7).
+\ELSIF{${t_O}' < \min \{ {t_{G1}},{t_{G2}}\}$}
+\STATE Reject the proposal.
+\ENDIF
+\end{algorithmic}
+\end{algorithm}
 
-  \begin{itemize}
-    \item With 0.5 Probability to apply \textit{Exchange (\textbf{G1}, \textbf{Y})} and propose tree \textcircled5
-
-    \item With 0.5 Probability to apply \textit{Exchange (\textbf{G2}, \textbf{Y})} and propose tree \textcircled6
-  \end{itemize}
-  
-\item if ${t_O}'$ satisfies $\min \{ {t_{G1}},{t_{G2}}\}  < {t_O}' < \max \{ {t_{G1}},{t_{G2}}\} $, then there is only one option:
-\textcircled7: Exchange the older child of \textbf{O} and \textbf{Y}.
- (For the asymmetric tree in Figure \ref{treeshape}, we apply \textit{Exchange (\textbf{G1}, \textbf{Y})} and propose tree \textcircled7).
- 
- \item if ${t_O}' < \min \{ {t_{G1}},{t_{G2}}\}$, then we reject the proposal.
-\end{itemize}
+%\begin{itemize}
+%\item if ${t_O}'$ satisfies ${t_O}' > \max \{ {t_{G1}},{t_{G2}}\} $ or ${t_{G1}} = {t_{G2}}$, then there are two options:
+%
+%  \begin{itemize}
+%    \item With 0.5 Probability to apply \textit{Exchange (\textbf{G1}, \textbf{Y})} and propose tree \textcircled5
+%
+%    \item With 0.5 Probability to apply \textit{Exchange (\textbf{G2}, \textbf{Y})} and propose tree \textcircled6
+%  \end{itemize}
+%  
+%\item if ${t_O}'$ satisfies $\min \{ {t_{G1}},{t_{G2}}\}  < {t_O}' < \max \{ {t_{G1}},{t_{G2}}\} $, then there is only one option:
+%\textcircled7: Exchange the older child of \textbf{O} and \textbf{Y}.
+% (For the asymmetric tree in Figure \ref{treeshape}, we apply \textit{Exchange (\textbf{G1}, \textbf{Y})} and propose tree \textcircled7).
+% 
+% \item if ${t_O}' < \min \{ {t_{G1}},{t_{G2}}\}$, then we reject the proposal.
+%\end{itemize}
 
 \emph{Step 4}  Update the rates using the adjusted genetic distances divided by the proposed node times. To give an example, assume we are going to propose tree \textcircled5. Firstly, ${t_X}'$ and ${t_O}'$ are proposed in \emph{Step 3}.  Then, in \emph{Step 4}, the method \textit{Exchange (\textbf{G1}, \textbf{Y})} is applied, after which the four distances are adjusted as follows:
 
@@ -384,7 +434,7 @@ And the four rates are updated as follows:
 \subsection*{Calculating the Green ratio}
 MCMC operators must use reversible proposal distributions to satisfy the detailed balance requirements of the MCMC algorithm (Refer to  Appendix section 1 for more details). Therefore, all four of our operators involve a final step of calculating the Green ratio for the proposal.
 
-According to the third and fourth steps in the operations for internal nodes, three rates on the branches linked to the selected internal node are proposed by one random number $a$ that is used to change the node time. There are four parameters involved in this proposal, comprised of a 3-dimensional rate space and a 1-dimensional time space. The proposed operator utilises one random number in time space and makes changes in both time and rate space, which leads to a dimension-matching problem. To solve this dimension-matching problem, as is mentioned in Green's paper \cite{green1995reversible}, it is necessary to construct the Jacobian matrix.  In Equation (\ref{JacobianMatrix}), ${\mathbf{J_1}}$ deals with the parametric spaces before the proposal in vector ${\mathbf{IN}} = [{t_X},{r_X},{r_L},{r_R}]$ and after the proposal in vector ${\mathbf{OUT}} = [{t_X}',{r_X}',{r_L}',{r_R}']$.
+According to the third and fourth steps in the operations for internal nodes, three rates on the branches linked to the selected internal node are proposed by one random number $a$ that is used to change the node time. There are four parameters involved in this proposal, comprised of a 3-dimensional rate space and a 1-dimensional time space. The proposed operator utilises one random number in time space and makes changes in both time and rate space, which leads to a dimension-matching problem. To solve this dimension-matching problem, as is mentioned in Green's paper \cite{green1995reversible}, it is necessary to construct the Jacobian matrix.  In equation (\ref{JacobianMatrix}), ${\mathbf{J_1}}$ deals with the parametric spaces before the proposal in vector ${\mathbf{IN}} = [{t_X},{r_X},{r_L},{r_R}]$ and after the proposal in vector ${\mathbf{OUT}} = [{t_X}',{r_X}',{r_L}',{r_R}']$.
 \begin{equation}\label{JacobianMatrix}
 {\mathbf{J_1}} = \left[ {\begin{array}{*{20}{c}}
   {\frac{{\partial {\mathbf{f}}}}{{\partial {t_X}}}}&{\frac{{\partial {\mathbf{f}}}}{{\partial {r_X}}}}&{\frac{{\partial {\mathbf{f}}}}{{\partial {r_L}}}}&{\frac{{\partial {\mathbf{f}}}}{{\partial {r_R}}}}
@@ -886,7 +936,7 @@ Small Pulley&${d_i}$&0.3480&0.0492&0.3476&0.0494&Figure \ref{res_roo1}(b)\\
 
 When developing an operator for MCMC, the proposal function must be reversible. In other words, the probability that the operator propose a new state from the current state is required to be equal to the probability that the proposed state goes back to current state. To be specific, let ${\pi (x)}$ be the target probability distribution and $p(x, x')$ be the transition kernel in the continuous Markov chain. The reversibility condition requires that ${\pi (x)}{p(x, x')} = {\pi (x')}{p(x', x)}$. And an operator provides a proposal $q(x, x')$ with some probability $\alpha(x, x')$ that the proposal is accepted. Thus, the reversibility condition is rewritten as ${\pi (x)}{q(x, x')}{\alpha(x, x')} = {\pi (x')}{q(x', x)}{\alpha(x', x)}$.
 
-Considering the subspace $\varphi_1$ on $x$ and subspace $\varphi_2$ on $x'$, it is assumed that there is a symmetric measure on the combined parametric space $\varphi = {\varphi_1} \times {\varphi_2}$, so that ${\pi (x)}{q(x, x')}$ has a density with respect to a single measure on $\varphi$. Then, Green suggested that the reversibility condition should be satisfied by detailed balance \cite{green1995reversible}, as represented by Equation (\ref{balance}). And according to Peskun' proof, it is optimal to take Equation (\ref{Ratio}) as the acceptance probability to retain the detailed balance \cite{peskun1973optimum}.
+Considering the subspace $\varphi_1$ on $x$ and subspace $\varphi_2$ on $x'$, it is assumed that there is a symmetric measure on the combined parametric space $\varphi = {\varphi_1} \times {\varphi_2}$, so that ${\pi (x)}{q(x, x')}$ has a density with respect to a single measure on $\varphi$. Then, Green suggested that the reversibility condition should be satisfied by detailed balance \cite{green1995reversible}, as represented by equation (\ref{balance}). And according to Peskun' proof, it is optimal to take equation (\ref{Ratio}) as the acceptance probability to retain the detailed balance \cite{peskun1973optimum}.
 
 \begin{equation}\label{balance}
 \int_A {\pi (x) d_x} {\int_B  {q(x, x')}{\alpha(x, x')} d_x}  = \int_B {\pi (x') d_{x'}}{\int_A {q(x', x)}{\alpha(x', x)} d_{x'}} \text{,}
@@ -898,7 +948,7 @@ where $A \in {\varphi_1}$ and $B \in  {\varphi_2}$ are two Borel sets. ${q(x, x'
 \end{equation}
 where ${p(x',dx)}/{p(x,dx')}$ is known as the Hastings ratio.
 
-However, for operators that do not have a symmetric measure, it is necessary to include the Jacobian matrix ${\mathbf{J}}$  in order to deal with the dimension matching problem, as is discussed in Green's paper \cite{green1995reversible}. In this case, Equation (\ref{Ratio}) is extended, as is shown in Equation (\ref{Green}).
+However, for operators that do not have a symmetric measure, it is necessary to include the Jacobian matrix ${\mathbf{J}}$  in order to deal with the dimension matching problem, as is discussed in Green's paper \cite{green1995reversible}. In this case, equation (\ref{Ratio}) is extended, as is shown in equation (\ref{Green}).
 \begin{equation}\label{Green}
 {\alpha_G}(x, x') = \min \left\{ {1,\frac{{\pi (x'){p}(x',x)}}{{\pi (x){p}(x,x')}}}\left|{\mathbf{J}}\right| \right\} \text{,}
 \end{equation}
@@ -906,7 +956,7 @@ where ${\mathbf{J}} = {\nabla h(x, x')}$ represents a vector differential matrix
 
 \subsection*{1.1 Calculating the Green ratio for operations on internal nodes}
 
-The Constant Distance Operator firstly proposes a new time for the randomly selected internal node (Equation (\ref{in_HR1.1})), and then proposes three rates by the original distances and new node times(Equation (\ref{in_HR1.2})$\sim$Equation (\ref{in_HR1.3})).
+The Constant Distance Operator firstly proposes a new time for the randomly selected internal node (equation (\ref{in_HR1.1})), and then proposes three rates by the original distances and new node times(equation (\ref{in_HR1.2})$\sim$equation (\ref{in_HR1.3})).
 \begin{subequations}\label{in_HR1}
 \begin{equation}\label{in_HR1.1}
 {f_1}:{{\text{t}}_X}{\text{'  =  }}{{\text{t}}_X}{\text{  +  a}}
@@ -922,7 +972,7 @@ The Constant Distance Operator firstly proposes a new time for the randomly sele
 \end{equation}
 \end{subequations}
 
-Substituting Equation (\ref{in_HR1}) in the Jacobian matrix ${{\mathbf{J}}_1}$ (Equation (\ref{JacobianMatrix})), we can get Equation (\ref{in_HR2}), so that the determinant of ${{\mathbf{J}}_1}$ can be obtained by Equation (\ref{in_HR3}).
+Substituting equation (\ref{in_HR1}) in the Jacobian matrix ${{\mathbf{J}}_1}$ (equation (\ref{JacobianMatrix})), we can get equation (\ref{in_HR2}), so that the determinant of ${{\mathbf{J}}_1}$ can be obtained by equation (\ref{in_HR3}).
 \begin{equation}\label{in_HR2}
 {{\mathbf{J}}_1} = \left[ {\begin{array}{*{20}{c}}
   1&0&0&0 \\
@@ -946,7 +996,7 @@ Substituting Equation (\ref{in_HR1}) in the Jacobian matrix ${{\mathbf{J}}_1}$ (
 
 \subsection*{1.2 Calculating the Green ratio for Simple Distance}
 
-Simple Distance proposes two rates by using Equation (\ref{SD_HR1.2}) and Equation (\ref{SD_HR1.3}), according the new root time in Equation (\ref{SD_HR1.1}). So the Jacobian matrix can be obtained as is shown in Equation (\ref{SD_HR2}).
+Simple Distance proposes two rates by using equation (\ref{SD_HR1.2}) and equation (\ref{SD_HR1.3}), according the new root time in equation (\ref{SD_HR1.1}). So the Jacobian matrix can be obtained as is shown in equation (\ref{SD_HR2}).
 \begin{subequations}\label{SD_HR1}
 \begin{equation}\label{SD_HR1.1}
  {t_X}' = {t_X} + a
@@ -970,13 +1020,13 @@ Simple Distance proposes two rates by using Equation (\ref{SD_HR1.2}) and Equati
 \end{array}} \right]
 \end{equation}
 
-So the determinant of ${{\mathbf{J}}_2}$ is calculated by Equation (\ref{SD_HR3})
+So the determinant of ${{\mathbf{J}}_2}$ is calculated by equation (\ref{SD_HR3})
 \begin{equation}\label{SD_HR3}
 \left| {{{\mathbf{J}}_2}} \right| = \frac{{{t_X} - {t_L}}}{{{t_X}' - {t_L}}} \times \frac{{{t_X} - {t_R}}}{{{t_X}' - {t_R}}}
 \end{equation}
 \subsection*{Calculating the Green ratio for Small Pulley}
 
-Small Pulley proposes a new genetic distance of a branch on one side of the root by adding a random number $b$, which is equal to adding a random number $b$ to the original product of rate and time on that branch. As a result, a new rate is proposed by Equation (\ref{SP_HR1.1}). Similarly, a new rate on another branch is proposed by Equation (\ref{SP_HR1.2}), because the total distance of the two branches linked to the root should remain constant.
+Small Pulley proposes a new genetic distance of a branch on one side of the root by adding a random number $b$, which is equal to adding a random number $b$ to the original product of rate and time on that branch. As a result, a new rate is proposed by equation (\ref{SP_HR1.1}). Similarly, a new rate on another branch is proposed by equation (\ref{SP_HR1.2}), because the total distance of the two branches linked to the root should remain constant.
 \begin{subequations}\label{SP_HR1}
 \begin{equation}\label{SP_HR1.1}
 {r_L}' = \frac{{{r_L} \times ({t_X} - {t_L}) + b}}{{{t_X} - {t_L}}}
@@ -986,7 +1036,7 @@ Small Pulley proposes a new genetic distance of a branch on one side of the root
 \end{equation}
 \end{subequations}
 
-Then, as is illustrated in Equation (\ref{SP_HR2}), the Jacobian matrix ${{\mathbf{J}}_3}$ is simply obtained, which makes the determinant $\left| {{{\mathbf{J}}_3}} \right| = 1$.
+Then, as is illustrated in equation (\ref{SP_HR2}), the Jacobian matrix ${{\mathbf{J}}_3}$ is simply obtained, which makes the determinant $\left| {{{\mathbf{J}}_3}} \right| = 1$.
 \begin{equation}\label{SP_HR2}
 {{\mathbf{J}}_3} = \left[ {\begin{array}{*{20}{c}}
   {\frac{{\partial {r_L}'}}{{\partial {r_L}}}}&{\frac{{\partial {r_L}'}}{{\partial {r_X}}}} \\
@@ -998,7 +1048,7 @@ Then, as is illustrated in Equation (\ref{SP_HR2}), the Jacobian matrix ${{\math
 \end{equation}
 \subsection*{1.3 Calculating the Green ratio for Big Pulley}
 
-Two new node times are proposed in Big Pulley. One is the root time (Equation (\ref{BP_HR1.1})), the other is the node time of the child node of the root. It can be either children of the root, i.e. \textbf{son} and \textbf{dau}. So ${t_C}'$ is used to denote the node time proposed, as is seen in Equation (\ref{BP_HR1.2}). In addition, the distances are adjusted by the method \textit{Exchange (\textbf{M}, \textbf{N})}, dependent on which nodes are chosen. As a result, the four rates are proposed, as is shown in Equation (\ref{BP_HR1.3})$\sim$Equation (\ref{BP_HR1.6})
+Two new node times are proposed in Big Pulley. One is the root time (equation (\ref{BP_HR1.1})), the other is the node time of the child node of the root. It can be either children of the root, i.e. \textbf{son} and \textbf{dau}. So ${t_C}'$ is used to denote the node time proposed, as is seen in equation (\ref{BP_HR1.2}). In addition, the distances are adjusted by the method \textit{Exchange (\textbf{M}, \textbf{N})}, dependent on which nodes are chosen. As a result, the four rates are proposed, as is shown in equation (\ref{BP_HR1.3})$\sim$equation (\ref{BP_HR1.6})
 \begin{subequations}\label{BP_HR1}
 \begin{equation}\label{BP_HR1.1}
 {t_X}' = {t_X} + a
@@ -1021,7 +1071,7 @@ Two new node times are proposed in Big Pulley. One is the root time (Equation (\
 \end{subequations}
 where ${a_{1,2,3}}$ is the random number to propose a new node time for the child node of the root. Depending on which child node is selected, the notation is different, i.e. ${a_1}$, ${a_2}$, ${a_3}$. Here, to make it a general case, ${a_x}$ is used.
 
-Therefore, the Jacobian matrix ${{\mathbf{J}}_4}$ for the six parameters in Equation (\ref{BP_HR1}) is obtained by Equation (\ref{BP_HR2}). And the determinant of ${{\mathbf{J}}_4}$ is calculated shown in Equation (\ref{BP_HR3}).
+Therefore, the Jacobian matrix ${{\mathbf{J}}_4}$ for the six parameters in equation (\ref{BP_HR1}) is obtained by equation (\ref{BP_HR2}). And the determinant of ${{\mathbf{J}}_4}$ is calculated shown in equation (\ref{BP_HR3}).
 \begin{equation}\label{BP_HR2}
 \begin{aligned}
 {{\mathbf{J}}_4} &= \left[ {\begin{array}{*{20}{c}}
@@ -1049,7 +1099,7 @@ Last but not least, due to the change of tree topology in \textit{Exchange (\tex
 \begin{algorithm}
 \caption{Calculation of $\mu$ for Big pulley}
 \label{alg1}
-\begin{algorithmic}[1]
+\begin{algorithmic}
 \STATE Original tree is symmetric:
 \IF{the node that has been exchanged with \textbf{L} or \textbf{R} has child nodes}
 \STATE $\alpha  = \beta  = 0.25$
@@ -1088,29 +1138,29 @@ Last but not least, due to the change of tree topology in \textit{Exchange (\tex
 
 In this section, we aim to validate the correctness of the proposed operators. To be more specific, we firstly run the simulations by sampling from prior distributions in BEAST2. Since the prior distributions are deterministic, we can analytically calculate the theoretical joint-distributions of sampled parameters in MCMC chains. By comparing the sampled distributions with the analytical results, we demonstrate whether the proposed operators are able to sample parameters correctly.
 
-In Figure \ref{sampleprior}, a tree with three taxa $A$, $B$ and $C$ (plus one internal node $D$, and root $E$) is used as a small example in the experiments in this section. In the figure, $g_1$ is set as the initial tree. Firstly, a LogNormal distribution is used as the rate prior in the uncorrelated relaxed clock model, given by Equation (\ref{rateprior}).
+In Figure \ref{sampleprior}, a tree with three taxa $A$, $B$ and $C$ (plus one internal node $D$, and root $E$) is used as a small example in the experiments in this section. In the figure, $g_1$ is set as the initial tree. Firstly, a LogNormal distribution is used as the rate prior in the uncorrelated relaxed clock model, given by equation (\ref{rateprior}).
 \begin{equation}\label{rateprior}
 r = \{{r_A}\quad{r_B}\quad{r_C}\quad{r_D}\} \sim LogNormal(m = -3, s = 0.25)
 \end{equation}
 
-In addition, a Coalescent model \cite{pybus2002genie} with constant population size ($N=0.3$) is used to describe the tree prior. Hence, for the tree in Figure \ref{sampleprior}, the probability of node times is calculated by Equation (\ref{treeprior}).
+In addition, a Coalescent model \cite{pybus2002genie} with constant population size ($N=0.3$) is used to describe the tree prior. Hence, for the tree in Figure \ref{sampleprior}, the probability of node times is calculated by equation (\ref{treeprior}).
 \begin{equation}\label{treeprior}
 p(t=\{{t_E},{t_D}\}) = (\frac{1}{N} \times {e^{ - \frac{1}{N}({t_E} - {t_D})}}) \times (\frac{1}{N} \times {e^{ - \frac{3}{N}{t_D}}})
 \end{equation}
 
-After the priors are specified, the distribution to sample can be exactly known, since the samples are drawn from the prior distributions. In other words, as the rates are functions of its genetic distance and times, the joint distribution to sample can be represented by Equation (\ref{integration}).
+After the priors are specified, the distribution to sample can be exactly known, since the samples are drawn from the prior distributions. In other words, as the rates are functions of its genetic distance and times, the joint distribution to sample can be represented by equation (\ref{integration}).
 \begin{equation}\label{integration}
 \begin{aligned}
 p(r,t) &= p({t_E},{t_D}) \times p({r_D}) \times p({r_A}) \times p({r_B}) \times p({r_C}) \\&= p({t_E},{t_D}) \times p(\frac{{{d_D}}}{{t_E} - {t_D}}) \times p(\frac{{{d_A}}}{{t_D} - {t_A}}) \times p(\frac{{{d_B}}}{{t_D} - {t_B}}) \times p(\frac{{{d_C}}}{{t_E} - {t_C}})\text{,}
 \end{aligned}
 \end{equation}
-where $p({.})$ is the probability of certain rate values in the LogNormal distribution. Therefore, the whole probability can be obtained by conducting numerical integration on Equation (\ref{integration}), which shows the probability distribution over all the possible values of parameters.
+where $p({.})$ is the probability of certain rate values in the LogNormal distribution. Therefore, the whole probability can be obtained by conducting numerical integration on equation (\ref{integration}), which shows the probability distribution over all the possible values of parameters.
 
 \subsubsection*{2.1 Test the operator on internal nodes}
 
 The genetic distances, node times and rates for $g_1$ in Figure \ref{sampleprior} are given in Table \ref{ini_inter}. To test roundly, two scenarios are designed. In each scenario, the genetic distances are fixed, the node time $t_D$ starts from the initial value and will be changed by the proposed operator during the sampling process. Essentially, the proposed operator makes node $D$ move between node $A$ and $E$. Besides, to make sure that the result is robust, two different MCMC chain lengths are performed in each scenario, i.e. 10 million and 20 million.
 
-The mean, mean error and the standard deviation of the MCMC samples are summarised in Table \ref{res_inter}. Besides, according to Equation (\ref{integration}), the actual joint distribution is obtained by using Equation (\ref{integration1}), and is used to evaluate the results, which is also included in Table \ref{res_inter}. Moreover, the histograms of MCMC samples that indicate the sampled distributions, as well as the curves of the numerical integration of Equation (\ref{integration1}), are shown in Figure \ref{res_int}. From Table \ref{res_inter} and Figure \ref{res_int}, it can be seen that the red curves well fit the black histograms, and the mean values and standard deviations are consistent, which makes it safe to conclude that the proposed operator samples the internal node correctly.
+The mean, mean error and the standard deviation of the MCMC samples are summarised in Table \ref{res_inter}. Besides, according to equation (\ref{integration}), the actual joint distribution is obtained by using equation (\ref{integration1}), and is used to evaluate the results, which is also included in Table \ref{res_inter}. Moreover, the histograms of MCMC samples that indicate the sampled distributions, as well as the curves of the numerical integration of equation (\ref{integration1}), are shown in Figure \ref{res_int}. From Table \ref{res_inter} and Figure \ref{res_int}, it can be seen that the red curves well fit the black histograms, and the mean values and standard deviations are consistent, which makes it safe to conclude that the proposed operator samples the internal node correctly.
 \begin{equation}
 \label{integration1}
 p(r,t) = \int_{{t_D} = 0}^{{t_E}} {p({t_E},{t_D}) \times p(\frac{{{d_A}}}{{{t_D}}}) \times p(\frac{{{d_B}}}{{{t_D}}}) \times p(\frac{{{d_D}}}{{{t_E} - {t_D}}}) \times p(\frac{{{d_C}}}{{{t_E}}}){d_{t_D}}}
@@ -1122,7 +1172,7 @@ Still starting from $g_1$ in Figure \ref{sampleprior}, the initial settings for 
 
 \paragraph*{2.2.1 Using Simple Distance}
 
-The root time $t_E$ is sampled by Simple Distance, which ranges from 1 to positive infinity theoretically. Namely, all the genetic distances and the node time $t_D$  are fixed. Similar to Equation (\ref{integration1}), the joint distribution of $t_E$ and rates to sample can be obtained by Equation (\ref{integration2}).
+The root time $t_E$ is sampled by Simple Distance, which ranges from 1 to positive infinity theoretically. Namely, all the genetic distances and the node time $t_D$  are fixed. Similar to equation (\ref{integration1}), the joint distribution of $t_E$ and rates to sample can be obtained by equation (\ref{integration2}).
 \begin{equation}
 \label{integration2}
 p(r,t) = \int_{{t_E} = 1}^{ + \infty } {p({t_E},{t_D}) \times p(\frac{{{d_A}}}{{{t_D}}}) \times p(\frac{{{d_B}}}{{{t_D}}}) \times p(\frac{{{d_D}}}{{{t_E} - {t_D}}}) \times p(\frac{{{d_C}}}{{{t_E}}}){d_{t_E}}}
@@ -1134,14 +1184,14 @@ The results are given in Table \ref{res_sma} and Figure \ref{res_roo1}(a). As ca
 
 Although both ${d_x}$ and ${d_i}$ are changed during the sampling process when using Small Pulley, the sum of ${d_D}$ and ${d_C}$ are kept 0.67 in this test, as the initial setting shown in Table \ref{ini_sim}. To make it simple, only ${d_D}$ is compared.
 
-Then, based on Equation (\ref{integration}), the exact distribution of ${d_i}$ can be obtained by Equation (\ref{integration3}), which is compared with the sampled distribution in Table \ref{res_sma} and Figure \ref{res_roo1}(b). Even though there exist some errors, the sampled parameters can be considered to follow the same distribution. So the Small Pulley is also able to provide correct samples.
+Then, based on equation (\ref{integration}), the exact distribution of ${d_i}$ can be obtained by equation (\ref{integration3}), which is compared with the sampled distribution in Table \ref{res_sma} and Figure \ref{res_roo1}(b). Even though there exist some errors, the sampled parameters can be considered to follow the same distribution. So the Small Pulley is also able to provide correct samples.
 \begin{equation}\label{integration3}
 p(r,t) = \int_{{d_D} = 1}^{0.67} {p({t_E},{t_D}) \times p(\frac{{{d_A}}}{{{t_D}}}) \times p(\frac{{{d_B}}}{{{t_D}}}) \times p(\frac{{{d_D}}}{{{t_E} - {t_D}}}) \times p(\frac{{0.67 - {d_D}}}{{{t_E}}}){d_{d_D}}}
 \end{equation}
 
 \paragraph*{2.2.3 Using Big Pulley}
 
-For $g_1$ in Figure \ref{sampleprior}, a new tree, together with the root time $t_E$ and node time of its older child $t_D$, as well as a genetic distance $d_i$, is proposed by Big Pulley. In this case, the initial tree $g_1$ will either go to $g_2$ or $g_3$, as is shown in Figure \ref{sampleprior}.  So the samples are repeatedly drawn from the 3 trees. Besides, according to the initial settings in Table \ref{ini_sim}, the genetic distances remain unchanged during the process, i.e. $d_{AB} = 1$, $d_{AC}  = 1$ and $d_{BC} = 1$ hold. Hence, the distribution we are about to achieve can be calculated by Equation (\ref{integration5}).
+For $g_1$ in Figure \ref{sampleprior}, a new tree, together with the root time $t_E$ and node time of its older child $t_D$, as well as a genetic distance $d_i$, is proposed by Big Pulley. In this case, the initial tree $g_1$ will either go to $g_2$ or $g_3$, as is shown in Figure \ref{sampleprior}.  So the samples are repeatedly drawn from the 3 trees. Besides, according to the initial settings in Table \ref{ini_sim}, the genetic distances remain unchanged during the process, i.e. $d_{AB} = 1$, $d_{AC}  = 1$ and $d_{BC} = 1$ hold. Hence, the distribution we are about to achieve can be calculated by equation (\ref{integration5}).
 \begin{equation}\label{integration5}
 \begin{aligned}
 p(r,t) &= \int_{{t_E} = 0}^{ + \infty } {\int_{{t_D} = 0}^{{t_E}} {\int_{{d_D} = 0}^{0.5} {p({t_E},{t_D})} } \times p(\frac{{0.5}}{{{t_D}}})}  \\&\times p(\frac{{0.5}}{{{t_D}}}) \times p(\frac{{{d_D}}}{{{t_E} - {t_D}}}) \times p(\frac{{0.5 - {d_D}}}{{{t_E}}}){d_{d_D}}{d_{t_D}}{d_{t_E}}
@@ -1174,19 +1224,19 @@ The comparisons are shown in Figure \ref{anolisproposal}, Figure \ref{rsv2propos
 
 It should be noted that the proposed ConstantDistance operator parameterises branch rates as continuous random variables, instead of discrete rate categories as is used in current BEAST2 settings. In uncorrelated relaxed clock model, branch rates are assumed to have a lognormal prior distribution, where the real mean is fixed to 1 and the standard deviation (denoted by Ucldstdev) is usually sampled with a hyper prior such as gamma($\alpha = 0.5396, \beta = 0.3819$). When a new Ucldstdev is proposed in one state during MCMC sampling by normal operators, the probability of all rates change as well under the new log normal distribution. Therefore, the authors implemented a separate operator working on Ucldstdev, which is able to solve this problem properly. 
 
-The first step is to propose a new Ucldstdev by a scale operation, which multiplies  current Ucldstdev by a random factor, as is shown in Equation (\ref{ucldstdev_multiplier}).
+The first step is to propose a new Ucldstdev by a scale operation, which multiplies  current Ucldstdev by a random factor, as is shown in equation (\ref{ucldstdev_multiplier}).
 \begin{equation}\label{ucldstdev_multiplier}
 Ucldstdev' = Ucldstdev \times {\rm{scale}}
 \end{equation}
 where ${\rm{scale = Factor  +  }}\left[ {\xi  \times {\rm{(}}\frac{1}{{{\rm{Factor}}}}{\rm{  -  Factor)}}} \right]$ and  $\xi$ is a random variable from a $Uniform(0,1)$,  ${\rm{Factor}}$ is a user-defined parameter to specify how bold the proposal is.
 
-Secondly, all the branch rates are proposed based on the new $Ucldstdev'$, given the probability of original $Ucldstdev$, which is calculated using Equation (\ref{ucldstdev_rates}).
+Secondly, all the branch rates are proposed based on the new $Ucldstdev'$, given the probability of original $Ucldstdev$, which is calculated using equation (\ref{ucldstdev_rates}).
 \begin{equation}\label{ucldstdev_rates}
 r_{i}' = icd{f_{stdev'}}\left[ {cd{f_{stdev}}({r_i})} \right]
 \end{equation}
 where the notations $cdf(\cdot)$ and $icdf(\cdot)$ represent the cumulative and inverse cumulative density function of log normal distribution.
 
-Finally, it is important to return the corrected hastings ratio, since the proposal is associated with one random variable, $Ucldstdev$ and $(2n-1)$ branch rates. As is shown in Equation (\ref{ucldstdev_hr}), the ratio includes the scale operation and rates changing under the same probability.
+Finally, it is important to return the corrected hastings ratio, since the proposal is associated with one random variable, $Ucldstdev$ and $(2n-1)$ branch rates. As is shown in equation (\ref{ucldstdev_hr}), the ratio includes the scale operation and rates changing under the same probability.
 \begin{equation}\label{ucldstdev_hr}
 {{\mathbf{J}}_{Ucldstdev}} = \frac{1}{{scale}} \times \prod\limits_{i = 1}^{2n - 1} {\frac{{\partial icd{f_{Ucldstdev'}}[cd{f_{Ucldstdev}}({r_i})]}}{{\partial {r_i}}}}
 \end{equation}
