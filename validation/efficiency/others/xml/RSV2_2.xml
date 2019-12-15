@@ -388,7 +388,7 @@ USALongs56=56                <taxa id="TaxonSet.RSV2" spec="TaxonSet">
     <operator id="RootOperator4.c:RSV2" spec="BigPulley"
               twindowSize="0.02" dwindowSize="0.02" tree="@Tree.t:RSV2" rates="@fastRates.c:RSV2"  weight="0.1"/>
 
-    <operator id="KappaScaler.s:RSV2" spec="ScaleOperator" parameter="@kappa.s:RSV2" scaleFactor="0.5" weight="1.0"/>
+    <operator id="KappaScaler.s:RSV2" spec="ScaleOperator" parameter="@kappa.s:RSV2" scaleFactor="0.5" weight="0.1"/>
 
     <operator id="ucldMeanScaler.c:RSV2" spec="ScaleOperator" parameter="@ucldMean.c:RSV2" scaleFactor="0.5" weight="4.0"/>
 

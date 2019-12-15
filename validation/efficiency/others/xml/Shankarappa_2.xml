@@ -379,7 +379,7 @@ p9c129-04=129                <taxa id="TaxonSet.Shankarappa" spec="TaxonSet">
 
     <operator id="PopSizeScaler.t:Shankarappa" spec="ScaleOperator" parameter="@popSize.t:Shankarappa" scaleFactor="0.75" weight="7.0"/>
 
-    <operator id="KappaScaler.s:Shankarappa" spec="ScaleOperator" parameter="@kappa.s:Shankarappa" scaleFactor="0.5" weight="1.0"/>
+    <operator id="KappaScaler.s:Shankarappa" spec="ScaleOperator" parameter="@kappa.s:Shankarappa" scaleFactor="0.5" weight="0.1"/>
 
     <operator id="ucldMeanScaler.c:Shankarappa" spec="ScaleOperator" parameter="@ucldMean.c:Shankarappa" scaleFactor="0.5" weight="1.0"/>
 
