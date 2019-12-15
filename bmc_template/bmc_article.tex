@@ -187,7 +187,9 @@ Namely, the proposed operator changes both divergence times of nodes and neighbo
 
 \section*{Preliminaries}
 \subsection*{Bayesian MCMC}
-Let $\bf{D}$, $g$ and $\bf{\Phi}$ denote the data, phylogenetic tree and a set of evolutionary parameters respectively. The posterior probability density can be calculated using equation \ref{bayes}. It consists of prior distributions for the  tree and the parameters, a phylogenetic likelihood that conveys information from data, and the posterior distribution to be inferred. These are denoted in the form of probability densities by $p(g) $, $p(\bf{\Phi})$, $p({\bf{D}}|g,\bf{\Phi} )$, $p(g,{\bf{\Phi}}|{\bf{D}})$ respectively. From a Bayesian perspective, the phylogenetic trees and the parameters are random variables described by a posterior probability distribution given the observed data ${\bf{D}}$.
+Let $\bf{D}$, $g$ and $\bf{\Phi}$ denote the data, phylogenetic time-tree and a set of evolutionary parameters respectively.
+The time-tree $g = \{E,\bf{t}\}$ consists of a directed edge graph, $E$, defining a rooted tree topology on a set of labelled taxa and a set of associated divergence times $\bf{t}$ (for details see e.g. \cite{drummond2002estimatingdata}).
+ The posterior probability density can be calculated using equation \ref{bayes}. It consists of prior distributions for the  tree and the parameters, a phylogenetic likelihood that conveys information from data, and the posterior distribution to be inferred. These are denoted in the form of probability densities by $p(g) $, $p(\bf{\Phi})$, $p({\bf{D}}|g,\bf{\Phi} )$, $p(g,{\bf{\Phi}}|{\bf{D}})$ respectively. From a Bayesian perspective, the phylogenetic trees and the parameters are random variables described by a posterior probability distribution given the observed data ${\bf{D}}$.
 %As a result, it is possible to jointly infer evolutionary history of species  by incorporating various source of information such as molecular data and fossil records.
 \begin{equation}\label{bayes}
 p(g,{\bf{\Phi}} |{\bf{D}}) = \frac{{p ({\bf{D}}|g,{\bf{\Phi}} ) p (g) p ({\bf{\Phi}} )}}{{p (\bf{D})}}
@@ -219,7 +221,7 @@ While the proposed operator is introduced based on uncorrelated clock models, it
 \section*{Methods}
 In this section, we define the Constant Distance Operator. Figure \ref{flowchart} illustrates the flow chart of the proposed operators. In a phylogenetic tree, the node to operate on is denoted by \textbf{X} and the Constant Distance Operator works differently on internal nodes and the root node. The details of the operations are introduced step by step in the following subsections.
 \subsection*{Operations on internal nodes}
-Figure \ref{internalnodes} represents the tree (or subtree) with the node \textbf{X} that is randomly selected from among the internal nodes. Let $g$ be the tree in the current state. The following steps propose a new node time in ${g}'$ and three rates in $\bf{r}'$.
+Figure \ref{internalnodes} represents the tree (or subtree) with the node \textbf{X} that is randomly selected from among the internal nodes. Let $g$ be the tree in the current state. The following steps propose a new divergence time in ${g}'$ and three rates in $\bf{r}'$.
 
 \emph{Step 1} Identify the parent node and two child nodes of \textbf{X}, denoted by \textbf{P}, \textbf{L} and \textbf{R} respectively.
 
@@ -308,12 +310,12 @@ For the symmetric tree in Figure \ref{treeshape}, the operations are illustrated
 \STATE $a \sim$ Uniform[-w, +w]
 \STATE ${t_X}' \leftarrow {t_X} + a$
 \STATE \COMMENT{Step 3: Propose a new node time either for \textbf{L} or \textbf{R}, and adjust adjacent rates.}
-\STATE Draw a random number $\sigma_1$ from Uniform(0,1).
-\IF{${\sigma_1} < 0.5$}
+%\STATE Draw a random number $\sigma_1$ from Uniform(0,1).
+\IF{${\sigma_1} \sim Uniform(0,1) < 0.5$}
 \STATE Pick \textbf{L} and propose a new node time by ${t_L}'  \leftarrow {t_L} + {a_1}$, where ${a_1} \sim$ Uniform[-w, +w]. 
 \IF{${t_R} < {t_L}' < {t_X}'$}
-\STATE Draw a random number $\sigma_2$ from Uniform(0,1). 
-\IF{${\sigma_2} < 0.5$}
+%\STATE Draw a random number $\sigma_2$ from Uniform(0,1). 
+\IF{${\sigma_2} \sim Uniform(0,1) < 0.5$}
 \STATE Apply \textit{Exchange (\textbf{H1}, \textbf{R})} and propose tree \textcircled1.
 \ELSE
 \STATE Apply \textit{Exchange (\textbf{H2}, \textbf{R})} and propose tree \textcircled2.
@@ -324,8 +326,8 @@ For the symmetric tree in Figure \ref{treeshape}, the operations are illustrated
 \ELSE
 \STATE Pick \textbf{R} and propose a new node time by ${t_R}'  \leftarrow {t_R} + {a_2}$, where ${a_2} \sim$ Uniform[-w, +w]. 
 \IF{${t_L} < {t_R}' < {t_X}'$}
-\STATE Draw a random number $\sigma_3$ from Uniform(0,1). 
-\IF{${\sigma_3} < 0.5$}
+%\STATE Draw a random number $\sigma_3$ from Uniform(0,1). 
+\IF{${\sigma_3} \sim Uniform(0,1) < 0.5$}
 \STATE Apply \textit{Exchange (\textbf{H3}, \textbf{L})} and propose tree \textcircled3.
 \ELSE
 \STATE Apply \textit{Exchange (\textbf{H4}, \textbf{L})} and propose tree \textcircled4.
@@ -379,8 +381,8 @@ For an asymmetric tree such as in Figure \ref{treeshape} we would operate as ill
 \ENDIF
 \STATE \COMMENT{Step 4: Adjust the distances according to the tree corresponding topologies.}
 \IF{${t_O}' > \max \{ {t_{G1}},{t_{G2}}\} $ or ${t_{G1}} = {t_{G2}}$}
-\STATE Draw a random number $\sigma_4$ from Uniform[0,1]. 
-\IF{${\sigma_4} < 0.5$}
+%\STATE Draw a random number $\sigma_4$ from Uniform(0,1). 
+\IF{${\sigma_4} \sim Uniform(0,1) < 0.5$}
 \STATE Apply \textit{Exchange (\textbf{G1}, \textbf{Y})} and propose tree \textcircled5.
 \ELSE
 \STATE Apply \textit{Exchange (\textbf{G2}, \textbf{Y})} and propose tree \textcircled6.
