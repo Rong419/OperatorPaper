@@ -343,22 +343,23 @@ p9c129-04=129                <taxa id="TaxonSet.Shankarappa" spec="TaxonSet">
     <operator id="InternalnodesOperator.c:Shankarappa" spec="ConsInternalNode"
               twindowSize="0.25" random="true" tree="@Tree.t:Shankarappa" rates="@fastRates.c:Shankarappa"  weight="24.4"/>
 -->
-<!--              
+              
     <operator id="InternalnodesOperator.c:Shankarappa" spec="ConsInternalNode"
               twindowSize="0.25" bactrian="true" tree="@Tree.t:Shankarappa" rates="@fastRates.c:Shankarappa"  weight="24.4"/>
--->
+
 <!--    
     <operator id="InternalnodesOperator.c:Shankarappa" spec="ConsInternalNode"
               uniform="true" tree="@Tree.t:Shankarappa" rates="@fastRates.c:Shankarappa"  weight="24.4"/>
--->  
+--> 
+<!-- 
     <operator id="InternalnodesOperator.c:Shankarappa" spec="ConsInternalNode"
               twindowSize="0.1" beta="true" tree="@Tree.t:Shankarappa" rates="@fastRates.c:Shankarappa"  weight="24.4"/>
-               
+-->               
     <operator id="RootOperator2.c:Shankarappa" spec="SimpleDistance"
-              twindowSize="0.2" tree="@Tree.t:Shankarappa" rates="@fastRates.c:Shankarappa"  weight="0.2"/>
+              twindowSize="0.2" tree="@Tree.t:Shankarappa" rates="@fastRates.c:Shankarappa" clockModel="@RelaxedClock.c:Shankarappa" weight="0.2"/>
 
     <operator id="RootOperator3.c:Shankarappa" spec="SmallPulley"
-              dwindowSize="0.04" tree="@Tree.t:Shankarappa" rates="@fastRates.c:Shankarappa"  weight="0.2"/>
+              dwindowSize="0.04" tree="@Tree.t:Shankarappa" rates="@fastRates.c:Shankarappa" clockModel="@RelaxedClock.c:Shankarappa" weight="0.2"/>
     
     <operator id="RootOperator4.c:Shankarappa" spec="BigPulley"
               twindowSize="0.02" dwindowSize="0.02" tree="@Tree.t:Shankarappa" rates="@fastRates.c:Shankarappa"  weight="0.2"/>

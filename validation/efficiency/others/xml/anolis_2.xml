@@ -137,22 +137,23 @@ name="alignment">
     <operator id="InternalnodesOperator.c:anolis" spec="ConsInternalNode"
               twindowSize="0.25" random="true" tree="@Tree.t:anolis" rates="@fastRates.c:anolis"  weight="24.1"/>
 -->
-<!--                                      
+                                      
     <operator id="InternalnodesOperator.c:anolis" spec="ConsInternalNode"
-              twindowSize="0.25" bactrian="true" tree="@Tree.t:anolis" rates="@fastRates.c:anolis"  weight="24.1"/>
--->
+              twindowSize="0.25" bactrian="true" tree="@Tree.t:anolis" rates="@fastRates.c:anolis" weight="24.1"/>
+
 <!--
 	<operator id="InternalnodesOperator.c:anolis" spec="ConsInternalNode"
               uniform="true" tree="@Tree.t:anolis" rates="@fastRates.c:anolis"  weight="24.1"/>
 -->
+<!--
 	<operator id="InternalnodesOperator.c:anolis" spec="ConsInternalNode"
               beta="true" twindowSize="0.5" tree="@Tree.t:anolis" rates="@fastRates.c:anolis"  weight="24.1"/>
-                                            
+-->                                            
     <operator id="RootOperator2.c:anolis" spec="SimpleDistance"
-              twindowSize="0.027" tree="@Tree.t:anolis" rates="@fastRates.c:anolis"  weight="0.3"/>
+              twindowSize="0.027" tree="@Tree.t:anolis" rates="@fastRates.c:anolis" clockModel="@RelaxedClock.c:anolis" weight="0.3"/>
 
     <operator id="RootOperator3.c:anolis" spec="SmallPulley"
-              dwindowSize="1.0" tree="@Tree.t:anolis" rates="@fastRates.c:anolis"  weight="0.3"/>
+              dwindowSize="1.0" tree="@Tree.t:anolis" rates="@fastRates.c:anolis" clockModel="@RelaxedClock.c:anolis" weight="0.3"/>
     
     <operator id="RootOperator4.c:anolis" spec="BigPulley"
               twindowSize="0.02" dwindowSize="0.02" tree="@Tree.t:anolis" rates="@fastRates.c:anolis"  weight="0.3"/>
