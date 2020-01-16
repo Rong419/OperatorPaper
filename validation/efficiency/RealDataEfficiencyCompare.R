@@ -10,8 +10,8 @@ output.figure.folder <- args[4]
 
 #n.sim <- 20
 #data.name <- "RSV2"
-#data.file.path <- "~/Desktop/validation/efficiency/others/"
-#output.figure.folder <- "~/Desktop/validation/efficiency/figures/"
+#data.file.path <- "/Users/ryanzhang/Documents/UOALearning/OperatorPaper/validation/efficiency/others/"
+#output.figure.folder <- "/Users/ryanzhang/Documents/UOALearning/OperatorPaper/validation/efficiency/figures/"
   
 ### read Category efficiency
 cat.output.txt.path <- paste0(data.file.path,data.name,"Category/output/output_",data.name, "_", 1,"_")
@@ -56,13 +56,13 @@ for (p in proposal) {
 }
 
 
-pdf (file = paste0(output.figure.folder, "LogEfficiencyCompare_", data.name, ".pdf"), width = 7, height = 4)
-boxplot(log(Random.ratio.df), xlim = c(0,20), boxwex = 0.2, col = "deepskyblue", at = seq(0, 20, length.out = 16) - 0.3, outline = FALSE, xaxt = "n", yaxt = "n")
+pdf (file = paste0(output.figure.folder, "EfficiencyCompare_", data.name, ".pdf"), width = 7, height = 4)
+boxplot(Random.ratio.df, xlim = c(0,20), boxwex = 0.2, col = "deepskyblue", at = seq(0, 20, length.out = 16) - 0.3, outline = FALSE, xaxt = "n", yaxt = "n")
 axis(1, at = seq(0,20,length.out=16), labels = colnames(Random.ratio.df), las=2, cex.axis = 0.8)
 axis(2, cex.axis = 0.8)
 title(main = data.name, ylab = c("Ratio of ESS per hour (cons/categories)"))
-boxplot(log(Bactrian.ratio.df), xlim = c(0,20), boxwex = 0.2, col = "mediumseagreen", at = seq(0, 20, length.out = 16) , outline = FALSE, xaxt = "n", yaxt = "n", add = TRUE)
-boxplot(log(Beta.ratio.df), xlim = c(0,20), boxwex = 0.2, col = "blueviolet", at = seq(0, 20, length.out = 16) + 0.3, outline = FALSE, xaxt = "n", yaxt = "n", add = TRUE)
-abline(h = 0.0, col = "red", lwd = 1.5)
+boxplot(Bactrian.ratio.df, xlim = c(0,20), boxwex = 0.2, col = "mediumseagreen", at = seq(0, 20, length.out = 16) , outline = FALSE, xaxt = "n", yaxt = "n", add = TRUE)
+boxplot(Beta.ratio.df, xlim = c(0,20), boxwex = 0.2, col = "blueviolet", at = seq(0, 20, length.out = 16) + 0.3, outline = FALSE, xaxt = "n", yaxt = "n", add = TRUE)
+abline(h = 1.0, col = "red", lwd = 1.5)
 legend("topright", inset=.01, c("Random walk","Bactrian", "Beta"), fill = c("deepskyblue","mediumseagreen", "blueviolet"), box.lty = 0, cex = 0.6)
 dev.off()
