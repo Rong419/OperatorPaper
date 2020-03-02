@@ -486,7 +486,7 @@ A limiting case for the relaxed molecular clock model (and one exploited in some
 
 Previous work done by Reis and Yang \cite{reis2011approximate} also tried to approximate the likelihood of such an unrooted tree in Bayesian phylogenetic inference. Similar researches in \cite{thorne1998estimating,guindon2010bayesian} show that these methods can account for rate changes in a relaxed clock model, but the genetic distances are not fixed, for example St{\'e}phane Guindon used a Gibbs sampling algorithm \cite{guindon2010bayesian}. Outside of the Bayesian MCMC formalism, least-squares criteria \cite{to2015fast} and maximum likelihood \cite{sagulenko2018treetime,sanderson2003r8s}, can also be applied to estimate substitution rates and divergence times in unrooted trees. 
 
-In this section, we investigated this approach on a fixed substitution tree reconstructed from whole mitochondrial genomes from a set of ratite species \cite{cooper2001complete}. Since no uncertainty is admitted in the genetic distances and the proposed operator don't change the genetic distances, the phylogenetic likelihood is no longer needed and the unrooted tree becomes the data, rather than a multiple sequence alignment.
+In this section, we investigated this approach on a fixed substitution tree reconstructed from whole mitochondrial genomes from a set of ratite species \cite{cooper2001complete}. Since no uncertainty is admitted in the genetic distances and the proposed operator doesn't change the genetic distances, the phylogenetic likelihood is no longer needed and the unrooted tree becomes the data, rather than a multiple sequence alignment.
 
 First of all, we used the ratites data set to construct an unrooted tree with PhyML 3.0 \cite{phyml,guindon2010new}.  Figure \ref{withoutdata}(a) shows the unrooted tree with the genetic distances on the branches which are fixed in the subsequent relaxed clock analysis in BEAST2.
 
@@ -519,7 +519,7 @@ We demonstrate the correctness of this algorithm with a series of tests includin
 MCMC&Markov chain Monte Carlo\\
 ESS&effective sample sizes\\ 
 HPD&highest posterior density\\
-Cateogry & Using the current operators in BEAST2 to sample discrete rate categories\\
+Category & Using the current operators in BEAST2 to sample discrete rate categories\\
 Cons & Using the Constant Distance operator to sample continuous rates specified by an uncorrelated related clock model\\
 \end{tabular}
 \end{table}
@@ -794,10 +794,10 @@ Data&Configuration&Average running time&Parameter&ESS\\
 \multirow{2}*{Primates}&Category&12.5615&\multirow{2}*{ucld.stdev}&57.47\\
 &Cons&12.3820&&164.52\\
 \hline
-\multirow{2}*{Simualted 500 sites}&Category&0.4644&\multirow{2}*{rate.coeff}&793.27\\
+\multirow{2}*{Simulated 500 sites}&Category&0.4644&\multirow{2}*{rate.coeff}&793.27\\
 &Cons&0.4805&&3047.09\\
 \hline
-\multirow{2}*{Simualted 1000 sites}&Category&1.9270&\multirow{2}*{rate.coeff}&1599.42\\
+\multirow{2}*{Simulated 1000 sites}&Category&1.9270&\multirow{2}*{rate.coeff}&1599.42\\
 &Cons&0.4805&&6255.03\\
 \hline
 \end{tabular}
@@ -826,10 +826,10 @@ Scenario 2&0.4&0.8&2.4&1.6&0.4&0.8&1&2&3&4\\
 &\multirow{2}*{Chain Length}&\multicolumn{3}{c|}{Sample from MCMC}&\multicolumn{3}{c|}{Integral curve}&Plot\\
 &~&Mean&Err&St.dev&Mean&Err&St.dev&\\
 \hline
-\multirow{2}*{Senario 1}&10000000&3.2727&8.3e-3&0.5467&\multirow{2}*{3.2669}&\multirow{2}*{1.3e-06}&\multirow{2}*{0.5553}&Figure \ref{res_int}(a)\\
+\multirow{2}*{Scenario 1}&10000000&3.2727&8.3e-3&0.5467&\multirow{2}*{3.2669}&\multirow{2}*{1.3e-06}&\multirow{2}*{0.5553}&Figure \ref{res_int}(a)\\
 ~&20000000&3.271&6.1e-3&0.5616&~&~&~&Figure \ref{res_int}(b)\\
 \hline
-\multirow{2}*{Senario 2}&10000000&0.4677&3.9e-04&0.0265&\multirow{2}*{0.4667}&\multirow{2}*{3.5e-05}&\multirow{2}*{0.0262}&Figure \ref{res_int}(c)\\
+\multirow{2}*{Scenario 2}&10000000&0.4677&3.9e-04&0.0265&\multirow{2}*{0.4667}&\multirow{2}*{3.5e-05}&\multirow{2}*{0.0262}&Figure \ref{res_int}(c)\\
 ~&20000000&0.4672&2.8e-04&0.0262&~&~&~&Figure \ref{res_int}(d)\\
   \hline
 \end{tabular}
@@ -895,7 +895,7 @@ Small Pulley&${d_i}$&0.3480&0.0492&0.3476&0.0494&Figure \ref{res_roo1}(b)\\
 &DeathRate Scale Operator&-&-&0.0629&0.0270&-&-&-&-&-&-\\
 &PopulationSize Scale Operator&-&-&-&-&0.0802&0.0267&0.0624&0.0267&-&-\\
   \hline
-\multirow{2}*{Substituion model}&Kappa Scale Operator&0.0096&0.0096&0.0009&0.0009&0.0009&0.0009&0.0009&0.0009&0.0185&0.0185\\
+\multirow{2}*{Substitution model}&Kappa Scale Operator&0.0096&0.0096&0.0009&0.0009&0.0009&0.0009&0.0009&0.0009&0.0185&0.0185\\
 &Frequencies DeltaExchange Operator&0.0019&0.0019&0.0009&0.0009&0.0009&0.0009&0.0009&0.0009&0.0009&0.0009\\
   \hline
 \multicolumn{12}{l}{Note}\\
