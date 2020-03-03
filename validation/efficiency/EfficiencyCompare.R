@@ -148,15 +148,21 @@ title(main = "Efficiency comparison", ylab = c("Log ratio of ESS per hour (cons/
 legend("topright", inset=.01, c("primates","500 sites", "1000 sites"), fill = c("deepskyblue","royalblue3", "springgreen"), box.lty = 0, cex = 0.6)
 dev.off()
 
+AT = c(-0.3,1.2,2.7,4,4.5,6.2,7.7,10.2,11.7,13.2,14.7,16.2,17.7,19.2,20.7,22.2) # axis for anolis data
+BT = c(0,1.5,3,5.1,6.5,8,9,10.5,12,13.5,15,16.5,18,19.5,21,22.5) # axis for RSV2 data
+CT = c(0.3, 1.8,3.3,5.3,6.8,8.3,9.3,10.8,12.3,13.8,15.3,16.8,18.3,19.8,21.3,22.8) # axis for Shankarappa data
+# parameters names on X axis
+XName <- c("posterior","likelihood","prior","birth.rate","death.rate","pop.size","tree.height","tree.length","ucld.mean","ucld.stdev","rate.mean","rate.variance","rate.coeff","kappa","frequency1","frequency2","frequency3","frequency4")
+XT = c(0, 1.5,3,4,4.5, 5.2,6.5,8,9.2,10.5,12,13.5,15,16.5,18,19.5,21,22.5) # calibrations on X axis
 pdf (file = paste0(output.figure.folder, "EfficiencyCompare_1.pdf"), width = 7, height = 4)
-boxplot(anolis.ratio.df, xlim = c(0,20), ylim = c(0,11), boxwex = 0.2, col = "maroon", at = seq(0, 20, length.out = 16) - 0.3, outline = FALSE, xaxt = "n", yaxt = "n")
-axis(1, at = seq(0,20,length.out=16), labels = colnames(anolis.ratio.df), las=2, cex.axis = 0.8)
+boxplot(anolis.ratio.df, xlim = c(0,23), ylim = c(0,11), boxwex = 0.2, col = "maroon", at = AT, outline = FALSE, xaxt = "n", yaxt = "n")
+axis(1, at = XT, labels = XName, las=2, cex.axis = 0.8)
 axis(2, cex.axis = 0.8)
-boxplot(RSV2.ratio.df, xlim = c(0,20), ylim = c(0,11), boxwex = 0.2, col = "tomato", at = seq(0, 20, length.out = 16) , outline = FALSE, xaxt = "n", yaxt = "n", add = TRUE)
-boxplot(Shankarappa.ratio.df, xlim = c(0,20), ylim = c(0,11), boxwex = 0.2, col = "darkgoldenrod3", at = seq(0, 20, length.out = 16) + 0.3, outline = FALSE, xaxt = "n", yaxt = "n", add = TRUE)
+boxplot(RSV2.ratio.df, xlim = c(0,23), ylim = c(0,11), boxwex = 0.2, col = "tomato", at = BT, outline = FALSE, xaxt = "n", yaxt = "n", add = TRUE)
+boxplot(Shankarappa.ratio.df, xlim = c(0,23), ylim = c(0,11), boxwex = 0.2, col = "darkslateblue", at = CT, outline = FALSE, xaxt = "n", yaxt = "n", add = TRUE)
 abline(h = 1.0, col = "red", lwd = 1.5)
 title(main = "Efficiency comparison", ylab = c("Ratio of ESS per hour (cons/categories)"))
-legend("topright", inset=.01, c("anolis","RSV2", "Shankarappa"), fill = c("maroon","tomato", "darkgoldenrod3"), box.lty = 0, cex = 0.6)
+legend("topright", inset=.01, c("anolis","RSV2", "Shankarappa"), fill = c("maroon","tomato", "darkslateblue"), box.lty = 0, cex = 0.6)
 dev.off()
 
 pdf (file = paste0(output.figure.folder, "EfficiencyCompare_2.pdf"), width = 7, height = 4)
