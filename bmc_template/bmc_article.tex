@@ -294,7 +294,7 @@ Before describing the detailed steps, we introduce a method \textit{Exchange} th
 
 As can be seen from the above descriptions, the method \textit{Exchange(\textbf{M}, \textbf{N})} swaps two nodes and adjusts distances ($d_S$, $d_{M}$, $d_{N}$ and $d_{C}$) on the four branches so as to maintain the implied genetic distances among three taxa \textbf{S}, \textbf{M} and \textbf{N}.
 
-Additionally, operations in Big Pulley vary depending on the shape of phylogenetic tree. In Figure \ref{treeshape}, a symmetric tree is shown on the left, in which both the child nodes of the root have child nodes, i.e. \textbf{L} having children \textbf{H1}, \textbf{H2} and \textbf{R} having children \textbf{H3}, \textbf{H4}. But in the asymmetric tree on the right, only one of the child nodes of the root has child nodes below it, i.e. \textbf{O} having children \textbf{G1}, \textbf{G2}. But the other child node \textbf{Y} doesn't have any offsprings, which may be a tip or a sampled ancestor. The corresponding operations are detailed in the following two parts.
+Additionally, operations in Big Pulley vary depending on the shape of phylogenetic tree. In Figure \ref{treeshape}, a symmetric tree is shown on the left, in which both the child nodes of the root have child nodes, i.e. \textbf{L} having children \textbf{H1}, \textbf{H2} and \textbf{R} having children \textbf{H3}, \textbf{H4}. But in the asymmetric tree on the right, only one of the child nodes of the root has child nodes below it, i.e. \textbf{O} having children \textbf{G1}, \textbf{G2}. But the other child node \textbf{Y} doesn't have any offsprings. The corresponding operations are detailed in the following two parts.
 \paragraph*{Symmetric tree}
 
 For the symmetric tree in Figure \ref{treeshape}, the operations are illustrated in Figure \ref{symmetric}, after which one of the four possible trees (\textcircled1 \textcircled2 \textcircled3 \textcircled4) will be proposed. The detailed process is described in Algorithm \ref{symmetric tree proposal}.
@@ -367,7 +367,7 @@ For an asymmetric tree such as in Figure \ref{treeshape} we would operate as ill
 \caption{Proposal for asymmetric trees in Big pulley}
 \label{asymmetric tree proposal}
 \begin{algorithmic}
-\STATE \COMMENT{Step 1: Identify the extant child node of the root \textbf{X}, which has two child nodes below and is denoted by \textbf{O}. The extinct child node of the root, which does not have any child nodes, is denoted by \textbf{Y}. The node times of the root \textbf{X},  \textbf{Y}, \textbf{O} and its child nodes are denoted by ${t_X}$, ${t_Y}$, ${t_O}$, ${t_{G1}}$ and ${t_{G2}}$ respectively.}
+\STATE \COMMENT{Step 1: Identify the child node of the root \textbf{X} that has two child nodes below, which is denoted by \textbf{O}. The other child node of the root, which does not have any child nodes, is denoted by \textbf{Y}. The node times of the root \textbf{X},  \textbf{Y}, \textbf{O} and its child nodes are denoted by ${t_X}$, ${t_Y}$, ${t_O}$, ${t_{G1}}$ and ${t_{G2}}$ respectively.}
 \STATE Let \textbf{X} be the root of the tree.
 \STATE Let \textbf{O} be the child of \textbf{X} that has children, and let \textbf{Y} be the child of \textbf{X} that does not have children. 
 \STATE \COMMENT{Step 2: Propose a new node time for the root \textbf{X}.}
@@ -1161,7 +1161,7 @@ The root time $t_E$ is sampled by Simple Distance, which ranges from 1 to positi
 p(r,t) = \int_{{t_E} = 1}^{ + \infty } {p({t_E},{t_D}) \times p(\frac{{{d_A}}}{{{t_D}}}) \times p(\frac{{{d_B}}}{{{t_D}}}) \times p(\frac{{{d_D}}}{{{t_E} - {t_D}}}) \times p(\frac{{{d_C}}}{{{t_E}}}){d_{t_E}}}
 \end{equation}
 
-The results are given in Table \ref{res_sma} and Figure \ref{res_roo1}(a). As can be seen, the mean and the standard deviation of MCMC samples and numerical integration are close to each other, which confirms that the two distribution are the same. Thus, Simple Distance is proved to be correct.
+The results are given in Table \ref{res_sma} and Figure \ref{res_roo1}(a). As can be seen, the mean and the standard deviation of MCMC samples and numerical integration are close to each other, which confirms that the two distribution are the same. Thus, Simple Distance samples the root time and two branch rates correctly.
 
 \paragraph*{2.2.2 Using Small Pulley}
 
