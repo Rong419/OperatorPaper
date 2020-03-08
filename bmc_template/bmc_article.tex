@@ -751,6 +751,12 @@ The author(s) wish to acknowledge the use of New Zealand eScience Infrastructure
 \label{shankarappaproposal}
 \end{figure}
 
+\begin{figure}[h!]
+\includegraphics[width=12cm]{Fig25-UcldScalar.eps}\\
+\caption{\csentence{Efficiency comparison of continuous rates.}}
+\label{ucldscalar}
+\end{figure}
+
 \clearpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%                               %%
@@ -1202,6 +1208,11 @@ Since we compare the efficiency based on ESS per hour using two configurations, 
 The operators introduced in the paper utilise a random walk proposal for the new node time, which draws a random number from a uniform distribution and moves the node uniformly on the branch. However, others proposals, such as a Bactrian proposal \cite{Yang19307} and a Beta proposal \cite{betaproposal}, assign a specific distribution on the new node time so that it is more probable to move to a certain height on the branch, either far away from or close to its original position. This section applied Random walk proposal (the operators in this paper), Bactrian proposal and Beta proposal to the three data sets, and the results are compared to those using Category configuration.
 
 The comparisons are shown in Figure \ref{anolisproposal}, Figure \ref{rsv2proposal} and Figure \ref{shankarappaproposal}. It is indicated that Beta proposal achieved worst performance in the three analysed data sets. The performance of the Constant Distance operator (Random walk) and Bactrian proposal achieved similar performance in RSV2 data set, while Bactrian proposal provided larger ESS per hour for most parameters in HIV-1 data set. Therefore, it still needs further investigation to demonstrate the effectiveness of different proposals when analysing various data sets. Our current implementation of the operators enables users to specify which proposal style will be used in Beast2 analysis.
+
+\paragraph*{3.5 Efficiency measured by continuous rates}
+
+In the comparison of ESS for the clock standard deviation (denoted by ucld.stdev), we specified a normal scale operator in "Category" configuration. However, a new operator, which is detailed in the following section, is used in "Cons" configuration. To avoid the concern that the difference between "Category" and "Cons" is a results of how rates are parameterised (i.e. discrete or continuous), we ran analysis where continuous rates are sampled without using the ConstantDistance operator (denoted by "NoCons" configuration). The efficiency comparison between "Cons" and "NoCons" is summarised in Figure \ref{ucldscalar}. We chosen two data sets, RSV2 and HIV-1, where both clock standard deviation and clock mean (ucld.mean) are sampled. The figure shows ESS per hour of ucld.stdev, ucld.mean and the statistics of branch rates (rate mean, rate variance and rate coefficient) in 20 independent MCMC chains. As can be seen, on average, ESS per hour of ucld.stdev and ucld.mean are almost the same in the two configurations. In addition, "Cons" configuration achieves larger ESS per hour of the three rate statistics. It is therefore indicated that.
+
 
 \subsection*{4. UcldstdevScaleOperator: a scale operator on standard deviation}\label{UcldstdevScaler}
 
