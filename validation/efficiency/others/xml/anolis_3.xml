@@ -68,7 +68,7 @@ name="alignment">
         <parameter id="kappa.s:anolis" spec="parameter.RealParameter" lower="0.0" name="stateNode">2.0</parameter>
         <parameter id="ucldStdev.c:anolis" spec="parameter.RealParameter" lower="0.0" name="stateNode">0.1</parameter>
         <parameter id="ucldMean.c:anolis" spec="parameter.RealParameter" name="stateNode">1.0</parameter>
-        <parameter id="rateQuantiles.c:anolis" spec="parameter.RealParameter" dimension="56" name="stateNode" lower="0" upper="1">0.5</parameter>
+        <parameter id="fastRates.c:anolis" spec="parameter.RealParameter" dimension="56" name="stateNode">1.0</parameter>
         <parameter id="freqParameter.s:anolis" spec="parameter.RealParameter" dimension="4" lower="0.0" name="stateNode" upper="1.0">0.25</parameter>
     </state>
 
@@ -105,8 +105,12 @@ name="alignment">
             <prior id="MeanRatePrior.c:anolis" name="distribution" x="@ucldMean.c:anolis">
                 <Uniform id="Uniform.4" name="distr" upper="Infinity"/>
             </prior>
+            <prior id="FastRatePriorDistrbution.c:anolis" name="distribution" x="@fastRates.c:anolis">
+                <LogNormal id="LogNormalDistributionModel.1" S="@ucldStdev.c:anolis" meanInRealSpace="true" name="distr">
+                    <parameter id="RealParameter.7" spec="parameter.RealParameter" estimate="false" name="M">1.0</parameter>
+                </LogNormal>
+            </prior>
         </distribution>
-
         <distribution id="likelihood" spec="util.CompoundDistribution" useThreads="true">
             <distribution id="treeLikelihood.anolis" spec="ThreadedTreeLikelihood" data="@anolis" tree="@Tree.t:anolis">
                 <siteModel id="SiteModel.s:anolis" spec="SiteModel">
@@ -117,20 +121,14 @@ name="alignment">
                         <frequencies id="estimatedFreqs.s:anolis" spec="Frequencies" frequencies="@freqParameter.s:anolis"/>
                     </substModel>
                 </siteModel>
-                <branchRateModel id="RelaxedClock.c:anolis" spec="beast.evolution.branchratemodel.UCRelaxedClockModel"
-                                 rateQuantiles="@rateQuantiles.c:anolis" tree="@Tree.t:anolis" clock.rate="@ucldMean.c:anolis">
-                    <distr id="ApproxLogNormal" spec="beast.math.distributions.PiecewiseLinearDistribution">
-                        <LogNormal id="LogNormalDistributionModel.c:anolis" S="@ucldStdev.c:anolis" meanInRealSpace="true" name="distr">
-                            <parameter id="RealParameter.3" spec="parameter.RealParameter" estimate="false" lower="0.0" name="M" upper="1.0">1.0</parameter>
-                        </LogNormal>
-                    </distr>
+                <branchRateModel id="RelaxedClock.c:anolis" spec="beast.evolution.branchratemodel.UCRelaxedClockModel" rates="@fastRates.c:anolis" tree="@Tree.t:anolis" clock.rate="@ucldMean.c:anolis">
+                    <LogNormal id="LogNormalDistributionModel.c:anolis" S="@ucldStdev.c:anolis" meanInRealSpace="true" name="distr">
+                        <parameter id="RealParameter.3" spec="parameter.RealParameter" estimate="false" lower="0.0" name="M" upper="1.0">1.0</parameter>
+                    </LogNormal>
                 </branchRateModel>
             </distribution>
         </distribution>
     </distribution>
-
-    <operator id="InternalnodesOperator.c:anolis" spec="InConstantDistanceOperator"
-              twindowSize="1.0"  tree="@Tree.t:anolis" quantiles="@rateQuantiles.c:anolis"  distr="@LogNormalDistributionModel.c:anolis" weight="25.0"/>
 
     <operator id="BirthDeathTreeScaler.t:anolis" spec="ScaleOperator" scaleFactor="0.5" tree="@Tree.t:anolis" weight="3.0"/>
 
@@ -152,14 +150,15 @@ name="alignment">
 
     <operator id="KappaScaler.s:anolis" spec="ScaleOperator" parameter="@kappa.s:anolis" scaleFactor="0.5" weight="0.1"/>
 
-    <operator id="UcldStdevScaler.c:anolis" spec="ScaleOperator" parameter="@ucldStdev.c:anolis" scaleFactor="0.5" weight="3.0"/>
+    <operator id="FastUcldStdevScaler.c:anolis" spec="consoperators.UcldScalerOperator"
+              rates="@fastRates.c:anolis" stdev="@ucldStdev.c:anolis" distr="@LogNormalDistributionModel.c:anolis" scaleFactor="0.5" weight="3.0"/>
 
-    <operator id="rateQuantilessRandomWalk.c:anolis" spec="RealRandomWalkOperator" parameter="@rateQuantiles.c:anolis" weight="10.0" windowSize="1"/>
-
-    <operator id="rateQuantilesSwapOperator.c:anolis" spec="SwapOperator" parameter="@rateQuantiles.c:anolis" weight="5.0"/>
-
-    <operator id="rateQuantilesUniform.c:anolis" spec="UniformOperator" parameter="@rateQuantiles.c:anolis" weight="5.0"/>
-
+    <operator id="FastRatessRandomWalk.c:anolis" spec="RealRandomWalkOperator" parameter="@fastRates.c:anolis" weight="10.0" windowSize="1"/>
+ 
+    <operator id="FastRatesSwapOperator.c:anolis" spec="SwapOperator" parameter="@fastRates.c:anolis" weight="10.0"/>
+<!--   
+    <operator id="FastRatesScalarOperator.c:anolis" spec="ScaleOperator" parameter="@fastRates.c:anolis" scaleFactor="0.5" weight="10.0"/>
+-->    
     <operator id="FrequenciesExchanger.s:anolis" spec="DeltaExchangeOperator" delta="0.01" weight="0.1">
         <parameter idref="freqParameter.s:anolis"/>
     </operator>
