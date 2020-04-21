@@ -1,0 +1,2 @@
+	min.para	min.cat.ess	con.ess
+1	primates	rate.mean	71.7885534578081	422.239800466067

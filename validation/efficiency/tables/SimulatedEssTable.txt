@@ -1,0 +1,3 @@
+l.sequence	min.para	min.cat.ess	con.ess
+1	Short	frequency3	819.387315880461	837.502850217335
+2	Medium	frequency3	2760.41270953362	2961.66555595551

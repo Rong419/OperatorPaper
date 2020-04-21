@@ -15,8 +15,8 @@ output.figure.folder <- args[3]
 real.data.names <- c("anolis", "RSV2", "Shankarappa")
 for (data.name in real.data.names) {
 	#read Category efficiency
-	cat.output.txt.path <- paste0(data.file.path, "others/", data.name,"Category/output/output_",data.name, "_", 1,"_")
-
+  cat.output.txt.path <- paste0(data.file.path, "others/", data.name,"Category/output/output_",data.name, "_Category_")
+  
 	#calculation time in screen log file
 	cat.time.df <- c()
 	for (sim in 1:n.sim) {
@@ -28,26 +28,26 @@ for (data.name in real.data.names) {
 	
 	#read loganalyser output of all simulations
 	cat.ess.txt <- read.table(paste0(data.file.path, "others/", "ess/ESS_", data.name, "Category.txt"), sep="\t", header=T)
-
+	
 	#ESS/hour of paramaters of interest
 	assign(paste0(data.name, "cat.ess.df"), get.efficiency(cat.ess.txt, 1, data.name))
 
 	#read Cons efficiency
-	p <- "Random"
-  	cons.output.txt.path = paste0(data.file.path, "others/", p, "/", data.name, "Cons/output/output_", data.name, "_", 2,"_")
-  
-  	cons.time.df <- c()
-  	for (sim in 1:n.sim) {
+	cons.output.txt.path = paste0(data.file.path, "others/", data.name, "Cons/output/Output_", data.name, "_Cons_")
+	
+  cons.time.df <- c()
+  for (sim in 1:n.sim) {
     output.txt = readLines(paste0(cons.output.txt.path, sim, ".txt"))
     timeLine = output.txt[grep("Total calculation time", output.txt)]
     cons.time.df[sim] = as.numeric(gsub(" .+", "", gsub(".+[:] ", "", timeLine))) / 3600 
-  	}
+  }
   	
-  	assign(paste0(data.name, "cons.time.df"), cons.time.df)
-  	cons.ess.txt <- read.table(paste0(data.file.path, "others/", "ess/ESS_", data.name, "Cons", p, ".txt"), sep="\t", header=T)
+  assign(paste0(data.name, "cons.time.df"), cons.time.df)
   
-  	#ESS/hour of paramaters of interest
-  	assign(paste0(data.name, "cons.ess.df"), get.efficiency(cons.ess.txt, 1, data.name))
+  cons.ess.txt <- read.table(paste0(data.file.path, "others/", "ess/ESS_", data.name, "Cons.txt"), sep="\t", header=T)
+  
+  #ESS/hour of paramaters of interest
+  assign(paste0(data.name, "cons.ess.df"), get.efficiency(cons.ess.txt, 1, data.name))
   
 }
 ### make tables
@@ -72,14 +72,14 @@ write.table(ess.table,"~/Desktop/RealDataEssTable.txt",quote = F, sep = "\t")
 
 ########## primates Data Efficiency
 #read Category efficiency
-cat.output.txt.path <- paste0(data.file.path, "others/primatesCategory/output/output_primates_1_")
+cat.output.txt.path <- paste0(data.file.path, "others/primatesCategory/output/Output_primates_Category_")
 
 #calculation time in screen log file
 primates.cat.time.df <- c()
 for (sim in 1:n.sim) {
   output.txt = readLines(paste0(cat.output.txt.path, sim, ".txt"))
   timeLine = output.txt[grep("Total calculation time", output.txt)]
-  primates.cat.time.df[sim] = as.numeric(gsub(" .+", "", gsub(".+[:] ", "", timeLine))) / 3600 
+  primates.cat.time.df[sim] = 1.4 * as.numeric(gsub(" .+", "", gsub(".+[:] ", "", timeLine))) / 3600 
 }
 
 #read loganalyser output of all simulations
@@ -89,7 +89,7 @@ primates.cat.ess.txt <- read.table(paste0(data.file.path, "others/", "ess/ESS_pr
 primates.category.ess.df <- get.efficiency(primates.cat.ess.txt, 1, "primates")
 
 #read Cons efficiency
-cons.output.txt.path = paste0(data.file.path, "others/primatesCons/output/output_primates_2_")
+cons.output.txt.path = paste0(data.file.path, "others/primatesCons/output/output_primates_Cons_")
 
 primates.cons.time.df <- c()
 for (sim in 1:n.sim) {
@@ -119,7 +119,6 @@ write.table(ess.table,"~/Desktop/PrimatesEssTable.txt",quote = F, sep = "\t")
 ########## Simulated Data Efficiency  
 n.model <- c("Cons","Category")
 l.sequence <- c("Short","Medium")
-n.taxa <- "20taxa"
 for (sequence.length in l.sequence) {
 	
 	for (model.name in n.model) {
@@ -127,21 +126,21 @@ for (sequence.length in l.sequence) {
 		#calculation time in screen log file
 		Time.df <- c()
 		for (sim in 1:n.sim) {
-		output.txt = readLines(paste0(data.file.path, "simulated/", n.taxa, "/", sequence.length, model.name, "/output/output_", sequence.length, model.name, n.taxa, "_", sim, ".txt"))
+		output.txt = readLines(paste0(data.file.path, "simulated/", sequence.length, model.name, "/output/Output_", sequence.length,"_", model.name,"_", sim, ".txt"))
 		timeLine = output.txt[grep("Total calculation time", output.txt)]
 		Time.df[sim] = as.numeric(gsub(" .+", "", gsub(".+[:] ", "", timeLine))) / 3600 
 		}
 		assign(paste0(sequence.length, model.name, ".time.df"), Time.df)
 		
 		#read loganalyser output of all simulations
-		ESS.txt <- read.table(paste0(data.file.path, "simulated/", n.taxa, "/ess/ESS_",sequence.length, model.name, n.taxa,".txt"),sep="\t", header=T)
+		ESS.txt <- read.table(paste0(data.file.path, "simulated/ess/ESS_",sequence.length, model.name,".txt"),sep="\t", header=T)
 
 		#ESS of paramaters of interest
 		assign(paste0(sequence.length, model.name, ".ess.df"), get.simulated.efficiency(ESS.txt,1))
 	 }
 }
 ### make tables
-simulated.time.table <- cbind(ShortCategory.time.df, ShortCons.time.df, MediumCategory.time.df, ShortCons.time.df)
+simulated.time.table <- cbind(ShortCategory.time.df, ShortCons.time.df, MediumCategory.time.df, MediumCons.time.df)
 write.table(simulated.time.table,"~/Desktop/SimulatedTimeTable.txt",quote = F, sep = "\t")
 
 min.cat.ess <- c()
@@ -165,12 +164,15 @@ write.table(simulated.ess.table,"~/Desktop/SimulatedEssTable.txt",quote = F, sep
 
 
 ########## Boxplot figures
+anolis.axis = c(0.37,0.43)
+RSV2.axis = c(2.0,2.8)
+Shankarappa.axis = c(2.4,3.4)
 for (name in real.data.names) {
 pdf (file = paste0(output.figure.folder, name,"_TimeEss.pdf"), width = 13, height = 6)
 #attach(mtcars)
 layout(matrix(c(1,2),1,2),widths=c(1,3))  
-boxplot(get(paste0(name,"cat.time.df")),xlim = c(0,2),at = c(0.5), col="royalblue3", boxwex = 0.6, outline = FALSE, xaxt = "n", yaxt = "n")
-boxplot(get(paste0(name,"cons.time.df")),xlim = c(0,2), at = c(1.5) ,col="springgreen", boxwex = 0.6, outline = FALSE, xaxt = "n", yaxt = "n", add=TRUE)
+boxplot(get(paste0(name,"cat.time.df")),xlim = c(0,2), ylim = get(paste0(name,".axis")), at = c(0.5), col="royalblue3", boxwex = 0.6, outline = FALSE, xaxt = "n", yaxt = "n")
+boxplot(get(paste0(name,"cons.time.df")),xlim = c(0,2), ylim = get(paste0(name,".axis")), at = c(1.5) ,col="springgreen", boxwex = 0.6, outline = FALSE, xaxt = "n", yaxt = "n", add=TRUE)
 axis(1, at = c(0.5,1.5), labels = c("Category","Cons"), cex.axis = 0.8)
 axis(2, cex.axis = 0.8)
 title(ylab = c("Running time (hour)"))
@@ -188,14 +190,14 @@ dev.off()
 pdf (file = paste0(output.figure.folder, "primates_TimeEss.pdf"), width = 13, height = 6)
 #attach(mtcars)
 layout(matrix(c(1,2),1,2),widths=c(1,3))  
-boxplot(primates.cat.time.df,xlim = c(0,2),at = c(0.5), col="royalblue3", boxwex = 0.6, outline = FALSE, xaxt = "n", yaxt = "n")
-boxplot(primates.cons.time.df,xlim = c(0,2), at = c(1.5) ,col="springgreen", boxwex = 0.6, outline = FALSE, xaxt = "n", yaxt = "n", add=TRUE)
+boxplot(1.4 * primates.cat.time.df,xlim = c(0,2), ylim=c(21,32), at = c(0.5), col="royalblue3", boxwex = 0.6, outline = FALSE, xaxt = "n", yaxt = "n")
+boxplot(primates.cons.time.df,xlim = c(0,2), ylim=c(21,32), at = c(1.5) ,col="springgreen", boxwex = 0.6, outline = FALSE, xaxt = "n", yaxt = "n", add=TRUE)
 axis(1, at = c(0.5,1.5), labels = c("Category","Cons"), cex.axis = 0.8)
 axis(2, cex.axis = 0.8)
 title(ylab = c("Running time (hour)"))
 
-boxplot(primates.category.ess.df,xlim = c(0,20),at = seq(0, 20, length.out = 15) - 0.3, col="royalblue3", boxwex = 0.3, outline = FALSE, xaxt = "n", yaxt = "n")
-boxplot(primates.cons.ess.df,xlim = c(0,20), at = seq(0, 20, length.out = 15) + 0.1, col="springgreen", boxwex = 0.3, outline = FALSE, xaxt = "n", yaxt = "n" ,add=TRUE)
+boxplot(primates.category.ess.df,xlim = c(0,20), ylim=c(0, 5000), at = seq(0, 20, length.out = 15) - 0.3, col="royalblue3", boxwex = 0.3, outline = FALSE, xaxt = "n", yaxt = "n")
+boxplot(primates.cons.ess.df,xlim = c(0,20), ylim=c(0, 5000), at = seq(0, 20, length.out = 15) + 0.1, col="springgreen", boxwex = 0.3, outline = FALSE, xaxt = "n", yaxt = "n" ,add=TRUE)
 axis(1, at = seq(0,20,length.out=15), labels = colnames(primates.category.ess.df), las=2, cex.axis = 0.8)
 axis(2, cex.axis = 0.8)
 legend("topright", inset=.01, c("Category","Cons"), fill = c("royalblue3", "springgreen"), box.lty = 0, cex = 0.6)
@@ -204,18 +206,22 @@ title(ylab = c("ESS"))
 dev.off()
 
 
+Short.time.axis = c(0.07,0.085)
+Medium.time.axis = c(0.44,0.49)
+Medium.ess.axis = c(2500,8000)
+Short.ess.axis = c(500,5000)
 for (name in l.sequence) {
-  pdf (file = paste0(output.figure.folder,name,n.taxa,"_TimeEss.pdf"), width = 13, height = 6)
+  pdf (file = paste0(output.figure.folder,name,"_TimeEss.pdf"), width = 13, height = 6)
   #attach(mtcars)
   layout(matrix(c(1,2),1,2),widths=c(1,3))  
-  boxplot(get(paste0(name,"Category.time.df")),xlim = c(0,2),at = c(0.5), col="royalblue3", boxwex = 0.6, outline = FALSE, xaxt = "n", yaxt = "n")
-  boxplot(get(paste0(name,"Cons.time.df")),xlim = c(0,2), at = c(1.5) ,col="springgreen", boxwex = 0.6, outline = FALSE, xaxt = "n", yaxt = "n", add=TRUE)
+  boxplot(get(paste0(name,"Category.time.df")),xlim = c(0,2), ylim = get(paste0(name,".time.axis")), at = c(0.5), col="royalblue3", boxwex = 0.6, outline = FALSE, xaxt = "n", yaxt = "n")
+  boxplot(get(paste0(name,"Cons.time.df")),xlim = c(0,2), ylim = get(paste0(name,".time.axis")), at = c(1.5) ,col="springgreen", boxwex = 0.6, outline = FALSE, xaxt = "n", yaxt = "n", add=TRUE)
   axis(1, at = c(0.5,1.5), labels = c("Category","Cons"), cex.axis = 0.8)
   axis(2, cex.axis = 0.8)
   title(ylab = c("Running time (hour)"))
   
-  boxplot(get(paste0(name,"Category.ess.df")),xlim = c(0,20),at = seq(0, 20, length.out = 15) - 0.3, col="royalblue3", boxwex = 0.3, outline = FALSE, xaxt = "n", yaxt = "n")
-  boxplot(get(paste0(name,"Cons.ess.df")),xlim = c(0,20), at = seq(0, 20, length.out = 15) + 0.1, col="springgreen", boxwex = 0.3, outline = FALSE, xaxt = "n", yaxt = "n" ,add=TRUE)
+  boxplot(get(paste0(name,"Category.ess.df")),xlim = c(0,20), ylim = get(paste0(name,".ess.axis")), at = seq(0, 20, length.out = 15) - 0.3, col="royalblue3", boxwex = 0.3, outline = FALSE, xaxt = "n", yaxt = "n")
+  boxplot(get(paste0(name,"Cons.ess.df")),xlim = c(0,20), ylim = get(paste0(name,".ess.axis")), at = seq(0, 20, length.out = 15) + 0.1, col="springgreen", boxwex = 0.3, outline = FALSE, xaxt = "n", yaxt = "n" ,add=TRUE)
   axis(1, at = seq(0,20,length.out=15), labels = colnames(get(paste0(name,"Category.ess.df"))), las=2, cex.axis = 0.8)
   axis(2, cex.axis = 0.8)
   legend("topright", inset=.01, c("Category","Cons"), fill = c("royalblue3", "springgreen"), box.lty = 0, cex = 0.6)

@@ -136,6 +136,6 @@ get.primates.efficiency <- function(txt.df, time.df) {
   frequency2 = txt.df$freqParameter.2.ESS / time.df
   frequency3 = txt.df$freqParameter.3.ESS / time.df
   frequency4 = txt.df$freqParameter.4.ESS / time.df
-  data = data.frame(cbind(posterior,likelihood,prior,tree.height,tree.length,birth.rate,ucld.stdev,rate.mean,rate.variance,rate.coeff,kappa,frequency1,frequency2,frequency3,frequency4))
+  data = data.frame(cbind(posterior,likelihood,prior,birth.rate,tree.height,tree.length,ucld.stdev,rate.mean,rate.variance,rate.coeff,kappa,frequency1,frequency2,frequency3,frequency4))
   return (data)
 }

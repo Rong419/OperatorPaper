@@ -1,0 +1,4 @@
+real.data.names	min.para	min.cat.ess	con.ess
+1	anolis	frequency1	698.947084048175	750.53170406016
+2	RSV2	prior	1231.3216790474	3409.87936537017
+3	Shankarappa	prior	387.827327351324	753.477178003274
