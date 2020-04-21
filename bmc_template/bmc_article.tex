@@ -60,8 +60,8 @@
 %%                                             %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\def\includegraphic{}
-\def\includegraphics{}
+%\def\includegraphic{}
+%\def\includegraphics{}
 
 %%% Put your definitions there:
 \startlocaldefs
@@ -136,7 +136,7 @@ Bayesian MCMC has become a common approach for phylogenetic inference. But the g
 \parttitle{Results}
 This paper develops a new algorithm to improve the efficiency of Bayesian phylogenetic inference for models that include a per-branch rate parameter. In a Markov chain Monte Carlo algorithm, the presented proposal kernel changes evolutionary rates and divergence times at the same time, under the constraint that the implied genetic distances remain constant. Specifically, the proposal operates on the divergence time of an internal node and the three adjacent branch rates. For the root of a phylogenetic tree, there are three strategies discussed, named Simple Distance, Small Pulley and Big Pulley. Note that Big Pulley is able to change the tree topology, which enables the operator to sample all the possible rooted trees consistent with the implied unrooted tree. To validate its effectiveness, a series of experiments have been performed by implementing the proposed operator in the BEAST2 software.
 \parttitle{Conclusions}
-The results demonstrate that the proposed operator is able to improve the performance by giving better estimates for a given chain length and by using less running time for a given level of accuracy. Measured by effective samples per hour, use of the proposed operator results in overall mixing that is up to an order of magnitude more efficient than the current operators in BEAST2 on both real and simulated data sets.
+The results demonstrate that the proposed operator is able to improve the performance by giving better estimates for a given chain length and by using less running time for a given level of accuracy. Measured by effective samples per hour, use of the proposed operator results in overall mixing more efficient than the current operators in BEAST2. Especially for large data sets, the improvement is up to half an order of magnitude.
 \end{abstract}
 
 \begin{keyword}
@@ -465,13 +465,13 @@ These results show that the true values of the parameters are within the 95\% hi
 \subsection*{Performance comparison}
 To evaluate the performance of Constant Distance operator in a Bayesian phylogenetic analysis, we explored the time required to adequately sample the posterior distribution. This was achieved by examining (i) the total time taken by BEAST2 to complete the MCMC inference (running time), and (ii) the effective sample size (ESS) of the sampled parameters. The effective sample size of a parameter is the number of effectively independent samples from the posterior distribution. Larger ESS indicates a better approximation of the marginal posterior distribution of the parameter. We used Tracer \cite{Tracer} to compute ESS.
 
-For each dataset, we compared two operator configurations. 1) Using the current operators in BEAST2 to sample discrete rate categories (Category). 2) Using the Constant Distance operator to sample continuous rates specified by an uncorrelated related clock model (Cons). The Category configuration is the default setting in BEAST 2.5. We aim to compare the performance of the Constant Distance operator to that of the existing operator schedule. In each configuration, the data set was analyzed 20 times with the prior distributions and all other model specifications held constant. The details of operator weights used are given in Appendix 3.1.
+For each dataset, we compared two operator configurations. 1) Using the current operators in BEAST2 to sample discrete rate categories (Category). 2) Using the Constant Distance operator to sample continuous rates specified by an uncorrelated related clock model (Cons). The Category configuration is the default setting in BEAST 2.5. We aim to compare the performance of the Constant Distance operator to that of the existing operator schedule. In each configuration, the data set was analyzed 20 times with the prior distributions and all other model specifications held constant. The details of operator weights used are given in Appendix 3.1. Each setting is benchmarked using an Intel(R) Xeon(R) Gold 6138 CPU (2.00 GHz).
 
 We performed the analysis on two sets of simulated sequence alignment (See Appendix 3.2 for more details). The simulated data sets both have 20 taxa but different sequence lengths, i.e. one data set containing 500 sites, the other containing 1,000 sites. Moreover, we used four real data sets to further evaluate the performance of Constant Distance operator, including a primate data set \cite{finstermeier2013mitogenomic} and three other data sets (Anolis \cite{jackman1999phylogenetic}, RSV2 \cite{zlateva2004molecular,zlateva2005genetic} and HIV-1 \cite{shankarappa1999consistent}) in BEAST2 \cite{beast2data}.
 
-The ESS and running time are summarised in Figure \ref{eff_comp} and Table \ref{eff_comp1}. To be more specific, we measure the efficiency by ESS per hour, which is calculated by the ESS of parameters in one simulation divided by the running time in hours. Then we compare the efficiency of two configurations by calculating the ratios of ESS per hour for simulations in the two configurations. If the ratio is larger than 1, then ESS per hour of Cons configuration is larger than that of Category configuration. As is shown in Figure \ref{eff_comp}, most ratios of the parameters are above the red line (larger than 1), which indicates that Cons configuration provides larger ESS per hour for most parameters. Although there are are several parameters sampled by Cons configuration having smaller ESS per hour in some data sets, it should be noticed that the ratio is calculated by choosing random simulations in the two configurations (See Appendix 3.3 for more details). Additionally, it is worth noting that the efficiency is improved more obviously in simulated data set having 1000 sites, compared with the data sets having 500 sites. This means the proposed operators sample rates and node times more efficiently if the genetic distances are more accurate. 
+The ESS and running time are summarised in Figure \ref{eff_comp} and Table \ref{eff_comp1}. To be more specific, we measure the efficiency by ESS per hour, which is calculated by the ESS of parameters in one simulation divided by the running time in hours. Then we compare the efficiency of two configurations by calculating the ratios of ESS per hour for simulations in the two configurations. If the ratio is larger than 1, then ESS per hour of Cons configuration is larger than that of Category configuration. As is shown in Figure \ref{eff_comp}, the efficiency varies in different data sets and also depends on what model is used in the analysis. For Anolis data set (29 taxa and 1456 sites), Category configuration performs better than Cons configuration, since most ratios of the parameters are slightly below the red line (which means smaller than 1). Moreover, for RSV2 (129 taxa and 629 sites) and HIV-1 data sets (117 taxa and 663 sites), some ratios of the parameters, ``posterior" and ``prior" in particular, are above the red line (larger than 1), which indicates that Cons configuration provides larger ESS per hour. Although there are are several parameters sampled by Cons configuration having smaller ESS per hour, it should be noticed that the ratio is calculated by choosing random simulations in the two configurations (See Appendix 3.3 for more details). Additionally, it is worth noting that the efficiency is improved more obviously in simulated data set having 1000 sites, compared with the data sets having 500 sites. This indicates that the proposed operators behave better when sequence length is long. More specifically, in Primates data set (87 taxa and 19220 sites), the longer molecular sequence provides more accurate genetic distances, which leads to peaked likelihood distributions. In this circumstance, the proposed operators sample rates and node times  that fit the constant genetic distances more efficiently. 
 
-Table \ref{eff_comp1} lists the average running time of the data sets. It can be seen that Cons configuration finished simulations with less time in most cases. Moreover, Table \ref{eff_comp1} also shows the parameter that has the smallest ESS in Category configuration, and is compare with the corresponding ESS in Cons configuration. After calculating the ESS per hour, we conclude that Cons configuration improved the efficiency of the worst estimated parameter in Category configuration by a factor of 2.3 to 15.8. 
+Table \ref{eff_comp1} lists the average running time of 20 simulations for each data set. It can be seen that Cons configuration finished simulations with a little bit more time in most cases. This is because the continuous rates have to be adjusted for a new clock standard deviation (See Appendix Section 4 for more details). Moreover, Table \ref{eff_comp1} also shows the parameter that has the smallest ESS in Category configuration, and is compare with the corresponding ESS in Cons configuration. Although the improvement in ESS is not obvious for both simulate data sets, it is noticed that ESS of the parameters are much larger in Cons configuration for all the real data sets. After calculating the ESS per hour, we conclude that Cons configuration improved the efficiency of the worst estimated parameter in Category configuration by a factor of 1.55 to 8.53. 
 
 \subsection*{Correlation analysis of rates and branch lengths}
 In this section, we conduct a pairwise comparison between rates and branch lengths in units of time. We used a data set of ratite mitochondrial genomes \cite{cooper2001complete}. This data set includes 7 species of ratites and an alignment of 10767 sites. After analysing the ratites data set in BEAST2 using the Constant Distance operator, we calculated the Pearson coefficient between the rates and the times across branches to investigate the posterior correlation of these parameters. 
@@ -505,7 +505,7 @@ As data sets have increased in size the impetus to improve efficiency of Bayesia
 \section*{Conclusions}
 As data sets have increased in size, the need for computational efficiency of Bayesian phylogenetic analyses has also increased. In this paper, we have discussed a new tree proposal that substantially increases the efficiency of Bayesian phylogenetic inference under a popular class of relaxed molecular clock models.
 
-We demonstrate the correctness of this algorithm with a series of tests including a well-calibrated simulation study. Based on both simulated and real data sets, the proposed operator is more efficient than current algorithms implemented in BEAST2. Performance improvements of greater than an order of magnitude increase in ESS/hour were measured on both real and simulated data. The proposed operator is available for use as a package of BEAST2.
+We demonstrate the correctness of this algorithm with a series of tests including a well-calibrated simulation study. Based on both simulated and real data sets, the proposed operator is more efficient than current algorithms implemented in BEAST2  for datasets with long sequences. This is a desirable property because efficiency is most important for larger datasets. The proposed operator is available for use as a package of BEAST2.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%                                          %%
@@ -545,7 +545,7 @@ The author(s) would like to acknowledge support from a Royal Society of New Zeal
 RZ developed the operator and was a major contributor in writing the manuscript. AJD supervised the implementation of the operator and the writing process of the manuscript. All authors read and approved the final manuscript.
 
 \subsection*{Acknowledgements}
-The author(s) wish to acknowledge the use of New Zealand eScience Infrastructure (NeSI) high performance computing facilities, consulting support and/or training services as part of this research. New Zealand's national facilities are provided by NeSI and funded jointly by NeSI's collaborator institutions and through the Ministry of Business, Innovation \& Employment's Research Infrastructure programme. URL https://www.nesi.org.nz.
+Thanks are due to Jordan Douglas for assistance with the benchmarking experiments. The author(s) wish to acknowledge the use of New Zealand eScience Infrastructure (NeSI) high performance computing facilities, consulting support and/or training services as part of this research. New Zealand's national facilities are provided by NeSI and funded jointly by NeSI's collaborator institutions and through the Ministry of Business, Innovation \& Employment's Research Infrastructure programme. URL https://www.nesi.org.nz.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%                  The Bibliography                       %%
 %%                                                         %%
@@ -787,25 +787,26 @@ Rate mean&100&${\pi_T}$&97\\
   \centering
 \begin{tabular}{c|c|c|c|c}
 \hline
-Data&Configuration&Average running time&Parameter&ESS\\
+\multirow{2}*{Data}&\multirow{2}*{Configuration}&Average running&\multirow{2}*{Parameter}&\multirow{2}*{ESS}\\
+&&time (hour)&&\\
 \hline
-\multirow{2}*{Anolis}&Category&0.9053&\multirow{2}*{rate.coeff}&486.32\\
-&Cons&0.6231&&2237.97\\
+\multirow{2}*{Anolis}&Category&0.3788&\multirow{2}*{frequency.A}&698.95\\
+&Cons&0.4212&&750.53\\
 \hline
-\multirow{2}*{RSV2}&Category&5.1009&\multirow{2}*{rate.coeff}&383.98\\
-&Cons&4.4077&&2379.33\\
+\multirow{2}*{RSV2}&Category&2.0509&\multirow{2}*{prior}&1231.32\\
+&Cons&2.6742&&3409.88\\
 \hline
-\multirow{2}*{HIV-1}&Category&5.3436&\multirow{2}*{prior}&360.86\\
-&Cons&5.2128&&795.21\\
+\multirow{2}*{HIV-1}&Category&2.6040&\multirow{2}*{prior}&387.83\\
+&Cons&3.2680&&753.48\\
 \hline
-\multirow{2}*{Primates}&Category&12.5615&\multirow{2}*{ucld.stdev}&57.47\\
-&Cons&12.3820&&164.52\\
+\multirow{2}*{Primates}&Category&31.4059&\multirow{2}*{rate.mean}&71.79\\
+&Cons&21.6584&&422.24\\
 \hline
-\multirow{2}*{Simulated 500 sites}&Category&0.4644&\multirow{2}*{rate.coeff}&793.27\\
-&Cons&0.4805&&3047.09\\
+Simulated data&Category&0.0728&\multirow{2}*{frequency.G}&819.39\\
+with 500 sites&Cons&0.0834&&837.50\\
 \hline
-\multirow{2}*{Simulated 1000 sites}&Category&1.9270&\multirow{2}*{rate.coeff}&1599.42\\
-&Cons&0.4805&&6255.03\\
+Simulated data&Category&0.4403&\multirow{2}*{frequency.G}&2760.41\\
+with 1000 sites&Cons&0.4863&&2961.67\\
 \hline
 \end{tabular}
 \caption{Summary of ESS and running time}\label{eff_comp1}
@@ -885,25 +886,25 @@ Small Pulley&${d_i}$&0.3480&0.0492&0.3476&0.0494&Figure \ref{res_roo1}(b)\\
 \multirow{2}*{Operator class}&\multirow{2}*{Name}&\multicolumn{2}{c|}{Simulated data}&\multicolumn{2}{c|}{Anolis}&\multicolumn{2}{c|}{RSV2}&\multicolumn{2}{c|}{HIV-1}&\multicolumn{2}{c}{Primates}\\
 &&Cons&Category&Cons&Category&Cons&Category&Cons&Category&Cons&Category\\
   \hline
-\multirow{8}*{rates times}&ConstantDistance Operator&0.1919&-&0.2248&-&0.2228&-&0.2228&-&0.1850&-\\
-&Rate Normal Operators$^1$&0.1919&0.2879&0.1349&0.2698&0.1337&0.2674&0.1337&0.2674&0.1850&0.2775\\
-&UcldStdev Scale Operator$^2$&0.0288&0.0288&0.0270&0.0270&0.0267&0.0267&0.0267&0.0267&0.0278&0.0278\\
-&UcldMean Scale Operator&-&-&-&-&0.0357&0.0089&0.0089&0.0089&-&-\\
-&UcldMean Tree UpperDown Operator&-&-&-&-&0.0446&0.0267&0.0267&0.0267&-&-\\
-&InternalNodeTime Scale Operator&0.0480&0.0960&0.0270&0.0270&0.0267&0.0267&0.0267&0.0267&0.0463&0.0463\\
-&RootAge Scale Operator&0.0480&0.0480&0.0270&0.0270&0.0267&0.0267&0.0267&0.0267&0.0463&0.0463\\
-&AllNodeTimes Uniform Operator&0.0480&0.0960&0.1799&0.2698&0.1337&0.2674&0.1783&0.2674&0.1850&0.2775\\
+\multirow{8}*{rates times}&ConstantDistance Operator&0.2170&-&0.2248&-&0.2228&-&0.2228&-&0.2402&-\\
+&Rate Normal Operators$^1$&0.1302&0.2604&0.1349&0.2698&0.1337&0.2674&0.1337&0.2674&0.1441&0.2882\\
+&UcldStdev Scale Operator$^2$&0.0260&0.0260&0.0270&0.0270&0.0267&0.0267&0.0267&0.0267&0.0288&0.0288\\
+&UcldMean Scale Operator&-&-&-&-&0.0089&0.0089&0.0089&0.0089&-&-\\
+&UcldMean Tree UpperDown Operator&-&-&-&-&0.0267&0.0267&0.0267&0.0267&-&-\\
+&InternalNodeTime Scale Operator&0.0174&0.0260&0.0180&0.0270&0.0178&0.0267&0.0178&0.0267&0.0192&0.0288\\
+&RootAge Scale Operator&0.0174&0.0260&0.0180&0.0270&0.0178&0.0267&0.0178&0.0267&0.0192&0.0288\\
+&AllNodeTimes Uniform Operator&0.1910&0.2604&0.1978&0.2698&0.1961&0.2674&0.1961&0.2674&0.2113&0.2882\\
   \hline
-\multirow{7}*{Tree}&SubtreeSlide Operator&0.1440&0.1440&0.0989&0.1349&0.1070&0.1337&0.1159&0.1337&0.1388&0.1388\\
-&NarrowExchange Operator&0.1440&0.1440&0.0989&0.1349&0.1070&0.1337&0.1159&0.1337&0.0463&0.0463\\
-&WideExchange Operator&0.0480&0.0480&0.0270&0.0270&0.0267&0.0267&0.0267&0.0267&0.0463&0.0463\\
-&WilsonBalding Operator&0.0480&0.0480&0.0270&0.0270&0.0267&0.0267&0.0267&0.0267&0.0463&0.0463\\
-&BirthRate Scale Operator&0.0480&0.0480&0.0629&0.0270&-&-&-&-&0.0278&0.0278\\
-&DeathRate Scale Operator&-&-&0.0629&0.0270&-&-&-&-&-&-\\
-&PopulationSize Scale Operator&-&-&-&-&0.0802&0.0267&0.0624&0.0267&-&-\\
+\multirow{7}*{Tree}&SubtreeSlide Operator&0.1302&0.1302&0.0989&0.0989&0.1337&0.1337&0.1337&0.1337&0.441&0.1441\\
+&NarrowExchange Operator&0.1302&0.1302&0.0989&0.0989&0.1337&0.1337&0.1337&0.1337&0.0480&0.0480\\
+&WideExchange Operator&0.0434&0.0434&0.0270&0.0270&0.0267&0.0267&0.0267&0.0267&0.0480&0.0480\\
+&WilsonBalding Operator&0.0434&0.0434&0.0270&0.0270&0.0267&0.0267&0.0267&0.0267&0.0480&0.0480\\
+&BirthRate Scale Operator&0.0434&0.0434&0.0629&0.0629&-&-&-&-&0.0288&0.0288\\
+&DeathRate Scale Operator&-&-&0.0629&0.0629&-&-&-&-&-&-\\
+&PopulationSize Scale Operator&-&-&-&-&0.0267&0.0267&0.0267&0.0267&-&-\\
   \hline
-\multirow{2}*{Substitution model}&Kappa Scale Operator&0.0096&0.0096&0.0009&0.0009&0.0009&0.0009&0.0009&0.0009&0.0185&0.0185\\
-&Frequencies DeltaExchange Operator&0.0019&0.0019&0.0009&0.0009&0.0009&0.0009&0.0009&0.0009&0.0009&0.0009\\
+\multirow{2}*{Substitution model}&Kappa Scale Operator&0.0087&0.0087&0.0009&0.0009&0.0009&0.0009&0.0009&0.0009&0.0192&0.0192\\
+&Frequencies DeltaExchange Operator&0.0017&0.0017&0.0009&0.0009&0.0009&0.0009&0.0009&0.0009&0.0010&0.0010\\
   \hline
 \multicolumn{12}{l}{Note}\\
 \multicolumn{12}{l}{1: Random walk operator and Swap operator in Cons configuration, Random walk operator, Scale operator and Swap operator in Category configuration.}\\
@@ -1220,18 +1221,18 @@ Ucldstdev' = Ucldstdev \times {\rm{scale}}
 \end{equation}
 where ${\rm{scale = Factor  +  }}\left[ {\xi  \times {\rm{(}}\frac{1}{{{\rm{Factor}}}}{\rm{  -  Factor)}}} \right]$ and  $\xi$ is a random variable from a $Uniform(0,1)$,  ${\rm{Factor}}$ is a user-defined parameter to specify how bold the proposal is.
 
-Secondly, all the branch rates are proposed based on the new $Ucldstdev'$, given the probability of original $Ucldstdev$, which is calculated using equation (\ref{ucldstdev_rates}).
+Secondly, all the branch rates are proposed based on the new $Ucldstdev'$, given the probability of original $Ucldstdev$, which is calculated using equation (\ref{ucldstdev_rates}). 
 \begin{equation}\label{ucldstdev_rates}
 r_{i}' = icd{f_{stdev'}}\left[ {cd{f_{stdev}}({r_i})} \right]
 \end{equation}
-where the notations $cdf(\cdot)$ and $icdf(\cdot)$ represent the cumulative and inverse cumulative density function of log normal distribution.
+where the notations $cdf(\cdot)$ and $icdf(\cdot)$ represent the cumulative and inverse cumulative density function of log normal distribution.  Because of the calculation of $cdf(\cdot)$ and $icdf(\cdot)$ for each branch rates, the "Cons" configuration requires more running time than "category", as is discusses in "Performance comparison" section. However, it is acceptable as ConstantDistance operator gives larger ESS.
 
 Finally, it is important to return the corrected hastings ratio, since the proposal is associated with one random variable, $Ucldstdev$ and $(2n-1)$ branch rates. As is shown in equation (\ref{ucldstdev_hr}), the ratio includes the scale operation and rates changing under the same probability.
 \begin{equation}\label{ucldstdev_hr}
 {{\mathbf{J}}_{Ucldstdev}} = \frac{1}{{scale}} \times \prod\limits_{i = 1}^{2n - 1} {\frac{{\partial icd{f_{Ucldstdev'}}[cd{f_{Ucldstdev}}({r_i})]}}{{\partial {r_i}}}}
 \end{equation}
 
-In the comparison of ESS for the clock standard deviation (denoted by ucld.stdev in Figure \ref{eff_comp}), we specified a normal scale operator in "Category" configuration. In "Cons" configuration, the UcldstdevScaleOperator is used to sample the clock standard deviation of continuous rates. To avoid the concern that the difference between "Category" and "Cons" is a result of how rates are parameterised (i.e. discrete or continuous), we set another configuration where continuous rates are sampled without using the ConstantDistance operator (denoted by "NoCons" configuration). The weights of the operators in "NoCons" are the same as those in "Category" which is detailed in Table \ref{weights}. We ran the analysis using the three real data sets (Anolis, RSV2 and HIV-1) and the efficiency comparison between "Category", Cons" and "NoCons" is summarised in Figure \ref{ucldscalar}. The figure shows ESS per hour in ${log_{10}}$ space of ucld.stdev in 20 independent MCMC chains. As can be seen, "Cons" configuration has the largest ESS per hour. More specifically, on average, ESS per hour in "Cons" is a little bit larger than that in "Category", which is consistent with Figure \ref{eff_comp}. Moreover, ESS per hour is improved a lot in "Cons" when comparing with "NoCons", where both continuous rates are sampled. However, we also noticed that the rate parameterisation does have an effect on the mixing performance in MCMC chains. In the future, we will further investigate how to parameterise branch rates to get better performance when using the proposed operators.
+In the comparison of ESS for the clock standard deviation (denoted by ucld.stdev in Figure \ref{eff_comp}), we specified a normal scale operator in ``Category" configuration. In ``Cons" configuration, the UcldstdevScaleOperator is used to sample the clock standard deviation of continuous rates. To avoid the concern that the difference between ``Category" and ``Cons" is a result of how rates are parameterised (i.e. discrete or continuous), we set another configuration where continuous rates are sampled without using the ConstantDistance operator (denoted by ``NoCons" configuration). The weights of the operators in ``NoCons" are the same as those in ``Category" which is detailed in Table \ref{weights}. We ran the analysis using the three real data sets (Anolis, RSV2 and HIV-1) and the comparison of ESS per hour between ``Category", ``Cons" and ``NoCons" is summarised in Figure \ref{ucldscalar}. The figure shows ESS per hour in ${log_{10}}$ space of ucld.stdev in 20 independent MCMC chains. As can be seen, ``Cons" configuration gives similar performance, comparing with ``Category". This indicates UcldstdevScaleOperator works properly on continuous rates. Moreover, ESS per hour is much larger in ``Cons" than in ``NoCons", where both continuous rates are sampled. Therefore, the proposed operators contribute to the improved performance. However, we noticed that the rate parameterisation does have some mixing issues in MCMC chains. In the future, we will further investigate how to parameterise branch rates to get better performance when using the proposed operators.
 
 \end{backmatter}
 \end{document}
