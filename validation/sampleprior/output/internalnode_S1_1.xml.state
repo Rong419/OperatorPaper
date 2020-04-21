@@ -1,0 +1,9 @@
+<itsabeastystatewerein version='2.0' sample='10000000'>
+<statenode id='Tree.t:dna'>((0:2.1645843484445093,1:2.1645843484445093)3:7.835415651555491,2:10.0)4:0.0</statenode>
+<statenode id='rates.c:dna'>rates.c:dna[4 1] (0.0,Infinity): 0.046198245899663655 0.09239649179932731 0.04 0.0344589249641641 </statenode>
+</itsabeastystatewerein>
+<!--
+{"operators":[
+{"id":"InternalNodeOperator.c:dna","p":2.1277330392364724,"accept":2336363,"reject":7663638,"acceptFC":2331686,"rejectFC":7658313,"rejectIv":292958,"rejectOp":292958}
+]}
+-->

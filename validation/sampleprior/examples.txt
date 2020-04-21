@@ -1,0 +1,17 @@
+Rscript write_xml_test_internalnode.R ~/Desktop/validate_operator/xml/internal_nodes/test_internalnode_template.xml ~/Desktop/validate_operator/xml/internal_nodes/xml/ ~/Desktop/validate_operator/xml/internal_nodes/test_internalnode_trees.txt  ~/Desktop/validate_operator/xml/internal_nodes/test_internalnode_rates.txt 2
+
+java -jar ~/Desktop/validate_operator/ConstantDistanceOperator.jar ~/Desktop/validate_operator/xml/internal_nodes/xml/internalnode_S1_1.xml 
+
+java -jar ~/Desktop/validate_operator/ConstantDistanceOperator.jar ~/Desktop/validate_operator/xml/internal_nodes/xml/internalnode_S2_1.xml 
+
+java -jar ~/Desktop/validate_operator/ConstantDistanceOperator.jar ~/Desktop/validate_operator/xml/test_simpledistance.xml
+
+java -jar ~/Desktop/validate_operator/ConstantDistanceOperator.jar ~/Desktop/validate_operator/xml/test_smallpulley.xml
+
+java -jar ~/Desktop/validate_operator/ConstantDistanceOperator.jar ~/Desktop/validate_operator/xml/test_bigpulley.xml
+
+Rscript internal_node.R ~/Desktop/validate_operator/xml/internal_nodes/test_internalnode_trees.txt ~/Desktop/validate_operator/xml/internal_nodes/test_internalnode_rates.txt ~/Desktop/validate_operator/ 1 ~/Desktop/validate_operator/figures/
+
+Rscript simple_distance.R ~/Desktop/validate_operator/ ~/Desktop/validate_operator/figures/
+
+Rscript small_pulley.R ~/Desktop/validate_operator/ ~/Desktop/validate_operator/figures/

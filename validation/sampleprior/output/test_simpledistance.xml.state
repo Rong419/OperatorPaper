@@ -1,0 +1,9 @@
+<itsabeastystatewerein version='2.0' sample='10000000'>
+<statenode id='Tree.t:dna'>((0:1.0,1:1.0)3:3.438016059086702,2:4.438016059086702)4:0.0</statenode>
+<statenode id='rates.c:dna'>rates.c:dna[4 1] (0.0,Infinity): 0.1 0.2 0.09013036335932291 0.07853366457855765 </statenode>
+</itsabeastystatewerein>
+<!--
+{"operators":[
+{"id":"SimpleDistanceOperator.c:dna","p":5.609396002426581,"accept":1800897,"reject":8199104,"acceptFC":1798900,"rejectFC":8191099,"rejectIv":1457029,"rejectOp":1457029}
+]}
+-->

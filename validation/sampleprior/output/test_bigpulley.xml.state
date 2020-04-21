@@ -1,0 +1,9 @@
+<itsabeastystatewerein version='2.0' sample='10000000'>
+<statenode id='Tree.t:dna'>((0:3.664299156009624,1:3.664299156009624)3:1.8626834808443937,2:5.526982636854018)4:0.0</statenode>
+<statenode id='rates.c:dna'>rates.c:dna[4 1] (0.0,Infinity): 0.13645174116854264 0.1364517411685289 0.06735263719499808 0.06858016672751399 </statenode>
+</itsabeastystatewerein>
+<!--
+{"operators":[
+{"id":"BigPulleyOperator.c:dna","p":"NaN","accept":8375223,"reject":1624778,"acceptFC":0,"rejectFC":0,"rejectIv":12809,"rejectOp":4305}
+]}
+-->
